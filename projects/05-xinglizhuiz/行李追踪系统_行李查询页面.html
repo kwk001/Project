@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>行李查询 - 行李全程追踪系统</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #3b82f6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #475569;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* 布局 */
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* 侧边栏 */
+        .sidebar {
+            width: 260px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--info));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+
+        .logo-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .sidebar-menu {
+            flex: 1;
+            padding: 16px 12px;
+            overflow-y: auto;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 4px;
+            color: var(--text-secondary);
+        }
+
+        .menu-item:hover {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--text-primary);
+        }
+
+        .menu-item.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
+        .menu-item svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .menu-item span {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 顶部导航 */
+        .header {
+            height: 64px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .page-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-light);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .header-btn:hover {
+            background: rgba(37, 99, 235, 0.1);
+            border-color: var(--primary);
+            color: var(--text-primary);
+        }
+
+        .badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 18px;
+            height: 18px;
+            background: var(--danger);
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .user-info:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary), var(--info));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* 内容区域 */
+        .content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        /* 搜索卡片 */
+        .search-card {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .search-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .form-input, .form-select {
+            padding: 10px 14px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        .form-input::placeholder {
+            color: #64748b;
+        }
+
+        .search-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        /* 数据卡片 */
+        .data-card {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+
+        /* 表格 */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        th {
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 14px 16px;
+            font-size: 14px;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tbody tr:hover {
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* 状态标签 */
+        .status-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-tag::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .status-checkin {
+            background: rgba(37, 99, 235, 0.15);
+            color: var(--primary-light);
+        }
+
+        .status-checkin::before {
+            background: var(--primary-light);
+        }
+
+        .status-security {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+        }
+
+        .status-security::before {
+            background: var(--warning);
+        }
+
+        .status-sorting {
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--info);
+        }
+
+        .status-sorting::before {
+            background: var(--info);
+        }
+
+        .status-loading {
+            background: rgba(139, 92, 246, 0.15);
+            color: #a78bfa;
+        }
+
+        .status-loading::before {
+            background: #a78bfa;
+        }
+
+        .status-transit {
+            background: rgba(107, 114, 128, 0.15);
+            color: #9ca3af;
+        }
+
+        .status-transit::before {
+            background: #9ca3af;
+        }
+
+        .status-delivered {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+        }
+
+        .status-delivered::before {
+            background: var(--success);
+        }
+
+        /* 操作按钮 */
+        .action-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+        }
+
+        .action-btn:hover {
+            background: rgba(37, 99, 235, 0.1);
+            border-color: var(--primary);
+            color: var(--primary-light);
+        }
+
+        .action-btn.view:hover {
+            background: rgba(37, 99, 235, 0.1);
+            border-color: var(--primary);
+            color: var(--primary-light);
+        }
+
+        .action-btn.track:hover {
+            background: rgba(6, 182, 212, 0.1);
+            border-color: var(--info);
+            color: var(--info);
+        }
+
+        /* 分页 */
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .pagination-info {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .pagination-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .page-btn {
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: rgba(37, 99, 235, 0.1);
+            border-color: var(--primary);
+            color: var(--text-primary);
+        }
+
+        .page-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* 响应式 */
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 200px;
+            }
+            .main-content {
+                margin-left: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                        </svg>
+                    </div>
+                    <span class="logo-text">行李追踪系统</span>
+                </div>
+            </div>
+            <nav class="sidebar-menu">
+                <div class="menu-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"/>
+                        <rect x="14" y="3" width="7" height="7"/>
+                        <rect x="14" y="14" width="7" height="7"/>
+                        <rect x="3" y="14" width="7" height="7"/>
+                    </svg>
+                    <span>首页概览</span>
+                </div>
+                <div class="menu-item active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                    </svg>
+                    <span>行李查询</span>
+                </div>
+                <div class="menu-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M2 12h20"/>
+                        <path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6"/>
+                        <path d="m12 2 10 10H2L12 2Z"/>
+                    </svg>
+                    <span>航班管理</span>
+                </div>
+                <div class="menu-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                        <line x1="8" y1="21" x2="16" y2="21"/>
+                        <line x1="12" y1="17" x2="12" y2="21"/>
+                    </svg>
+                    <span>设备管理</span>
+                </div>
+                <div class="menu-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                        <line x1="12" y1="9" x2="12" y2="13"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                    <span>预警管理</span>
+                </div>
+                <div class="menu-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10 9 9 9 8 9"/>
+                    </svg>
+                    <span>报表统计</span>
+                </div>
+                <div class="menu-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 1v6m0 6v6m4.22-10.22l4.24-4.24M6.34 6.34L2.1 2.1m17.8 17.8l-4.24-4.24M6.34 17.66l-4.24 4.24M23 12h-6m-6 0H1m20.24-4.24l-4.24 4.24M6.34 6.34l-4.24-4.24"/>
+                    </svg>
+                    <span>系统管理</span>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 顶部导航 -->
+            <header class="header">
+                <div class="header-left">
+                    <h1 class="page-title">行李查询</h1>
+                </div>
+                <div class="header-right">
+                    <button class="header-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+                            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+                        </svg>
+                        <span class="badge">3</span>
+                    </button>
+                    <button class="header-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v6m0 6v6m4.22-10.22l4.24-4.24M6.34 6.34L2.1 2.1m17.8 17.8l-4.24-4.24M6.34 17.66l-4.24 4.24M23 12h-6m-6 0H1m20.24-4.24l-4.24 4.24M6.34 6.34l-4.24-4.24"/>
+                        </svg>
+                    </button>
+                    <div class="user-info">
+                        <div class="user-avatar">张</div>
+                        <span class="user-name">张管理员</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 内容区域 -->
+            <div class="content">
+                <!-- 搜索卡片 -->
+                <div class="search-card">
+                    <div class="search-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                        </svg>
+                        查询条件
+                    </div>
+                    <div class="search-form">
+                        <div class="form-group">
+                            <label class="form-label">行李号</label>
+                            <input type="text" class="form-input" placeholder="请输入行李号">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">航班号</label>
+                            <input type="text" class="form-input" placeholder="请输入航班号">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">旅客姓名</label>
+                            <input type="text" class="form-input" placeholder="请输入旅客姓名">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">目的地</label>
+                            <input type="text" class="form-input" placeholder="请输入目的地">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">行李状态</label>
+                            <select class="form-select">
+                                <option value="">全部状态</option>
+                                <option value="CHECKIN">值机托运</option>
+                                <option value="SECURITY">安检中</option>
+                                <option value="SORTING">分拣中</option>
+                                <option value="LOADING">装载中</option>
+                                <option value="TRANSIT">运输中</option>
+                                <option value="DELIVERED">已交付</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">时间范围</label>
+                            <input type="date" class="form-input">
+                        </div>
+                    </div>
+                    <div class="search-actions">
+                        <button class="btn btn-primary">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="m21 21-4.35-4.35"/>
+                            </svg>
+                            查询
+                        </button>
+                        <button class="btn btn-secondary">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                                <path d="M3 3v5h5"/>
+                            </svg>
+                            重置
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 数据卡片 -->
+                <div class="data-card">
+                    <div class="card-header">
+                        <h3 class="card-title">行李列表</h3>
+                        <div class="card-actions">
+                            <button class="btn btn-secondary btn-sm">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7 10 12 15 17 10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                导出
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>行李号</th>
+                                    <th>航班号</th>
+                                    <th>旅客姓名</th>
+                                    <th>目的地</th>
+                                    <th>当前状态</th>
+                                    <th>当前位置</th>
+                                    <th>更新时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>B240315001</strong></td>
+                                    <td>CA1234</td>
+                                    <td>张三</td>
+                                    <td>北京首都</td>
+                                    <td><span class="status-tag status-sorting">分拣中</span></td>
+                                    <td>分拣区A-03</td>
+                                    <td>2026-03-15 10:23:45</td>
+                                    <td>
+                                        <div class="action-btns">
+                                            <button class="action-btn view" title="查看详情">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                                    <circle cx="12" cy="12" r="3"/>
+                                                </svg>
+                                            </button>
+                                            <button class="action-btn track" title="追踪">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>B240315002</strong></td>
+                                    <td>MU5678</td>
+                                    <td>李四</td>
+                                    <td>上海浦东</td>
+                                    <td><span class="status-tag status-security">安检中</span></td>
+                                    <td>安检通道B-02</td>
+                                    <td>2026-03-15 10:20:12</td>
+                                    <td>
+                                        <div class="action-btns">
+                                            <button class="action-btn view" title="查看详情">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                                    <circle cx="12" cy="12" r="3"/>
+                                                </svg>
+                                            </button>
+                                            <button class="action-btn track" title="追踪">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>B240315003</strong></td>
+                                    <td>CZ9012</td>
+                                    <td>王五</td>
+                                    <td>广州白云</td>
+                                    <td><span class="status-tag status-loading">装载中</span></td>
+                                    <td>装载口C-05</td>
+                                    <td>2026-03-15 10:18:33</td>
+                                    <td>
+                                        <div class="action-btns">
+                                            <button class="action-btn view" title="查看详情">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                                    <circle cx="12" cy="12" r="3"/>
+                                                </svg>
+                                            </button>
+                                            <button class="action-btn track" title="追踪">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>B240315004</strong></td>
+                                    <td>CA1234</td>
+                                    <td>赵六</td>
+                                    <td>北京首都</td>
+                                    <td><span class="status-tag status-checkin">值机托运</span></td>
+                                    <td>值机柜台A-12</td>
+                                    <td>2026-03-15 10:15:28</td>
+                                    <td>
+                                        <div class="action-btns">
+                                            <button class="action-btn view" title="查看详情">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                                    <circle cx="12" cy="12" r="3"/>
+                                                </svg>
+                                            </button>
+                                            <button class="action-btn track" title="追踪">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>B240315005</strong></td>
+                                    <td>HU3456</td>
+                                    <td>钱七</td>
+                                    <td>深圳宝安</td>
+                                    <td><span class="status-tag status-transit">运输中</span></td>
+                                    <td>货舱内</td>
+                                    <td>2026-03-15 10:10:15</td>
+                                    <td>
+                                        <div class="action-btns">
+                                            <button class="action-btn view" title="查看详情">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                                    <circle cx="12" cy="12" r="3"/>
+                                                </svg>
+                                            </button>
+                                            <button class="action-btn track" title="追踪">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>B240315006</strong></td>
+                                    <td>MF7890</td>
+                                    <td>孙八</td>
+                                    <td>厦门高崎</td>
+                                    <td><span class="status-tag status-delivered">已交付</span></td>
+                                    <td>到达厅转盘</td>
+                                    <td>2026-03-15 10:05:42</td>
+                                    <td>
+                                        <div class="action-btns">
+                                            <button class="action-btn view" title="查看详情">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                                    <circle cx="12" cy="12" r="3"/>
+                                                </svg>
+                                            </button>
+                                            <button class="action-btn track" title="追踪">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <div class="pagination-info">
+                            显示 1-6 条，共 128 条记录
+                        </div>
+                        <div class="pagination-actions">
+                            <button class="page-btn" disabled>上一页</button>
+                            <button class="page-btn active">1</button>
+                            <button class="page-btn">2</button>
+                            <button class="page-btn">3</button>
+                            <button class="page-btn">4</button>
+                            <button class="page-btn">5</button>
+                            <button class="page-btn">...</button>
+                            <button class="page-btn">22</button>
+                            <button class="page-btn">下一页</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

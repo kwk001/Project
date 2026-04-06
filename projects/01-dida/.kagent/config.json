@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0",
+  "createdAt": "2026-04-06T03:39:46.931Z",
+  "projectName": "kaiwu_dida",
+  "projectDir": "/Users/apple/Desktop/文件/kaiwu-project/kaiwu_dida",
+  "skills": {
+    "system": {
+      "path": "skills/system",
+      "readonly": true,
+      "description": "Built-in system skills"
+    },
+    "project": {
+      "path": "skills/project",
+      "readonly": false,
+      "description": "Project-specific skills"
+    },
+    "user": {
+      "path": "skills/user",
+      "readonly": false,
+      "description": "User custom skills"
+    }
+  },
+  "workspace": {
+    "maxSessions": 100,
+    "sessionTTL": 3600,
+    "cleanupInterval": 600
+  }
+}
