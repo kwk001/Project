@@ -1,0 +1,22 @@
+# Source files (included in dist/)
+src/
+index.ts
+*.test.ts
+
+# Config files
+tsconfig.json
+.eslintrc.*
+
+# Development
+node_modules/
+.pnpm-debug.log
+*.tsbuildinfo
+
+# Git
+.git*
+.github/
+
+# Misc
+.DS_Store
+*.swp
+*.swo

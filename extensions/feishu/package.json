@@ -1,0 +1,74 @@
+{
+  "name": "@openclaw-cn/feishu",
+  "version": "2026.1.32",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist/",
+    "openclaw.plugin.json",
+    "package.json",
+    "README.md"
+  ],
+  "openclaw": {
+    "extensions": [
+      "./dist/index.js"
+    ],
+    "channel": {
+      "id": "feishu",
+      "label": "Feishu",
+      "selectionLabel": "Feishu (Lark Open Platform)",
+      "docsPath": "/channels/feishu",
+      "docsLabel": "feishu",
+      "blurb": "飞书/Lark 机器人集成 (WebSocket)。",
+      "aliases": [
+        "lark"
+      ],
+      "order": 35,
+      "quickstartAllowFrom": true
+    },
+    "install": {
+      "npmSpec": "@openclaw-cn/feishu",
+      "localPath": "extensions/feishu",
+      "defaultChoice": "local"
+    }
+  },
+  "description": "Feishu (Larksuite) channel plugin for OpenClaw Chinese",
+  "keywords": ["openclaw", "plugin", "feishu", "larksuite"],
+  "license": "MIT",
+  "homepage": "https://github.com/openclaw/openclaw-cn/tree/main/extensions/feishu",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openclaw/openclaw-cn.git",
+    "directory": "extensions/feishu"
+  },
+  "bugs": {
+    "url": "https://github.com/openclaw/openclaw-cn/issues"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "openclaw": "*",
+    "openclaw-cn": "*"
+  },
+  "peerDependenciesMeta": {
+    "openclaw": {
+      "optional": true
+    },
+    "openclaw-cn": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

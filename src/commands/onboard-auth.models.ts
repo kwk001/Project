@@ -1,0 +1,198 @@
+import type { ModelDefinitionConfig } from "../config/types.js";
+
+export const DEFAULT_MINIMAX_BASE_URL = "https://api.minimax.io/v1";
+export const MINIMAX_API_BASE_URL = "https://api.minimax.io/anthropic";
+export const MINIMAX_HOSTED_MODEL_ID = "MiniMax-M2.1";
+export const MINIMAX_HOSTED_MODEL_REF = `minimax/${MINIMAX_HOSTED_MODEL_ID}`;
+export const DEFAULT_MINIMAX_CONTEXT_WINDOW = 200000;
+export const DEFAULT_MINIMAX_MAX_TOKENS = 8192;
+
+export const MOONSHOT_BASE_URL = "https://api.moonshot.ai/v1";
+export const MOONSHOT_DEFAULT_MODEL_ID = "kimi-k2-0905-preview";
+export const MOONSHOT_DEFAULT_MODEL_REF = `moonshot/${MOONSHOT_DEFAULT_MODEL_ID}`;
+export const MOONSHOT_DEFAULT_CONTEXT_WINDOW = 256000;
+export const MOONSHOT_DEFAULT_MAX_TOKENS = 8192;
+export const KIMI_CODE_BASE_URL = "https://api.kimi.com/coding/v1";
+export const KIMI_CODE_MODEL_ID = "kimi-for-coding";
+export const KIMI_CODE_MODEL_REF = `kimi-code/${KIMI_CODE_MODEL_ID}`;
+export const KIMI_CODE_CONTEXT_WINDOW = 262144;
+export const KIMI_CODE_MAX_TOKENS = 32768;
+export const KIMI_CODE_HEADERS = { "User-Agent": "KimiCLI/0.77" } as const;
+export const KIMI_CODE_COMPAT = { supportsDeveloperRole: false } as const;
+
+// Pricing: MiniMax doesn't publish public rates. Override in models.json for accurate costs.
+export const MINIMAX_API_COST = {
+  input: 15,
+  output: 60,
+  cacheRead: 2,
+  cacheWrite: 10,
+};
+export const MINIMAX_HOSTED_COST = {
+  input: 0,
+  output: 0,
+  cacheRead: 0,
+  cacheWrite: 0,
+};
+export const MINIMAX_LM_STUDIO_COST = {
+  input: 0,
+  output: 0,
+  cacheRead: 0,
+  cacheWrite: 0,
+};
+export const MOONSHOT_DEFAULT_COST = {
+  input: 0,
+  output: 0,
+  cacheRead: 0,
+  cacheWrite: 0,
+};
+export const KIMI_CODE_DEFAULT_COST = {
+  input: 0,
+  output: 0,
+  cacheRead: 0,
+  cacheWrite: 0,
+};
+
+// 新增：OpenAI兼容供应商默认配置（基础URL与模型ID）
+// 硅基流动：官方提供OpenAI兼容API，常见基地址如下
+export const SILICONFLOW_BASE_URL = "https://api.siliconflow.cn/v1";
+// 采用在中文环境中更常见且可用的Qwen 2.5指令模型作为默认
+export const SILICONFLOW_DEFAULT_MODEL_ID = "Qwen/Qwen2.5-32B-Instruct";
+export const SILICONFLOW_DEFAULT_MODEL_REF = `siliconflow/${SILICONFLOW_DEFAULT_MODEL_ID}`;
+export const SILICONFLOW_DEFAULT_CONTEXT_WINDOW = 128000;
+export const SILICONFLOW_DEFAULT_MAX_TOKENS = 8192;
+export const SILICONFLOW_DEFAULT_COST = {
+  input: 0,
+  output: 0,
+  cacheRead: 0,
+  cacheWrite: 0,
+};
+
+// 阿里云百炼（DashScope）：OpenAI兼容模式端点
+export const DASHSCOPE_BASE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1";
+export const DASHSCOPE_DEFAULT_MODEL_ID = "qwen-plus";
+export const DASHSCOPE_DEFAULT_MODEL_REF = `dashscope/${DASHSCOPE_DEFAULT_MODEL_ID}`;
+export const DASHSCOPE_DEFAULT_CONTEXT_WINDOW = 128000;
+export const DASHSCOPE_DEFAULT_MAX_TOKENS = 8192;
+export const DASHSCOPE_DEFAULT_COST = {
+  input: 0,
+  output: 0,
+  cacheRead: 0,
+  cacheWrite: 0,
+};
+
+// DeepSeek：官方OpenAI兼容API
+export const DEEPSEEK_BASE_URL = "https://api.deepseek.com/v1";
+export const DEEPSEEK_DEFAULT_MODEL_ID = "deepseek-chat";
+export const DEEPSEEK_DEFAULT_MODEL_REF = `deepseek/${DEEPSEEK_DEFAULT_MODEL_ID}`;
+export const DEEPSEEK_DEFAULT_CONTEXT_WINDOW = 128000;
+export const DEEPSEEK_DEFAULT_MAX_TOKENS = 8192;
+export const DEEPSEEK_DEFAULT_COST = {
+  input: 0,
+  output: 0,
+  cacheRead: 0,
+  cacheWrite: 0,
+};
+
+const MINIMAX_MODEL_CATALOG = {
+  "MiniMax-M2.1": { name: "MiniMax M2.1", reasoning: false },
+  "MiniMax-M2.1-lightning": {
+    name: "MiniMax M2.1 Lightning",
+    reasoning: false,
+  },
+} as const;
+
+type MinimaxCatalogId = keyof typeof MINIMAX_MODEL_CATALOG;
+
+export function buildMinimaxModelDefinition(params: {
+  id: string;
+  name?: string;
+  reasoning?: boolean;
+  cost: ModelDefinitionConfig["cost"];
+  contextWindow: number;
+  maxTokens: number;
+}): ModelDefinitionConfig {
+  const catalog = MINIMAX_MODEL_CATALOG[params.id as MinimaxCatalogId];
+  return {
+    id: params.id,
+    name: params.name ?? catalog?.name ?? `MiniMax ${params.id}`,
+    reasoning: params.reasoning ?? catalog?.reasoning ?? false,
+    input: ["text"],
+    cost: params.cost,
+    contextWindow: params.contextWindow,
+    maxTokens: params.maxTokens,
+  };
+}
+
+export function buildMinimaxApiModelDefinition(modelId: string): ModelDefinitionConfig {
+  return buildMinimaxModelDefinition({
+    id: modelId,
+    cost: MINIMAX_API_COST,
+    contextWindow: DEFAULT_MINIMAX_CONTEXT_WINDOW,
+    maxTokens: DEFAULT_MINIMAX_MAX_TOKENS,
+  });
+}
+
+export function buildMoonshotModelDefinition(): ModelDefinitionConfig {
+  return {
+    id: MOONSHOT_DEFAULT_MODEL_ID,
+    name: "Kimi K2 0905 Preview",
+    reasoning: false,
+    input: ["text"],
+    cost: MOONSHOT_DEFAULT_COST,
+    contextWindow: MOONSHOT_DEFAULT_CONTEXT_WINDOW,
+    maxTokens: MOONSHOT_DEFAULT_MAX_TOKENS,
+  };
+}
+
+export function buildKimiCodeModelDefinition(): ModelDefinitionConfig {
+  return {
+    id: KIMI_CODE_MODEL_ID,
+    name: "Kimi For Coding",
+    reasoning: true,
+    input: ["text"],
+    cost: KIMI_CODE_DEFAULT_COST,
+    contextWindow: KIMI_CODE_CONTEXT_WINDOW,
+    maxTokens: KIMI_CODE_MAX_TOKENS,
+    headers: KIMI_CODE_HEADERS,
+    compat: KIMI_CODE_COMPAT,
+  };
+}
+
+// 新增：构建硅基流动默认模型定义（OpenAI兼容）
+export function buildSiliconflowModelDefinition(): ModelDefinitionConfig {
+  return {
+    id: SILICONFLOW_DEFAULT_MODEL_ID,
+    name: "SiliconFlow Auto",
+    reasoning: false,
+    input: ["text"],
+    cost: SILICONFLOW_DEFAULT_COST,
+    contextWindow: SILICONFLOW_DEFAULT_CONTEXT_WINDOW,
+    maxTokens: SILICONFLOW_DEFAULT_MAX_TOKENS,
+  };
+}
+
+// 新增：构建阿里云百炼（DashScope）默认模型定义（OpenAI兼容）
+export function buildDashscopeModelDefinition(): ModelDefinitionConfig {
+  return {
+    id: DASHSCOPE_DEFAULT_MODEL_ID,
+    name: "Qwen Plus",
+    reasoning: false,
+    input: ["text"],
+    cost: DASHSCOPE_DEFAULT_COST,
+    contextWindow: DASHSCOPE_DEFAULT_CONTEXT_WINDOW,
+    maxTokens: DASHSCOPE_DEFAULT_MAX_TOKENS,
+  };
+}
+
+// 新增：构建DeepSeek默认模型定义（OpenAI兼容）
+export function buildDeepseekModelDefinition(): ModelDefinitionConfig {
+  return {
+    id: DEEPSEEK_DEFAULT_MODEL_ID,
+    name: "DeepSeek Chat",
+    reasoning: false,
+    input: ["text"],
+    cost: DEEPSEEK_DEFAULT_COST,
+    contextWindow: DEEPSEEK_DEFAULT_CONTEXT_WINDOW,
+    maxTokens: DEEPSEEK_DEFAULT_MAX_TOKENS,
+  };
+}
