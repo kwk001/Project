@@ -3,8 +3,8 @@ import { readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { emptyPluginConfigSchema } from "openclaw-cn/plugin-sdk";
 
-// OAuth constants - decoded from pi-ai's base64 encoded values to stay in sync
 // OAuth constants - 从环境变量读取，避免硬编码敏感信息
+const CLIENT_ID = process.env.GOOGLE_ANTIGRAVITY_CLIENT_ID || "";
 const CLIENT_SECRET = process.env.GOOGLE_ANTIGRAVITY_CLIENT_SECRET || "";
 const REDIRECT_URI = "http://localhost:51121/oauth-callback";
 const AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
