@@ -1,0 +1,268 @@
+{
+  "version": "1.0.0",
+  "milestones": {
+    "M1_需求冻结": {
+      "id": "M1",
+      "name": "需求冻结",
+      "name_en": "Requirement Freeze",
+      "description": "需求分析完成，需求文档评审通过，进入设计阶段",
+      "stage": "需求",
+      "typical_duration_from_start": "0.1",
+      "review_criteria": [
+        "需求文档完整度 >= 90%",
+        "所有P0需求已明确",
+        "需求评审会议已召开",
+        "评审问题已闭环"
+      ],
+      "deliverables": [
+        "需求规格说明书",
+        "用户故事列表",
+        "原型设计稿"
+      ],
+      "reviewers": ["PM", "Architect", "Tech Lead"],
+      "approver": "Product Owner",
+      "quality_gate": {
+        "enabled": true,
+        "rules": [
+          {
+            "check": "需求文档完整性",
+            "condition": "all_required_sections_present",
+            "blocker": true
+          },
+          {
+            "check": "需求评审通过",
+            "condition": "review_approved",
+            "blocker": true
+          }
+        ]
+      },
+      "escalation": {
+        "trigger": "延期超过2天",
+        "notify": ["Project Sponsor", "Department Head"],
+        "action": "触发计划重评估"
+      }
+    },
+    "M2_设计完成": {
+      "id": "M2",
+      "name": "设计完成",
+      "name_en": "Design Complete",
+      "description": "概要设计和详细设计完成，设计评审通过",
+      "stage": "设计",
+      "typical_duration_from_start": "0.2",
+      "review_criteria": [
+        "架构设计文档已评审",
+        "详细设计文档已完成",
+        "UI设计稿已确认",
+        "技术方案已评审"
+      ],
+      "deliverables": [
+        "架构设计文档",
+        "详细设计文档",
+        "数据库设计",
+        "API接口文档",
+        "UI设计稿"
+      ],
+      "reviewers": ["Architect", "Tech Lead", "Designer"],
+      "approver": "Architect",
+      "quality_gate": {
+        "enabled": true,
+        "rules": [
+          {
+            "check": "设计评审通过",
+            "condition": "design_review_approved",
+            "blocker": true
+          },
+          {
+            "check": "技术风险已识别",
+            "condition": "tech_risks_documented",
+            "blocker": false
+          }
+        ]
+      },
+      "escalation": {
+        "trigger": "延期超过3天",
+        "notify": ["PM", "Project Sponsor"],
+        "action": "技术方案重评估或范围调整"
+      }
+    },
+    "M3_代码冻结": {
+      "id": "M3",
+      "name": "代码冻结",
+      "name_en": "Code Freeze",
+      "description": "功能开发完成，代码提交主干，进入测试阶段",
+      "stage": "开发",
+      "typical_duration_from_start": "0.55",
+      "review_criteria": [
+        "所有P0功能开发完成",
+        "代码审查通过",
+        "单元测试覆盖率 >= 80%",
+        "SonarQube质量门禁通过"
+      ],
+      "deliverables": [
+        "源代码",
+        "单元测试报告",
+        "代码审查记录",
+        "技术债务清单"
+      ],
+      "reviewers": ["Tech Lead", "Senior Dev"],
+      "approver": "Tech Lead",
+      "quality_gate": {
+        "enabled": true,
+        "rules": [
+          {
+            "check": "代码审查完成",
+            "condition": "code_review_completed",
+            "blocker": true
+          },
+          {
+            "check": "单元测试覆盖率",
+            "condition": "coverage >= 80%",
+            "blocker": true
+          },
+          {
+            "check": "P0缺陷清零",
+            "condition": "p0_defects == 0",
+            "blocker": true
+          },
+          {
+            "check": "SonarQube通过",
+            "condition": "sonar_gate_passed",
+            "blocker": false
+          }
+        ]
+      },
+      "escalation": {
+        "trigger": "延期超过3天或P0缺陷未清零",
+        "notify": ["PM", "Architect"],
+        "action": "范围裁剪或上线延期"
+      }
+    },
+    "M4_测试通过": {
+      "id": "M4",
+      "name": "测试通过",
+      "name_en": "Test Passed",
+      "description": "集成测试、系统测试、UAT测试全部通过",
+      "stage": "测试",
+      "typical_duration_from_start": "0.85",
+      "review_criteria": [
+        "测试用例执行率 100%",
+        "P0/P1缺陷全部关闭",
+        "性能测试达标",
+        "UAT验收通过"
+      ],
+      "deliverables": [
+        "测试报告",
+        "缺陷分析报告",
+        "性能测试报告",
+        "UAT验收单"
+      ],
+      "reviewers": ["QA Lead", "PM"],
+      "approver": "QA Lead",
+      "quality_gate": {
+        "enabled": true,
+        "rules": [
+          {
+            "check": "P0缺陷关闭",
+            "condition": "p0_defects_closed",
+            "blocker": true
+          },
+          {
+            "check": "P1缺陷关闭",
+            "condition": "p1_defects_closed",
+            "blocker": true
+          },
+          {
+            "check": "测试用例执行率",
+            "condition": "execution_rate >= 95%",
+            "blocker": true
+          },
+          {
+            "check": "性能测试通过",
+            "condition": "performance_passed",
+            "blocker": true
+          },
+          {
+            "check": "UAT验收通过",
+            "condition": "uat_approved",
+            "blocker": true
+          }
+        ]
+      },
+      "escalation": {
+        "trigger": "P0/P1缺陷未关闭或延期超过5天",
+        "notify": ["PM", "Project Sponsor", "Department Head"],
+        "action": "强制上线延期或发布范围调整"
+      }
+    },
+    "M5_上线发布": {
+      "id": "M5",
+      "name": "上线发布",
+      "name_en": "Release",
+      "description": "系统正式上线，项目交付完成",
+      "stage": "发布",
+      "typical_duration_from_start": "1.0",
+      "review_criteria": [
+        "发布检查清单全部完成",
+        "生产环境部署成功",
+        "线上功能验证通过",
+        "监控告警正常"
+      ],
+      "deliverables": [
+        "上线报告",
+        "发布说明",
+        "运维手册",
+        "用户手册"
+      ],
+      "reviewers": ["DevOps", "QA", "PM"],
+      "approver": "PM",
+      "quality_gate": {
+        "enabled": true,
+        "rules": [
+          {
+            "check": "发布检查清单",
+            "condition": "release_checklist_complete",
+            "blocker": true
+          },
+          {
+            "check": "线上验证通过",
+            "condition": "production_verified",
+            "blocker": true
+          },
+          {
+            "check": "回滚方案就绪",
+            "condition": "rollback_plan_ready",
+            "blocker": true
+          }
+        ]
+      },
+      "escalation": {
+        "trigger": "上线失败或严重故障",
+        "notify": ["All Stakeholders"],
+        "action": "启动回滚流程，紧急复盘"
+      },
+      "post_milestone": {
+        "retro_meeting": "上线后1周内",
+        "retro_attendees": ["全团队"],
+        "deliverable": "项目复盘报告"
+      }
+    }
+  },
+  "common_checklist": {
+    "文档类": [
+      "相关文档已更新",
+      "文档评审已完成"
+    ],
+    "代码类": [
+      "代码已提交",
+      "代码审查已通过"
+    ],
+    "测试类": [
+      "测试用例已执行",
+      "缺陷已修复验证"
+    ],
+    "流程类": [
+      "评审会议已召开",
+      "会议纪要已发送"
+    ]
+  }
+}

@@ -1,0 +1,92 @@
+# 里程碑评审工作流
+# 触发条件：到达里程碑评审点或手动触发
+
+name: milestone-review
+description: 里程碑评审流程，检查准入条件、生成评审报告
+
+triggers:
+  - type: event
+    event: milestone.approaching
+    params:
+      days_before: 3
+  - type: manual
+    description: 手动触发里程碑评审
+
+steps:
+  - id: step-1
+    name: 检查里程碑准入条件
+    action: check_milestone_gate
+    params:
+      milestone_id: "{{ input.milestone_id }}"
+      project_id: "{{ input.project_id }}"
+    output: gate_check
+
+  - id: step-2
+    name: 收集交付物
+    action: collect_deliverables
+    params:
+      milestone_id: "{{ input.milestone_id }}"
+      required_list: "{{ input.required_deliverables }}"
+    output: deliverables
+
+  - id: step-3
+    name: 质量门禁检查
+    action: quality_gate_check
+    params:
+      milestone_id: "{{ input.milestone_id }}"
+      quality_data: "{{ input.quality_data }}"
+    output: quality_gate
+
+  - id: step-4
+    name: 生成评审报告
+    action: generate_review_report
+    params:
+      milestone: "{{ input.milestone }}"
+      gate_check: "{{ steps.step-1.output }}"
+      deliverables: "{{ steps.step-2.output }}"
+      quality_gate: "{{ steps.step-3.output }}"
+    output: review_report
+
+  - id: step-5
+    name: 发送评审通知
+    action: notify
+    params:
+      type: "milestone_review"
+      recipients: "{{ input.reviewers }}"
+      report: "{{ steps.step-4.output }}"
+
+  - id: step-6
+    name: 等待评审结果
+    action: wait_for_review
+    params:
+      milestone_id: "{{ input.milestone_id }}"
+      timeout: "48h"
+    output: review_result
+
+  - id: step-7
+    name: 更新里程碑状态
+    action: update_milestone
+    params:
+      milestone_id: "{{ input.milestone_id }}"
+      status: "{{ steps.step-6.output.decision }}"
+      actual_date: "{{ now() if steps.step-6.output.decision == 'approved' else null }}"
+
+  - id: step-8
+    name: 延期处理
+    action: handle_delay
+    params:
+      condition: "{{ steps.step-6.output.decision == 'delayed' }}"
+      milestone: "{{ input.milestone }}"
+    output: delay_plan
+
+  - id: step-9
+    name: 发送评审结果通知
+    action: notify
+    params:
+      type: "milestone_result"
+      recipients: "{{ input.team_members }}"
+      result: "{{ steps.step-6.output }}"
+
+outputs:
+  review_report: "{{ steps.step-4.output }}"
+  result: "{{ steps.step-6.output }}"

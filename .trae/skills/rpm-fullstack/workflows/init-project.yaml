@@ -1,0 +1,100 @@
+# 项目初始化工作流
+# 触发条件：新项目启动
+
+name: init-project
+description: 新项目初始化，生成完整的项目管理文档体系
+
+triggers:
+  - type: manual
+    description: 手动触发项目初始化
+  - type: api
+    endpoint: /api/v1/projects/init
+
+steps:
+  - id: step-1
+    name: 加载项目模板
+    action: load_template
+    params:
+      template_type: "{{ input.template }}"  # agile/waterfall/hybrid
+    output: template_config
+
+  - id: step-2
+    name: 生成项目计划
+    action: generate_project_plan
+    params:
+      project_name: "{{ input.project_name }}"
+      start_date: "{{ input.start_date }}"
+      end_date: "{{ input.end_date }}"
+      team: "{{ input.team }}"
+      template: "{{ steps.step-1.output }}"
+    output: project_plan
+
+  - id: step-3
+    name: 生成任务跟踪表
+    action: generate_task_tracker
+    params:
+      project_id: "{{ steps.step-2.output.project_id }}"
+      tasks: "{{ steps.step-2.output.tasks }}"
+    output: task_tracker
+
+  - id: step-4
+    name: 生成里程碑管理表
+    action: generate_milestone_manager
+    params:
+      milestones: "{{ steps.step-2.output.milestones }}"
+    output: milestone_manager
+
+  - id: step-5
+    name: 生成风险管理表
+    action: generate_risk_manager
+    params:
+      project_id: "{{ steps.step-2.output.project_id }}"
+    output: risk_manager
+
+  - id: step-6
+    name: 生成变更管理表
+    action: generate_change_manager
+    params:
+      project_id: "{{ steps.step-2.output.project_id }}"
+    output: change_manager
+
+  - id: step-7
+    name: 生成资源管理表
+    action: generate_resource_manager
+    params:
+      team: "{{ input.team }}"
+    output: resource_manager
+
+  - id: step-8
+    name: 生成缺陷跟踪表
+    action: generate_defect_tracker
+    params:
+      project_id: "{{ steps.step-2.output.project_id }}"
+    output: defect_tracker
+
+  - id: step-9
+    name: 生成项目仪表盘
+    action: generate_dashboard
+    params:
+      project_id: "{{ steps.step-2.output.project_id }}"
+    output: dashboard
+
+  - id: step-10
+    name: 发送初始化完成通知
+    action: notify
+    params:
+      type: "project_init_complete"
+      recipients: "{{ input.team | map(attribute='name') }}"
+      project_id: "{{ steps.step-2.output.project_id }}"
+
+outputs:
+  project_id: "{{ steps.step-2.output.project_id }}"
+  documents:
+    - "{{ steps.step-2.output.filepath }}"      # 项目计划表
+    - "{{ steps.step-3.output.filepath }}"      # 任务跟踪表
+    - "{{ steps.step-4.output.filepath }}"      # 里程碑管理表
+    - "{{ steps.step-5.output.filepath }}"      # 风险管理表
+    - "{{ steps.step-6.output.filepath }}"      # 变更管理表
+    - "{{ steps.step-7.output.filepath }}"      # 资源管理表
+    - "{{ steps.step-8.output.filepath }}"      # 缺陷跟踪表
+    - "{{ steps.step-9.output.filepath }}"      # 项目仪表盘

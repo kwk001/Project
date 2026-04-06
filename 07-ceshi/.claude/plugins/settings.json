@@ -1,0 +1,10 @@
+{
+  "enabledPlugins": {
+    "document-skills@kagent-skills": true,
+    "development-skills@kagent-skills": true,
+    "visual-design-skills@kagent-skills": true,
+    "communication-skills@kagent-skills": true,
+    "testing-skills@kagent-skills": true,
+    "skill-management@kagent-skills": true
+  }
+}

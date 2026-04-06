@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sed -i '' 's/#### 3\\\\.9\\\\.5\\\\.1/#### 3.10.1/' /Users/apple/Desktop/文件/kaiwu-richang/docs/PRD文档_v2.0.md)",
+      "Bash(sed -i '' 's/#### 3\\\\.9\\\\.5\\\\.2/#### 3.10.2/' /Users/apple/Desktop/文件/kaiwu-richang/docs/PRD文档_v2.0.md)",
+      "Bash(sed -i '' 's/#### 3\\\\.9\\\\.5\\\\.3/#### 3.10.3/' /Users/apple/Desktop/文件/kaiwu-richang/docs/PRD文档_v2.0.md)",
+      "Bash(sed -i '' 's/#### 3\\\\.9\\\\.5\\\\.4/#### 3.10.4/' /Users/apple/Desktop/文件/kaiwu-richang/docs/PRD文档_v2.0.md)",
+      "Bash(sed -i '' 's/#### 3\\\\.9\\\\.5\\\\.5/#### 3.10.5/' /Users/apple/Desktop/文件/kaiwu-richang/docs/PRD文档_v2.0.md)",
+      "Bash(sed -i '' 's/### 3\\\\.26 区区联动管理/### 3.27 区区联动管理/' /Users/apple/Desktop/文件/kaiwu-richang/docs/PRD文档_v2.0.md)",
+      "Bash(sed -i '' 's/### 3\\\\.25 跨境电商业务管理/### 3.26 跨境电商业务管理/' /Users/apple/Desktop/文件/kaiwu-richang/docs/PRD文档_v2.0.md)",
+      "Bash(sed -i '' 's/### 3\\\\.24 系统管理/### 3.25 系统管理/' /Users/apple/Desktop/文件/kaiwu-richang/docs/PRD文档_v2.0.md)",
+      "Bash(sed -i '' 's/### 3\\\\.23 运维服务管理/### 3.24 运维服务管理/' /Users/apple/Desktop/文件/kaiwu-richang/docs/PRD文档_v2.0.md)",
+      "Bash(sed -i '' 's/### 3\\\\.22 统一门户/### 3.23 统一门户/' /Users/apple/Desktop/文件/kaiwu-richang/docs/PRD文档_v2.0.md)",
+      "Read(//tmp/**)",
+      "Bash(python3 -c ':*)",
+      "Bash(python3)",
+      "Bash(python3 create_project_plan.py)",
+      "Bash(python3 create_task_tracker.py)"
+    ]
+  }
+}

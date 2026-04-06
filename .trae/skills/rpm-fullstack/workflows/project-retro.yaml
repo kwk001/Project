@@ -1,0 +1,97 @@
+# 项目复盘工作流
+# 触发条件：项目结束
+
+name: project-retro
+description: 项目复盘流程，汇总数据、生成复盘报告
+
+triggers:
+  - type: event
+    event: project.completed
+  - type: manual
+    description: 手动触发项目复盘
+
+steps:
+  - id: step-1
+    name: 汇总项目数据
+    action: aggregate_project_data
+    params:
+      project_id: "{{ input.project_id }}"
+    output: project_data
+
+  - id: step-2
+    name: 分析变更记录
+    action: analyze_changes
+    params:
+      changes: "{{ steps.step-1.output.changes }}"
+    output: change_analysis
+
+  - id: step-3
+    name: 分析风险与问题
+    action: analyze_risks
+    params:
+      risks: "{{ steps.step-1.output.risks }}"
+      issues: "{{ steps.step-1.output.issues }}"
+    output: risk_analysis
+
+  - id: step-4
+    name: 分析质量数据
+    action: analyze_quality
+    params:
+      defects: "{{ steps.step-1.output.defects }}"
+      test_data: "{{ steps.step-1.output.test_data }}"
+    output: quality_analysis
+
+  - id: step-5
+    name: 分析资源效率
+    action: analyze_resource_efficiency
+    params:
+      resources: "{{ steps.step-1.output.resources }}"
+      actual_hours: "{{ steps.step-1.output.actual_hours }}"
+      planned_hours: "{{ steps.step-1.output.planned_hours }}"
+    output: resource_analysis
+
+  - id: step-6
+    name: 计算项目指标
+    action: calculate_metrics
+    params:
+      project_data: "{{ steps.step-1.output }}"
+    output: metrics
+
+  - id: step-7
+    name: 生成复盘报告
+    action: generate_retro_report
+    params:
+      project_data: "{{ steps.step-1.output }}"
+      change_analysis: "{{ steps.step-2.output }}"
+      risk_analysis: "{{ steps.step-3.output }}"
+      quality_analysis: "{{ steps.step-4.output }}"
+      resource_analysis: "{{ steps.step-5.output }}"
+      metrics: "{{ steps.step-6.output }}"
+    output: retro_report
+
+  - id: step-8
+    name: 沉淀经验教训
+    action: capture_lessons_learned
+    params:
+      retro_report: "{{ steps.step-7.output }}"
+    output: lessons_learned
+
+  - id: step-9
+    name: 发送复盘报告
+    action: notify
+    params:
+      type: "project_retro"
+      recipients: "{{ input.stakeholders }}"
+      report: "{{ steps.step-7.output }}"
+
+  - id: step-10
+    name: 归档项目文档
+    action: archive_project
+    params:
+      project_id: "{{ input.project_id }}"
+      documents: "{{ steps.step-1.output.documents }}"
+
+outputs:
+  retro_report: "{{ steps.step-7.output }}"
+  lessons_learned: "{{ steps.step-8.output }}"
+  metrics: "{{ steps.step-6.output }}"

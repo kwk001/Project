@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git init:*)"
+    ],
+    "additionalDirectories": [
+      "/Users/apple/Desktop/文件/kaiwu-project/01-dida/kaiwu-app/jiaoxue/kuangjjia/prototype/.git"
+    ]
+  }
+}

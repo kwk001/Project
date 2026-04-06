@@ -1,0 +1,313 @@
+{
+  "version": "1.0.0",
+  "roles": {
+    "executive": {
+      "name": "管理层",
+      "name_en": "Executive",
+      "description": "关注项目整体健康度和关键里程碑",
+      "kpis": [
+        {
+          "id": "overall_progress",
+          "name": "整体进度",
+          "type": "percentage",
+          "formula": "completed_story_points / total_story_points",
+          "threshold": {
+            "green": ">= 0.9",
+            "yellow": ">= 0.7",
+            "red": "< 0.7"
+          }
+        },
+        {
+          "id": "milestone_health",
+          "name": "里程碑健康度",
+          "type": "count",
+          "formula": "on_track_milestones / total_milestones",
+          "threshold": {
+            "green": "= 1.0",
+            "yellow": ">= 0.8",
+            "red": "< 0.8"
+          }
+        },
+        {
+          "id": "risk_level",
+          "name": "风险等级",
+          "type": "enum",
+          "values": ["低", "中", "高"],
+          "threshold": {
+            "green": "无高风险",
+            "yellow": "有中等风险",
+            "red": "有高风险"
+          }
+        },
+        {
+          "id": "budget_status",
+          "name": "预算状态",
+          "type": "percentage",
+          "formula": "actual_cost / planned_cost",
+          "threshold": {
+            "green": "<= 1.0",
+            "yellow": "<= 1.1",
+            "red": "> 1.1"
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "dashboard",
+          "name": "执行仪表盘",
+          "components": ["health_indicator", "milestone_timeline", "risk_heatmap", "resource_overview"]
+        },
+        {
+          "id": "burnup",
+          "name": "燃尽/燃升图",
+          "components": ["burnup_chart", "velocity_trend", "scope_change"]
+        },
+        {
+          "id": "milestone_report",
+          "name": "里程碑报告",
+          "components": ["milestone_status", "deliverable_checklist", "blocker_list"]
+        }
+      ],
+      "reports": {
+        "daily": false,
+        "weekly": true,
+        "milestone": true,
+        "monthly": true
+      }
+    },
+    "pm": {
+      "name": "项目经理",
+      "name_en": "Project Manager",
+      "description": "关注任务分解、依赖关系和团队协调",
+      "kpis": [
+        {
+          "id": "schedule_variance",
+          "name": "进度偏差",
+          "type": "days",
+          "formula": "actual_end_date - planned_end_date",
+          "threshold": {
+            "green": "<= 0",
+            "yellow": "<= 3",
+            "red": "> 3"
+          }
+        },
+        {
+          "id": "task_completion_rate",
+          "name": "任务完成率",
+          "type": "percentage",
+          "formula": "completed_tasks / total_tasks",
+          "threshold": {
+            "green": ">= 0.9",
+            "yellow": ">= 0.75",
+            "red": "< 0.75"
+          }
+        },
+        {
+          "id": "change_request_count",
+          "name": "变更请求数",
+          "type": "count",
+          "formula": "count(change_requests_this_week)",
+          "threshold": {
+            "green": "<= 2",
+            "yellow": "<= 5",
+            "red": "> 5"
+          }
+        },
+        {
+          "id": "team_utilization",
+          "name": "团队利用率",
+          "type": "percentage",
+          "formula": "allocated_hours / available_hours",
+          "threshold": {
+            "green": "0.7-0.85",
+            "yellow": "0.6-0.7 或 0.85-0.95",
+            "red": "< 0.6 或 > 0.95"
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "gantt",
+          "name": "甘特图",
+          "components": ["task_timeline", "dependency_lines", "critical_path", "milestone_markers"]
+        },
+        {
+          "id": "resource",
+          "name": "资源负载",
+          "components": ["team_capacity", "individual_load", "allocation_heatmap", "bottleneck_alert"]
+        },
+        {
+          "id": "change_management",
+          "name": "变更管理",
+          "components": ["change_log", "impact_analysis", "approval_status", "adjusted_timeline"]
+        }
+      ],
+      "reports": {
+        "daily": true,
+        "weekly": true,
+        "milestone": true,
+        "monthly": true
+      }
+    },
+    "developer": {
+      "name": "研发工程师",
+      "name_en": "Developer",
+      "description": "关注个人任务、代码进度和技术债务",
+      "kpis": [
+        {
+          "id": "personal_completion",
+          "name": "个人任务完成率",
+          "type": "percentage",
+          "formula": "my_completed_tasks / my_total_tasks",
+          "threshold": {
+            "green": ">= 0.9",
+            "yellow": ">= 0.7",
+            "red": "< 0.7"
+          }
+        },
+        {
+          "id": "code_quality_score",
+          "name": "代码质量分",
+          "type": "score",
+          "formula": "(coverage * 0.4) + (review_score * 0.3) + (bug_rate * 0.3)",
+          "threshold": {
+            "green": ">= 85",
+            "yellow": ">= 70",
+            "red": "< 70"
+          }
+        },
+        {
+          "id": "blocked_tasks",
+          "name": "被阻塞任务数",
+          "type": "count",
+          "formula": "count(blocked_tasks)",
+          "threshold": {
+            "green": "= 0",
+            "yellow": "<= 2",
+            "red": "> 2"
+          }
+        },
+        {
+          "id": "tech_debt_ratio",
+          "name": "技术债务占比",
+          "type": "percentage",
+          "formula": "tech_debt_hours / total_dev_hours",
+          "threshold": {
+            "green": "<= 0.1",
+            "yellow": "<= 0.2",
+            "red": "> 0.2"
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "personal_kanban",
+          "name": "个人看板",
+          "components": ["todo_list", "in_progress", "in_review", "done"]
+        },
+        {
+          "id": "code_progress",
+          "name": "代码进度",
+          "components": ["commit_timeline", "lines_changed", "files_modified", "branch_status"]
+        },
+        {
+          "id": "blockers",
+          "name": "阻塞问题",
+          "components": ["blocked_by_me", "blocking_others", "dependencies_status"]
+        }
+      ],
+      "reports": {
+        "daily": true,
+        "weekly": true,
+        "milestone": false,
+        "monthly": false
+      }
+    },
+    "qa": {
+      "name": "测试工程师",
+      "name_en": "Quality Assurance",
+      "description": "关注缺陷统计、测试进度和质量门禁",
+      "kpis": [
+        {
+          "id": "defect_density",
+          "name": "缺陷密度",
+          "type": "ratio",
+          "formula": "defect_count / kloc",
+          "threshold": {
+            "green": "<= 0.5",
+            "yellow": "<= 1.0",
+            "red": "> 1.0"
+          }
+        },
+        {
+          "id": "test_coverage",
+          "name": "测试覆盖率",
+          "type": "percentage",
+          "formula": "covered_code / total_code",
+          "threshold": {
+            "green": ">= 0.8",
+            "yellow": ">= 0.6",
+            "red": "< 0.6"
+          }
+        },
+        {
+          "id": "critical_defects",
+          "name": "P0/P1缺陷数",
+          "type": "count",
+          "formula": "count(priority IN ['P0', 'P1'] AND status != 'closed')",
+          "threshold": {
+            "green": "= 0",
+            "yellow": "<= 3",
+            "red": "> 3"
+          }
+        },
+        {
+          "id": "defect_reopen_rate",
+          "name": "缺陷重开率",
+          "type": "percentage",
+          "formula": "reopened_defects / total_closed_defects",
+          "threshold": {
+            "green": "<= 0.05",
+            "yellow": "<= 0.1",
+            "red": "> 0.1"
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "defect_dashboard",
+          "name": "缺陷仪表盘",
+          "components": ["defect_trend", "severity_distribution", "module_heatmap", "age_analysis"]
+        },
+        {
+          "id": "test_execution",
+          "name": "测试执行",
+          "components": ["test_plan_progress", "case_execution_status", "automation_rate"]
+        },
+        {
+          "id": "quality_gate",
+          "name": "质量门禁",
+          "components": ["gate_status", "blocker_list", "quality_score", "release_readiness"]
+        }
+      ],
+      "reports": {
+        "daily": true,
+        "weekly": true,
+        "milestone": true,
+        "monthly": false
+      }
+    }
+  },
+  "common_views": {
+    "project_health": {
+      "name": "项目健康度",
+      "indicators": ["进度", "质量", "范围", "成本", "风险"],
+      "aggregation": "weighted_average"
+    },
+    "risk_matrix": {
+      "name": "风险矩阵",
+      "dimensions": ["概率", "影响"],
+      "levels": ["低", "中", "高"]
+    }
+  }
+}

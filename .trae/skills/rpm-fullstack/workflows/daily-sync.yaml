@@ -1,0 +1,92 @@
+# 每日同步工作流
+# 触发条件：每日定时执行或手动触发
+
+name: daily-sync
+description: 每日项目状态同步，更新进度、检查风险、生成日报
+
+triggers:
+  - type: scheduled
+    cron: "0 18 * * *"  # 每天18:00执行
+  - type: manual
+    description: 手动触发每日同步
+
+steps:
+  - id: step-1
+    name: 同步Git代码进度
+    action: sync_git_progress
+    params:
+      project_id: "{{ input.project_id }}"
+      repo_path: "{{ input.repo_path }}"
+    output: git_progress
+
+  - id: step-2
+    name: 更新任务状态
+    action: update_tasks
+    params:
+      project_id: "{{ input.project_id }}"
+      task_updates: "{{ input.task_updates }}"
+      git_progress: "{{ steps.step-1.output }}"
+    output: updated_tasks
+
+  - id: step-3
+    name: 计算项目进度
+    action: calculate_progress
+    params:
+      tasks: "{{ steps.step-2.output }}"
+    output: progress_report
+
+  - id: step-4
+    name: 扫描风险
+    action: scan_risks
+    params:
+      project_id: "{{ input.project_id }}"
+      project_data:
+        tasks: "{{ steps.step-2.output }}"
+        resources: "{{ input.resources }}"
+        quality: "{{ input.quality }}"
+    output: risk_report
+
+  - id: step-5
+    name: 更新关键路径
+    action: update_critical_path
+    params:
+      tasks: "{{ steps.step-2.output }}"
+      dependencies: "{{ input.dependencies }}"
+    output: critical_path
+
+  - id: step-6
+    name: 检查里程碑状态
+    action: check_milestones
+    params:
+      project_id: "{{ input.project_id }}"
+      current_date: "{{ now() }}"
+    output: milestone_status
+
+  - id: step-7
+    name: 生成每日报告
+    action: generate_daily_report
+    params:
+      progress: "{{ steps.step-3.output }}"
+      risks: "{{ steps.step-4.output }}"
+      milestones: "{{ steps.step-6.output }}"
+    output: daily_report
+
+  - id: step-8
+    name: 发送日报通知
+    action: notify
+    params:
+      type: "daily_summary"
+      recipients: "{{ input.team_members }}"
+      content: "{{ steps.step-7.output }}"
+
+  - id: step-9
+    name: 风险触发通知
+    action: notify_risks
+    params:
+      risks: "{{ steps.step-4.output.new_risks }}"
+      condition: "{{ steps.step-4.output.has_critical_risks }}"
+
+outputs:
+  progress: "{{ steps.step-3.output }}"
+  risks: "{{ steps.step-4.output }}"
+  daily_report: "{{ steps.step-7.output }}"

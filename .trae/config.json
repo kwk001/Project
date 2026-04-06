@@ -1,0 +1,27 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "软件项目自动化开发",
+    "description": "使用Trae CN主导自动化完成软件项目的需求设计、研发、测试",
+    "role": "product_manager"
+  },
+  "skills": {
+    "path": "./skills",
+    "index": "./skills/skills.json",
+    "autoLoad": true
+  },
+  "rules": {
+    "path": "./rules",
+    "index": "./rules/rules.json",
+    "autoLoad": true
+  },
+  "templates": {
+    "path": "./templete"
+  },
+  "documents": {
+    "path": "./documents"
+  },
+  "config": {
+    "path": "./config"
+  }
+}

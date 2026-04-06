@@ -1,0 +1,166 @@
+{
+  "version": "1.0.0",
+  "templates": {
+    "agile": {
+      "name": "敏捷开发模板",
+      "description": "适用于互联网产品快速迭代的敏捷开发模式",
+      "phases": [
+        {
+          "id": "phase_1",
+          "name": "迭代规划",
+          "duration_days": 2,
+          "tasks": [
+            {"name": "需求梳理", "duration": 1, "role": "PM"},
+            {"name": "迭代计划会", "duration": 1, "role": "Team"}
+          ]
+        },
+        {
+          "id": "phase_2",
+          "name": "设计与开发",
+          "duration_days": 8,
+          "tasks": [
+            {"name": "技术方案设计", "duration": 2, "role": "Arch"},
+            {"name": "UI设计", "duration": 3, "role": "Designer"},
+            {"name": "前端开发", "duration": 6, "role": "Frontend"},
+            {"name": "后端开发", "duration": 6, "role": "Backend"},
+            {"name": "接口联调", "duration": 2, "role": "Fullstack"}
+          ]
+        },
+        {
+          "id": "phase_3",
+          "name": "测试与修复",
+          "duration_days": 4,
+          "tasks": [
+            {"name": "功能测试", "duration": 2, "role": "QA"},
+            {"name": "Bug修复", "duration": 2, "role": "Dev"},
+            {"name": "回归测试", "duration": 1, "role": "QA"}
+          ]
+        },
+        {
+          "id": "phase_4",
+          "name": "发布上线",
+          "duration_days": 1,
+          "tasks": [
+            {"name": "发布准备", "duration": 0.5, "role": "DevOps"},
+            {"name": "上线发布", "duration": 0.5, "role": "DevOps"},
+            {"name": "线上验证", "duration": 0.5, "role": "QA"}
+          ]
+        }
+      ],
+      "milestones": ["M1_需求冻结", "M2_设计完成", "M3_开发完成", "M4_测试通过", "M5_上线发布"],
+      "sprint_duration": 14
+    },
+    "waterfall": {
+      "name": "瀑布开发模板",
+      "description": "适用于需求明确、变更较少的企业级项目",
+      "phases": [
+        {
+          "id": "phase_1",
+          "name": "需求分析",
+          "duration_ratio": 0.15,
+          "tasks": [
+            {"name": "需求调研", "duration_ratio": 0.4, "role": "PM"},
+            {"name": "需求分析", "duration_ratio": 0.35, "role": "PM"},
+            {"name": "需求评审", "duration_ratio": 0.25, "role": "Team"}
+          ]
+        },
+        {
+          "id": "phase_2",
+          "name": "系统设计",
+          "duration_ratio": 0.15,
+          "tasks": [
+            {"name": "概要设计", "duration_ratio": 0.4, "role": "Arch"},
+            {"name": "详细设计", "duration_ratio": 0.4, "role": "Arch"},
+            {"name": "设计评审", "duration_ratio": 0.2, "role": "Team"}
+          ]
+        },
+        {
+          "id": "phase_3",
+          "name": "编码实现",
+          "duration_ratio": 0.35,
+          "tasks": [
+            {"name": "环境搭建", "duration_ratio": 0.1, "role": "DevOps"},
+            {"name": "前端开发", "duration_ratio": 0.45, "role": "Frontend"},
+            {"name": "后端开发", "duration_ratio": 0.45, "role": "Backend"}
+          ]
+        },
+        {
+          "id": "phase_4",
+          "name": "系统测试",
+          "duration_ratio": 0.25,
+          "tasks": [
+            {"name": "集成测试", "duration_ratio": 0.3, "role": "QA"},
+            {"name": "系统测试", "duration_ratio": 0.35, "role": "QA"},
+            {"name": "UAT测试", "duration_ratio": 0.25, "role": "PM"},
+            {"name": "Bug修复", "duration_ratio": 0.1, "role": "Dev"}
+          ]
+        },
+        {
+          "id": "phase_5",
+          "name": "上线交付",
+          "duration_ratio": 0.1,
+          "tasks": [
+            {"name": "部署准备", "duration_ratio": 0.3, "role": "DevOps"},
+            {"name": "数据迁移", "duration_ratio": 0.3, "role": "DBA"},
+            {"name": "上线发布", "duration_ratio": 0.2, "role": "DevOps"},
+            {"name": "项目验收", "duration_ratio": 0.2, "role": "PM"}
+          ]
+        }
+      ],
+      "milestones": ["M1_需求基线", "M2_设计基线", "M3_代码基线", "M4_测试基线", "M5_上线交付"]
+    },
+    "hybrid": {
+      "name": "混合开发模板",
+      "description": "结合瀑布的规划和敏捷的迭代，适用于中大型项目",
+      "phases": [
+        {
+          "id": "phase_1",
+          "name": "整体规划",
+          "duration_ratio": 0.1,
+          "type": "waterfall",
+          "tasks": [
+            {"name": "需求分析", "duration_ratio": 0.5, "role": "PM"},
+            {"name": "架构设计", "duration_ratio": 0.3, "role": "Arch"},
+            {"name": "项目计划", "duration_ratio": 0.2, "role": "PM"}
+          ]
+        },
+        {
+          "id": "phase_2",
+          "name": "迭代开发",
+          "duration_ratio": 0.6,
+          "type": "agile",
+          "iterations": 3,
+          "tasks_per_iteration": [
+            {"name": "迭代规划", "duration": 1, "role": "Team"},
+            {"name": "开发实现", "duration": 8, "role": "Dev"},
+            {"name": "测试验证", "duration": 3, "role": "QA"},
+            {"name": "迭代回顾", "duration": 1, "role": "Team"}
+          ]
+        },
+        {
+          "id": "phase_3",
+          "name": "集成测试",
+          "duration_ratio": 0.2,
+          "type": "waterfall",
+          "tasks": [
+            {"name": "集成测试", "duration_ratio": 0.4, "role": "QA"},
+            {"name": "性能测试", "duration_ratio": 0.3, "role": "QA"},
+            {"name": "UAT测试", "duration_ratio": 0.3, "role": "PM"}
+          ]
+        },
+        {
+          "id": "phase_4",
+          "name": "发布上线",
+          "duration_ratio": 0.1,
+          "type": "waterfall",
+          "tasks": [
+            {"name": "发布准备", "duration_ratio": 0.4, "role": "DevOps"},
+            {"name": "灰度发布", "duration_ratio": 0.3, "role": "DevOps"},
+            {"name": "全量上线", "duration_ratio": 0.3, "role": "DevOps"}
+          ]
+        }
+      ],
+      "milestones": ["M1_规划完成", "M2_迭代1完成", "M3_迭代2完成", "M4_迭代3完成", "M5_测试通过", "M6_上线发布"]
+    }
+  }
+}

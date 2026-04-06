@@ -1,0 +1,207 @@
+{
+  "packages": [
+    {
+      "package": "zod",
+      "version": "3.22.4",
+      "urls": [
+        "https://cdn.kaiwu.cloud/cdn/npm/zod@3.22.4/lib/index.umd.js"
+      ],
+      "library": "Zod"
+    },
+    {
+      "package": "moment",
+      "version": "2.24.0",
+      "urls": [
+        "https://g.alicdn.com/mylib/moment/2.24.0/min/moment.min.js"
+      ],
+      "library": "moment"
+    },
+    {
+      "package": "axios",
+      "version": "1.6.2",
+      "urls": [
+        "https://g.alicdn.com/code/lib/axios/1.6.2/axios.min.js"
+      ],
+      "library": "axios"
+    },
+    {
+      "package": "lodash",
+      "library": "_",
+      "urls": [
+        "https://g.alicdn.com/platform/c/lodash/4.6.1/lodash.min.js"
+      ]
+    },
+    {
+      "package": "dayjs",
+      "version": "1.11.10",
+      "urls": [
+        "https://cdn.kaiwu.cloud/cdn/dayjs/1.11.10/dayjs.min.js"
+      ],
+      "library": "dayjs"
+    },
+    {
+      "package": "@kaiwu/dataservice",
+      "version": "1.0.0",
+      "urls": [
+        "https://cdn.kaiwu.cloud/cdn/project/share/kaiwu-dataservice/1.0.0/dist/kaiwu-dataservice.umd.js"
+      ],
+      "library": "KaiwuDataService"
+    },
+    {
+      "package": "@kaiwu-cloud/lowcode-engine-driver",
+      "library": "KaiwuLowcodeDriver",
+      "urls": [
+        "https://cdn.kaiwu.cloud/cdn/lib/lowcode-engine-driver.js"
+      ]
+    },
+    {
+      "title": "fusion组件库",
+      "package": "@alifd/next",
+      "version": "1.26.4",
+      "urls": [
+        "https://g.alicdn.com/code/lib/alifd__next/1.26.4/next.min.css",
+        "https://g.alicdn.com/code/lib/alifd__next/1.26.4/next-with-locales.min.js"
+      ],
+      "library": "Next"
+    },
+    {
+      "package": "@alilc/lowcode-materials",
+      "version": "1.2.0",
+      "library": "AlilcLowcodeMaterials",
+      "urls": [
+        "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/lowcode-materials/1.2.0/dist/AlilcLowcodeMaterials.js",
+        "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/lowcode-materials/1.2.0/dist/AlilcLowcodeMaterials.css"
+      ],
+      "editUrls": [
+        "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/lowcode-materials/1.2.0/build/lowcode/view.js",
+        "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/lowcode-materials/1.2.0/build/lowcode/view.css"
+      ]
+    },
+    {
+      "package": "@alifd/layout",
+      "version": "2.4.1",
+      "library": "AlifdLayout",
+      "urls": [
+        "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/layout/2.4.1/build/lowcode/render/default/view.js",
+        "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/layout/2.4.1/build/lowcode/render/default/view.css"
+      ],
+      "editUrls": [
+        "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/layout/2.4.1/build/lowcode/view.js",
+        "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/layout/2.4.1/build/lowcode/view.css"
+      ]
+    },
+    {
+      "package": "@alifd/fusion-ui",
+      "version": "2.1.0",
+      "library": "AlifdFusionUi",
+      "urls": [
+        "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/fusion-ui/2.1.0/dist/AlifdFusionUi.js",
+        "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/fusion-ui/2.1.0/dist/AlifdFusionUi.css"
+      ],
+      "editUrls": [
+        "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/fusion-ui/2.1.0/build/lowcode/view.js",
+        "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/fusion-ui/2.1.0/build/lowcode/view.css"
+      ]
+    },
+    {
+      "package": "@kaiwu-cloud/lowcode-engine-component",
+      "version": "3.2.0",
+      "library": "KaiwuLowcodeComponent",
+      "urls": [
+        "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/lowcode-engine-component/3.2.0/dist/KaiwuLowcodeComponent.css",
+        "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/lowcode-engine-component/3.2.0/dist/KaiwuLowcodeComponent.js"
+      ]
+    },
+    {
+      "package": "KaiwuMesModule",
+      "version": "1.0.0",
+      "library": "KaiwuMesModule",
+      "urls": [
+        "https://cdn.kaiwu.cloud/cdn/project/common/KaiwuMesModule/1.0.0/dist/KaiwuMesModule.js"
+      ]
+    },
+    {
+      "package": "DayjsLocale",
+      "version": "1.0.0",
+      "library": "DayjsLocale",
+      "urls": [
+        "https://cdn.kaiwu.cloud/cdn/project/common/DayjsLocale/1.0.0/dist/DayjsLocale.js"
+      ]
+    }
+  ],
+  "components": [
+    {
+      "exportName": "AlilcLowcodeMaterialsMeta",
+      "npm": {
+        "package": "@kaiwu-cloud/lowcode-materials"
+      },
+      "url": "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/lowcode-materials/1.2.0/build/lowcode/meta.js",
+      "urls": {
+        "default": "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/lowcode-materials/1.2.0/build/lowcode/meta.js",
+        "design": "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/lowcode-materials/1.2.0/build/lowcode/meta.design.js"
+      }
+    },
+    {
+      "exportName": "AlifdLayoutMeta",
+      "npm": {
+        "package": "@alifd/layout",
+        "version": "2.4.1"
+      },
+      "url": "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/layout/2.4.1/build/lowcode/meta.js",
+      "urls": {
+        "default": "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/layout/2.4.1/build/lowcode/meta.js"
+      }
+    },
+    {
+      "exportName": "AlifdFusionUiMeta",
+      "npm": {
+        "package": "@alifd/fusion-ui"
+      },
+      "url": "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/fusion-ui/2.1.0/build/lowcode/meta.js",
+      "urls": {
+        "default": "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/fusion-ui/2.1.0/build/lowcode/meta.js",
+        "design": "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/fusion-ui/2.1.0/build/lowcode/meta.design.js"
+      }
+    },
+    {
+      "exportName": "KaiwuCloudLowcodeEngineComponentMeta",
+      "npm": {
+        "package": "@kaiwu-cloud/lowcode-engine-component",
+        "version": "3.2.0"
+      },
+      "url": "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/lowcode-engine-component/3.2.0/build/lowcode/meta.js",
+      "urls": {
+        "default": "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/lowcode-engine-component/3.2.0/build/lowcode/meta.js"
+      },
+      "advancedUrls": {
+        "default": [
+          "https://cdn.kaiwu.cloud/cdn/@kaiwu-cloud/lowcode-engine-component/3.2.0/build/lowcode/meta.js"
+        ]
+      }
+    }
+  ],
+  "sort": {
+    "groupList": [
+      "开物云组件"
+    ],
+    "categoryList": [
+      "基础",
+      "表单",
+      "布局容器类",
+      "表格类",
+      "表单详情类",
+      "帮助类",
+      "对话框类",
+      "业务类",
+      "通用",
+      "引导",
+      "信息输入",
+      "信息展示",
+      "信息反馈"
+    ]
+  },
+  "groupList": [
+    "开物云组件"
+  ],
+  "ignoreComponents": {}
+}
