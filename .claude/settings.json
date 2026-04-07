@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git init:*)"
+      "Bash(git init:*)",
+      "Bash(ls -la /Users/apple/Desktop/文件/kaiwu-project/*.py /Users/apple/Desktop/文件/kaiwu-project/*.sh /Users/apple/Desktop/文件/kaiwu-project/*.md)",
+      "Bash(ls -la ~/Desktop/文件/kaiwu-project/*.py ~/Desktop/文件/kaiwu-project/*.sh ~/Desktop/文件/kaiwu-project/*.md)"
     ],
     "additionalDirectories": [
       "/Users/apple/Desktop/文件/kaiwu-project/01-dida/kaiwu-app/jiaoxue/kuangjjia/prototype/.git"
