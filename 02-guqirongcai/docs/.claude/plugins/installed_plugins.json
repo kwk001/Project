@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "plugins": {
+    "document-skills@kagent-skills": {
+      "version": "1.0.0",
+      "installedAt": "2026-04-09T05:27:36.554Z",
+      "lastUpdated": "2026-04-09T05:27:36.554Z",
+      "installPath": "/Users/apple/Desktop/文件/kaiwu-project/02-guqirongcai/docs/.kagent/kagent-skills/",
+      "isLocal": true
+    },
+    "development-skills@kagent-skills": {
+      "version": "1.0.0",
+      "installedAt": "2026-04-09T05:27:36.554Z",
+      "lastUpdated": "2026-04-09T05:27:36.554Z",
+      "installPath": "/Users/apple/Desktop/文件/kaiwu-project/02-guqirongcai/docs/.kagent/kagent-skills/",
+      "isLocal": true
+    },
+    "visual-design-skills@kagent-skills": {
+      "version": "1.0.0",
+      "installedAt": "2026-04-09T05:27:36.554Z",
+      "lastUpdated": "2026-04-09T05:27:36.554Z",
+      "installPath": "/Users/apple/Desktop/文件/kaiwu-project/02-guqirongcai/docs/.kagent/kagent-skills/",
+      "isLocal": true
+    },
+    "communication-skills@kagent-skills": {
+      "version": "1.0.0",
+      "installedAt": "2026-04-09T05:27:36.554Z",
+      "lastUpdated": "2026-04-09T05:27:36.554Z",
+      "installPath": "/Users/apple/Desktop/文件/kaiwu-project/02-guqirongcai/docs/.kagent/kagent-skills/",
+      "isLocal": true
+    },
+    "testing-skills@kagent-skills": {
+      "version": "1.0.0",
+      "installedAt": "2026-04-09T05:27:36.554Z",
+      "lastUpdated": "2026-04-09T05:27:36.554Z",
+      "installPath": "/Users/apple/Desktop/文件/kaiwu-project/02-guqirongcai/docs/.kagent/kagent-skills/",
+      "isLocal": true
+    },
+    "skill-management@kagent-skills": {
+      "version": "1.0.0",
+      "installedAt": "2026-04-09T05:27:36.554Z",
+      "lastUpdated": "2026-04-09T05:27:36.554Z",
+      "installPath": "/Users/apple/Desktop/文件/kaiwu-project/02-guqirongcai/docs/.kagent/kagent-skills/",
+      "isLocal": true
+    }
+  }
+}

@@ -49,7 +49,8 @@ class WechatTrace extends Component {
         qualityInfo: {
           downContent: '95%',
           turbidity: '≥500mm',
-          odor: '无异味'
+          odor: '无异味',
+          fluffiness: '≥15cm'
         },
         // 3. 产品视频
         videos: [
@@ -87,7 +88,7 @@ class WechatTrace extends Component {
   renderHeader() {
     return (
       <div style={{
-        background: 'linear-gradient(135deg, #1890ff 0%, #096dd9 100%)',
+        background: 'linear-gradient(135deg, #bb7b43 0%, #8b5a2b 100%)',
         padding: '48px 24px 40px',
         textAlign: 'center',
         color: '#ffffff',
@@ -129,7 +130,7 @@ class WechatTrace extends Component {
             overflow: 'hidden'
           }}>
             <img
-              src="/logo_古麒绒材.jpg"
+              src="/logo.png"
               alt="古麒绒材"
               style={{
                 width: 100,
@@ -304,7 +305,8 @@ class WechatTrace extends Component {
     const metrics = [
       { label: '绒子含量', value: qualityInfo.downContent, color: '#52c41a', bgColor: '#f6ffed', borderColor: '#b7eb8f' },
       { label: '浊度', value: qualityInfo.turbidity, color: '#1890ff', bgColor: '#e6f7ff', borderColor: '#91d5ff' },
-      { label: '气味', value: qualityInfo.odor, color: '#fa8c16', bgColor: '#fff7e6', borderColor: '#ffd591' }
+      { label: '气味', value: qualityInfo.odor, color: '#fa8c16', bgColor: '#fff7e6', borderColor: '#ffd591' },
+      { label: '蓬松度', value: qualityInfo.fluffiness, color: '#722ed1', bgColor: '#f9f0ff', borderColor: '#d3adf7' }
     ];
 
     return (
@@ -329,7 +331,7 @@ class WechatTrace extends Component {
         >
           <Row gutter={[12, 12]}>
             {metrics.map((item, index) => (
-              <Col span={8} key={index}>
+              <Col span={6} key={index}>
                 <div style={{
                   background: item.bgColor,
                   border: '1px solid ' + item.borderColor,
@@ -492,14 +494,6 @@ class WechatTrace extends Component {
                     border: '1px solid #f0f0f0'
                   }}
                 />
-                <div style={{
-                  fontSize: 12,
-                  color: '#595959',
-                  marginTop: 8,
-                  lineHeight: 1.4
-                }}>
-                  {cert.name}
-                </div>
               </div>
             ))}
           </div>

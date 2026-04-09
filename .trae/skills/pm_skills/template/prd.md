@@ -542,66 +542,6 @@ flowchart TD
 
 ***
 
-#### [3.1.11] 数据示例
-
-##### [3.1.11.1] Mock数据
-
-- 根据行业和业务特性，提供符合实际场景的示例数据
-
-```javascript
-// 列表数据示例
-const listData = [
-  {
-    _id: "ck_001",
-    billCode: "CK202401150001",
-    billDate: "2024-01-15",
-    status: "待提交",
-    materialCode: "WL001",
-    materialName: "螺栓M8×30",
-    materialSpec: "镀锌",
-    quantity: 100,
-    unit: "个",
-    warehouseCode: "W001",
-    warehouseName: "原材料仓库",
-    positionCode: "A-01-01",
-    positionName: "A区1排1列",
-    remark: "生产领用",
-    createBy: "张三",
-    createTime: "2024-01-15 10:30:00"
-  },
-  {
-    _id: "ck_002",
-    billCode: "CK202401150002",
-    billDate: "2024-01-15",
-    status: "已审核",
-    materialCode: "WL002",
-    materialName: "垫片φ10",
-    materialSpec: "不锈钢304",
-    quantity: 500,
-    unit: "个",
-    warehouseCode: "W001",
-    warehouseName: "原材料仓库",
-    positionCode: "A-02-03",
-    positionName: "A区2排3列",
-    remark: "",
-    createBy: "李四",
-    createTime: "2024-01-15 14:20:00"
-  }
-];
-
-// 字典数据示例
-const dictData = {
-  BILL_STATUS: [
-    { value: "待提交", label: "待提交", color: "default" },
-    { value: "待审核", label: "待审核", color: "processing" },
-    { value: "已审核", label: "已审核", color: "success" },
-    { value: "已驳回", label: "已驳回", color: "error" }
-  ]
-};
-```
-
-***
-
 ## 四、非功能性需求
 
 ### [4.1] 性能要求

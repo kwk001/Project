@@ -164,10 +164,14 @@
       "Bash(curl -s http://localhost:8080/微信扫码溯源/index.jsx)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/preview.html)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5174)",
-      "Bash(python3 /tmp/remove_bg.py)"
+      "Bash(python3 /tmp/remove_bg.py)",
+      "Bash(start-lc-server --project-dir \"/Users/apple/Desktop/文件/kaiwu-project/02-guqirongcai/docs\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5556/preview)"
     ],
     "additionalDirectories": [
-      "/tmp"
+      "/tmp",
+      "/Users/apple/Desktop/文件/kaiwu-project/02-guqirongcai/docs",
+      "/Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书"
     ]
   }
 }
