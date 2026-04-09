@@ -181,7 +181,18 @@
       "Bash(sed -n 6361,6425p /Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书/技术方案说明书_V3.0_按二级目录组织_备份.md)",
       "Bash(sed -n 6426,6468p /Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书/技术方案说明书_V3.0_按二级目录组织_备份.md)",
       "Bash(sed -n 6469,6603p /Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书/技术方案说明书_V3.0_按二级目录组织_备份.md)",
-      "Bash(python3 \"/Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书/合并修复脚本.py\")"
+      "Bash(python3 \"/Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书/合并修复脚本.py\")",
+      "Bash(python3 \"/Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书/插入补充页面.py\")",
+      "Bash(python3 \"/Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书/修复编号.py\")",
+      "Read(//Users/apple/Desktop/文件/kaiwu-project/!seen[$0]++ || !/**)",
+      "Bash(sed -i '' 's/### 4\\\\.2\\\\.160 \\\\[航空物流公共信息平台-公共信息服务\\\\] 用户登录/### 4.2.162 [航空物流公共信息平台-公共信息服务] 用户登录/' /Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书/技术方案说明书_国际物流航空货站运行平台及海关信息平台_V3.1.md)",
+      "Bash(sed -i '' 's/### 4\\\\.2\\\\.161 \\\\[航空物流公共信息平台-公共信息服务\\\\] 航班动态查询/### 4.2.163 [航空物流公共信息平台-公共信息服务] 航班动态查询/' /Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书/技术方案说明书_国际物流航空货站运行平台及海关信息平台_V3.1.md)",
+      "Bash(python3 /tmp/fix_numbering.py)",
+      "Bash(python3 /tmp/fix_numbering2.py)",
+      "Bash(sed -i 's/\\\\*\\\\*版本号：\\\\*\\\\* V3.1.0/**版本号：** V3.3.0/' \"/Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书/技术方案说明书_国际物流航空货站运行平台及海关信息平台_V3.1.md\")",
+      "Bash(sed -i \"s/| V3.3.0 | 2026-04-09 | 补充PRD缺失内容 | 孔维康 |/| V3.3.0 | 2026-04-09 | 补充PRD缺失内容，新增3个页面（门户首页、设施运维工单管理、巡检计划管理），修复编号问题 | 孔维康 |/\" \"/Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书/技术方案说明书_国际物流航空货站运行平台及海关信息平台_V3.1.md\")",
+      "Bash(python3 /tmp/fix_version.py)",
+      "Bash(python3 /tmp/fix_duplicate.py)"
     ],
     "additionalDirectories": [
       "/tmp",

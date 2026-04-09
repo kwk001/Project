@@ -1,3 +1,4 @@
+
 # 古麒绒材溯源管理系统 - PRD需求文档
 
 ---
@@ -47,7 +48,6 @@
 **用户痛点**：
 - 消费者无法验证产品真伪，对产品质量存疑
 - 企业无法有效展示产品质检信息，品质优势无法传递
-- 产品出现质量问题时，无法快速定位问题批次和流向
 
 **解决价值**：
 - 建立消费者信任，提升品牌忠诚度
@@ -115,14 +115,18 @@
 
 **操作流程**：
 1. 操作员点击"新增批次"按钮，打开批次表单
-2. 选择产品档案（系统自动带出产品名称、编号）
-3. 填写批次号（系统校验唯一性）、数量、生产日期
-4. 录入质检数据：绒子含量、蓬松度、浊度、气味
-5. 点击"生成产品码"预览产品码
-6. 确认信息无误后点击"保存并生成产品码"
-7. 系统生成高清产品码图片
-8. 保存记录，提供下载链接，返回列表
-9. 操作员下载产品码图片，送印刷厂进行批量印刷
+2. 填写批次号、选择产品档案（系统自动带出规格）
+3. 选择执行标准（支持选择多个）、通过选择的执行标准后选择产品标准类别
+4. 选择生产年度
+5. 录入质检数据：绒子含量、蓬松度、浊度、气味
+6. 上传产品视频（支持多视频上传）
+7. 上传认证信息（图片形式）
+8. 上传企业信息：可能会有多个链接、支持上传图片(微信公众号)
+9. 点击"生成产品码"预览产品码
+10. 确认信息无误后点击"保存并生成产品码"
+11. 系统生成高清产品码图片
+12. 保存记录，提供下载链接，返回列表
+13. 操作员下载产品码图片，送印刷厂进行批量印刷
 
 #### 2.2.2 场景二：扫码溯源查询
 
@@ -135,13 +139,13 @@
 | **后置结果** | 消费者获取产品信息，信任度提升 |
 
 **操作流程**：
-1. 消费者使用微信扫描产品包装上的二维码
+1. 消费者使用微信扫描产品上的二维码
 2. 系统自动解析二维码中的批次号
 3. 后台查询批次数据并验证有效性
 4. 页面加载完成后首先显示正品验证结果
 5. 向下滚动查看产品基本信息（名称、规格、生产日期等）
 6. 查看质检指标（绒子含量、蓬松度等，以卡片形式展示）
-7. 查看完整的溯源流程时间线
+7. 其它维护的信息
 
 ### 2.3 业务价值
 
@@ -1944,6 +1948,7 @@ const materialData = [
     _id: "mat_001",
     materialCode: "WL001",
     materialName: "95%白鹅绒",
+    specification: "高规格",
     categoryId: "cat_001",
     categoryName: "白鹅绒",
     specification: "高规格",
@@ -1961,6 +1966,7 @@ const materialData = [
     _id: "mat_002",
     materialCode: "WL002",
     materialName: "90%白鹅绒",
+    specification: "标准规格",
     categoryId: "cat_001",
     categoryName: "白鹅绒",
     specification: "标准规格",
@@ -2290,18 +2296,19 @@ flowchart TD
 | 2 | 批次号 | batchNo | String | 是 | 全局唯一，如BC2024001 |
 | 3 | 产品名称 | materialName | String | 是 | 关联产品档案 |
 | 4 | 产品编号 | materialCode | String | 是 | - |
-| 5 | 数量 | quantity | Number | 是 | 大于0 |
-| 6 | 生产日期 | produceDate | Date | 是 | - |
-| 7 | 执行标准 | executionStandard | String | 是 | 关联执行标准 |
-| 8 | 产品标准类别 | productStandardCategory | String | 是 | 国标/行标/企标 |
-| 9 | 生产年度 | productionYear | Number | 是 | 4位年份 |
-| 10 | 绒子含量 | downContent | String | 是 | 如：95% |
-| 11 | 蓬松度 | fluffiness | String | 是 | 如：900+ in³/30g |
-| 12 | 产品码状态 | productCodeStatus | Enum | 是 | 已生成/未生成 |
-| 13 | 下载次数 | downloadCount | Number | 是 | 默认为0 |
-| 14 | 创建人 | createBy | String | 是 | - |
-| 15 | 创建时间 | createTime | DateTime | 是 | 系统自动记录 |
-| 16 | 操作 | - | - | - | 查看/下载 |
+| 5 | 规格型号 | specification | String | 是 | - |
+| 6 | 数量 | quantity | Number | 是 | 大于0 |
+| 7 | 生产日期 | produceDate | Date | 是 | - |
+| 8 | 执行标准 | executionStandard | String | 是 | 关联执行标准 |
+| 9 | 产品标准类别 | productStandardCategory | String | 是 | 国标/行标/企标 |
+| 10 | 生产年度 | productionYear | Number | 是 | 4位年份 |
+| 11 | 绒子含量 | downContent | String | 是 | 如：95% |
+| 12 | 蓬松度 | fluffiness | String | 是 | 如：900+ in³/30g |
+| 13 | 产品码状态 | productCodeStatus | Enum | 是 | 已生成/未生成 |
+| 14 | 下载次数 | downloadCount | Number | 是 | 默认为0 |
+| 15 | 创建人 | createBy | String | 是 | - |
+| 16 | 创建时间 | createTime | DateTime | 是 | 系统自动记录 |
+| 17 | 操作 | - | - | - | 查看/下载 |
 
 ##### 4.4.5.4 筛选条件
 
@@ -2377,7 +2384,7 @@ flowchart TD
 | 元素 | 类型 | 触发条件 | 行为描述 | 反馈方式 |
 |------|------|---------|---------|---------|
 | [新增批次]按钮 | 按钮(Button) | 点击 | 打开产品码生成表单对话框 | 对话框从中心弹出 |
-| [产品档案]下拉 | 下拉选择(Select) | 选择 | 自动带出产品编号、计量单位 | 联动填充字段 |
+| [产品档案]下拉 | 下拉选择(Select) | 选择 | 自动带出产品编号、计量单位、规格型号 | 联动填充字段 |
 | [批次号]输入框 | 输入框(Input) | 失去焦点 | 校验批次号是否已存在 | 已存在时红色提示 |
 | [生成产品码]按钮 | 按钮 | 点击 | 生成产品码预览 | 弹窗展示产品码预览 |
 | [保存并生成产品码]按钮 | 按钮 | 点击 | 保存批次→生成产品码→提供预览和下载 | Toast提示结果 |
@@ -2389,16 +2396,17 @@ flowchart TD
 
 | 序号 | 字段名称 | 字段标识 | 控件类型 | 是否必填 | 验证规则 | 默认值 | 联动规则 |
 |------|---------|---------|---------|---------|---------|--------|---------|
-| 1 | 产品档案 | materialId | 下拉选择(Select) | 是 | - | - | 选择后带出编号、单位 |
-| 2 | 产品编号 | materialCode | 输入框(只读) | - | - | - | 由产品档案带出 |
-| 3 | 计量单位 | unitName | 输入框(只读) | - | - | - | 由产品档案带出 |
-| 4 | 规格型号 | specification | 输入框(只读) | - | - | - | 由产品档案带出 |
-| 5 | 批次号 | batchNo | 输入框(Input) | 是 | 唯一，长度4-30 | - | - |
-| 6 | 数量 | quantity | 数字框(Number) | 是 | >0，最大999999 | - | - |
-| 7 | 生产日期 | produceDate | 日期选择(DatePicker) | 是 | 不能晚于今天 | 当天日期 | - |
-| 8 | 执行标准 | executionStandard | 下拉选择(Select) | 是 | - | - | 关联执行标准管理 |
-| 9 | 产品标准类别 | productStandardCategory | 下拉选择 | 是 | 国标/行标/企标 | - | - |
-| 10 | 生产年度 | productionYear | 年份选择(YearPicker) | 是 | 4位年份 | 当年 | - |
+| 1 | 产品档案 | materialId | 下拉选择(Select) | 是 | - | - | 选择后带出名称、编号、单位、规格型号 |
+| 2 | 产品名称 | materialName | 输入框(只读) | - | - | - | 由产品档案带出 |
+| 3 | 产品编号 | materialCode | 输入框(只读) | - | - | - | 由产品档案带出 |
+| 4 | 计量单位 | unitName | 输入框(只读) | - | - | - | 由产品档案带出 |
+| 5 | 规格型号 | specification | 输入框(只读) | - | - | - | 由产品档案带出 |
+| 6 | 批次号 | batchNo | 输入框(Input) | 是 | 唯一，长度4-30 | - | - |
+| 7 | 数量 | quantity | 数字框(Number) | 是 | >0，最大999999 | - | - |
+| 8 | 生产日期 | produceDate | 日期选择(DatePicker) | 是 | 不能晚于今天 | 当天日期 | - |
+| 9 | 执行标准 | executionStandard | 下拉选择(Select) | 是 | - | - | 关联执行标准管理 |
+| 10 | 产品标准类别 | productStandardCategory | 下拉选择 | 是 | 国标/行标/企标 | - | - |
+| 11 | 生产年度 | productionYear | 年份选择(YearPicker) | 是 | 4位年份 | 当年 | - |
 
 **媒体信息区域**：
 
@@ -2575,26 +2583,27 @@ flowchart TD
 | 3 | 产品ID | materialId | 下拉选择 | String | 32 | 是 | - | 外键 | 关联产品档案 |
 | 4 | 产品编号 | materialCode | - | String | 20 | 是 | - | 冗余字段 | - |
 | 5 | 产品名称 | materialName | - | String | 50 | 是 | - | 冗余字段 | - |
-| 6 | 数量 | quantity | 数字框 | Number | - | 是 | - | >0，最大999999 | - |
-| 7 | 计量单位 | unitName | - | String | 20 | 是 | - | 冗余字段 | - |
-| 8 | 生产日期 | produceDate | 日期选择 | Date | - | 是 | - | 不能晚于今天 | - |
-| 9 | 执行标准 | executionStandard | 下拉选择 | String | 32 | 是 | - | 外键 | 关联执行标准 |
-| 10 | 产品标准类别 | productStandardCategory | 下拉选择 | String | 20 | 是 | - | 国标/行标/企标 | - |
-| 11 | 生产年度 | productionYear | 年份选择 | Number | - | 是 | - | 4位年份 | - |
-| 12 | 产品视频 | productVideo | 文件上传 | String | 200 | 否 | - | URL | 视频文件地址 |
-| 13 | 认证信息图片 | certificationImages | 图片上传 | String | 500 | 否 | - | JSON数组 | 图片URL列表 |
-| 14 | 绒子含量 | downContent | 输入框 | String | 20 | 是 | - | - | - |
-| 15 | 蓬松度 | fluffiness | 输入框 | String | 20 | 是 | - | - | - |
-| 16 | 浊度 | turbidity | 输入框 | String | 20 | 是 | - | - | - |
-| 17 | 气味 | odor | 输入框 | String | 20 | 是 | - | - | - |
-| 18 | 产品码状态 | productCodeStatus | - | String | 10 | 是 | 未生成 | - | 已生成/未生成 |
-| 19 | 下载次数 | downloadCount | - | Number | - | 是 | 0 | - | - |
-| 20 | 溯源URL | traceUrl | - | String | 200 | 系统 | 自动生成 | - | - |
-| 21 | 删除标记 | delFlag | - | Number | - | 是 | 0 | 0=正常,1=删除 | - |
-| 22 | 创建人 | createBy | - | String | 32 | 系统 | 当前用户 | - | - |
-| 23 | 创建时间 | createTime | - | DateTime | - | 系统 | 当前时间 | - | - |
-| 24 | 更新人 | updateBy | - | String | 32 | 系统 | 当前用户 | - | - |
-| 25 | 更新时间 | updateTime | - | DateTime | - | 系统 | 当前时间 | - | - |
+| 6 | 规格型号 | specification | - | String | 50 | 是 | - | 冗余字段 | - |
+| 7 | 数量 | quantity | 数字框 | Number | - | 是 | - | >0，最大999999 | - |
+| 8 | 计量单位 | unitName | - | String | 20 | 是 | - | 冗余字段 | - |
+| 9 | 生产日期 | produceDate | 日期选择 | Date | - | 是 | - | 不能晚于今天 | - |
+| 10 | 执行标准 | executionStandard | 下拉选择 | String | 32 | 是 | - | 外键 | 关联执行标准 |
+| 11 | 产品标准类别 | productStandardCategory | 下拉选择 | String | 20 | 是 | - | 国标/行标/企标 | - |
+| 12 | 生产年度 | productionYear | 年份选择 | Number | - | 是 | - | 4位年份 | - |
+| 13 | 产品视频 | productVideo | 文件上传 | String | 200 | 否 | - | URL | 视频文件地址 |
+| 14 | 认证信息图片 | certificationImages | 图片上传 | String | 500 | 否 | - | JSON数组 | 图片URL列表 |
+| 15 | 绒子含量 | downContent | 输入框 | String | 20 | 是 | - | - | - |
+| 16 | 蓬松度 | fluffiness | 输入框 | String | 20 | 是 | - | - | - |
+| 17 | 浊度 | turbidity | 输入框 | String | 20 | 是 | - | - | - |
+| 18 | 气味 | odor | 输入框 | String | 20 | 是 | - | - | - |
+| 19 | 产品码状态 | productCodeStatus | - | String | 10 | 是 | 未生成 | - | 已生成/未生成 |
+| 20 | 下载次数 | downloadCount | - | Number | - | 是 | 0 | - | - |
+| 21 | 溯源URL | traceUrl | - | String | 200 | 系统 | 自动生成 | - | - |
+| 22 | 删除标记 | delFlag | - | Number | - | 是 | 0 | 0=正常,1=删除 | - |
+| 23 | 创建人 | createBy | - | String | 32 | 系统 | 当前用户 | - | - |
+| 24 | 创建时间 | createTime | - | DateTime | - | 系统 | 当前时间 | - | - |
+| 25 | 更新人 | updateBy | - | String | 32 | 系统 | 当前用户 | - | - |
+| 26 | 更新时间 | updateTime | - | DateTime | - | 系统 | 当前时间 | - | - |
 
 ##### 4.4.8.2 关联实体
 
@@ -2665,23 +2674,34 @@ flowchart TD
 │ 基本信息                                           │
 │ ┌────────────────────────────────────────────────┐│
 │ │ 产品档案: [              ▼ ] *              ││
+│ │ 产品名称: [                  ] (只读)         ││
 │ │ 产品编号: [                  ] (只读)         ││
 │ │ 计量单位: [                  ] (只读)         ││
 │ │ 批 次 号: [                  ] *              ││
 │ │ 数    量: [                  ] *              ││
 │ │ 生产日期: [              ▼ ] *              ││
+│ │ 规格型号: [                  ] (只读)         ││
+│ │ 执行标准: [              ▼ ] *              ││
+│ │ 产品标准类别: [              ▼ ] *              ││
+│ │ 生产年度: [              ▼ ] *              ││
 │ └────────────────────────────────────────────────┘│
 │                                                    │
 │ 质检信息                                           │
 │ ┌────────────────────────────────────────────────┐│
 │ │ 绒子含量: [                  ] *              ││
 │ │ 蓬 松 度: [                  ] *              ││
-│ │ 清 洁 度: [                  ] *              ││
-│ │ 耗 氧 量: [                  ] *              ││
+│ │ 浊    度: [                  ] *              ││
+│ │ 气    味: [                  ] *              ││
 │ └────────────────────────────────────────────────┘│
 │                                                    │
 │ [生成产品码预览]                                   │
 │                                                    │
+│                                                    │
+│ 媒体信息                                           │
+│ ┌────────────────────────────────────────────────┐│
+│ │ 产品视频: [      点击上传视频      ]          ││
+│ │ 认证信息: [      点击上传图片      ]          ││
+│ └────────────────────────────────────────────────┘│
 ├────────────────────────────────────────────────────┤
 │                         [取消]  [保存并生成产品码] │
 └────────────────────────────────────────────────────┘
@@ -2746,6 +2766,7 @@ const batchData = [
     materialId: "mat_001",
     materialCode: "WL001",
     materialName: "95%白鹅绒",
+    specification: "高规格",
     quantity: 500,
     unitName: "千克",
     produceDate: "2024-01-15",
@@ -2773,6 +2794,7 @@ const batchData = [
     materialId: "mat_002",
     materialCode: "WL002",
     materialName: "90%白鹅绒",
+    specification: "标准规格",
     quantity: 300,
     unitName: "千克",
     produceDate: "2024-01-16",
@@ -3341,6 +3363,7 @@ const traceData = {
   // 产品信息
   product: {
     materialName: "95%白鹅绒",
+    specification: "高规格",
     specification: "高规格",
     produceDate: "2024-01-15",
     batchNo: "BC202401001"
@@ -4170,6 +4193,7 @@ const materialData = [
     _id: "mat_001",
     materialCode: "WL001",
     materialName: "95%白鹅绒",
+    specification: "高规格",
     categoryName: "白鹅绒",
     unitName: "千克",
     status: "启用"
@@ -4178,6 +4202,7 @@ const materialData = [
     _id: "mat_002",
     materialCode: "WL002",
     materialName: "90%白鹅绒",
+    specification: "标准规格",
     categoryName: "白鹅绒",
     unitName: "千克",
     status: "启用"
@@ -4193,6 +4218,7 @@ const batchData = [
     _id: "batch_001",
     batchNo: "BC202401001",
     materialName: "95%白鹅绒",
+    specification: "高规格",
     quantity: 500,
     produceDate: "2024-01-15",
     downContent: "95%",
