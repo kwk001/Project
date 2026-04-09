@@ -5,7 +5,7 @@
       "cron": "17 * * * *",
       "prompt": "执行Git自动同步：cd \"/Users/apple/Desktop/文件/kaiwu-project\" && git add -A && git commit -m \"auto: 自动同步 $(date '+%Y-%m-%d %H:%M')\" --no-verify && git push project master",
       "createdAt": 1775617886341,
-      "lastFiredAt": 1775741296278,
+      "lastFiredAt": 1775744598248,
       "recurring": true
     }
   ]
