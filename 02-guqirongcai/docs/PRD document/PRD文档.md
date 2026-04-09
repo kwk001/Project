@@ -212,7 +212,10 @@ flowchart TD
 | 新增记录 | ✅ | ❌ | ❌ |
 | 编辑记录 | ✅ | ❌ | ❌ |
 | 删除记录 | ✅ | ❌ | ❌ |
+| 批量删除 | ✅ | ❌ | ❌ |
 | 批量导出 | ✅ | ✅ | ✅ |
+| 下载模版 | ✅ | ✅ | ✅ |
+| 批量导入 | ✅ | ❌ | ❌ |
 
 ##### 3.1.4.2 数据权限规则
 
@@ -741,7 +744,10 @@ flowchart TD
 | 新增记录 | ✅ | ❌ | ❌ |
 | 编辑记录 | ✅ | ❌ | ❌ |
 | 删除记录 | ✅ | ❌ | ❌ |
+| 批量删除 | ✅ | ❌ | ❌ |
 | 批量导出 | ✅ | ✅ | ✅ |
+| 下载模版 | ✅ | ✅ | ✅ |
+| 批量导入 | ✅ | ❌ | ❌ |
 
 ##### 3.2.4.2 数据权限规则
 
@@ -1598,6 +1604,7 @@ flowchart TD
 | 查看列表 | ✅ | ✅ | ✅ |
 | 查看详情 | ✅ | ✅ | ✅ |
 | 新增批次 | ✅ | ✅ | ❌ |
+| 编辑批次 | ✅ | ✅ | ❌ |
 | 下载产品码 | ✅ | ✅ | ✅ |
 | 批量导出 | ✅ | ✅ | ✅ |
 
@@ -2726,83 +2733,6 @@ flowchart TD
 | 非微信浏览器 | User-Agent检测 | 提示使用微信扫码 | "请使用微信扫描二维码" |
 | 微信内置浏览器 | User-Agent检测 | 正常展示 | - |
 
-#### 3.5.12 数据示例
-
-##### 3.5.12.1 Mock数据
-
-```javascript
-const traceData = {
-  // 验证结果
-  validation: {
-    status: "valid", // valid/invalid/expired
-    title: "正品验证通过",
-    message: "该产品为古麒绒材正品"
-  },
-  // 产品信息
-  product: {
-    materialName: "95%白鹅绒",
-    specification: "高规格",
-    specification: "高规格",
-    produceDate: "2024-01-15",
-    batchNo: "BC202401001"
-  },
-  // 质检指标
-  quality: {
-    downContent: "95%",
-    fluffiness: "900+",
-    turbidity: "10mm",
-    executionStandard: "GB/T 14272-2021",
-    productStandardCategory: "国家标准",
-    productionYear: 2024,
-    productVideo: "https://guqi.example.com/videos/batch_001.mp4",
-    certificationImages: ["https://guqi.example.com/images/cert1.jpg", "https://guqi.example.com/images/cert2.jpg"],
-    odor: "≤4.8"
-  },
-  // 溯源流程
-  timeline: [
-    { step: "原料采购", date: "2024-01-10", status: "completed" },
-    { step: "原料检验", date: "2024-01-11", status: "completed" },
-    { step: "生产加工", date: "2024-01-12", status: "completed" },
-    { step: "成品检验", date: "2024-01-15", status: "completed" },
-    { step: "包装入库", date: "2024-01-15", status: "completed" }
-  ],
-  // 企业信息
-  company: {
-    name: "安徽古麒绒材股份有限公司",
-    address: "安徽省芜湖市繁昌区",
-    licenseNo: "SC1234567890123",
-    inspector: "张工",
-    wechatQrImage: "https://guqi.example.com/images/wechat-qr.png",
-    companyLinks: [
-      { name: "企业官网", url: "https://www.guqirongcai.com" },
-      { name: "天猫旗舰店", url: "https://guqi.tmall.com" },
-      { name: "京东旗舰店", url: "https://guqi.jd.com" }
-    ]
-  }
-};
-```
-
-##### 3.5.12.2 错误数据示例
-
-```javascript
-// 无效二维码
-const invalidData = {
-  validation: {
-    status: "invalid",
-    title: "无效二维码",
-    message: "该二维码不存在或已被伪造"
-  }
-};
-
-// 批次已失效
-const expiredData = {
-  validation: {
-    status: "expired",
-    title: "批次已失效",
-    message: "该产品批次已过期或作废"
-  }
-};
-```
 
 ---
 
