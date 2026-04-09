@@ -698,7 +698,7 @@ flowchart TD
 | 1 | 序号 | index | Number | - | 自动编号 |
 | 2 | 产品编号 | materialCode | String | 是 | 全局唯一，长度4-20 |
 | 3 | 产品名称 | materialName | String | 是 | - |
-| 4 | 规格型号 | specification | String | 否 | - |
+| 4 | 规格 | specification | String | 否 | - |
 | 5 | 计量单位 | unitName | String | 是 | 关联计量单位 |
 | 6 | 状态 | status | Enum | 是 | 启用/禁用 |
 | 7 | 创建人 | createBy | String | 是 | - |
@@ -985,7 +985,7 @@ flowchart TD
 | 1 | 唯一标识 | _id | - | String | 32 | 系统 | UUID | - | 主键 |
 | 2 | 产品编号 | materialCode | 输入框 | String | 20 | 是 | - | 唯一 | 业务主键 |
 | 3 | 产品名称 | materialName | 输入框 | String | 50 | 是 | - | 唯一 | - |
-| 4 | 规格型号 | specification | 输入框 | String | 100 | 否 | - | - | - |
+| 4 | 规格 | specification | 输入框 | String | 100 | 否 | - | - | - |
 | 5 | 计量单位ID | unitId | 下拉选择 | String | 32 | 是 | - | 外键 | 关联计量单位 |
 | 6 | 计量单位名 | unitName | - | String | 20 | 是 | - | 冗余字段 | - |
 | 7 | 备注说明 | remark | 文本域 | String | 500 | 否 | - | - | - |
