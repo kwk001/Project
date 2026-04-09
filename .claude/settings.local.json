@@ -240,7 +240,8 @@
       "Bash(python3 fix_4_3_subsections.py)",
       "Bash(python3 /tmp/fill_device_pages.py)",
       "Bash(python3 insert_edit_batch_fixed.py)",
-      "Bash(python3 fix_fp_titles.py)"
+      "Bash(python3 fix_fp_titles.py)",
+      "Bash(python3 reorganize_prd.py)"
     ],
     "additionalDirectories": [
       "/tmp",
