@@ -1,0 +1,15 @@
+body {
+  font-size: 14px;
+}
+
+.lce-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.table-wrapper {
+  flex: 1;
+}

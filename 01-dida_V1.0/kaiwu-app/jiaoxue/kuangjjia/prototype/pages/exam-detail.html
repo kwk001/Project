@@ -1,0 +1,654 @@
+<!-- 在线考试页面 -->
+<div class="exam-header">
+    <div class="exam-info-bar">
+        <h1 class="exam-title">机械制图期末考试</h1>
+        <div class="exam-meta">
+            <span class="meta-item"><i class="iconfont icon-shijian"></i> 剩余时间：01:45:32</span>
+            <span class="meta-item"><i class="iconfont icon-timu"></i> 第 12/50 题</span>
+            <span class="meta-item"><i class="iconfont icon-jindu"></i> 完成度：24%</span>
+        </div>
+    </div>
+    <div class="exam-actions">
+        <button class="btn btn-default" onclick="saveProgress()">
+            <i class="iconfont icon-baocun"></i> 保存进度
+        </button>
+        <button class="btn btn-primary" onclick="submitExam()">
+            <i class="iconfont icon-tijiao"></i> 提交试卷
+        </button>
+    </div>
+</div>
+
+<div class="exam-container">
+    <!-- 左侧题目导航 -->
+    <div class="question-nav">
+        <div class="nav-header">
+            <h3>题目导航</h3>
+            <div class="nav-legend">
+                <span class="legend-item"><span class="dot done"></span>已答</span>
+                <span class="legend-item"><span class="dot current"></span>当前</span>
+                <span class="legend-item"><span class="dot pending"></span>未答</span>
+                <span class="legend-item"><span class="dot marked"></span>标记</span>
+            </div>
+        </div>
+        <div class="nav-grid">
+            <div class="nav-item done">1</div>
+            <div class="nav-item done">2</div>
+            <div class="nav-item done">3</div>
+            <div class="nav-item done">4</div>
+            <div class="nav-item done">5</div>
+            <div class="nav-item done">6</div>
+            <div class="nav-item done">7</div>
+            <div class="nav-item done">8</div>
+            <div class="nav-item done">9</div>
+            <div class="nav-item done">10</div>
+            <div class="nav-item done">11</div>
+            <div class="nav-item current">12</div>
+            <div class="nav-item pending">13</div>
+            <div class="nav-item pending">14</div>
+            <div class="nav-item pending">15</div>
+            <div class="nav-item pending">16</div>
+            <div class="nav-item pending">17</div>
+            <div class="nav-item pending">18</div>
+            <div class="nav-item pending">19</div>
+            <div class="nav-item pending">20</div>
+            <div class="nav-item pending">21</div>
+            <div class="nav-item pending">22</div>
+            <div class="nav-item pending">23</div>
+            <div class="nav-item pending">24</div>
+            <div class="nav-item pending">25</div>
+            <div class="nav-item pending">26</div>
+            <div class="nav-item pending">27</div>
+            <div class="nav-item pending">28</div>
+            <div class="nav-item pending">29</div>
+            <div class="nav-item pending">30</div>
+        </div>
+    </div>
+
+    <!-- 中间题目区域 -->
+    <div class="question-area">
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-type">单选题</span>
+                <span class="question-score">2分</span>
+            </div>
+            <div class="question-content">
+                <div class="question-text">
+                    <span class="question-number">12.</span>
+                    在三视图中，主视图反映物体的哪个维度？
+                </div>
+                <div class="question-image">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect fill='%23f0f0f0' width='300' height='200'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23999'%3E三视图示意图%3C/text%3E%3C/svg%3E" alt="三视图示意图">
+                </div>
+                <div class="options-list">
+                    <label class="option-item">
+                        <input type="radio" name="answer" value="A">
+                        <span class="option-label">A</span>
+                        <span class="option-text">宽度</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="answer" value="B" checked>
+                        <span class="option-label">B</span>
+                        <span class="option-text">长度和高度</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="answer" value="C">
+                        <span class="option-label">C</span>
+                        <span class="option-text">高度和宽度</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="answer" value="D">
+                        <span class="option-label">D</span>
+                        <span class="option-text">长度和宽度</span>
+                    </label>
+                </div>
+            </div>
+            <div class="question-actions">
+                <button class="btn btn-mark" onclick="markQuestion()">
+                    <i class="iconfont icon-biaoji"></i> 标记本题
+                </button>
+                <div class="nav-buttons">
+                    <button class="btn btn-default" onclick="prevQuestion()">
+                        <i class="iconfont icon-shangyiye"></i> 上一题
+                    </button>
+                    <button class="btn btn-primary" onclick="nextQuestion()">
+                        下一题 <i class="iconfont icon-xiayiye"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 右侧答题卡 -->
+    <div class="answer-sheet">
+        <div class="sheet-header">
+            <h3>答题卡</h3>
+            <div class="sheet-stats">
+                <div class="stat-item">
+                    <span class="stat-num done">11</span>
+                    <span class="stat-label">已答</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num pending">39</span>
+                    <span class="stat-label">未答</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num marked">0</span>
+                    <span class="stat-label">标记</span>
+                </div>
+            </div>
+        </div>
+        <div class="sheet-content">
+            <div class="sheet-section">
+                <h4>单选题（共30题，60分）</h4>
+                <div class="sheet-grid">
+                    <div class="sheet-item done">1</div>
+                    <div class="sheet-item done">2</div>
+                    <div class="sheet-item done">3</div>
+                    <div class="sheet-item done">4</div>
+                    <div class="sheet-item done">5</div>
+                    <div class="sheet-item done">6</div>
+                    <div class="sheet-item done">7</div>
+                    <div class="sheet-item done">8</div>
+                    <div class="sheet-item done">9</div>
+                    <div class="sheet-item done">10</div>
+                    <div class="sheet-item done">11</div>
+                    <div class="sheet-item current">12</div>
+                    <div class="sheet-item pending">13</div>
+                    <div class="sheet-item pending">14</div>
+                    <div class="sheet-item pending">15</div>
+                    <div class="sheet-item pending">16</div>
+                    <div class="sheet-item pending">17</div>
+                    <div class="sheet-item pending">18</div>
+                    <div class="sheet-item pending">19</div>
+                    <div class="sheet-item pending">20</div>
+                    <div class="sheet-item pending">21</div>
+                    <div class="sheet-item pending">22</div>
+                    <div class="sheet-item pending">23</div>
+                    <div class="sheet-item pending">24</div>
+                    <div class="sheet-item pending">25</div>
+                    <div class="sheet-item pending">26</div>
+                    <div class="sheet-item pending">27</div>
+                    <div class="sheet-item pending">28</div>
+                    <div class="sheet-item pending">29</div>
+                    <div class="sheet-item pending">30</div>
+                </div>
+            </div>
+            <div class="sheet-section">
+                <h4>多选题（共10题，20分）</h4>
+                <div class="sheet-grid">
+                    <div class="sheet-item pending">31</div>
+                    <div class="sheet-item pending">32</div>
+                    <div class="sheet-item pending">33</div>
+                    <div class="sheet-item pending">34</div>
+                    <div class="sheet-item pending">35</div>
+                    <div class="sheet-item pending">36</div>
+                    <div class="sheet-item pending">37</div>
+                    <div class="sheet-item pending">38</div>
+                    <div class="sheet-item pending">39</div>
+                    <div class="sheet-item pending">40</div>
+                </div>
+            </div>
+            <div class="sheet-section">
+                <h4>判断题（共10题，20分）</h4>
+                <div class="sheet-grid">
+                    <div class="sheet-item pending">41</div>
+                    <div class="sheet-item pending">42</div>
+                    <div class="sheet-item pending">43</div>
+                    <div class="sheet-item pending">44</div>
+                    <div class="sheet-item pending">45</div>
+                    <div class="sheet-item pending">46</div>
+                    <div class="sheet-item pending">47</div>
+                    <div class="sheet-item pending">48</div>
+                    <div class="sheet-item pending">49</div>
+                    <div class="sheet-item pending">50</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* 考试头部 */
+.exam-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: #fff;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.exam-info-bar {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.exam-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f1f1f;
+    margin: 0;
+}
+
+.exam-meta {
+    display: flex;
+    gap: 20px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #595959;
+}
+
+.meta-item i {
+    color: #1890ff;
+}
+
+.exam-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.exam-actions .btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 按钮样式 */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background: #1890ff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: #40a9ff;
+}
+
+.btn-default {
+    background: #fff;
+    color: #595959;
+    border: 1px solid #d9d9d9;
+}
+
+.btn-default:hover {
+    border-color: #1890ff;
+    color: #1890ff;
+}
+
+.btn-mark {
+    background: #fff7e6;
+    color: #fa8c16;
+    border: 1px solid #ffd591;
+}
+
+.btn-mark:hover {
+    background: #fa8c16;
+    color: #fff;
+}
+
+/* 考试容器 */
+.exam-container {
+    display: flex;
+    gap: 20px;
+    height: calc(100vh - 200px);
+}
+
+/* 左侧导航 */
+.question-nav {
+    width: 240px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    overflow-y: auto;
+}
+
+.nav-header {
+    margin-bottom: 16px;
+}
+
+.nav-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f1f1f;
+    margin: 0 0 12px 0;
+}
+
+.nav-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #595959;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.dot.done { background: #52c41a; }
+.dot.current { background: #1890ff; }
+.dot.pending { background: #d9d9d9; }
+.dot.marked { background: #fa8c16; }
+
+.nav-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+}
+
+.nav-item {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.nav-item.done {
+    background: #f6ffed;
+    color: #52c41a;
+}
+
+.nav-item.current {
+    background: #1890ff;
+    color: #fff;
+}
+
+.nav-item.pending {
+    background: #f5f5f5;
+    color: #595959;
+}
+
+.nav-item.marked {
+    background: #fff7e6;
+    color: #fa8c16;
+    border: 1px solid #ffd591;
+}
+
+.nav-item:hover {
+    transform: scale(1.1);
+}
+
+/* 中间题目区域 */
+.question-area {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.question-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.question-type {
+    padding: 4px 12px;
+    background: #e6f7ff;
+    color: #1890ff;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.question-score {
+    color: #fa8c16;
+    font-weight: 500;
+}
+
+.question-content {
+    margin-bottom: 24px;
+}
+
+.question-text {
+    font-size: 16px;
+    color: #1f1f1f;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.question-number {
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+.question-image {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.question-image img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.option-item:hover {
+    border-color: #1890ff;
+    background: #f0f9ff;
+}
+
+.option-item input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #1890ff;
+}
+
+.option-label {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #595959;
+}
+
+.option-item:hover .option-label {
+    background: #1890ff;
+    color: #fff;
+}
+
+.option-text {
+    flex: 1;
+    font-size: 15px;
+    color: #1f1f1f;
+}
+
+.question-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+/* 右侧答题卡 */
+.answer-sheet {
+    width: 280px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    overflow-y: auto;
+}
+
+.sheet-header {
+    margin-bottom: 20px;
+}
+
+.sheet-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f1f1f;
+    margin: 0 0 16px 0;
+}
+
+.sheet-stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 12px;
+    background: #fafafa;
+    border-radius: 8px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-num {
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.stat-num.done { color: #52c41a; }
+.stat-num.pending { color: #8c8c8c; }
+.stat-num.marked { color: #fa8c16; }
+
+.stat-label {
+    font-size: 12px;
+    color: #8c8c8c;
+}
+
+.sheet-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sheet-section h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #595959;
+    margin: 0 0 12px 0;
+}
+
+.sheet-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+}
+
+.sheet-item {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.sheet-item.done {
+    background: #f6ffed;
+    color: #52c41a;
+}
+
+.sheet-item.current {
+    background: #1890ff;
+    color: #fff;
+}
+
+.sheet-item.pending {
+    background: #f5f5f5;
+    color: #595959;
+}
+
+.sheet-item.marked {
+    background: #fff7e6;
+    color: #fa8c16;
+    border: 1px solid #ffd591;
+}
+</style>
+
+<script>
+// 保存进度
+function saveProgress() {
+    alert('进度已保存！');
+}
+
+// 提交试卷
+function submitExam() {
+    if (confirm('确定要提交试卷吗？提交后将无法修改答案。')) {
+        alert('试卷提交成功！');
+        loadPage('exam');
+    }
+}
+
+// 标记题目
+function markQuestion() {
+    alert('题目已标记！');
+}
+
+// 上一题
+function prevQuestion() {
+    alert('切换到上一题');
+}
+
+// 下一题
+function nextQuestion() {
+    alert('切换到下一题');
+}
+</script>

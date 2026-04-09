@@ -1,0 +1,33 @@
+{
+  "properties": {
+    "RESOURCE_CODE": "b2b6b99a54dd4aa7d30d09ff6d1629f5",
+    "IS_COMMON": true
+  },
+  "id": "e70de908e54c40fbb62593496b32412f",
+  "groupId": "1e8f330c359844b78a2543bad47c190d",
+  "name": "根据表单编码获取表单id",
+  "createTime": 1724401025276,
+  "updateTime": 1720518328476,
+  "lock": null,
+  "createBy": "19165831388",
+  "updateBy": "admin",
+  "path": "getFormIdByCodes",
+  "description": null,
+  "returnType": null,
+  "mappingPath": null,
+  "parameters": [
+    {
+      "name": "formCodes",
+      "value": null,
+      "description": null,
+      "required": false,
+      "dataType": "String",
+      "type": "java.util.Collection",
+      "defaultValue": null,
+      "validateType": null,
+      "error": null,
+      "expression": null,
+      "children": null
+    }
+  ]
+}

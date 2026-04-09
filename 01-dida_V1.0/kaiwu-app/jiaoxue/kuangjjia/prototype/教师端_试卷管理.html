@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>试卷管理 - 教师端</title>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_5124072_s39q5gmh59a.css">
+    <link rel="stylesheet" href="./common.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #F5F7FA;
+            display: flex;
+            height: 100vh;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .page-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+        .btn-primary {
+            padding: 10px 24px;
+            background: #1890FF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-primary:hover { background: #40A9FF; }
+        
+        /* 内容区域 */
+        .content-body {
+            padding: 20px;
+            background: #F0F2F5;
+            min-height: calc(100vh - 60px);
+        }
+
+        /* 统计卡片 - 教务端风格 */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        .stat-icon.blue { background: linear-gradient(135deg, #E6F7FF 0%, #BAE7FF 100%); }
+        .stat-icon.green { background: linear-gradient(135deg, #F6FFED 0%, #D9F7BE 100%); }
+        .stat-icon.orange { background: linear-gradient(135deg, #FFF7E6 0%, #FFE7BA 100%); }
+        .stat-icon.purple { background: linear-gradient(135deg, #F9F0FF 0%, #EFDBFF 100%); }
+        .stat-content { flex: 1; }
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #262626;
+            line-height: 1.2;
+        }
+        .stat-label {
+            font-size: 13px;
+            color: #8C8C8C;
+            margin-top: 4px;
+        }
+        .stat-trend {
+            font-size: 12px;
+            color: #52C41A;
+            margin-top: 4px;
+        }
+        .stat-trend.down { color: #FF4D4F; }
+
+        /* 搜索筛选区 - 卡片式布局 */
+        .search-filter-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .search-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .search-row:last-child {
+            margin-bottom: 0;
+        }
+        .search-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #E8E8E8;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #1890FF;
+            box-shadow: 0 0 0 3px rgba(24,144,255,0.1);
+        }
+        .filter-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filter-label {
+            font-size: 13px;
+            color: #666;
+            white-space: nowrap;
+        }
+        .filter-select {
+            padding: 8px 12px;
+            border: 1px solid #E8E8E8;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #333;
+            background: #fff;
+            cursor: pointer;
+            min-width: 120px;
+        }
+        .filter-select:focus {
+            outline: none;
+            border-color: #1890FF;
+        }
+        .btn-search {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #1890FF 0%, #096DD9 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-search:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(24,144,255,0.3);
+        }
+        .btn-reset {
+            padding: 12px 20px;
+            background: #fff;
+            border: 1px solid #D9D9D9;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.3s;
+        }
+        .btn-reset:hover {
+            border-color: #1890FF;
+            color: #1890FF;
+        }
+        
+        /* 表格样式 */
+        .data-table {
+            width: 100%;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            overflow-x: auto;
+            white-space: nowrap;
+            position: relative;
+        }
+        .data-table table {
+            width: max-content;
+            min-width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .data-table th {
+            background: #FAFAFA;
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 1px solid #E8E8E8;
+            white-space: nowrap;
+        }
+        .data-table td {
+            padding: 16px;
+            border-bottom: 1px solid #F0F0F0;
+            font-size: 14px;
+            color: #666;
+            white-space: nowrap;
+        }
+        .data-table tr:hover {
+            background: #F5F7FA;
+        }
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+        /* 固定第1列（序号列） */
+        .data-table th:first-child,
+        .data-table td:first-child {
+            position: sticky;
+            left: 0;
+            background: #FAFAFA;
+            z-index: 10;
+            border-right: 1px solid #E8E8E8;
+        }
+        .data-table td:first-child {
+            background: #fff;
+        }
+        .data-table tr:hover td:first-child {
+            background: #F5F7FA;
+        }
+        /* 固定操作栏（最后一列） */
+        .data-table th:last-child,
+        .data-table td:last-child {
+            position: sticky;
+            right: 0;
+            background: #FAFAFA;
+            z-index: 100;
+            border-left: 1px solid #E8E8E8;
+            width: 1%;
+            white-space: nowrap;
+        }
+        .data-table td:last-child {
+            background: #fff;
+        }
+        .data-table tr:hover td:last-child {
+            background: #F5F7FA;
+        }
+        
+        /* 标签样式 */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .tag-blue { background: #E6F7FF; color: #1890FF; }
+        .tag-green { background: #F6FFED; color: #52C41A; }
+        .tag-orange { background: #FFF7E6; color: #FA8C16; }
+        .tag-gray { background: #F5F5F5; color: #999; }
+        
+        /* 操作按钮 */
+        .action-btns {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 4px;
+            white-space: nowrap;
+            position: relative;
+        }
+        .action-btns button {
+            padding: 4px 8px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: #1890FF;
+            font-size: 13px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .action-btns button:hover {
+            background: #E6F7FF;
+        }
+
+        /* 删除按钮始终隐藏 */
+        .action-btns .btn-delete {
+            display: none !important;
+        }
+
+        /* 参与人数链接样式 */
+        .student-count-link {
+            color: #1890FF;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .student-count-link:hover {
+            color: #40A9FF;
+            text-decoration: underline;
+        }
+
+        /* 学生列表对话框 */
+        .student-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .student-modal-overlay.active {
+            display: flex;
+        }
+        .student-modal {
+            background: #fff;
+            border-radius: 8px;
+            width: 600px;
+            max-height: 80vh;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+        }
+        .student-modal-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #E8E8E8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .student-modal-header h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #262626;
+        }
+        .student-modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #999;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        .student-modal-close:hover {
+            background: #F5F5F5;
+            color: #666;
+        }
+        .student-modal-body {
+            padding: 0;
+            overflow-y: auto;
+            max-height: 60vh;
+        }
+        .student-modal-body table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .student-modal-body th,
+        .student-modal-body td {
+            padding: 12px 20px;
+            text-align: left;
+            border-bottom: 1px solid #F0F0F0;
+        }
+        .student-modal-body th {
+            background: #FAFAFA;
+            font-weight: 600;
+            color: #262626;
+            font-size: 13px;
+            position: sticky;
+            top: 0;
+        }
+        .student-modal-body td {
+            font-size: 14px;
+            color: #595959;
+        }
+        .student-modal-body tr:hover td {
+            background: #F5F7FA;
+        }
+        .student-modal-footer {
+            padding: 12px 20px;
+            border-top: 1px solid #E8E8E8;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        /* 更多操作下拉 */
+        .more-actions {
+            position: static;
+        }
+        .more-btn {
+            padding: 4px 8px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: #666;
+            font-size: 13px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .more-btn:hover {
+            background: #F5F7FA;
+        }
+        .dropdown-menu {
+            position: absolute;
+            background: #fff;
+            border: 1px solid #E8E8E8;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            min-width: 100px;
+            z-index: 9999;
+            display: none;
+            margin-top: 4px;
+        }
+        .dropdown-menu.show {
+            display: block;
+        }
+        .dropdown-item {
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #333;
+            white-space: nowrap;
+        }
+        .dropdown-item:hover {
+            background: #F5F7FA;
+        }
+        .dropdown-item.delete {
+            color: #FF4D4F;
+        }
+        
+        /* 分页 - 优化样式 */
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding: 16px 20px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .pagination-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+        .pagination-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .pagination-btn {
+            padding: 8px 14px;
+            border: 1px solid #E8E8E8;
+            background: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #595959;
+            transition: all 0.3s;
+            min-width: 36px;
+            text-align: center;
+        }
+        .pagination-btn:hover:not(:disabled) {
+            border-color: #1890FF;
+            color: #1890FF;
+            background: #E6F7FF;
+        }
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #F5F5F5;
+        }
+        .pagination-btn.active {
+            background: #1890FF;
+            color: #fff;
+            border-color: #1890FF;
+            font-weight: 500;
+        }
+        .pagination-info {
+            font-size: 14px;
+            color: #8C8C8C;
+        }
+        .pagination-total {
+            font-size: 14px;
+            color: #262626;
+            font-weight: 500;
+        }
+        .pagination-jump {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 16px;
+            font-size: 13px;
+            color: #666;
+        }
+        .pagination-jump input {
+            width: 48px;
+            padding: 6px 8px;
+            border: 1px solid #E8E8E8;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 13px;
+        }
+        .pagination-size {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+        .pagination-size select {
+            padding: 6px 10px;
+            border: 1px solid #D9D9D9;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .pagination-jump {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+        .pagination-jump input {
+            width: 50px;
+            padding: 6px 10px;
+            border: 1px solid #D9D9D9;
+            border-radius: 4px;
+            font-size: 13px;
+            text-align: center;
+        }
+        
+        /* 表格多选框 */
+        .checkbox-cell {
+            width: 50px;
+            text-align: center;
+        }
+        .checkbox-cell input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+    
+        /* 菜单图标宽度修复 */
+        .menu-item .iconfont {
+            width: 20px;
+            min-width: 20px;
+            text-align: center;
+            margin-right: 8px;
+            font-size: 16px;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        
+        /* 数字动画 */
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .stat-value {
+            animation: countUp 1s ease-out forwards;
+        }
+        
+        .stat-card:nth-child(1) .stat-value {
+            animation-delay: 0.1s;
+        }
+        .stat-card:nth-child(2) .stat-value {
+            animation-delay: 0.2s;
+        }
+        .stat-card:nth-child(3) .stat-value {
+            animation-delay: 0.3s;
+        }
+        .stat-card:nth-child(4) .stat-value {
+            animation-delay: 0.4s;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航容器 - 由通用加载器动态加载 -->
+    <div id="nav-container"></div>
+    
+
+    <div class="main-content">
+        <div class="header">
+            <div class="breadcrumb">首页 / 考试管理 / 试卷管理</div>
+            <div>👨‍🏫 教师：张三 | <button onclick="logout()" class="logout-btn">退出登录</button></div>
+        </div>
+
+        <div class="content-body">
+            <!-- 统计卡片 -->
+            <div class="stats-bar">
+                <div class="stat-card">
+                    <div class="stat-icon blue">📝</div>
+                    <div class="stat-content">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">试卷总数</div>
+                        <div class="stat-trend">本学期</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">✅</div>
+                    <div class="stat-content">
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">已发布</div>
+                        <div class="stat-trend">占比 67%</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">🔄</div>
+                    <div class="stat-content">
+                        <div class="stat-value">4</div>
+                        <div class="stat-label">草稿</div>
+                        <div class="stat-trend">待完善</div>
+                    </div>
+                </div>
+                <div class="stat-card" style="display: none;">
+                    <div class="stat-icon purple">📊</div>
+                    <div class="stat-content">
+                        <div class="stat-value">11</div>
+                        <div class="stat-label">使用次数</div>
+                        <div class="stat-trend">↑ 较上月 +3</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 功能按钮栏 -->
+            <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+                <button class="btn-primary" onclick="createPaper()">+ 新建试卷</button>
+            </div>
+
+            <!-- 搜索筛选 -->
+            <div class="search-filter-card">
+                <div class="search-row">
+                    <input type="text" class="search-input" placeholder="请输入任务名称">
+                    <button class="btn-search">🔍 查询</button>
+                    <button class="btn-reset">重置</button>
+                </div>
+                <div class="search-row">
+                    <div class="filter-group">
+                        <div class="filter-item">
+                            <span class="filter-label">所属课程：</span>
+                            <select class="filter-select">
+                                <option>全部课程</option>
+                                <option>机械制图</option>
+                                <option>数控加工技术</option>
+                                <option>CAD/CAM技术</option>
+                            </select>
+                        </div>
+                        <div class="filter-item">
+                            <span class="filter-label">状态：</span>
+                            <select class="filter-select">
+                                <option>全部状态</option>
+                                <option>已发布</option>
+                                <option>草稿</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 试卷列表 -->
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;">序号</th>
+                            <th>任务名称</th>
+                            <th style="width: 80px;">分数</th>
+                            <th style="width: 120px;">所属课程</th>
+                            <th style="width: 100px;">任课教师</th>
+                            <th style="width: 100px;">参与人数</th>
+                            <th style="width: 120px;">上课时间</th>
+                            <th style="width: 120px;">上课教室</th>
+                            <th style="width: 100px;">更新人</th>
+                            <th style="width: 150px;">更新时间</th>
+                            <th style="width: 80px;">发布</th>
+                            <th style="width: 200px;">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-id="1" data-status="published">
+                            <td>1</td>
+                            <td><strong>机械制图期中考试</strong></td>
+                            <td>100分</td>
+                            <td>机械制图</td>
+                            <td>张老师</td>
+                            <td><a href="javascript:void(0)" class="student-count-link" onclick="showStudentList(1, 35)" title="点击查看学生列表">35人</a></td>
+                            <td><a href="javascript:void(0)" class="student-count-link" onclick="showScheduleModal('2025-03-10', '08:00-09:40')" title="点击查看上课时间">查看</a></td>
+                            <td>A101教室</td>
+                            <td>张老师</td>
+                            <td>2025-03-09 11:22:22</td>
+                            <td><span class="tag tag-green">已发布</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <button onclick="viewPaper(1)">查看</button>
+                                    <button onclick="unpublishPaper(1)" style="background: #FF4D4F; color: #fff; border-color: #FF4D4F;">取消发布</button>
+                                    <button onclick="deletePaper(1)" class="btn-delete" style="display: none;">删除</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-id="2" data-status="published">
+                            <td>2</td>
+                            <td><strong>数控加工技术期末考试</strong></td>
+                            <td>100分</td>
+                            <td>数控加工技术</td>
+                            <td>李老师</td>
+                            <td><a href="javascript:void(0)" class="student-count-link" onclick="showStudentList(2, 42)" title="点击查看学生列表">42人</a></td>
+                            <td><a href="javascript:void(0)" class="student-count-link" onclick="showScheduleModal('2025-03-12', '14:00-15:40')" title="点击查看上课时间">查看</a></td>
+                            <td>B203教室</td>
+                            <td>李老师</td>
+                            <td>2025-03-08 14:30:25</td>
+                            <td><span class="tag tag-green">已发布</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <button onclick="viewPaper(2)">查看</button>
+                                    <button onclick="unpublishPaper(2)" style="background: #FF4D4F; color: #fff; border-color: #FF4D4F;">取消发布</button>
+                                    <button onclick="deletePaper(2)" class="btn-delete" style="display: none;">删除</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-id="3" data-status="draft">
+                            <td>3</td>
+                            <td><strong>CAD/CAM技术单元测试</strong></td>
+                            <td>50分</td>
+                            <td>CAD/CAM技术</td>
+                            <td>王老师</td>
+                            <td><a href="javascript:void(0)" class="student-count-link" onclick="showStudentList(3, 28)" title="点击查看学生列表">28人</a></td>
+                            <td><a href="javascript:void(0)" class="student-count-link" onclick="showScheduleModal('2025-03-15', '10:00-11:40')" title="点击查看上课时间">查看</a></td>
+                            <td>C305教室</td>
+                            <td>王老师</td>
+                            <td>2025-03-07 16:45:33</td>
+                            <td><span class="tag tag-orange">草稿</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <button onclick="viewPaper(3)">查看</button>
+                                    <button onclick="editPaper(3)">编辑</button>
+                                    <button onclick="publishPaper(3)" style="background: #52C41A; color: #fff; border-color: #52C41A;">发布</button>
+                                    <button onclick="deletePaper(3)" class="btn-delete" style="display: none;">删除</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-id="4" data-status="draft">
+                            <td>4</td>
+                            <td><strong>模具设计综合测试</strong></td>
+                            <td>100分</td>
+                            <td>模具设计</td>
+                            <td>张老师</td>
+                            <td><a href="javascript:void(0)" class="student-count-link" onclick="showStudentList(4, 31)" title="点击查看学生列表">31人</a></td>
+                            <td><a href="javascript:void(0)" class="student-count-link" onclick="showScheduleModal('2025-03-18', '08:00-09:40')" title="点击查看上课时间">查看</a></td>
+                            <td>A102教室</td>
+                            <td>张老师</td>
+                            <td>2025-03-06 09:20:18</td>
+                            <td><span class="tag tag-orange">草稿</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <button onclick="viewPaper(4)">查看</button>
+                                    <button onclick="editPaper(4)">编辑</button>
+                                    <button onclick="publishPaper(4)" style="background: #52C41A; color: #fff; border-color: #52C41A;">发布</button>
+                                    <button onclick="deletePaper(4)" class="btn-delete" style="display: none;">删除</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-id="5" data-status="draft">
+                            <td>5</td>
+                            <td><strong>数控车床编程练习</strong></td>
+                            <td>50分</td>
+                            <td>数控车床</td>
+                            <td>李老师</td>
+                            <td><a href="javascript:void(0)" class="student-count-link" onclick="showStudentList(5, 26)" title="点击查看学生列表">26人</a></td>
+                            <td><a href="javascript:void(0)" class="student-count-link" onclick="showScheduleModal('2025-03-20', '14:00-15:40')" title="点击查看上课时间">查看</a></td>
+                            <td>B204教室</td>
+                            <td>李老师</td>
+                            <td>2025-03-05 11:15:42</td>
+                            <td><span class="tag tag-orange">草稿</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <button onclick="viewPaper(5)">查看</button>
+                                    <button onclick="editPaper(5)">编辑</button>
+                                    <button onclick="publishPaper(5)" style="background: #52C41A; color: #fff; border-color: #52C41A;">发布</button>
+                                    <button onclick="deletePaper(5)" class="btn-delete" style="display: none;">删除</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-id="6" data-status="published">
+                            <td>6</td>
+                            <td><strong>机械设计基础期中考试</strong></td>
+                            <td>100分</td>
+                            <td>机械设计基础</td>
+                            <td>王老师</td>
+                            <td><a href="javascript:void(0)" class="student-count-link" onclick="showStudentList(6, 38)" title="点击查看学生列表">38人</a></td>
+                            <td><a href="javascript:void(0)" class="student-count-link" onclick="showScheduleModal('2025-03-14', '10:00-11:40')" title="点击查看上课时间">查看</a></td>
+                            <td>C301教室</td>
+                            <td>王老师</td>
+                            <td>2025-03-01 15:00:55</td>
+                            <td><span class="tag tag-green">已发布</span></td>
+                            <td>
+                                <div class="action-btns">
+                                    <button onclick="viewPaper(6)">查看</button>
+                                    <button onclick="unpublishPaper(6)" style="background: #FF4D4F; color: #fff; border-color: #FF4D4F;">取消发布</button>
+                                    <button onclick="deletePaper(6)" class="btn-delete" style="display: none;">删除</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 分页 -->
+            <div class="pagination">
+                <div class="pagination-left">
+                    <span class="pagination-info">显示第 1-6 条，共 <span class="pagination-total">12</span> 条记录</span>
+                </div>
+                <div class="pagination-right">
+                    <button class="pagination-btn" disabled>上一页</button>
+                    <button class="pagination-btn active">1</button>
+                    <button class="pagination-btn">2</button>
+                    <button class="pagination-btn">下一页</button>
+                    <div class="pagination-jump">
+                        <span>跳至</span>
+                        <input type="number" min="1" value="1">
+                        <span>页</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 新建试卷
+        function createPaper() {
+            window.location.href = './教师端_试卷管理_新增.html';
+        }
+
+        // 查看试卷
+        function viewPaper(id) {
+            window.location.href = './教师端_试卷管理_查看.html?id=' + id;
+        }
+
+        // 编辑试卷
+        function editPaper(id) {
+            window.location.href = './教师端_试卷管理_编辑.html?id=' + id;
+        }
+
+        // 删除试卷
+        function deletePaper(id) {
+            const row = document.querySelector(`tr[data-id="${id}"]`);
+            const status = row ? row.getAttribute('data-status') : '';
+            if (status === 'published') {
+                alert('已发布的试卷不能删除，请先取消发布！');
+                return;
+            }
+            if (confirm('确定要删除这份试卷吗？')) {
+                alert('删除成功！');
+            }
+        }
+
+        // 发布试卷
+        function publishPaper(id) {
+            const row = document.querySelector(`tr[data-id="${id}"]`);
+            if (row) {
+                if (confirm('确定要发布这份试卷吗？\n发布后将通知所有发布对象。')) {
+                    // 更新状态
+                    row.setAttribute('data-status', 'published');
+                    // 更新状态标签 - 现在是第12列
+                    const statusCell = row.querySelector('td:nth-child(12)');
+                    if (statusCell) {
+                        statusCell.innerHTML = '<span class="tag tag-green">已发布</span>';
+                    }
+                    // 更新操作按钮 - 现在是第13列
+                    const actionCell = row.querySelector('td:nth-child(13) .action-btns');
+                    if (actionCell) {
+                        actionCell.innerHTML = `
+                            <button onclick="viewPaper(${id})">查看</button>
+                            <button onclick="unpublishPaper(${id})" style="background: #FF4D4F; color: #fff; border-color: #FF4D4F;">取消发布</button>
+                            <button onclick="deletePaper(${id})" class="btn-delete" style="display: none;">删除</button>
+                        `;
+                    }
+                    alert('试卷发布成功！');
+                }
+            }
+        }
+
+        // 取消发布试卷
+        function unpublishPaper(id) {
+            const row = document.querySelector(`tr[data-id="${id}"]`);
+            if (row) {
+                if (confirm('确定要取消发布这份试卷吗？\n取消发布后学生将无法查看该试卷。')) {
+                    // 更新状态
+                    row.setAttribute('data-status', 'draft');
+                    // 更新状态标签 - 现在是第12列
+                    const statusCell = row.querySelector('td:nth-child(12)');
+                    if (statusCell) {
+                        statusCell.innerHTML = '<span class="tag tag-orange">草稿</span>';
+                    }
+                    // 更新操作按钮 - 现在是第13列
+                    const actionCell = row.querySelector('td:nth-child(13) .action-btns');
+                    if (actionCell) {
+                        actionCell.innerHTML = `
+                            <button onclick="viewPaper(${id})">查看</button>
+                            <button onclick="editPaper(${id})">编辑</button>
+                            <button onclick="publishPaper(${id})" style="background: #52C41A; color: #fff; border-color: #52C41A;">发布</button>
+                            <button onclick="deletePaper(${id})" class="btn-delete" style="display: none;">删除</button>
+                        `;
+                    }
+                    alert('试卷已取消发布！');
+                }
+            }
+        }
+
+        // 学生列表数据（模拟数据）
+        const studentData = {
+            1: [
+                { name: '张三', studentNo: '2021001', className: '机械设计1班' },
+                { name: '李四', studentNo: '2021002', className: '机械设计1班' },
+                { name: '王五', studentNo: '2021003', className: '机械设计1班' },
+                { name: '赵六', studentNo: '2021004', className: '机械设计1班' },
+                { name: '钱七', studentNo: '2021005', className: '机械设计1班' }
+            ],
+            2: [
+                { name: '孙八', studentNo: '2022001', className: '数控技术1班' },
+                { name: '周九', studentNo: '2022002', className: '数控技术1班' },
+                { name: '吴十', studentNo: '2022003', className: '数控技术1班' },
+                { name: '郑十一', studentNo: '2022004', className: '数控技术1班' },
+                { name: '王十二', studentNo: '2022005', className: '数控技术1班' }
+            ],
+            3: [
+                { name: '陈十三', studentNo: '2023001', className: 'CAD/CAM技术1班' },
+                { name: '林十四', studentNo: '2023002', className: 'CAD/CAM技术1班' },
+                { name: '黄十五', studentNo: '2023003', className: 'CAD/CAM技术1班' },
+                { name: '何十六', studentNo: '2023004', className: 'CAD/CAM技术1班' },
+                { name: '高十七', studentNo: '2023005', className: 'CAD/CAM技术1班' }
+            ],
+            4: [
+                { name: '马十八', studentNo: '2024001', className: '模具设计1班' },
+                { name: '罗十九', studentNo: '2024002', className: '模具设计1班' },
+                { name: '梁二十', studentNo: '2024003', className: '模具设计1班' },
+                { name: '宋二十一', studentNo: '2024004', className: '模具设计1班' },
+                { name: '谢二十二', studentNo: '2024005', className: '模具设计1班' }
+            ],
+            5: [
+                { name: '韩二十三', studentNo: '2025001', className: '数控车床1班' },
+                { name: '唐二十四', studentNo: '2025002', className: '数控车床1班' },
+                { name: '冯二十五', studentNo: '2025003', className: '数控车床1班' },
+                { name: '于二十六', studentNo: '2025004', className: '数控车床1班' },
+                { name: '董二十七', studentNo: '2025005', className: '数控车床1班' }
+            ],
+            6: [
+                { name: '萧二十八', studentNo: '2026001', className: '机械设计基础1班' },
+                { name: '程二十九', studentNo: '2026002', className: '机械设计基础1班' },
+                { name: '曹三十', studentNo: '2026003', className: '机械设计基础1班' },
+                { name: '袁三十一', studentNo: '2026004', className: '机械设计基础1班' },
+                { name: '邓三十二', studentNo: '2026005', className: '机械设计基础1班' }
+            ]
+        };
+
+        // 显示学生列表对话框
+        function showStudentList(taskId, count) {
+            const modal = document.getElementById('studentModal');
+            const tbody = document.getElementById('studentListBody');
+            const students = studentData[taskId] || [];
+
+            // 生成学生列表HTML
+            let html = '';
+            students.forEach((student, index) => {
+                html += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${student.name}</td>
+                        <td>${student.studentNo}</td>
+                        <td>${student.className}</td>
+                    </tr>
+                `;
+            });
+
+            tbody.innerHTML = html;
+            modal.classList.add('active');
+        }
+
+        // 关闭学生列表对话框
+        function closeStudentModal() {
+            const modal = document.getElementById('studentModal');
+            modal.classList.remove('active');
+        }
+
+        // 点击遮罩层关闭对话框
+        document.getElementById('studentModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeStudentModal();
+            }
+        });
+
+        // 显示上课时间对话框
+        function showScheduleModal(date, time) {
+            const modal = document.getElementById('scheduleModal');
+            const tbody = document.getElementById('scheduleListBody');
+
+            // 生成上课时间列表HTML
+            tbody.innerHTML = `
+                <tr>
+                    <td>${date}</td>
+                    <td>${time}</td>
+                </tr>
+            `;
+
+            modal.classList.add('active');
+        }
+
+        // 关闭上课时间对话框
+        function closeScheduleModal() {
+            const modal = document.getElementById('scheduleModal');
+            modal.classList.remove('active');
+        }
+
+        // 点击遮罩层关闭上课时间对话框
+        document.getElementById('scheduleModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeScheduleModal();
+            }
+        });
+
+        // 菜单展开/收起
+        function toggleMenu(element) {
+            element.classList.toggle('collapsed');
+            const menuItems = element.nextElementSibling;
+            if (menuItems && menuItems.classList.contains('menu-items')) {
+                menuItems.classList.toggle('collapsed');
+            }
+        }
+
+        // 退出登录
+        function logout() {
+            localStorage.removeItem('iBodaoUser');
+            window.location.href = './教学实训平台_登录.html';
+        }
+    </script>
+    <!-- 导航组件加载器 -->
+    <script src="./nav-loader-universal.js" data-nav-type="teacher"></script>
+
+    <!-- 学生列表对话框 -->
+    <div class="student-modal-overlay" id="studentModal">
+        <div class="student-modal">
+            <div class="student-modal-header">
+                <h3>参与学生列表</h3>
+                <button class="student-modal-close" onclick="closeStudentModal()">&times;</button>
+            </div>
+            <div class="student-modal-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 80px;">序号</th>
+                            <th>姓名</th>
+                            <th style="width: 150px;">学号</th>
+                            <th style="width: 150px;">班级名称</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentListBody">
+                        <!-- 学生列表数据将通过JavaScript动态填充 -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="student-modal-footer">
+                <button class="btn btn-default" onclick="closeStudentModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 上课时间对话框 -->
+    <div class="student-modal-overlay" id="scheduleModal">
+        <div class="student-modal">
+            <div class="student-modal-header">
+                <h3>上课时间</h3>
+                <button class="student-modal-close" onclick="closeScheduleModal()">&times;</button>
+            </div>
+            <div class="student-modal-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 150px;">上课日期</th>
+                            <th style="width: 150px;">上课时间段</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scheduleListBody">
+                        <!-- 上课时间数据将通过JavaScript动态填充 -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="student-modal-footer">
+                <button class="btn btn-default" onclick="closeScheduleModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

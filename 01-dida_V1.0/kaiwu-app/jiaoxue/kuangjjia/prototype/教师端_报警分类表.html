@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>报警分类表 - 教师端</title>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_5124072_s39q5gmh59a.css">
+    <link rel="stylesheet" href="./common.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #F5F7FA;
+            display: flex;
+            height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            background: #fff;
+            padding: 16px 24px;
+            border-bottom: 1px solid #F0F0F0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .content-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #F0F2F5;
+        }
+
+        /* 统计卡片 */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .stat-icon.blue { background: linear-gradient(135deg, #E6F7FF 0%, #BAE7FF 100%); }
+        .stat-icon.orange { background: linear-gradient(135deg, #FFF7E6 0%, #FFE7BA 100%); }
+        .stat-icon.red { background: linear-gradient(135deg, #FFF1F0 0%, #FFCCC7 100%); }
+        .stat-icon.green { background: linear-gradient(135deg, #F6FFED 0%, #D9F7BE 100%); }
+
+        .stat-content { flex: 1; }
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #262626;
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            font-size: 13px;
+            color: #8C8C8C;
+        }
+
+        /* 搜索筛选 */
+        .search-filter-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .search-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .filter-select, .date-picker {
+            padding: 10px 16px;
+            border: 1px solid #D9D9D9;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #fff;
+            min-width: 140px;
+        }
+
+        .btn-search, .btn-export {
+            padding: 10px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .btn-search {
+            background: linear-gradient(135deg, #1890FF 0%, #096DD9 100%);
+            color: #fff;
+            border: none;
+        }
+
+        .btn-export {
+            background: #fff;
+            border: 1px solid #D9D9D9;
+            color: #666;
+        }
+
+        /* 图表区域 */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .chart-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* SVG图表样式 */
+        .pie-chart-svg, .bar-chart-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .pie-slice {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .pie-slice:hover {
+            opacity: 0.8;
+            transform: scale(1.02);
+        }
+
+        .pie-label {
+            font-size: 12px;
+            fill: #333;
+            text-anchor: middle;
+        }
+
+        .pie-percent {
+            font-size: 11px;
+            fill: #fff;
+            text-anchor: middle;
+            font-weight: 600;
+        }
+
+        .pie-legend {
+            font-size: 12px;
+            fill: #666;
+        }
+
+        .bar-rect {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .bar-rect:hover {
+            opacity: 0.8;
+        }
+
+        .bar-label {
+            font-size: 11px;
+            fill: #333;
+            text-anchor: end;
+        }
+
+        .bar-value {
+            font-size: 12px;
+            fill: #1890FF;
+            font-weight: 600;
+        }
+
+        .chart-axis {
+            stroke: #D9D9D9;
+            stroke-width: 1;
+        }
+
+        .chart-grid {
+            stroke: #F0F0F0;
+            stroke-width: 1;
+            stroke-dasharray: 4, 4;
+        }
+
+        .chart-tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 100;
+        }
+
+        /* 数据表格 */
+        .table-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .table-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            background: #FAFAFA;
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #E8E8E8;
+        }
+
+        .data-table td {
+            padding: 16px;
+            border-bottom: 1px solid #F0F0F0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .data-table tbody tr:hover {
+            background: #F5F7FA;
+        }
+
+        /* 报警类型标签 */
+        .alarm-type {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .alarm-type.mechanical {
+            background: #FFF2E8;
+            color: #FA541C;
+        }
+
+        .alarm-type.electrical {
+            background: #E6F7FF;
+            color: #1890FF;
+        }
+
+        .alarm-type.hydraulic {
+            background: #F6FFED;
+            color: #52C41A;
+        }
+
+        .alarmType.pneumatic {
+            background: #FFF7E6;
+            color: #FA8C16;
+        }
+
+        .alarm-type.thermal {
+            background: #FFF1F0;
+            color: #F5222D;
+        }
+
+        /* 占比显示 */
+        .percentage-bar {
+            width: 100%;
+            height: 8px;
+            background: #F0F0F0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .percentage-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        /* 分页 */
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #F0F0F0;
+        }
+
+        .pagination-left {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .pagination-right {
+            display: flex;
+            gap: 8px;
+        }
+
+        .pagination-btn {
+            padding: 8px 14px;
+            border: 1px solid #D9D9D9;
+            background: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .pagination-btn.active {
+            background: #1890FF;
+            color: #fff;
+            border-color: #1890FF;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航容器 - 由通用加载器动态加载 -->
+    <div id="nav-container"></div>
+<div class="main-content">
+        <div class="header">
+            <div class="breadcrumb">报表 / 报警分类表</div>
+            <button class="logout-btn" onclick="logout()">退出登录</button>
+        </div>
+
+        <div class="content-body">
+            <!-- 统计卡片 -->
+            <div class="stats-bar">
+                <div class="stat-card">
+                    <div class="stat-icon blue">📋</div>
+                    <div class="stat-content">
+                        <div class="stat-value">28</div>
+                        <div class="stat-label">报警类型总数</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">⚠️</div>
+                    <div class="stat-content">
+                        <div class="stat-value">156</div>
+                        <div class="stat-label">本月报警总数</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon red">🔥</div>
+                    <div class="stat-content">
+                        <div class="stat-value">ALM-007</div>
+                        <div class="stat-label">最频繁报警号</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">📊</div>
+                    <div class="stat-content">
+                        <div class="stat-value">18.6%</div>
+                        <div class="stat-label">最高占比类型</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 搜索筛选 -->
+            <div class="search-filter-card">
+                <div class="search-row">
+                    <select class="filter-select">
+                        <option value="">选择车间</option>
+                        <option value="workshop1">数控加工车间</option>
+                        <option value="workshop2">模具制造车间</option>
+                        <option value="workshop3">精密加工车间</option>
+                    </select>
+                    <select class="filter-select">
+                        <option value="">报警类型</option>
+                        <option value="mechanical">机械类</option>
+                        <option value="electrical">电气类</option>
+                        <option value="hydraulic">液压类</option>
+                        <option value="pneumatic">气动类</option>
+                        <option value="thermal">温控类</option>
+                    </select>
+                    <select class="filter-select">
+                        <option value="">统计维度</option>
+                        <option value="day">按日统计</option>
+                        <option value="month">按月统计</option>
+                        <option value="year">按年统计</option>
+                    </select>
+                    <input type="date" class="date-picker" value="2025-01-01">
+                    <span style="color: #999; padding: 10px 0;">至</span>
+                    <input type="date" class="date-picker" value="2025-01-31">
+                    <button class="btn-search">🔍 查询</button>
+                    <button class="btn-export">📥 导出报表</button>
+                </div>
+            </div>
+
+            <!-- 图表区域 -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">报警类型占比分析</div>
+                    </div>
+                    <div class="chart-container" id="pieChart"></div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">报警次数TOP10</div>
+                    </div>
+                    <div class="chart-container" id="barChart"></div>
+                </div>
+            </div>
+
+            <!-- 数据表格 -->
+            <div class="table-card">
+                <div class="table-header">
+                    <div class="table-title">报警分类统计明细</div>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>排名</th>
+                            <th>报警号</th>
+                            <th>报警类型</th>
+                            <th>报警内容</th>
+                            <th>报警次数</th>
+                            <th>占比</th>
+                            <th>涉及设备</th>
+                            <th>最后发生时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><strong>ALM-007</strong></td>
+                            <td><span class="alarm-type thermal">温控类</span></td>
+                            <td>主轴温度过高，超过设定阈值</td>
+                            <td>29次</td>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span>18.6%</span>
+                                    <div class="percentage-bar" style="width: 100px;">
+                                        <div class="percentage-fill" style="width: 18.6%; background: #FF4D4F;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>5台</td>
+                            <td>2025-01-20 14:35</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><strong>ALM-015</strong></td>
+                            <td><span class="alarm-type hydraulic">液压类</span></td>
+                            <td>润滑液位低，请及时添加润滑油</td>
+                            <td>24次</td>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span>15.4%</span>
+                                    <div class="percentage-bar" style="width: 100px;">
+                                        <div class="percentage-fill" style="width: 15.4%; background: #52C41A;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>8台</td>
+                            <td>2025-01-20 11:42</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><strong>ALM-023</strong></td>
+                            <td><span class="alarm-type mechanical">机械类</span></td>
+                            <td>刀具磨损严重，建议更换刀具</td>
+                            <td>21次</td>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span>13.5%</span>
+                                    <div class="percentage-bar" style="width: 100px;">
+                                        <div class="percentage-fill" style="width: 13.5%; background: #FA541C;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>6台</td>
+                            <td>2025-01-20 13:18</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><strong>ALM-031</strong></td>
+                            <td><span class="alarm-type pneumatic">气动类</span></td>
+                            <td>气压不足，检查气源压力</td>
+                            <td>18次</td>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span>11.5%</span>
+                                    <div class="percentage-bar" style="width: 100px;">
+                                        <div class="percentage-fill" style="width: 11.5%; background: #FA8C16;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>4台</td>
+                            <td>2025-01-20 09:12</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td><strong>ALM-012</strong></td>
+                            <td><span class="alarm-type electrical">电气类</span></td>
+                            <td>伺服电机过载，检查负载情况</td>
+                            <td>16次</td>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span>10.3%</span>
+                                    <div class="percentage-bar" style="width: 100px;">
+                                        <div class="percentage-fill" style="width: 10.3%; background: #1890FF;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>3台</td>
+                            <td>2025-01-20 10:25</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- 分页 -->
+                <div class="pagination">
+                    <div class="pagination-left">显示第 1-5 条，共 28 条记录</div>
+                    <div class="pagination-right">
+                        <button class="pagination-btn" disabled>上一页</button>
+                        <button class="pagination-btn active">1</button>
+                        <button class="pagination-btn">2</button>
+                        <button class="pagination-btn">3</button>
+                        <button class="pagination-btn">...</button>
+                        <button class="pagination-btn">6</button>
+                        <button class="pagination-btn">下一页</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 报警类型占比数据
+        const alarmTypeData = [
+            { type: '温控类', count: 29, color: '#FF4D4F', percent: 18.6 },
+            { type: '液压类', count: 24, color: '#52C41A', percent: 15.4 },
+            { type: '机械类', count: 21, color: '#FA541C', percent: 13.5 },
+            { type: '气动类', count: 18, color: '#FA8C16', percent: 11.5 },
+            { type: '电气类', count: 16, color: '#1890FF', percent: 10.3 },
+            { type: '其他', count: 48, color: '#999999', percent: 30.7 }
+        ];
+
+        // 报警次数TOP10数据
+        const alarmTop10Data = [
+            { code: 'ALM-007', name: '主轴温度过高', count: 29 },
+            { code: 'ALM-015', name: '润滑液位低', count: 24 },
+            { code: 'ALM-023', name: '刀具磨损严重', count: 21 },
+            { code: 'ALM-031', name: '气压不足', count: 18 },
+            { code: 'ALM-012', name: '伺服电机过载', count: 16 },
+            { code: 'ALM-008', name: '冷却液不足', count: 14 },
+            { code: 'ALM-019', name: '换刀故障', count: 12 },
+            { code: 'ALM-025', name: '编码器异常', count: 10 },
+            { code: 'ALM-003', name: '急停按钮触发', count: 8 },
+            { code: 'ALM-041', name: '门开关异常', count: 6 }
+        ];
+
+        // 渲染饼状图
+        function renderPieChart() {
+            const container = document.getElementById('pieChart');
+            if (!container) return;
+
+            const width = container.clientWidth;
+            const height = 350;
+            const centerX = width / 2 - 80;
+            const centerY = height / 2;
+            const radius = 120;
+
+            let currentAngle = 0;
+            let svg = `<svg class="pie-chart-svg" viewBox="0 0 ${width} ${height}">`;
+
+            // 绘制饼图扇形
+            alarmTypeData.forEach((item, index) => {
+                const angle = (item.percent / 100) * 360;
+                const startAngle = currentAngle;
+                const endAngle = currentAngle + angle;
+
+                const x1 = centerX + radius * Math.cos((startAngle * Math.PI) / 180);
+                const y1 = centerY + radius * Math.sin((startAngle * Math.PI) / 180);
+                const x2 = centerX + radius * Math.cos((endAngle * Math.PI) / 180);
+                const y2 = centerY + radius * Math.sin((endAngle * Math.PI) / 180);
+
+                const largeArcFlag = angle > 180 ? 1 : 0;
+
+                const pathData = `M ${centerX} ${centerY} L ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2} Z`;
+
+                // 计算标签位置
+                const labelAngle = startAngle + angle / 2;
+                const labelRadius = radius * 0.7;
+                const labelX = centerX + labelRadius * Math.cos((labelAngle * Math.PI) / 180);
+                const labelY = centerY + labelRadius * Math.sin((labelAngle * Math.PI) / 180);
+
+                svg += `
+                    <path class="pie-slice" d="${pathData}" fill="${item.color}" 
+                          onmouseenter="showPieTooltip(event, '${item.type}', ${item.count}, ${item.percent})" 
+                          onmouseleave="hidePieTooltip()" />
+                    <text class="pie-percent" x="${labelX}" y="${labelY + 4}">${item.percent}%</text>
+                `;
+
+                currentAngle += angle;
+            });
+
+            // 绘制图例
+            alarmTypeData.forEach((item, index) => {
+                const legendY = 60 + index * 30;
+                svg += `
+                    <rect x="${width - 150}" y="${legendY}" width="16" height="16" fill="${item.color}" rx="2" />
+                    <text class="pie-legend" x="${width - 125}" y="${legendY + 12}">${item.type} (${item.count}次)</text>
+                `;
+            });
+
+            svg += '</svg>';
+            svg += '<div class="chart-tooltip" id="pieTooltip"></div>';
+
+            container.innerHTML = svg;
+        }
+
+        // 渲染柱状图
+        function renderBarChart() {
+            const container = document.getElementById('barChart');
+            if (!container) return;
+
+            const width = container.clientWidth;
+            const height = 350;
+            const padding = { top: 30, right: 80, bottom: 60, left: 120 };
+            const chartWidth = width - padding.left - padding.right;
+            const chartHeight = height - padding.top - padding.bottom;
+
+            const maxValue = 35;
+            const barHeight = chartHeight / alarmTop10Data.length * 0.7;
+            const barGap = chartHeight / alarmTop10Data.length * 0.3;
+
+            let svg = `<svg class="bar-chart-svg" viewBox="0 0 ${width} ${height}">`;
+
+            // 网格线
+            for (let i = 0; i <= 5; i++) {
+                const x = padding.left + (i / 5) * chartWidth;
+                svg += `<line class="chart-grid" x1="${x}" y1="${padding.top}" x2="${x}" y2="${padding.top + chartHeight}" />`;
+            }
+
+            // X轴
+            svg += `<line class="chart-axis" x1="${padding.left}" y1="${padding.top + chartHeight}" x2="${padding.left + chartWidth}" y2="${padding.top + chartHeight}" />`;
+
+            // Y轴
+            svg += `<line class="chart-axis" x1="${padding.left}" y1="${padding.top}" x2="${padding.left}" y2="${padding.top + chartHeight}" />`;
+
+            // X轴标签
+            for (let i = 0; i <= 5; i++) {
+                const x = padding.left + (i / 5) * chartWidth;
+                const value = Math.round((i / 5) * maxValue);
+                svg += `<text class="bar-value" x="${x}" y="${padding.top + chartHeight + 20}" text-anchor="middle">${value}</text>`;
+            }
+
+            // 柱状图
+            alarmTop10Data.forEach((item, index) => {
+                const y = padding.top + index * (chartHeight / alarmTop10Data.length) + barGap / 2;
+                const barWidth = (item.count / maxValue) * chartWidth;
+                const color = index < 3 ? '#FF4D4F' : (index < 6 ? '#FAAD14' : '#1890FF');
+
+                svg += `
+                    <rect class="bar-rect" x="${padding.left}" y="${y}" width="${barWidth}" height="${barHeight}" 
+                          fill="${color}" rx="4"
+                          onmouseenter="showBarTooltip(event, '${item.code}', '${item.name}', ${item.count})"
+                          onmouseleave="hideBarTooltip()" />
+                    <text class="bar-label" x="${padding.left - 10}" y="${y + barHeight / 2 + 4}">${item.code}</text>
+                    <text class="bar-value" x="${padding.left + barWidth + 10}" y="${y + barHeight / 2 + 4}">${item.count}次</text>
+                `;
+            });
+
+            svg += '</svg>';
+            svg += '<div class="chart-tooltip" id="barTooltip"></div>';
+
+            container.innerHTML = svg;
+        }
+
+        // 显示饼图提示框
+        function showPieTooltip(event, type, count, percent) {
+            const tooltip = document.getElementById('pieTooltip');
+            tooltip.innerHTML = `<strong>${type}</strong><br>次数: ${count}次<br>占比: ${percent}%`;
+            tooltip.style.left = (event.pageX - event.target.closest('.chart-container').getBoundingClientRect().left + 10) + 'px';
+            tooltip.style.top = (event.pageY - event.target.closest('.chart-container').getBoundingClientRect().top - 30) + 'px';
+            tooltip.style.opacity = '1';
+        }
+
+        // 隐藏饼图提示框
+        function hidePieTooltip() {
+            document.getElementById('pieTooltip').style.opacity = '0';
+        }
+
+        // 显示柱状图提示框
+        function showBarTooltip(event, code, name, count) {
+            const tooltip = document.getElementById('barTooltip');
+            tooltip.innerHTML = `<strong>${code}</strong><br>${name}<br>次数: ${count}次`;
+            tooltip.style.left = (event.pageX - event.target.closest('.chart-container').getBoundingClientRect().left + 10) + 'px';
+            tooltip.style.top = (event.pageY - event.target.closest('.chart-container').getBoundingClientRect().top - 30) + 'px';
+            tooltip.style.opacity = '1';
+        }
+
+        // 隐藏柱状图提示框
+        function hideBarTooltip() {
+            document.getElementById('barTooltip').style.opacity = '0';
+        }
+
+        // 退出登录
+        function logout() {
+            localStorage.removeItem('iBodaoUser');
+            window.location.href = './教学实训平台_登录.html';
+        }
+
+        // 菜单折叠
+        function toggleMenu(element) {
+            element.classList.toggle('collapsed');
+            const menuItems = element.nextElementSibling;
+            if (menuItems && menuItems.classList.contains('menu-items')) {
+                menuItems.classList.toggle('collapsed');
+            }
+        }
+
+        // 页面加载完成后渲染图表
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                renderPieChart();
+                renderBarChart();
+            }, 100);
+        });
+
+        // 窗口大小改变时重新渲染
+        window.addEventListener('resize', function() {
+            renderPieChart();
+            renderBarChart();
+        });
+    </script>
+    <!-- 导航组件加载器 -->
+    <script src="./nav-loader-universal.js" data-nav-type="teacher"></script>
+</body>
+</html>

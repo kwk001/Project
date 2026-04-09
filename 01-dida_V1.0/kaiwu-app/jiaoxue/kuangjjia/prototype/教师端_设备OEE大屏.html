@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设备OEE实时监控 - 教师端</title>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_5124072_s39q5gmh59a.css">
+    <link rel="stylesheet" href="./common.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #F5F7FA;
+            display: flex;
+            height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            background: #fff;
+            padding: 16px 24px;
+            border-bottom: 1px solid #F0F0F0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .content-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #0a1628 0%, #1a2a4a 50%, #0d1b2a 100%);
+        }
+
+        /* 大屏标题 */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 20, 40, 0.6);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 150, 255, 0.3);
+        }
+
+        .dashboard-title {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00d4ff, #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 150, 255, 0.5);
+            color: #fff;
+        }
+
+        .dashboard-time {
+            font-size: 16px;
+            color: #00d4ff;
+        }
+
+        /* 主容器 */
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: rgba(0, 30, 60, 0.4);
+            border: 1px solid rgba(0, 150, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            color: #fff;
+        }
+
+        .card-title {
+            font-size: 16px;
+            color: #00d4ff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-title::before {
+            content: '';
+            width: 4px;
+            height: 16px;
+            background: linear-gradient(180deg, #00d4ff, #0099ff);
+            border-radius: 2px;
+        }
+
+        /* OEE总览 */
+        .oee-overview {
+            grid-column: span 3;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .oee-main {
+            text-align: center;
+        }
+
+        .oee-value {
+            font-size: 64px;
+            font-weight: 700;
+            background: linear-gradient(180deg, #00ff88, #00cc66);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(0, 255, 136, 0.3);
+        }
+
+        .oee-label {
+            font-size: 18px;
+            color: #88ccff;
+            margin-top: 8px;
+        }
+
+        .oee-sub-items {
+            display: flex;
+            gap: 40px;
+        }
+
+        .oee-sub-item {
+            text-align: center;
+        }
+
+        .sub-value {
+            font-size: 36px;
+            font-weight: 600;
+        }
+
+        .sub-value.availability { color: #00d4ff; }
+        .sub-value.performance { color: #ffaa00; }
+        .sub-value.quality { color: #00ff88; }
+
+        .sub-label {
+            font-size: 14px;
+            color: #88aacc;
+            margin-top: 6px;
+        }
+
+        /* 设备状态 */
+        .device-status {
+            grid-column: span 2;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .status-item {
+            background: rgba(0, 50, 100, 0.3);
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid rgba(0, 150, 255, 0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .status-item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 150, 255, 0.3);
+        }
+
+        .status-item.active {
+            border-color: #00d4ff;
+            background: rgba(0, 150, 255, 0.2);
+        }
+
+        /* 设备列表 */
+        .device-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .device-item {
+            background: rgba(0, 50, 100, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid rgba(0, 150, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .device-item:hover {
+            border-color: rgba(0, 150, 255, 0.3);
+            background: rgba(0, 70, 120, 0.4);
+        }
+
+        .device-item.active {
+            border-color: #00d4ff;
+            background: rgba(0, 150, 255, 0.2);
+        }
+
+        .device-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .device-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .device-status-badge {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+
+        .device-status-badge.running {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+
+        .device-status-badge.idle {
+            background: rgba(255, 170, 0, 0.2);
+            color: #ffaa00;
+        }
+
+        .device-status-badge.error {
+            background: rgba(255, 77, 79, 0.2);
+            color: #ff4d4f;
+        }
+
+        .device-status-badge.offline {
+            background: rgba(136, 136, 136, 0.2);
+            color: #888;
+        }
+
+        .device-oee {
+            font-size: 20px;
+            font-weight: 700;
+            color: #00d4ff;
+            margin-bottom: 4px;
+        }
+
+        .device-info {
+            font-size: 11px;
+            color: #88aacc;
+        }
+
+        /* 设备详情 */
+        .device-detail {
+            grid-column: span 3;
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(0, 150, 255, 0.2);
+        }
+
+        .detail-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .detail-status {
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .detail-item {
+            text-align: center;
+            padding: 16px;
+            background: rgba(0, 50, 100, 0.3);
+            border-radius: 10px;
+        }
+
+        .detail-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .detail-value.oee {
+            color: #00ff88;
+        }
+
+        .detail-value.availability {
+            color: #00d4ff;
+        }
+
+        .detail-value.performance {
+            color: #ffaa00;
+        }
+
+        .detail-value.quality {
+            color: #00ff88;
+        }
+
+        .detail-label {
+            font-size: 13px;
+            color: #88aacc;
+        }
+
+        .status-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 12px;
+        }
+
+        .status-icon.running {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .status-icon.idle {
+            background: rgba(255, 170, 0, 0.2);
+            color: #ffaa00;
+            box-shadow: 0 0 15px rgba(255, 170, 0, 0.3);
+        }
+
+        .status-icon.error {
+            background: rgba(255, 77, 79, 0.2);
+            color: #ff4d4f;
+            box-shadow: 0 0 15px rgba(255, 77, 79, 0.3);
+        }
+
+        .status-icon.offline {
+            background: rgba(136, 136, 136, 0.2);
+            color: #888;
+        }
+
+        .status-name {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .status-count {
+            font-size: 28px;
+            font-weight: 700;
+            color: #00d4ff;
+        }
+
+        /* 实时数据 */
+        .realtime-data {
+            grid-column: span 1;
+        }
+
+        .data-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .data-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: rgba(0, 50, 100, 0.3);
+            border-radius: 8px;
+            border-left: 3px solid #00d4ff;
+        }
+
+        .data-label {
+            font-size: 13px;
+            color: #88aacc;
+        }
+
+        .data-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #00d4ff;
+        }
+
+        /* 图表区域 */
+        .chart-container {
+            grid-column: span 2;
+            height: 300px;
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 240px;
+            background: rgba(0, 30, 60, 0.3);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #88aacc;
+            font-size: 14px;
+        }
+
+        /* OEE趋势图表 - 面积图 */
+        .oee-chart {
+            width: 100%;
+            height: 240px;
+            position: relative;
+            padding: 20px 20px 40px 50px;
+        }
+
+        .chart-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .chart-area {
+            fill: url(#areaGradient);
+            opacity: 0.6;
+            transition: all 0.3s;
+        }
+
+        .chart-area:hover {
+            opacity: 0.8;
+        }
+
+        .chart-line {
+            fill: none;
+            stroke: #00d4ff;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .chart-line.target-met {
+            stroke: #00ff88;
+        }
+
+        .chart-point {
+            fill: #00d4ff;
+            stroke: #fff;
+            stroke-width: 2;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .chart-point:hover {
+            r: 8;
+            fill: #00ff88;
+        }
+
+        .chart-point.target-met {
+            fill: #00ff88;
+        }
+
+        .chart-grid-line {
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 1;
+            stroke-dasharray: 4, 4;
+        }
+
+        .chart-axis-line {
+            stroke: rgba(255, 255, 255, 0.3);
+            stroke-width: 1;
+        }
+
+        .chart-axis-text {
+            fill: #88aacc;
+            font-size: 11px;
+            text-anchor: middle;
+        }
+
+        .chart-axis-text.y-axis {
+            text-anchor: end;
+        }
+
+        .chart-target-line {
+            stroke: #ffaa00;
+            stroke-width: 2;
+            stroke-dasharray: 6, 4;
+        }
+
+        .chart-target-label {
+            fill: #ffaa00;
+            font-size: 11px;
+        }
+
+        .chart-tooltip {
+            position: absolute;
+            background: rgba(0, 20, 40, 0.95);
+            border: 1px solid rgba(0, 150, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            color: #fff;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .chart-tooltip.visible {
+            opacity: 1;
+        }
+
+        .chart-tooltip-title {
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #00d4ff;
+        }
+
+        .chart-tooltip-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 3px;
+        }
+
+        .chart-tooltip-value {
+            font-weight: 600;
+            color: #00ff88;
+        }
+
+        /* 学生使用情况 */
+        .student-usage {
+            grid-column: span 1;
+        }
+
+        .usage-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .usage-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            background: rgba(0, 50, 100, 0.3);
+            border-radius: 8px;
+        }
+
+        .usage-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00d4ff, #0099ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .usage-info {
+            flex: 1;
+        }
+
+        .usage-name {
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
+
+        .usage-device {
+            font-size: 11px;
+            color: #88aacc;
+        }
+
+        .usage-time {
+            font-size: 13px;
+            color: #00ff88;
+            font-weight: 500;
+        }
+
+        /* 告警信息 */
+        .alert-section {
+            grid-column: span 3;
+        }
+
+        .alert-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .alert-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: rgba(255, 77, 79, 0.1);
+            border: 1px solid rgba(255, 77, 79, 0.3);
+            border-radius: 8px;
+        }
+
+        .alert-level {
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .alert-level.high {
+            background: rgba(255, 77, 79, 0.3);
+            color: #ff4d4f;
+        }
+
+        .alert-level.medium {
+            background: rgba(255, 170, 0, 0.3);
+            color: #ffaa00;
+        }
+
+        .alert-content {
+            flex: 1;
+            font-size: 13px;
+        }
+
+        .alert-time {
+            font-size: 11px;
+            color: #88aacc;
+        }
+
+        /* 动画效果 */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* 响应式 */
+        @media (max-width: 1400px) {
+            .dashboard-container {
+                grid-template-columns: 1fr 1fr;
+            }
+            .oee-overview { grid-column: span 2; }
+            .device-status { grid-column: span 2; }
+            .alert-section { grid-column: span 2; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航容器 - 由通用加载器动态加载 -->
+    <div id="nav-container"></div>
+
+    <!-- 主内容区 -->
+    <div class="main-content">
+        <div class="header">
+            <div class="breadcrumb">报表 / 设备OEE监控</div>
+            <button class="logout-btn" onclick="logout()">退出登录</button>
+        </div>
+
+        <div class="content-body">
+            <!-- 大屏标题 -->
+            <div class="dashboard-header">
+                <div class="dashboard-title">
+                    <i class="iconfont icon-shebei"></i> 设备OEE实时监控大屏
+                </div>
+                <div class="dashboard-time" id="currentTime">
+                    2025-01-20 14:30:25
+                </div>
+            </div>
+
+            <!-- 主容器 -->
+            <div class="dashboard-container">
+                <!-- OEE总览 -->
+                <div class="card oee-overview">
+                    <div class="oee-main">
+                        <div class="oee-value pulse">85.6%</div>
+                        <div class="oee-label">设备综合效率 OEE</div>
+                    </div>
+                    <div class="oee-sub-items">
+                        <div class="oee-sub-item">
+                            <div class="sub-value availability">92.3%</div>
+                            <div class="sub-label">可用率</div>
+                        </div>
+                        <div class="oee-sub-item">
+                            <div class="sub-value performance">95.1%</div>
+                            <div class="sub-label">性能率</div>
+                        </div>
+                        <div class="oee-sub-item">
+                            <div class="sub-value quality">97.8%</div>
+                            <div class="sub-label">质量率</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 设备状态分布 -->
+                <div class="card device-status">
+                    <div class="card-title">设备状态分布（点击筛选）</div>
+                    <div class="status-grid">
+                        <div class="status-item active" onclick="filterDevices('all')">
+                            <div class="status-icon running">●</div>
+                            <div class="status-name">全部</div>
+                            <div class="status-count">18</div>
+                        </div>
+                        <div class="status-item" onclick="filterDevices('running')">
+                            <div class="status-icon running">●</div>
+                            <div class="status-name">运行中</div>
+                            <div class="status-count">12</div>
+                        </div>
+                        <div class="status-item" onclick="filterDevices('idle')">
+                            <div class="status-icon idle">◐</div>
+                            <div class="status-name">待机中</div>
+                            <div class="status-count">3</div>
+                        </div>
+                        <div class="status-item" onclick="filterDevices('error')">
+                            <div class="status-icon error">✕</div>
+                            <div class="status-name">故障中</div>
+                            <div class="status-count">1</div>
+                        </div>
+                    </div>
+                    <div class="card-title" style="margin-top: 20px;">设备列表（点击查看详情）</div>
+                    <div class="device-list" id="deviceList">
+                        <!-- 动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 实时数据 -->
+                <div class="card realtime-data">
+                    <div class="card-title">实时生产数据</div>
+                    <div class="data-list">
+                        <div class="data-item">
+                            <span class="data-label">今日总产量</span>
+                            <span class="data-value">1,256 件</span>
+                        </div>
+                        <div class="data-item">
+                            <span class="data-label">合格品数</span>
+                            <span class="data-value">1,228 件</span>
+                        </div>
+                        <div class="data-item">
+                            <span class="data-label">不良品数</span>
+                            <span class="data-value">28 件</span>
+                        </div>
+                        <div class="data-item">
+                            <span class="data-label">平均节拍</span>
+                            <span class="data-value">4.5 分钟</span>
+                        </div>
+                        <div class="data-item">
+                            <span class="data-label">设备利用率</span>
+                            <span class="data-value">78.5%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OEE趋势图 -->
+                <div class="card chart-container">
+                    <div class="card-title">OEE趋势（近7天）- 目标值: 85%</div>
+                    <div class="oee-chart" id="oeeChart">
+                        <!-- 动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 学生使用情况 -->
+                <div class="card student-usage">
+                    <div class="card-title">学生实时使用</div>
+                    <div class="usage-list">
+                        <div class="usage-item">
+                            <div class="usage-avatar">张</div>
+                            <div class="usage-info">
+                                <div class="usage-name">张三</div>
+                                <div class="usage-device">数控车床-01</div>
+                            </div>
+                            <div class="usage-time">45分钟</div>
+                        </div>
+                        <div class="usage-item">
+                            <div class="usage-avatar">李</div>
+                            <div class="usage-info">
+                                <div class="usage-name">李四</div>
+                                <div class="usage-device">数控铣床-02</div>
+                            </div>
+                            <div class="usage-time">32分钟</div>
+                        </div>
+                        <div class="usage-item">
+                            <div class="usage-avatar">王</div>
+                            <div class="usage-info">
+                                <div class="usage-name">王五</div>
+                                <div class="usage-device">加工中心-03</div>
+                            </div>
+                            <div class="usage-time">28分钟</div>
+                        </div>
+                        <div class="usage-item">
+                            <div class="usage-avatar">赵</div>
+                            <div class="usage-info">
+                                <div class="usage-name">赵六</div>
+                                <div class="usage-device">数控车床-02</div>
+                            </div>
+                            <div class="usage-time">15分钟</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 设备详情 -->
+                <div class="card device-detail" id="deviceDetail" style="display: none;">
+                    <div class="detail-header">
+                        <div class="detail-title" id="detailDeviceName">数控车床-01</div>
+                        <div class="detail-status running" id="detailDeviceStatus">运行中</div>
+                    </div>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-value oee" id="detailOEE">87.5%</div>
+                            <div class="detail-label">OEE综合效率</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value availability" id="detailAvailability">94.2%</div>
+                            <div class="detail-label">可用率</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value performance" id="detailPerformance">93.8%</div>
+                            <div class="detail-label">性能率</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-value quality" id="detailQuality">99.1%</div>
+                            <div class="detail-label">质量率</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 设备告警 -->
+                <div class="card alert-section">
+                    <div class="card-title">设备告警信息</div>
+                    <div class="alert-list">
+                        <div class="alert-item">
+                            <span class="alert-level high">紧急</span>
+                            <span class="alert-content">数控车床-05 主轴温度过高，请立即检查</span>
+                            <span class="alert-time">2分钟前</span>
+                        </div>
+                        <div class="alert-item">
+                            <span class="alert-level medium">警告</span>
+                            <span class="alert-content">加工中心-01 刀具磨损严重，建议更换</span>
+                            <span class="alert-time">15分钟前</span>
+                        </div>
+                        <div class="alert-item">
+                            <span class="alert-level medium">警告</span>
+                            <span class="alert-content">数控铣床-03 润滑液位低，请及时添加</span>
+                            <span class="alert-time">32分钟前</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 设备数据
+        const devicesData = [
+            { id: 1, name: '数控车床-01', status: 'running', oee: 87.5, availability: 94.2, performance: 93.8, quality: 99.1, runtime: '6小时32分' },
+            { id: 2, name: '数控车床-02', status: 'running', oee: 92.3, availability: 96.5, performance: 95.2, quality: 98.8, runtime: '5小时18分' },
+            { id: 3, name: '数控车床-03', status: 'running', oee: 85.6, availability: 91.2, performance: 93.5, quality: 97.9, runtime: '4小时45分' },
+            { id: 4, name: '数控铣床-01', status: 'running', oee: 89.2, availability: 93.8, performance: 94.6, quality: 98.5, runtime: '7小时12分' },
+            { id: 5, name: '数控铣床-02', status: 'running', oee: 91.5, availability: 95.1, performance: 95.8, quality: 99.2, runtime: '6小时08分' },
+            { id: 6, name: '加工中心-01', status: 'idle', oee: 78.3, availability: 85.6, performance: 91.2, quality: 98.5, runtime: '2小时35分' },
+            { id: 7, name: '加工中心-02', status: 'running', oee: 88.9, availability: 94.5, performance: 93.2, quality: 98.1, runtime: '5小时42分' },
+            { id: 8, name: '加工中心-03', status: 'running', oee: 90.1, availability: 95.2, performance: 94.1, quality: 98.7, runtime: '6小时15分' },
+            { id: 9, name: '磨床-01', status: 'idle', oee: 72.5, availability: 82.3, performance: 89.5, quality: 97.8, runtime: '1小时48分' },
+            { id: 10, name: '磨床-02', status: 'idle', oee: 75.8, availability: 84.6, performance: 90.2, quality: 98.1, runtime: '2小时12分' },
+            { id: 11, name: '钻床-01', status: 'running', oee: 86.4, availability: 93.1, performance: 92.8, quality: 98.3, runtime: '4小时56分' },
+            { id: 12, name: '钻床-02', status: 'running', oee: 88.7, availability: 94.8, performance: 93.5, quality: 98.9, runtime: '5小时28分' },
+            { id: 13, name: '线切割-01', status: 'error', oee: 45.2, availability: 52.3, performance: 88.5, quality: 96.2, runtime: '0小时35分' },
+            { id: 14, name: '电火花-01', status: 'running', oee: 83.5, availability: 90.2, performance: 91.8, quality: 97.5, runtime: '3小时42分' },
+            { id: 15, name: '电火花-02', status: 'running', oee: 85.2, availability: 91.5, performance: 92.4, quality: 97.8, runtime: '4小时08分' }
+        ];
+
+        let currentFilter = 'all';
+        let selectedDevice = null;
+
+        // 渲染设备列表
+        function renderDeviceList(filter = 'all') {
+            const container = document.getElementById('deviceList');
+            const filtered = filter === 'all' 
+                ? devicesData 
+                : devicesData.filter(d => d.status === filter);
+            
+            const statusMap = {
+                'running': { text: '运行中', class: 'running' },
+                'idle': { text: '待机中', class: 'idle' },
+                'error': { text: '故障中', class: 'error' },
+                'offline': { text: '离线', class: 'offline' }
+            };
+            
+            container.innerHTML = filtered.map(device => `
+                <div class="device-item ${selectedDevice?.id === device.id ? 'active' : ''}" onclick="selectDevice(${device.id})">
+                    <div class="device-item-header">
+                        <span class="device-name">${device.name}</span>
+                        <span class="device-status-badge ${statusMap[device.status].class}">${statusMap[device.status].text}</span>
+                    </div>
+                    <div class="device-oee">${device.oee}%</div>
+                    <div class="device-info">运行时长: ${device.runtime}</div>
+                </div>
+            `).join('');
+        }
+
+        // 筛选设备
+        function filterDevices(status) {
+            currentFilter = status;
+            
+            // 更新状态按钮样式
+            document.querySelectorAll('.status-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+            
+            // 重新渲染设备列表
+            renderDeviceList(status);
+        }
+
+        // 选择设备
+        function selectDevice(deviceId) {
+            const device = devicesData.find(d => d.id === deviceId);
+            if (!device) return;
+            
+            selectedDevice = device;
+            
+            // 更新设备列表选中状态
+            document.querySelectorAll('.device-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+            
+            // 显示设备详情
+            const detailSection = document.getElementById('deviceDetail');
+            const statusMap = {
+                'running': { text: '运行中', class: 'running' },
+                'idle': { text: '待机中', class: 'idle' },
+                'error': { text: '故障中', class: 'error' },
+                'offline': { text: '离线', class: 'offline' }
+            };
+            
+            document.getElementById('detailDeviceName').textContent = device.name;
+            const statusEl = document.getElementById('detailDeviceStatus');
+            statusEl.textContent = statusMap[device.status].text;
+            statusEl.className = 'detail-status ' + statusMap[device.status].class;
+            
+            document.getElementById('detailOEE').textContent = device.oee + '%';
+            document.getElementById('detailAvailability').textContent = device.availability + '%';
+            document.getElementById('detailPerformance').textContent = device.performance + '%';
+            document.getElementById('detailQuality').textContent = device.quality + '%';
+            
+            detailSection.style.display = 'block';
+            
+            // 滚动到详情区域
+            detailSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // OEE趋势数据（近7天）
+        const oeeTrendData = [
+            { date: '01-14', value: 82.5, availability: 90.2, performance: 91.5, quality: 98.1 },
+            { date: '01-15', value: 84.3, availability: 92.1, performance: 92.8, quality: 98.5 },
+            { date: '01-16', value: 83.7, availability: 91.5, performance: 92.3, quality: 98.3 },
+            { date: '01-17', value: 86.2, availability: 93.8, performance: 94.1, quality: 98.7 },
+            { date: '01-18', value: 85.8, availability: 93.2, performance: 93.9, quality: 98.6 },
+            { date: '01-19', value: 84.9, availability: 92.6, performance: 93.2, quality: 98.4 },
+            { date: '01-20', value: 85.6, availability: 94.2, performance: 93.8, quality: 98.9 }
+        ];
+
+        // 渲染OEE趋势图表 - 面积图
+        function renderOEEChart() {
+            const container = document.getElementById('oeeChart');
+            const width = container.clientWidth - 70; // 减去padding
+            const height = container.clientHeight - 60; // 减去padding
+            const maxValue = 100;
+            const targetValue = 85;
+            const padding = { top: 20, right: 20, bottom: 30, left: 40 };
+
+            const chartWidth = width - padding.left - padding.right;
+            const chartHeight = height - padding.top - padding.bottom;
+
+            // 计算坐标
+            const points = oeeTrendData.map((item, index) => {
+                const x = padding.left + (index / (oeeTrendData.length - 1)) * chartWidth;
+                const y = padding.top + chartHeight - (item.value / maxValue) * chartHeight;
+                return { x, y, value: item.value, data: item };
+            });
+
+            // 构建面积路径
+            const areaPath = `
+                M ${points[0].x} ${padding.top + chartHeight}
+                L ${points.map(p => `${p.x} ${p.y}`).join(' L ')}
+                L ${points[points.length - 1].x} ${padding.top + chartHeight}
+                Z
+            `;
+
+            // 构建线条路径
+            const linePath = `M ${points.map(p => `${p.x} ${p.y}`).join(' L ')}`;
+
+            // 目标线Y坐标
+            const targetY = padding.top + chartHeight - (targetValue / maxValue) * chartHeight;
+
+            // 生成Y轴刻度
+            const yTicks = [0, 20, 40, 60, 80, 100];
+
+            let svg = `
+                <svg class="chart-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.8" />
+                            <stop offset="100%" style="stop-color:#0099ff;stop-opacity:0.1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- 网格线 -->
+                    ${yTicks.map(tick => {
+                        const y = padding.top + chartHeight - (tick / maxValue) * chartHeight;
+                        return `<line class="chart-grid-line" x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" />`;
+                    }).join('')}
+                    
+                    <!-- Y轴 -->
+                    <line class="chart-axis-line" x1="${padding.left}" y1="${padding.top}" x2="${padding.left}" y2="${padding.top + chartHeight}" />
+                    
+                    <!-- X轴 -->
+                    <line class="chart-axis-line" x1="${padding.left}" y1="${padding.top + chartHeight}" x2="${width - padding.right}" y2="${padding.top + chartHeight}" />
+                    
+                    <!-- Y轴刻度和标签 -->
+                    ${yTicks.map(tick => {
+                        const y = padding.top + chartHeight - (tick / maxValue) * chartHeight;
+                        return `<text class="chart-axis-text y-axis" x="${padding.left - 8}" y="${y + 4}">${tick}%</text>`;
+                    }).join('')}
+                    
+                    <!-- X轴标签 -->
+                    ${points.map((p, i) => `
+                        <text class="chart-axis-text" x="${p.x}" y="${padding.top + chartHeight + 20}">${p.data.date}</text>
+                    `).join('')}
+                    
+                    <!-- 目标线 -->
+                    <line class="chart-target-line" x1="${padding.left}" y1="${targetY}" x2="${width - padding.right}" y2="${targetY}" />
+                    <text class="chart-target-label" x="${width - padding.right - 5}" y="${targetY - 5}">目标 85%</text>
+                    
+                    <!-- 面积 -->
+                    <path class="chart-area" d="${areaPath}" />
+                    
+                    <!-- 线条 -->
+                    <path class="chart-line" d="${linePath}" />
+                    
+                    <!-- 数据点 -->
+                    ${points.map((p, i) => `
+                        <circle class="chart-point ${p.value >= targetValue ? 'target-met' : ''}" 
+                                cx="${p.x}" cy="${p.y}" r="5"
+                                data-index="${i}"
+                                onmouseenter="showTooltip(event, ${i})"
+                                onmouseleave="hideTooltip()" />
+                    `).join('')}
+                </svg>
+                
+                <!-- 提示框 -->
+                <div class="chart-tooltip" id="chartTooltip">
+                    <div class="chart-tooltip-title" id="tooltipTitle"></div>
+                    <div class="chart-tooltip-row">
+                        <span>OEE:</span>
+                        <span class="chart-tooltip-value" id="tooltipOEE"></span>
+                    </div>
+                    <div class="chart-tooltip-row">
+                        <span>可用率:</span>
+                        <span class="chart-tooltip-value" id="tooltipAvailability"></span>
+                    </div>
+                    <div class="chart-tooltip-row">
+                        <span>性能率:</span>
+                        <span class="chart-tooltip-value" id="tooltipPerformance"></span>
+                    </div>
+                    <div class="chart-tooltip-row">
+                        <span>质量率:</span>
+                        <span class="chart-tooltip-value" id="tooltipQuality"></span>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = svg;
+        }
+
+        // 显示提示框
+        function showTooltip(event, index) {
+            const tooltip = document.getElementById('chartTooltip');
+            const data = oeeTrendData[index];
+            
+            document.getElementById('tooltipTitle').textContent = data.date;
+            document.getElementById('tooltipOEE').textContent = data.value + '%';
+            document.getElementById('tooltipAvailability').textContent = data.availability + '%';
+            document.getElementById('tooltipPerformance').textContent = data.performance + '%';
+            document.getElementById('tooltipQuality').textContent = data.quality + '%';
+            
+            // 定位提示框
+            const rect = event.target.getBoundingClientRect();
+            const containerRect = document.getElementById('oeeChart').getBoundingClientRect();
+            
+            tooltip.style.left = (rect.left - containerRect.left + 15) + 'px';
+            tooltip.style.top = (rect.top - containerRect.top - 10) + 'px';
+            tooltip.classList.add('visible');
+        }
+
+        // 隐藏提示框
+        function hideTooltip() {
+            const tooltip = document.getElementById('chartTooltip');
+            tooltip.classList.remove('visible');
+        }
+
+        // 初始化
+        function init() {
+            renderDeviceList();
+            renderOEEChart();
+        }
+
+        // 更新时间
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('currentTime').textContent = timeString;
+        }
+
+        // 每秒更新时间
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // 页面加载时初始化
+        window.onload = init;
+
+        // 退出登录
+        function logout() {
+            localStorage.removeItem('iBodaoUser');
+            window.location.href = './教学实训平台_登录.html';
+        }
+
+        // 菜单折叠
+        function toggleMenu(element) {
+            element.classList.toggle('collapsed');
+            const menuItems = element.nextElementSibling;
+            if (menuItems && menuItems.classList.contains('menu-items')) {
+                menuItems.classList.toggle('collapsed');
+            }
+        }
+
+        // 模拟数据更新
+        function updateData() {
+            console.log('数据更新中...');
+        }
+
+        // 每5秒更新一次数据
+        setInterval(updateData, 5000);
+    </script>
+    <!-- 导航组件加载器 -->
+    <script src="./nav-loader-universal.js" data-nav-type="teacher"></script>
+</body>
+</html>

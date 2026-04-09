@@ -1,0 +1,46 @@
+{
+  "properties": {
+    "RESOURCE_CODE": "30507b2120769bd2c10e80bd490cbc12",
+    "IS_COMMON": true
+  },
+  "id": "23e76ab25b7d4d3882e8006f50b795f0",
+  "groupId": "1e8f330c359844b78a2543bad47c190d",
+  "name": "根据表单编码获取表单id及customerid",
+  "createTime": 1724401025286,
+  "updateTime": 1730254362406,
+  "lock": null,
+  "createBy": "19165831388",
+  "updateBy": "admin",
+  "path": "getFormIdByCodesAndCustomerId",
+  "description": null,
+  "returnType": null,
+  "mappingPath": null,
+  "parameters": [
+    {
+      "name": "formCodes",
+      "value": null,
+      "description": null,
+      "required": false,
+      "dataType": "String",
+      "type": "java.util.Collection",
+      "defaultValue": null,
+      "validateType": null,
+      "error": null,
+      "expression": null,
+      "children": null
+    },
+    {
+      "name": "customerId",
+      "value": null,
+      "description": null,
+      "required": false,
+      "dataType": "String",
+      "type": "java.lang.String",
+      "defaultValue": null,
+      "validateType": null,
+      "error": null,
+      "expression": null,
+      "children": null
+    }
+  ]
+}

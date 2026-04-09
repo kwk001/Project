@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程详情 - 教务管理端</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #F5F7FA;
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 220px;
+            background: #001529;
+            display: flex;
+            flex-direction: column;
+        }
+        .logo {
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .menu-item {
+            padding: 12px 24px;
+            cursor: pointer;
+            color: rgba(255,255,255,0.65);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        .menu-item:hover, .menu-item.active {
+            background: #1890FF;
+            color: #fff;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .header {
+            height: 64px;
+            background: #fff;
+            border-bottom: 1px solid #E8E8E8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+        .content-body {
+            padding: 24px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        .detail-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .detail-header {
+            background: #fff;
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .course-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .course-code {
+            color: #999;
+            font-size: 14px;
+        }
+        .status-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: #F6FFED;
+            color: #52C41A;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        .course-meta {
+            display: flex;
+            gap: 32px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #F0F0F0;
+        }
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .meta-label {
+            font-size: 13px;
+            color: #999;
+        }
+        .meta-value {
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+        }
+        .action-btns {
+            display: flex;
+            gap: 12px;
+        }
+        .btn-edit {
+            padding: 8px 20px;
+            background: #1890FF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .detail-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            padding-left: 12px;
+            border-left: 4px solid #1890FF;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .info-label {
+            font-size: 13px;
+            color: #999;
+        }
+        .info-value {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .stat-box {
+            background: #FAFAFA;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1890FF;
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            font-size: 13px;
+            color: #666;
+        }
+        .chapter-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .chapter-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: #FAFAFA;
+            border-radius: 6px;
+        }
+        .chapter-number {
+            width: 36px;
+            height: 36px;
+            background: #1890FF;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+        }
+        .chapter-content {
+            flex: 1;
+        }
+        .chapter-title {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        .chapter-desc {
+            font-size: 13px;
+            color: #999;
+        }
+        .chapter-resources {
+            display: flex;
+            gap: 8px;
+        }
+        .resource-tag {
+            padding: 4px 10px;
+            background: #E6F7FF;
+            color: #1890FF;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">📚 教学实训平台</div>
+        <div class="menu-item">🏠 首页概览</div>
+        <div class="menu-item">🎥 视频教材库</div>
+        <div class="menu-item">📄 辅导教材库</div>
+        <div class="menu-item">❓ 题库</div>
+        <div class="menu-item">📝 试卷库</div>
+        <div class="menu-item">🔧 实训试卷库</div>
+        <div class="menu-item">📅 学年管理</div>
+        <div class="menu-item">📆 学期管理</div>
+        <div class="menu-item">🎓 年级管理</div>
+        <div class="menu-item">👨‍🏫 教师管理</div>
+        <div class="menu-item">👨‍🎓 学生管理</div>
+        <div class="menu-item">📖 专业管理</div>
+        <div class="menu-item active">📚 课程管理</div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div>首页 / 教务管理 / 课程管理 / 课程详情</div>
+            <div>👤 教务管理员：admin | <button style="padding: 6px 16px; background: #FF4D4F; color: #fff; border: none; border-radius: 4px; cursor: pointer;">退出</button></div>
+        </div>
+
+        <div class="content-body">
+            <div class="detail-container">
+                <!-- 头部信息 -->
+                <div class="detail-header">
+                    <div class="header-top">
+                        <div>
+                            <div class="course-title">机械制图</div>
+                            <div class="course-code">课程代码：MECH101</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="status-tag">已启用</span>
+                            <div class="action-btns" style="margin-top: 12px;">
+                                <button class="btn-edit">编辑课程</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="course-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">所属专业</span>
+                            <span class="meta-value">机械工程</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">学分</span>
+                            <span class="meta-value">4.0</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">总学时</span>
+                            <span class="meta-value">64</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">理论学时</span>
+                            <span class="meta-value">32</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">实践学时</span>
+                            <span class="meta-value">32</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 课程统计 -->
+                <div class="detail-card">
+                    <div class="card-title">课程统计</div>
+                    <div class="stats-row">
+                        <div class="stat-box">
+                            <div class="stat-number">6</div>
+                            <div class="stat-label">授课教师</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">186</div>
+                            <div class="stat-label">选课学生</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">12</div>
+                            <div class="stat-label">章节数量</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">48</div>
+                            <div class="stat-label">教学资源</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 课程信息 -->
+                <div class="detail-card">
+                    <div class="card-title">课程信息</div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">课程性质</span>
+                            <span class="info-value">专业必修课</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">考核方式</span>
+                            <span class="info-value">考试</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">开课学期</span>
+                            <span class="info-value">第1学期</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">先修课程</span>
+                            <span class="info-value">无</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">课程负责人</span>
+                            <span class="info-value">张三</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">创建时间</span>
+                            <span class="info-value">2024-09-01</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 课程章节 -->
+                <div class="detail-card">
+                    <div class="card-title">课程章节</div>
+                    <div class="chapter-list">
+                        <div class="chapter-item">
+                            <span class="chapter-number">1</span>
+                            <div class="chapter-content">
+                                <div class="chapter-title">制图的基本知识与技能</div>
+                                <div class="chapter-desc">4学时 · 2个视频 · 1个课件</div>
+                            </div>
+                            <div class="chapter-resources">
+                                <span class="resource-tag">🎥 视频</span>
+                                <span class="resource-tag">📄 课件</span>
+                            </div>
+                        </div>
+                        <div class="chapter-item">
+                            <span class="chapter-number">2</span>
+                            <div class="chapter-content">
+                                <div class="chapter-title">正投影基础</div>
+                                <div class="chapter-desc">6学时 · 3个视频 · 2个课件 · 1套试卷</div>
+                            </div>
+                            <div class="chapter-resources">
+                                <span class="resource-tag">🎥 视频</span>
+                                <span class="resource-tag">📄 课件</span>
+                                <span class="resource-tag">📝 试卷</span>
+                            </div>
+                        </div>
+                        <div class="chapter-item">
+                            <span class="chapter-number">3</span>
+                            <div class="chapter-content">
+                                <div class="chapter-title">立体的投影</div>
+                                <div class="chapter-desc">6学时 · 3个视频 · 2个课件</div>
+                            </div>
+                            <div class="chapter-resources">
+                                <span class="resource-tag">🎥 视频</span>
+                                <span class="resource-tag">📄 课件</span>
+                            </div>
+                        </div>
+                        <div class="chapter-item">
+                            <span class="chapter-number">4</span>
+                            <div class="chapter-content">
+                                <div class="chapter-title">组合体</div>
+                                <div class="chapter-desc">8学时 · 4个视频 · 2个课件 · 1套试卷</div>
+                            </div>
+                            <div class="chapter-resources">
+                                <span class="resource-tag">🎥 视频</span>
+                                <span class="resource-tag">📄 课件</span>
+                                <span class="resource-tag">📝 试卷</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

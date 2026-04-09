@@ -1,0 +1,1979 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#6366f1">
+    <title>学生管理 - 教务管理端</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_5124072_s39q5gmh59a.css">
+    <link rel="stylesheet" href="./common.css?v=2">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --secondary: #f59e0b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --bg-primary: #f8fafc;
+            --bg-secondary: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: 'Noto Sans SC', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #F5F7FA;
+            min-height: 100vh;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            margin-left: 220px;
+            padding-top: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            min-height: 100vh;
+        }
+
+        /* 头部区域 */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 220px;
+            right: 0;
+            z-index: 100;
+            height: 60px;
+        }
+
+        .header-left {
+            z-index: 1;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .breadcrumb a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb a:hover {
+            color: white;
+        }
+
+        .breadcrumb span:not(a) {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            z-index: 1;
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-menu-trigger {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 14px 5px 5px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+        }
+
+        .user-menu:hover .user-menu-trigger {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);
+        }
+
+        .user-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .user-avatar svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+        }
+
+        .user-greeting {
+            color: #4b5563;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .user-greeting span {
+            color: #6366f1;
+            font-weight: 600;
+        }
+
+        .dropdown-arrow {
+            width: 16px;
+            height: 16px;
+            color: #9ca3af;
+            transition: transform 0.3s;
+        }
+
+        .user-menu:hover .dropdown-arrow {
+            transform: rotate(180deg);
+            color: #6366f1;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            min-width: 180px;
+            background: #ffffff;
+            border-radius: 14px;
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.15);
+            padding: 8px;
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-12px) scale(0.96);
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 100;
+        }
+
+        .user-menu:hover .user-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 14px;
+            border-radius: 10px;
+            color: #4b5563;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+
+        .dropdown-item:hover {
+            color: #6366f1;
+            background: rgba(99, 102, 241, 0.08);
+        }
+
+        .dropdown-item svg {
+            width: 17px;
+            height: 17px;
+            color: #9ca3af;
+        }
+
+        .dropdown-item:hover svg {
+            color: #6366f1;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.2), transparent);
+            margin: 8px 0;
+        }
+
+        /* 内容区域 */
+        .content-body {
+            padding: 16px;
+            min-height: calc(100vh - 60px);
+        }
+
+        /* 统计卡片 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 16px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 14px 20px;
+            border-radius: 10px;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+        }
+
+        .stat-card.total::before {
+            background: linear-gradient(180deg, var(--primary) 0%, var(--primary-light) 100%);
+        }
+
+        .stat-card.success::before {
+            background: linear-gradient(180deg, var(--success) 0%, #34d399 100%);
+        }
+
+        .stat-card.warning::before {
+            background: linear-gradient(180deg, var(--warning) 0%, #fbbf24 100%);
+        }
+
+        .stat-card.danger::before {
+            background: linear-gradient(180deg, var(--danger) 0%, #f87171 100%);
+        }
+
+        .stat-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .stat-card:hover .stat-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .stat-card.total .stat-icon {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            box-shadow: 0 8px 20px -4px rgba(99, 102, 241, 0.4);
+        }
+
+        .stat-card.success .stat-icon {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            box-shadow: 0 8px 20px -4px rgba(16, 185, 129, 0.4);
+        }
+
+        .stat-card.warning .stat-icon {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            box-shadow: 0 8px 20px -4px rgba(245, 158, 11, 0.4);
+        }
+
+        .stat-card.danger .stat-icon {
+            background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+            box-shadow: 0 8px 20px -4px rgba(239, 68, 68, 0.4);
+        }
+
+        .stat-icon svg {
+            width: 26px;
+            height: 26px;
+            stroke: white;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* 筛选区域 */
+        .filter-section {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .filter-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .filter-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .btn-expand {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            border: 1px solid var(--border-light);
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .btn-expand:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .expand-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-expand.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 20px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            max-height: 70px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .filter-row.expanded {
+            max-height: 300px;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: calc(25% - 18px);
+            min-width: 180px;
+        }
+
+        .filter-item label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .filter-item input, .filter-item select {
+            padding: 10px 14px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 14px;
+            background: #ffffff;
+            transition: all 0.2s ease;
+            height: 40px;
+        }
+
+        .filter-item input:focus, .filter-item select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 12px;
+            width: calc(25% - 18px);
+            min-width: 160px;
+        }
+
+        .btn-search {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-search:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -2px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-reset {
+            padding: 12px 24px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-reset:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        /* 操作栏 */
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .action-left {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-primary {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px -2px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-default {
+            padding: 12px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-default:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .record-count {
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: none;
+        }
+
+        .record-count span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* 表格容器 */
+        .table-container {
+            background: var(--bg-card);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            overflow-x: auto;
+            padding: 16px;
+        }
+        .table-container table {
+            border-radius: 0;
+            box-shadow: none;
+        }
+        .table-container .pagination {
+            border-top: 1px solid var(--border-light);
+            background: transparent;
+            padding: 16px 0 0 0;
+            margin-top: 16px;
+        }
+
+        table {
+            width: 100%;
+            min-width: 1200px;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        th {
+            background: #f1f5f9;
+            padding: 16px 20px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            border-bottom: 1px solid #cbd5e1;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 16px 20px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-light);
+            white-space: nowrap;
+            background: var(--bg-card);
+        }
+
+        tr:hover td {
+            background: rgba(99, 102, 241, 0.03);
+        }
+
+        /* 固定第一列（复选框列） */
+        th:first-child,
+        td:first-child {
+            position: sticky;
+            left: 0;
+            z-index: 10;
+            width: 50px;
+            min-width: 50px;
+            max-width: 50px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        th:first-child {
+            background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+            z-index: 20;
+        }
+
+        td:first-child {
+            background: var(--bg-card);
+        }
+
+        tr:hover td:first-child {
+            background: rgba(99, 102, 241, 0.03);
+        }
+
+        /* 固定最后一列（操作列） */
+        th:last-child,
+        td:last-child {
+            position: sticky;
+            right: 0;
+            z-index: 10;
+            width: auto;
+            min-width: fit-content;
+        }
+
+        th:last-child {
+            background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+            z-index: 20;
+        }
+
+        td:last-child {
+            background: var(--bg-card);
+            padding: 16px 10px;
+        }
+
+
+
+        /* 固定列阴影效果 */
+        th:first-child::after,
+        td:first-child::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -5px;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0.05), transparent);
+            pointer-events: none;
+        }
+
+        th:last-child::before,
+        td:last-child::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -5px;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to left, rgba(0,0,0,0.05), transparent);
+            pointer-events: none;
+        }
+
+        tr:hover td {
+            background: rgba(99, 102, 241, 0.03);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* 中间列自适应宽度 */
+        th:not(:first-child):not(:last-child),
+        td:not(:first-child):not(:last-child) {
+            width: auto;
+            min-width: fit-content;
+        }
+
+        /* 复选框样式 */
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border-light);
+            border-radius: 4px;
+            cursor: pointer;
+            accent-color: var(--primary);
+            transition: all 0.2s ease;
+            vertical-align: middle;
+        }
+
+        input[type="checkbox"]:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+        }
+
+        input[type="checkbox"]:checked {
+            border-color: var(--primary);
+            background-color: var(--primary);
+        }
+
+        /* 学生信息 */
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .student-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* 标签样式 */
+        .tag {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tag::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .tag-green {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .tag-green::before {
+            background: #10b981;
+        }
+
+        .tag-yellow {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag-yellow::before {
+            background: #f59e0b;
+        }
+
+        .tag-red {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .tag-red::before {
+            background: #ef4444;
+        }
+
+        .tag-blue {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .tag-blue::before {
+            background: #3b82f6;
+        }
+
+        /* 操作按钮 */
+        .action-btns {
+            display: flex;
+            gap: 10px;
+            white-space: nowrap;
+            flex-wrap: nowrap;
+        }
+
+        .action-btns button {
+            padding: 0;
+            border: none;
+            background: transparent;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 0;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .action-btns button:hover {
+            text-decoration: underline;
+            color: var(--primary-dark);
+        }
+
+        /* 分页 */
+        .pagination {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 16px 20px;
+            gap: 8px;
+            border-top: 1px solid var(--border-light);
+            background: var(--bg-card);
+        }
+
+        .pagination button {
+            padding: 6px 12px;
+            border: 1px solid var(--border-light);
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            min-width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .pagination button.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);
+        }
+
+        .pagination button:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+            background: var(--bg-secondary);
+        }
+
+        .pagination .page-info {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-right: 16px;
+        }
+
+        .pagination .page-size-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-right: 16px;
+        }
+
+        .pagination .page-size-selector span {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .pagination .page-size-selector select {
+            padding: 4px 8px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            background: var(--bg-card);
+            cursor: pointer;
+        }
+
+        /* 响应式 */
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .filter-item {
+                width: calc(50% - 10px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .filter-item {
+                width: 100%;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .header {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 侧边栏导航容器 -->
+    <div id="nav-container"></div>
+
+    <!-- 头部区域 -->
+    <div class="header">
+        <div class="header-left">
+            <div class="breadcrumb">
+                <a href="./教学实训平台_教务管理端.html">首页</a>
+                <span>/</span>
+                <a href="#">教务管理</a>
+                <span>/</span>
+                <span>学生管理</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div id="user-menu-container"></div>
+        </div>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="main-content">
+        <div class="content-body">
+            <!-- 筛选区域 -->
+            <div class="filter-section">
+                <div class="filter-header">
+                    <span class="filter-title">筛选条件</span>
+                    <button class="btn-expand" id="expandBtn" onclick="toggleFilter()">
+                        <span>展开</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="expand-icon">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                </div>
+                <div class="filter-row" id="filterRow">
+                    <div class="filter-item">
+                        <label>学号</label>
+                        <input type="text" id="filterStudentNo" placeholder="请输入学号">
+                    </div>
+                    <div class="filter-item">
+                        <label>姓名</label>
+                        <input type="text" id="filterName" placeholder="请输入姓名">
+                    </div>
+                    <div class="filter-item">
+                        <label>专业</label>
+                        <select id="filterMajor">
+                            <option value="">全部专业</option>
+                            <option value="机械工程">机械工程</option>
+                            <option value="数控技术">数控技术</option>
+                            <option value="模具设计">模具设计与制造</option>
+                            <option value="工业机器人">工业机器人技术</option>
+                            <option value="机电一体化">机电一体化技术</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label>班级</label>
+                        <select id="filterClass">
+                            <option value="">全部班级</option>
+                            <option value="2023级1班">2023级1班</option>
+                            <option value="2023级2班">2023级2班</option>
+                            <option value="2022级1班">2022级1班</option>
+                            <option value="2022级2班">2022级2班</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label>状态</label>
+                        <select id="filterStatus">
+                            <option value="">全部状态</option>
+                            <option value="在读">在读</option>
+                            <option value="休学">休学</option>
+                            <option value="退学">退学</option>
+                            <option value="毕业">毕业</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label>入学年份</label>
+                        <select id="filterYear">
+                            <option value="">全部年份</option>
+                            <option value="2023">2023年</option>
+                            <option value="2022">2022年</option>
+                            <option value="2021">2021年</option>
+                        </select>
+                    </div>
+                    <div class="filter-actions">
+                        <button class="btn-search" onclick="searchStudents()">查询</button>
+                        <button class="btn-reset" onclick="resetFilter()">重置</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 表格 -->
+            <div class="table-container">
+                <!-- 操作栏 -->
+                <div class="action-bar">
+                    <div class="action-left">
+                        <button class="btn-primary" onclick="openAddModal()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            新增学生
+                        </button>
+                        <button class="btn-default" onclick="downloadTemplate()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="12" y1="18" x2="12" y2="12"></line>
+                                <line x1="9" y1="15" x2="15" y2="15"></line>
+                            </svg>
+                            导入模板
+                        </button>
+                        <button class="btn-default" onclick="batchImport()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            批量导入
+                        </button>
+                        <button class="btn-default" onclick="batchExport()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            批量导出
+                        </button>
+                    </div>
+                    <div class="record-count">
+                        共 <span id="totalCount">1,248</span> 条记录
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll()"></th>
+                            <th>姓名</th>
+                            <th>学号</th>
+                            <th>性别</th>
+                            <th>联系方式</th>
+                            <th>所属班级</th>
+                            <th>更新人</th>
+                            <th>更新时间</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentTable">
+                        <!-- 数据由JavaScript动态生成 -->
+                    </tbody>
+                </table>
+
+                <!-- 分页 -->
+                <div class="pagination" id="pagination">
+                    <!-- 分页由JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./nav-loader-new.js"></script>
+    <script>
+        // 筛选展开/收起
+        function toggleFilter() {
+            const filterRow = document.getElementById('filterRow');
+            const expandBtn = document.getElementById('expandBtn');
+            const isExpanded = filterRow.classList.contains('expanded');
+
+            if (isExpanded) {
+                filterRow.classList.remove('expanded');
+                expandBtn.classList.remove('expanded');
+                expandBtn.querySelector('span').textContent = '展开';
+            } else {
+                filterRow.classList.add('expanded');
+                expandBtn.classList.add('expanded');
+                expandBtn.querySelector('span').textContent = '收起';
+            }
+        }
+
+        // 分页相关变量
+        let allData = [];
+        let currentPage = 1;
+        let pageSize = 10;
+
+        // 生成模拟数据
+        function generateData() {
+            const majors = ['机械工程', '数控技术', '模具设计与制造', '工业机器人技术', '机电一体化技术'];
+            const classes = ['2023级1班', '2023级2班', '2022级1班', '2022级2班'];
+            const statuses = ['在读', '休学', '退学', '毕业'];
+            const genders = ['男', '女'];
+            const data = [];
+            const colors = ['#6366f1', '#8b5cf6', '#ec4899', '#f43f5e', '#f97316', '#eab308', '#22c55e', '#14b8a6', '#06b6d4', '#3b82f6'];
+            
+            for (let i = 1; i <= 1248; i++) {
+                const name = ['张', '李', '王', '赵', '钱', '孙', '周', '吴', '郑', '陈', '刘', '黄'][i % 12] + 
+                            ['三', '四', '五', '六', '七', '八', '九', '十', '明', '华', '强', '伟'][Math.floor(i / 12) % 12];
+                const status = statuses[Math.floor(Math.random() * statuses.length)];
+                const gender = genders[Math.floor(Math.random() * genders.length)];
+                const updaters = ['admin', '教务管理员', '系统管理员'];
+                const now = new Date();
+                const updateTime = new Date(now.getTime() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000));
+                const formatTime = (date) => {
+                    const year = date.getFullYear();
+                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                    const day = String(date.getDate()).padStart(2, '0');
+                    const hour = String(date.getHours()).padStart(2, '0');
+                    const minute = String(date.getMinutes()).padStart(2, '0');
+                    const second = String(date.getSeconds()).padStart(2, '0');
+                    return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+                };
+                const remarks = ['', '', '', '优秀生', '班干部', '', '特长生', '', '', '贫困生'];
+                data.push({
+                    id: i,
+                    name: name,
+                    studentNo: '2023' + String(i).padStart(4, '0'),
+                    gender: gender,
+                    major: majors[Math.floor(Math.random() * majors.length)],
+                    className: classes[Math.floor(Math.random() * classes.length)],
+                    phone: '138****' + String(Math.floor(Math.random() * 9000) + 1000),
+                    year: ['2023', '2022', '2021'][Math.floor(Math.random() * 3)],
+                    status: status,
+                    avatarColor: colors[i % colors.length],
+                    updater: updaters[Math.floor(Math.random() * updaters.length)],
+                    updateTime: formatTime(updateTime),
+                    remark: remarks[Math.floor(Math.random() * remarks.length)]
+                });
+            }
+            return data;
+        }
+
+        // 渲染表格
+        function renderTable() {
+            const tbody = document.getElementById('studentTable');
+            console.log('渲染表格，tbody元素:', tbody);
+            console.log('allData长度:', allData.length);
+            
+            if (!tbody) {
+                console.error('错误: 找不到studentTable元素');
+                return;
+            }
+            
+            if (allData.length === 0) {
+                console.error('错误: allData为空');
+                return;
+            }
+            
+            const start = (currentPage - 1) * pageSize;
+            const end = start + pageSize;
+            const pageData = allData.slice(start, end);
+            console.log('当前页数据数量:', pageData.length);
+            
+            tbody.innerHTML = pageData.map(item => {
+                return `
+                    <tr>
+                        <td><input type="checkbox" data-id="${item.id}"></td>
+                        <td>
+                            <div class="student-info">
+                                <div class="student-avatar" style="background: ${item.avatarColor};">
+                                    ${item.name.charAt(0)}
+                                </div>
+                                <span>${item.name}</span>
+                            </div>
+                        </td>
+                        <td>${item.studentNo}</td>
+                        <td>${item.gender}</td>
+                        <td>${item.phone}</td>
+                        <td>${item.className}</td>
+                        <td>${item.updater}</td>
+                        <td>${item.updateTime}</td>
+                        <td>${item.remark || '-'}</td>
+                        <td>
+                            <div class="action-btns">
+                                <button onclick="viewStudent(${item.id})">查看</button>
+                                <button onclick="editStudent(${item.id})">编辑</button>
+                                <button onclick="deleteStudent(${item.id})">删除</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // 渲染分页
+        function renderPagination() {
+            const totalPages = Math.ceil(allData.length / pageSize);
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1 && allData.length === 0) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let html = `<div class="page-info">共 ${allData.length} 条</div>`;
+            
+            // 每页显示条数选择器
+            html += `<div class="page-size-selector">
+                <span>每页</span>
+                <select onchange="changePageSize(this.value)">
+                    <option value="10" ${pageSize === 10 ? 'selected' : ''}>10</option>
+                    <option value="20" ${pageSize === 20 ? 'selected' : ''}>20</option>
+                    <option value="50" ${pageSize === 50 ? 'selected' : ''}>50</option>
+                    <option value="100" ${pageSize === 100 ? 'selected' : ''}>100</option>
+                </select>
+                <span>条</span>
+            </div>`;
+            
+            // 上一页按钮
+            html += `<button onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} title="上一页">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>`;
+            
+            // 页码按钮
+            const pageNumbers = getPageNumbers(currentPage, totalPages);
+            pageNumbers.forEach(page => {
+                if (page === '...') {
+                    html += `<span style="padding: 0 8px; color: var(--text-muted);">...</span>`;
+                } else {
+                    html += `<button class="${page === currentPage ? 'active' : ''}" onclick="goPage(${page})">${page}</button>`;
+                }
+            });
+            
+            // 下一页按钮
+            html += `<button onclick="goPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} title="下一页">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>`;
+            
+            // 页码跳转
+            html += `<div style="display: flex; align-items: center; gap: 8px; margin-left: 16px;">
+                <span style="font-size: 14px; color: var(--text-secondary);">跳至</span>
+                <input type="number" id="jumpPageInput" min="1" max="${totalPages}" value="" 
+                    style="width: 50px; padding: 4px 8px; border: 1px solid var(--border-light); border-radius: var(--radius-md); text-align: center; font-size: 14px;"
+                    onkeypress="if(event.key==='Enter'){jumpToPage(this.value, ${totalPages})}">
+                <span style="font-size: 14px; color: var(--text-secondary);">页</span>
+            </div>`;
+            
+            pagination.innerHTML = html;
+        }
+
+        // 获取页码显示数组
+        function getPageNumbers(current, total) {
+            const pages = [];
+            if (total <= 7) {
+                for (let i = 1; i <= total; i++) {
+                    pages.push(i);
+                }
+            } else {
+                if (current <= 3) {
+                    for (let i = 1; i <= 5; i++) {
+                        pages.push(i);
+                    }
+                    pages.push('...');
+                    pages.push(total);
+                } else if (current >= total - 2) {
+                    pages.push(1);
+                    pages.push('...');
+                    for (let i = total - 4; i <= total; i++) {
+                        pages.push(i);
+                    }
+                } else {
+                    pages.push(1);
+                    pages.push('...');
+                    for (let i = current - 1; i <= current + 1; i++) {
+                        pages.push(i);
+                    }
+                    pages.push('...');
+                    pages.push(total);
+                }
+            }
+            return pages;
+        }
+
+        // 跳转到指定页
+        function goPage(page) {
+            const totalPages = Math.ceil(allData.length / pageSize);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderTable();
+            renderPagination();
+        }
+
+        // 改变每页条数
+        function changePageSize(size) {
+            pageSize = parseInt(size);
+            currentPage = 1;
+            renderTable();
+            renderPagination();
+        }
+
+        // 跳转到指定页（输入框）
+        function jumpToPage(page, totalPages) {
+            page = parseInt(page);
+            if (isNaN(page) || page < 1 || page > totalPages) {
+                alert('请输入有效的页码');
+                return;
+            }
+            goPage(page);
+        }
+
+        // 全选/取消全选
+        function toggleSelectAll() {
+            const selectAll = document.getElementById('selectAll').checked;
+            const checkboxes = document.querySelectorAll('input[type="checkbox"][data-id]');
+            checkboxes.forEach(cb => cb.checked = selectAll);
+        }
+
+        // 查询
+        function searchStudents() {
+            console.log('查询学生');
+        }
+
+        // 重置筛选
+        function resetFilter() {
+            document.getElementById('filterStudentNo').value = '';
+            document.getElementById('filterName').value = '';
+            document.getElementById('filterMajor').value = '';
+            document.getElementById('filterClass').value = '';
+            document.getElementById('filterStatus').value = '';
+            document.getElementById('filterYear').value = '';
+        }
+
+        // 查看学生
+        function viewStudent(id) {
+            console.log('查看学生', id);
+        }
+
+        // 编辑学生
+        function editStudent(id) {
+            console.log('编辑学生', id);
+        }
+
+        // 删除学生
+        function deleteStudent(id) {
+            if (confirm('确定要删除该学生吗？')) {
+                console.log('删除学生', id);
+            }
+        }
+
+        // 打开新增弹窗
+        function openAddModal() {
+            console.log('打开新增弹窗');
+        }
+
+        // 下载导入模板
+        function downloadTemplate() {
+            console.log('下载导入模板');
+            // 创建示例CSV内容
+            const csvContent = '学号,姓名,性别,专业,班级,联系方式,入学年份,状态\n' +
+                '20230001,张三,男,机械工程,2023级1班,13800138000,2023,在读\n' +
+                '20230002,李四,女,数控技术,2023级2班,13800138001,2023,在读';
+            
+            // 创建Blob对象
+            const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+            
+            // 创建下载链接
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = '学生导入模板.csv';
+            
+            // 触发下载
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // 释放URL对象
+            URL.revokeObjectURL(link.href);
+        }
+
+        // 批量导入
+        function batchImport() {
+            console.log('批量导入');
+        }
+
+        // 批量导出
+        function batchExport() {
+            console.log('批量导出');
+        }
+
+        // 修改密码
+        function changePassword() {
+            console.log('修改密码');
+        }
+
+        // 切换主题
+        function toggleTheme() {
+            console.log('切换主题');
+        }
+
+        // 退出登录
+        function logout() {
+            if (confirm('确定要退出登录吗？')) {
+                // 清除登录状态
+                localStorage.removeItem('userToken');
+                localStorage.removeItem('userInfo');
+                sessionStorage.clear();
+                
+                // 跳转到登录页
+                window.location.href = './教学实训平台_登录.html';
+            }
+        }
+
+        // 更新统计数据（统计卡片已隐藏）
+        function updateStats() {
+            // 统计卡片已隐藏，此函数暂不执行
+            // const total = allData.length;
+            // const active = allData.filter(item => item.status === '在读').length;
+            // const warning = allData.filter(item => item.status === '休学').length;
+            // const danger = allData.filter(item => item.status === '退学').length;
+            
+            // document.getElementById('statTotal').textContent = total.toLocaleString();
+            // document.getElementById('statActive').textContent = active.toLocaleString();
+            // document.getElementById('statWarning').textContent = warning.toLocaleString();
+            // document.getElementById('statDanger').textContent = danger.toLocaleString();
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM加载完成，开始初始化...');
+            allData = generateData();
+            console.log('生成数据数量:', allData.length);
+            console.log('第一条数据:', allData[0]);
+            updateStats();
+            renderTable();
+            renderPagination();
+            console.log('表格渲染完成');
+            
+            // 加载保存的主题
+            loadSavedTheme();
+        });
+    </script>
+
+    <!-- 主题选择弹窗 -->
+    <div class="theme-modal-overlay" id="themeModal">
+        <div class="theme-modal">
+            <div class="theme-modal-header">
+                <h3 class="theme-modal-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    主题风格设置
+                </h3>
+                <button class="theme-modal-close" onclick="closeThemeModal()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="theme-modal-body">
+                <p class="theme-modal-desc">选择您喜欢的主题风格，打造个性化的使用体验</p>
+                <div class="theme-options">
+                    <div class="theme-option active" data-theme="default" onclick="selectTheme('default')">
+                        <div class="theme-preview default-theme">
+                            <div class="preview-header"></div>
+                            <div class="preview-content">
+                                <div class="preview-line"></div>
+                                <div class="preview-line short"></div>
+                            </div>
+                        </div>
+                        <div class="theme-info">
+                            <span class="theme-name">默认主题</span>
+                            <span class="theme-badge">当前使用</span>
+                        </div>
+                    </div>
+                    <div class="theme-option" data-theme="dark" onclick="selectTheme('dark')">
+                        <div class="theme-preview dark-theme">
+                            <div class="preview-header"></div>
+                            <div class="preview-content">
+                                <div class="preview-line"></div>
+                                <div class="preview-line short"></div>
+                            </div>
+                        </div>
+                        <div class="theme-info">
+                            <span class="theme-name">深色模式</span>
+                            <span class="theme-badge">护眼</span>
+                        </div>
+                    </div>
+                    <div class="theme-option" data-theme="green" onclick="selectTheme('green')">
+                        <div class="theme-preview green-theme">
+                            <div class="preview-header"></div>
+                            <div class="preview-content">
+                                <div class="preview-line"></div>
+                                <div class="preview-line short"></div>
+                            </div>
+                        </div>
+                        <div class="theme-info">
+                            <span class="theme-name">自然清新</span>
+                            <span class="theme-badge">清新</span>
+                        </div>
+                    </div>
+                    <div class="theme-option" data-theme="orange" onclick="selectTheme('orange')">
+                        <div class="theme-preview orange-theme">
+                            <div class="preview-header"></div>
+                            <div class="preview-content">
+                                <div class="preview-line"></div>
+                                <div class="preview-line short"></div>
+                            </div>
+                        </div>
+                        <div class="theme-info">
+                            <span class="theme-name">活力橙光</span>
+                            <span class="theme-badge">温暖</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="theme-modal-footer">
+                <button class="theme-btn theme-btn-secondary" onclick="closeThemeModal()">取消</button>
+                <button class="theme-btn theme-btn-primary" onclick="applyTheme()">应用主题</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* 主题选择弹窗样式 */
+        .theme-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .theme-modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .theme-modal {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 24px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .theme-modal-overlay.active .theme-modal {
+            transform: scale(1);
+        }
+
+        .theme-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .theme-modal-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            margin: 0;
+        }
+
+        .theme-modal-title svg {
+            stroke: #fbbf24;
+        }
+
+        .theme-modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .theme-modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .theme-modal-body {
+            padding: 28px;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .theme-modal-desc {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .theme-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .theme-option {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-option:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -4px rgba(0, 0, 0, 0.15);
+        }
+
+        .theme-option.active {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15), 0 12px 24px -4px rgba(0, 0, 0, 0.15);
+        }
+
+        .theme-preview {
+            height: 80px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .preview-header {
+            height: 24px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .preview-content {
+            padding: 12px;
+        }
+
+        .preview-line {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .preview-line.short {
+            width: 60%;
+        }
+
+        /* 默认主题预览 */
+        .default-theme {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* 深色主题预览 */
+        .dark-theme {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        /* 绿色主题预览 */
+        .green-theme {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        /* 橙色主题预览 */
+        .orange-theme {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .theme-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .theme-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .theme-badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 500;
+        }
+
+        .theme-option.active .theme-badge {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+        }
+
+        .theme-modal-footer {
+            display: flex;
+            gap: 12px;
+            padding: 20px 28px;
+            background: rgba(255, 255, 255, 0.95);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            justify-content: flex-end;
+        }
+
+        .theme-btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .theme-btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .theme-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .theme-btn-secondary {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .theme-btn-secondary:hover {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        /* 深色主题样式 */
+        body[data-theme="dark"] {
+            background: #0f172a;
+        }
+
+        body[data-theme="dark"] .main-content {
+            background: #0f172a;
+        }
+
+        body[data-theme="dark"] .content-body {
+            background: #0f172a;
+        }
+
+        body[data-theme="dark"] .stat-card {
+            background: #1e293b;
+            border-color: #334155;
+        }
+
+        body[data-theme="dark"] .filter-section {
+            background: #1e293b;
+            border-color: #334155;
+        }
+
+        body[data-theme="dark"] .data-table {
+            background: #1e293b;
+        }
+
+        body[data-theme="dark"] .data-table th {
+            background: #334155;
+            color: #e2e8f0;
+        }
+
+        body[data-theme="dark"] .data-table td {
+            border-color: #334155;
+            color: #cbd5e1;
+        }
+
+        body[data-theme="dark"] .page-header {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        }
+
+        /* 绿色主题样式 */
+        body[data-theme="green"] {
+            --primary: #10b981;
+            --primary-light: #34d399;
+            --primary-dark: #059669;
+        }
+
+        body[data-theme="green"] .page-header {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        body[data-theme="green"] .stat-card.total {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        /* 橙色主题样式 */
+        body[data-theme="orange"] {
+            --primary: #f97316;
+            --primary-light: #fb923c;
+            --primary-dark: #ea580c;
+        }
+
+        body[data-theme="orange"] .page-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        body[data-theme="orange"] .stat-card.total {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+    </style>
+
+    <script>
+        // 主题相关功能
+        let selectedTheme = 'default';
+        let currentAppliedTheme = 'default';
+
+        // 打开主题选择弹窗
+        function toggleTheme() {
+            document.getElementById('themeModal').classList.add('active');
+            // 同步当前选中的主题
+            selectedTheme = currentAppliedTheme;
+            updateThemeSelection();
+        }
+
+        // 关闭主题选择弹窗
+        function closeThemeModal() {
+            document.getElementById('themeModal').classList.remove('active');
+            // 恢复之前应用的主题
+            if (selectedTheme !== currentAppliedTheme) {
+                applyThemeToPage(currentAppliedTheme);
+            }
+        }
+
+        // 选择主题
+        function selectTheme(theme) {
+            selectedTheme = theme;
+            updateThemeSelection();
+            // 实时预览
+            applyThemeToPage(theme);
+        }
+
+        // 更新主题选择状态
+        function updateThemeSelection() {
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.remove('active');
+                const badge = option.querySelector('.theme-badge');
+                if (option.dataset.theme === selectedTheme) {
+                    option.classList.add('active');
+                    badge.textContent = '已选择';
+                } else {
+                    const originalText = {
+                        'default': '当前使用',
+                        'dark': '护眼',
+                        'green': '清新',
+                        'orange': '温暖'
+                    };
+                    badge.textContent = originalText[option.dataset.theme];
+                }
+            });
+        }
+
+        // 应用主题到页面
+        function applyThemeToPage(theme) {
+            document.body.setAttribute('data-theme', theme);
+            
+            // 更新主题色
+            const themeColors = {
+                'default': '#6366f1',
+                'dark': '#1e293b',
+                'green': '#10b981',
+                'orange': '#f97316'
+            };
+            
+            // 更新 meta theme-color
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', themeColors[theme]);
+        }
+
+        // 应用并保存主题
+        function applyTheme() {
+            currentAppliedTheme = selectedTheme;
+            applyThemeToPage(selectedTheme);
+            
+            // 保存到 localStorage
+            localStorage.setItem('theme', selectedTheme);
+            
+            // 显示成功提示
+            showThemeNotification('主题应用成功！');
+            
+            closeThemeModal();
+        }
+
+        // 加载保存的主题
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'default';
+            currentAppliedTheme = savedTheme;
+            selectedTheme = savedTheme;
+            applyThemeToPage(savedTheme);
+        }
+
+        // 显示主题通知
+        function showThemeNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 10px;
+                border-radius: 12px;
+                font-weight: 600;
+                box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+                z-index: 10001;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+
+        // 添加动画样式
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 点击遮罩关闭弹窗
+        document.getElementById('themeModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeThemeModal();
+            }
+        });
+    </script>
+    <script src="./user-menu-component.js"></script>
+</body>
+</html>

@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工艺管理 - 学生端</title>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_5124072_s39q5gmh59a.css">
+    <link rel="stylesheet" href="./nav-styles.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #F5F7FA;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* 侧边栏 */
+                /* 有导航栏时的布局 */
+        body.has-nav-sidebar {
+            display: flex;
+        }
+
+        body.has-nav-sidebar .main-content {
+            flex: 1;
+            margin-left: 260px; /* 导航栏宽度 */
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            margin-left: 0;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .header {
+            height: 64px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .header .breadcrumb {
+            font-size: 14px;
+            color: #666;
+        }
+        .header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 14px;
+        }
+        .header .user-info button {
+            padding: 6px 16px;
+            border: 1px solid #FF4D4F;
+            background: #fff;
+            color: #FF4D4F;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .content {
+            flex: 1;
+            overflow: auto;
+            padding: 20px;
+        }
+
+        /* 统计卡片 */
+        .stats-row {
+            display: none;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        .stat-icon.blue { background: #E6F7FF; }
+        .stat-icon.green { background: #F6FFED; }
+        .stat-icon.orange { background: #FFF7E6; }
+        .stat-icon.purple { background: #F9F0FF; }
+        .stat-value {
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+        }
+        .stat-label {
+            font-size: 13px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        /* 筛选栏 */
+        .filter-bar {
+            background: #fff;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .filter-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filter-item label {
+            font-size: 13px;
+            color: #666;
+            white-space: nowrap;
+        }
+        .filter-item input,
+        .filter-item select {
+            padding: 8px 12px;
+            border: 1px solid #D9D9D9;
+            border-radius: 4px;
+            font-size: 13px;
+            min-width: 140px;
+        }
+        .filter-btns {
+            display: flex;
+            gap: 8px;
+            margin-left: auto;
+        }
+
+        /* 按钮样式 */
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-primary {
+            background: #1890FF;
+            color: #fff;
+        }
+        .btn-primary:hover { background: #40A9FF; }
+        .btn-success {
+            background: #52C41A;
+            color: #fff;
+        }
+        .btn-success:hover { background: #73D13D; }
+        .btn-warning {
+            background: #FA8C16;
+            color: #fff;
+        }
+        .btn-warning:hover { background: #FFA940; }
+        .btn-default {
+            background: #fff;
+            color: #666;
+            border: 1px solid #D9D9D9;
+        }
+        .btn-default:hover {
+            border-color: #1890FF;
+            color: #1890FF;
+        }
+
+        /* 表格 */
+        .table-container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .data-table th {
+            background: #FAFAFA;
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 1px solid #E8E8E8;
+            white-space: nowrap;
+        }
+        .data-table td {
+            padding: 12px 16px;
+            font-size: 13px;
+            color: #666;
+            border-bottom: 1px solid #F0F0F0;
+        }
+        .data-table tbody tr:hover {
+            background: #F6FFFE;
+        }
+
+        /* 状态标签 */
+        .status-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .status-pending {
+            background: #FFF7E6;
+            color: #FA8C16;
+            border: 1px solid #FFD591;
+        }
+        .status-approved {
+            background: #F6FFED;
+            color: #52C41A;
+            border: 1px solid #B7EB8F;
+        }
+        .status-rejected {
+            background: #FFF2F0;
+            color: #FF4D4F;
+            border: 1px solid #FFA39E;
+        }
+        .status-stored {
+            background: #E6F7FF;
+            color: #1890FF;
+            border: 1px solid #91D5FF;
+        }
+
+        /* 分页 */
+        .pagination {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 16px 20px;
+            gap: 8px;
+        }
+        .pagination-btn {
+            padding: 6px 12px;
+            border: 1px solid #D9D9D9;
+            background: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .pagination-btn:hover {
+            border-color: #1890FF;
+            color: #1890FF;
+        }
+        .pagination-btn.active {
+            background: #1890FF;
+            color: #fff;
+            border-color: #1890FF;
+        }
+
+        /* 弹窗 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            background: #fff;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow: auto;
+        }
+        .modal-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #E8E8E8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        .modal-close {
+            font-size: 20px;
+            color: #999;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .modal-body {
+            padding: 20px;
+        }
+        .modal-footer {
+            padding: 16px 20px;
+            border-top: 1px solid #E8E8E8;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        /* 表单样式 */
+        .form-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .form-item {
+            flex: 1;
+        }
+        .form-item label {
+            display: block;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .form-item input,
+        .form-item select,
+        .form-item textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #D9D9D9;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        .form-item textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* 工艺卡片 */
+        .process-card {
+            background: #FAFAFA;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border-left: 4px solid #1890FF;
+        }
+        .process-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        .process-content {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* 评价区域 */
+        .comment-box {
+            background: #F6FFFE;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 12px;
+        }
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .comment-author {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+        }
+        .comment-time {
+            font-size: 12px;
+            color: #999;
+        }
+        .comment-content {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* 知识库标签 */
+        .kb-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            background: #F6FFED;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #52C41A;
+        }
+
+        /* 评分星星 */
+        .rating {
+            display: flex;
+            gap: 4px;
+        }
+        .star {
+            font-size: 16px;
+            color: #FAAD14;
+        }
+        .star.empty {
+            color: #D9D9D9;
+        }
+
+        /* 菜单组样式 */
+        .menu-group {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .menu-title {
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+        }
+        .menu-title:hover {
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+        }
+        .menu-title .iconfont {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+        .menu-items {
+            display: block;
+        }
+        .menu-items.collapsed {
+            display: none;
+        }
+        .menu-items .menu-item {
+            padding: 12px 20px 12px 52px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            border-left: 3px solid transparent;
+        }
+        .menu-items .menu-item:hover {
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+        }
+        .menu-items .menu-item.active {
+            background: #1890FF;
+            color: #fff;
+            border-left-color: #fff;
+        }
+        .menu-items .menu-item .iconfont {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- 侧边栏 -->
+    <div class="sidebar">
+        <div class="logo"><i class="iconfont icon-gongzuotai"></i> 教学实训平台</div>
+        
+        <div class="menu-group">
+            <div class="menu-title" onclick="toggleMenu(this)"><i class="iconfont icon-shouye"></i>工作台</div>
+            <div class="menu-items">
+                <div class="menu-item" onclick="window.location.href='./教学实训平台_学生端.html'">
+                    <span><i class="iconfont icon-shouye"></i></span><span>首页概览</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-group">
+            <div class="menu-title" onclick="toggleMenu(this)"><i class="iconfont icon-kechengguanli"></i>我的学习</div>
+            <div class="menu-items">
+                <div class="menu-item" onclick="window.location.href='./学生端_我的课程.html'">
+                    <span><i class="iconfont icon-kechengguanli"></i></span><span>我的课程</span>
+                </div>
+                <div class="menu-item" onclick="window.location.href='./学生端_我的考试.html'">
+                    <span><i class="iconfont icon-shijuan"></i></span><span>我的考试</span>
+                </div>
+                <div class="menu-item" onclick="window.location.href='./学生端_我的实训.html'">
+                    <span><i class="iconfont icon-shixun"></i></span><span>我的实训</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-group">
+            <div class="menu-title" onclick="toggleMenu(this)"><i class="iconfont icon-baobiao"></i>知识库</div>
+            <div class="menu-items">
+                <div class="menu-item" onclick="window.location.href='./学生端_错题集.html'">
+                    <span><i class="iconfont icon-cuowu"></i></span><span>错题集</span>
+                </div>
+                <div class="menu-item active" onclick="window.location.href='./学生端_工艺管理.html'">
+                    <span><i class="iconfont icon-shezhi"></i></span><span>工艺管理</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="main-content">
+        <div class="header">
+            <div class="breadcrumb">首页 / 工艺管理</div>
+            <div class="user-info">
+                <span>👤 学生：张三</span>
+                <button onclick="logout()">退出</button>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- 统计卡片 -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon blue">📋</div>
+                    <div>
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">我的工艺</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">⏳</div>
+                    <div>
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">待审核</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">✅</div>
+                    <div>
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">已通过</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple">📚</div>
+                    <div>
+                        <div class="stat-value">5</div>
+                        <div class="stat-label">已入库</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 筛选栏 -->
+            <div class="filter-bar">
+                <div class="filter-row">
+                    <div class="filter-item">
+                        <label>所属课程</label>
+                        <select>
+                            <option value="">全部</option>
+                            <option value="数控车削加工" selected>数控车削加工</option>
+                            <option value="铣削工艺实训">铣削工艺实训</option>
+                            <option value="模具拆装实训">模具拆装实训</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label>实训任务</label>
+                        <select>
+                            <option value="">全部</option>
+                            <option value="SX2024001" selected>轴类零件加工</option>
+                            <option value="SX2024002">法兰盘加工</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label>审核状态</label>
+                        <select>
+                            <option value="">全部</option>
+                            <option value="pending">待审核</option>
+                            <option value="approved">已通过</option>
+                            <option value="rejected">未通过</option>
+                            <option value="stored">已入库</option>
+                        </select>
+                    </div>
+                    <div class="filter-btns">
+                        <button class="btn btn-primary" onclick="searchProcess()">🔍 查询</button>
+                        <button class="btn btn-default" onclick="resetFilter()">重置</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 数据表格 -->
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;">序号</th>
+                            <th>工艺名称</th>
+                            <th style="display: none;">所属专业</th>
+                            <th>所属课程</th>
+                            <th>实训试卷名称</th>
+                            <th style="width: 90px;">考题分数</th>
+                            <th style="width: 90px;">实际得分</th>
+                            <th>提交时间</th>
+                            <th style="width: 100px;">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>轴类零件车削工艺</td>
+                            <td style="display: none;">机械制造与自动化</td>
+                            <td>数控车削加工</td>
+                            <td>轴类零件加工实训试卷</td>
+                            <td>100</td>
+                            <td style="color: #52C41A; font-weight: 600;">92</td>
+                            <td>2024-02-10 14:30</td>
+                            <td>
+                                <button class="btn btn-primary" style="padding: 4px 12px; font-size: 12px;" onclick="viewDetail(1)">查看详情</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>法兰盘铣削工艺方案</td>
+                            <td style="display: none;">机械制造与自动化</td>
+                            <td>铣削工艺实训</td>
+                            <td>法兰盘加工实训试卷</td>
+                            <td>100</td>
+                            <td style="color: #52C41A; font-weight: 600;">88</td>
+                            <td>2024-02-12 16:45</td>
+                            <td>
+                                <button class="btn btn-primary" style="padding: 4px 12px; font-size: 12px;" onclick="viewDetail(2)">查看详情</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>螺纹连接件加工工艺</td>
+                            <td style="display: none;">数控技术</td>
+                            <td>数控车削加工</td>
+                            <td>螺纹连接件加工实训试卷</td>
+                            <td>100</td>
+                            <td style="color: #FA8C16; font-weight: 600;">76</td>
+                            <td>2024-02-15 09:20</td>
+                            <td>
+                                <button class="btn btn-primary" style="padding: 4px 12px; font-size: 12px;" onclick="viewDetail(3)">查看详情</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>箱体零件加工工艺</td>
+                            <td style="display: none;">模具设计与制造</td>
+                            <td>模具拆装实训</td>
+                            <td>箱体零件加工实训试卷</td>
+                            <td>100</td>
+                            <td style="color: #52C41A; font-weight: 600;">95</td>
+                            <td>2024-02-08 11:30</td>
+                            <td>
+                                <button class="btn btn-primary" style="padding: 4px 12px; font-size: 12px;" onclick="viewDetail(4)">查看详情</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>齿轮加工工艺优化</td>
+                            <td style="display: none;">机械制造与自动化</td>
+                            <td>数控车削加工</td>
+                            <td>齿轮加工实训试卷</td>
+                            <td>100</td>
+                            <td style="color: #52C41A; font-weight: 600;">90</td>
+                            <td>2024-02-14 15:00</td>
+                            <td>
+                                <button class="btn btn-primary" style="padding: 4px 12px; font-size: 12px;" onclick="viewDetail(5)">查看详情</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- 分页 -->
+                <div class="pagination">
+                    <span style="font-size: 13px; color: #666;">共 12 条记录</span>
+                    <button class="pagination-btn">上一页</button>
+                    <button class="pagination-btn active">1</button>
+                    <button class="pagination-btn">2</button>
+                    <button class="pagination-btn">3</button>
+                    <button class="pagination-btn">下一页</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新建/编辑工艺弹窗 -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title">新建工艺方案</span>
+                <button class="modal-close" onclick="closeModal('editModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-item">
+                        <label>工艺名称 <span style="color: #FF4D4F;">*</span></label>
+                        <input type="text" placeholder="请输入工艺名称" value="">
+                    </div>
+                    <div class="form-item">
+                        <label>所属课程 <span style="color: #FF4D4F;">*</span></label>
+                        <select>
+                            <option value="">请选择课程</option>
+                            <option value="数控车削加工" selected>数控车削加工</option>
+                            <option value="铣削工艺实训">铣削工艺实训</option>
+                            <option value="模具拆装实训">模具拆装实训</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label>实训任务 <span style="color: #FF4D4F;">*</span></label>
+                        <select>
+                            <option value="">请选择任务</option>
+                            <option value="SX2024001" selected>轴类零件加工</option>
+                            <option value="SX2024002">法兰盘加工</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label>参考工艺</label>
+                        <select>
+                            <option value="">选择参考工艺（可选）</option>
+                            <option value="1">轴类零件车削工艺（典型工艺）</option>
+                            <option value="2">法兰盘铣削工艺方案</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label>工艺路线 <span style="color: #FF4D4F;">*</span></label>
+                        <textarea placeholder="请详细描述工艺路线，包括：&#10;1. 下料工序&#10;2. 粗加工工序&#10;3. 精加工工序&#10;4. 检验工序"></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label>工艺参数</label>
+                        <textarea placeholder="请填写工艺参数，如：&#10;切削速度、进给量、切削深度等"></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label>备注说明</label>
+                        <textarea placeholder="其他需要说明的内容"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" onclick="closeModal('editModal')">取消</button>
+                <button class="btn btn-default" onclick="saveDraft()">保存草稿</button>
+                <button class="btn btn-primary" onclick="submitProcess()">提交审核</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 工艺详情弹窗 -->
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title">工艺详情 - 轴类零件车削工艺</span>
+                <button class="modal-close" onclick="closeModal('detailModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="process-card">
+                    <div class="process-title">📋 工艺信息</div>
+                    <div class="process-content">
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                            <div>工艺名称：轴类零件车削工艺</div>
+                            <div>所属课程：数控车削加工</div>
+                            <div>实训任务：轴类零件加工</div>
+                            <div>提交时间：2024-02-10 14:30</div>
+                            <div>审核状态：<span class="status-tag status-stored">已入库</span></div>
+                            <div>知识库标签：<span class="kb-tag">📚 典型工艺</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="process-card">
+                    <div class="process-title">🔧 工艺路线</div>
+                    <div class="process-content">
+                        <div style="line-height: 2;">
+                            <div><strong>工序1：下料</strong></div>
+                            <div>使用锯床将原材料切割至规定长度，留足加工余量。</div>
+                            <div style="margin-top: 8px;"><strong>工序2：粗车</strong></div>
+                            <div>采用较大的切削用量快速去除多余材料，为精加工留0.5mm余量。</div>
+                            <div style="margin-top: 8px;"><strong>工序3：精车</strong></div>
+                            <div>采用较小的切削用量，保证尺寸精度和表面粗糙度要求。</div>
+                            <div style="margin-top: 8px;"><strong>工序4：检验</strong></div>
+                            <div>使用游标卡尺和千分尺检验尺寸精度，确保符合图纸要求。</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="process-card">
+                    <div class="process-title">⚙️ 工艺参数</div>
+                    <div class="process-content">
+                        <div style="line-height: 2;">
+                            <div>切削速度：120-150 m/min</div>
+                            <div>进给量：0.15-0.25 mm/r</div>
+                            <div>切削深度：粗车2-3mm，精车0.3-0.5mm</div>
+                            <div>刀具材料：硬质合金</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="process-card">
+                    <div class="process-title">💬 教师评语</div>
+                    <div class="comment-box">
+                        <div class="comment-header">
+                            <span class="comment-author">👨‍🏫 李老师</span>
+                            <span class="comment-time">2024-02-11 10:30</span>
+                        </div>
+                        <div class="comment-content">
+                            该工艺路线设计合理，工序安排得当，工艺参数选择符合实际加工要求。特别是精加工工序的安排，能够有效保证零件的加工精度。建议在实际操作中注意刀具的选择和切削液的使用。
+                        </div>
+                    </div>
+                    <div style="margin-top: 12px;">
+                        <div class="rating">
+                            <span>评分：</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span style="margin-left: 8px; color: #FAAD14; font-weight: 600;">95分</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" onclick="closeModal('detailModal')">关闭</button>
+                <button class="btn btn-primary">导出工艺卡</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 查看评语弹窗 -->
+    <div class="modal" id="commentModal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <span class="modal-title">教师评语</span>
+                <button class="modal-close" onclick="closeModal('commentModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="comment-box" style="background: #FFF2F0;">
+                    <div class="comment-header">
+                        <span class="comment-author">👨‍🏫 王老师</span>
+                        <span class="comment-time">2024-02-09 16:00</span>
+                    </div>
+                    <div class="comment-content" style="color: #FF4D4F;">
+                        该工艺方案存在以下问题：1. 工序安排顺序不合理，应先进行粗加工再进行精加工；2. 工艺参数选择过于保守，影响加工效率；3. 缺少必要的检验工序。请修改后重新提交。
+                    </div>
+                </div>
+                <div style="margin-top: 16px;">
+                    <div class="rating">
+                        <span>评分：</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star empty">★</span>
+                        <span class="star empty">★</span>
+                        <span class="star empty">★</span>
+                        <span style="margin-left: 8px; color: #FF4D4F; font-weight: 600;">45分</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" onclick="closeModal('commentModal')">关闭</button>
+                <button class="btn btn-primary" onclick="closeModal('commentModal'); editProcess(4)">去修改</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 显示新建弹窗
+        function showCreateModal() {
+            document.getElementById('editModal').classList.add('active');
+            document.querySelector('#editModal .modal-title').textContent = '新建工艺方案';
+        }
+
+        // 显示编辑弹窗
+        function editProcess(id) {
+            document.getElementById('editModal').classList.add('active');
+            document.querySelector('#editModal .modal-title').textContent = '编辑工艺方案';
+            console.log('编辑工艺：', id);
+        }
+
+        // 查看详情
+        function viewDetail(id) {
+            document.getElementById('detailModal').classList.add('active');
+            console.log('查看工艺详情：', id);
+        }
+
+        // 查看评语
+        function viewComment(id) {
+            document.getElementById('commentModal').classList.add('active');
+            console.log('查看评语：', id);
+        }
+
+        // 分享工艺
+        function shareProcess(id) {
+            if (confirm('确定要将该工艺分享到知识库吗？')) {
+                alert('工艺分享成功！');
+            }
+        }
+
+        // 撤回工艺
+        function withdrawProcess(id) {
+            if (confirm('确定要撤回该工艺吗？')) {
+                alert('工艺已撤回！');
+            }
+        }
+
+        // 关闭弹窗
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // 保存草稿
+        function saveDraft() {
+            alert('草稿保存成功！');
+            closeModal('editModal');
+        }
+
+        // 提交审核
+        function submitProcess() {
+            alert('工艺方案已提交审核！');
+            closeModal('editModal');
+        }
+
+        // 查询功能
+        function searchProcess() {
+            alert('查询功能已触发');
+        }
+
+        // 重置筛选
+        function resetFilter() {
+            document.querySelectorAll('.filter-item select').forEach(el => {
+                el.value = '';
+            });
+            alert('筛选条件已重置');
+        }
+
+        // 菜单展开/收起
+        function toggleMenu(element) {
+            element.classList.toggle('collapsed');
+            const menuItems = element.nextElementSibling;
+            if (menuItems) {
+                menuItems.classList.toggle('collapsed');
+            }
+        }
+
+        // 退出登录
+        function logout() {
+            if (confirm('确定要退出登录吗？')) {
+                alert('已退出登录');
+            }
+        }
+
+        // 点击弹窗外部关闭
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+    </script>
+    <!-- 学生端导航组件加载器 -->
+    <script src="./nav-loader-student.js"></script>
+</body>
+</html>

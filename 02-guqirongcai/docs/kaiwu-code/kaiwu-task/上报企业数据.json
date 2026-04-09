@@ -1,0 +1,19 @@
+{
+  "properties": {
+    "RESOURCE_CODE": "cb846796-10b9-4767-8a31-c4e6b5d1df76",
+    "IS_COMMON": true,
+    "CUSTOMER_ID": "e57e42de5824447ea7deb7138591f264"
+  },
+  "id": "e67694c1e7ab48deb1a3f22103deab49",
+  "groupId": "6bd65b256d3ee32a757b43eb9c1830e2",
+  "name": "上报企业数据",
+  "createTime": 1733131715457,
+  "updateTime": 1737451675239,
+  "lock": "1",
+  "createBy": "admin",
+  "updateBy": "admin",
+  "path": "reportCustomer",
+  "cron": "0 0/30 * * * ? ",
+  "enabled": true,
+  "description": "每 30 分钟上报一次\nhttps://cron.ciding.cc/"
+}

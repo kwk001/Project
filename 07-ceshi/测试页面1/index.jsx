@@ -1,3 +1,5 @@
+const { Component } = window.React;
+
 class LowcodeComponent extends Component {
   constructor() {
     const { injectMesModuleMethods } = window.KaiwuMesModule;

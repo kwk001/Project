@@ -1,0 +1,19 @@
+{
+  "properties": {
+    "RESOURCE_CODE": "89d034ce-6cc2-4c50-bcdc-e638721c73f7",
+    "IS_COMMON": true,
+    "CUSTOMER_ID": "e57e42de5824447ea7deb7138591f264"
+  },
+  "id": "0855034ced8549cdab2dcaf93c234c3d",
+  "groupId": "6bd65b256d3ee32a757b43eb9c1830e2",
+  "name": "上报应用访问数据",
+  "createTime": 1733131742699,
+  "updateTime": 1741175783509,
+  "lock": "1",
+  "createBy": "admin",
+  "updateBy": "admin",
+  "path": "reportAppVisit",
+  "cron": "0 0/30 * * * ? ",
+  "enabled": false,
+  "description": "每 30 分钟上报一次\nhttps://cron.ciding.cc/"
+}

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设备OEE实时监控大屏</title>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_5124072_s39q5gmh59a.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #0a1628 0%, #1a2a4a 50%, #0d1b2a 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* 头部 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(0, 20, 40, 0.6);
+            border-bottom: 1px solid rgba(0, 150, 255, 0.3);
+        }
+
+        .header-title {
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00d4ff, #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 150, 255, 0.5);
+        }
+
+        .header-time {
+            font-size: 18px;
+            color: #00d4ff;
+        }
+
+        /* 主容器 */
+        .main-container {
+            padding: 30px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: rgba(0, 30, 60, 0.4);
+            border: 1px solid rgba(0, 150, 255, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .card-title {
+            font-size: 18px;
+            color: #00d4ff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(180deg, #00d4ff, #0099ff);
+            border-radius: 2px;
+        }
+
+        /* OEE总览 */
+        .oee-overview {
+            grid-column: span 3;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .oee-main {
+            text-align: center;
+        }
+
+        .oee-value {
+            font-size: 80px;
+            font-weight: 700;
+            background: linear-gradient(180deg, #00ff88, #00cc66);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(0, 255, 136, 0.3);
+        }
+
+        .oee-label {
+            font-size: 24px;
+            color: #88ccff;
+            margin-top: 10px;
+        }
+
+        .oee-sub-items {
+            display: flex;
+            gap: 60px;
+        }
+
+        .oee-sub-item {
+            text-align: center;
+        }
+
+        .sub-value {
+            font-size: 48px;
+            font-weight: 600;
+        }
+
+        .sub-value.availability {
+            color: #00d4ff;
+        }
+
+        .sub-value.performance {
+            color: #ffaa00;
+        }
+
+        .sub-value.quality {
+            color: #00ff88;
+        }
+
+        .sub-label {
+            font-size: 16px;
+            color: #88aacc;
+            margin-top: 8px;
+        }
+
+        /* 设备状态 */
+        .device-status {
+            grid-column: span 2;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .status-item {
+            background: rgba(0, 50, 100, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(0, 150, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .status-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 150, 255, 0.3);
+        }
+
+        .status-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 15px;
+        }
+
+        .status-icon.running {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .status-icon.idle {
+            background: rgba(255, 170, 0, 0.2);
+            color: #ffaa00;
+            box-shadow: 0 0 20px rgba(255, 170, 0, 0.3);
+        }
+
+        .status-icon.error {
+            background: rgba(255, 77, 79, 0.2);
+            color: #ff4d4f;
+            box-shadow: 0 0 20px rgba(255, 77, 79, 0.3);
+        }
+
+        .status-icon.offline {
+            background: rgba(136, 136, 136, 0.2);
+            color: #888;
+        }
+
+        .status-name {
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .status-count {
+            font-size: 32px;
+            font-weight: 700;
+            color: #00d4ff;
+        }
+
+        /* 实时数据 */
+        .realtime-data {
+            grid-column: span 1;
+        }
+
+        .data-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .data-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(0, 50, 100, 0.3);
+            border-radius: 10px;
+            border-left: 4px solid #00d4ff;
+        }
+
+        .data-label {
+            font-size: 14px;
+            color: #88aacc;
+        }
+
+        .data-value {
+            font-size: 20px;
+            font-weight: 600;
+            color: #00d4ff;
+        }
+
+        /* 图表区域 */
+        .chart-container {
+            grid-column: span 2;
+            height: 350px;
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 280px;
+            background: rgba(0, 30, 60, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #88aacc;
+            font-size: 16px;
+        }
+
+        /* 学生使用情况 */
+        .student-usage {
+            grid-column: span 1;
+        }
+
+        .usage-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .usage-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            background: rgba(0, 50, 100, 0.3);
+            border-radius: 10px;
+        }
+
+        .usage-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00d4ff, #0099ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .usage-info {
+            flex: 1;
+        }
+
+        .usage-name {
+            font-size: 14px;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .usage-device {
+            font-size: 12px;
+            color: #88aacc;
+        }
+
+        .usage-time {
+            font-size: 14px;
+            color: #00ff88;
+            font-weight: 500;
+        }
+
+        /* 告警信息 */
+        .alert-section {
+            grid-column: span 3;
+        }
+
+        .alert-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .alert-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            background: rgba(255, 77, 79, 0.1);
+            border: 1px solid rgba(255, 77, 79, 0.3);
+            border-radius: 10px;
+        }
+
+        .alert-level {
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .alert-level.high {
+            background: rgba(255, 77, 79, 0.3);
+            color: #ff4d4f;
+        }
+
+        .alert-level.medium {
+            background: rgba(255, 170, 0, 0.3);
+            color: #ffaa00;
+        }
+
+        .alert-content {
+            flex: 1;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .alert-time {
+            font-size: 12px;
+            color: #88aacc;
+        }
+
+        /* 动画效果 */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* 响应式 */
+        @media (max-width: 1400px) {
+            .main-container {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .oee-overview {
+                grid-column: span 2;
+            }
+            
+            .device-status {
+                grid-column: span 2;
+            }
+            
+            .alert-section {
+                grid-column: span 2;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <div class="header">
+        <div class="header-title">
+            <i class="iconfont icon-shebei"></i> 设备OEE实时监控大屏
+        </div>
+        <div class="header-time" id="currentTime">
+            2025-01-20 14:30:25
+        </div>
+    </div>
+
+    <!-- 主容器 -->
+    <div class="main-container">
+        <!-- OEE总览 -->
+        <div class="card oee-overview">
+            <div class="oee-main">
+                <div class="oee-value pulse">85.6%</div>
+                <div class="oee-label">设备综合效率 OEE</div>
+            </div>
+            <div class="oee-sub-items">
+                <div class="oee-sub-item">
+                    <div class="sub-value availability">92.3%</div>
+                    <div class="sub-label">可用率</div>
+                </div>
+                <div class="oee-sub-item">
+                    <div class="sub-value performance">95.1%</div>
+                    <div class="sub-label">性能率</div>
+                </div>
+                <div class="oee-sub-item">
+                    <div class="sub-value quality">97.8%</div>
+                    <div class="sub-label">质量率</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 设备状态分布 -->
+        <div class="card device-status">
+            <div class="card-title">设备状态分布</div>
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="status-icon running">●</div>
+                    <div class="status-name">运行中</div>
+                    <div class="status-count">12</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon idle">◐</div>
+                    <div class="status-name">待机中</div>
+                    <div class="status-count">3</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon error">✕</div>
+                    <div class="status-name">故障中</div>
+                    <div class="status-count">1</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon offline">○</div>
+                    <div class="status-name">离线</div>
+                    <div class="status-count">2</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 实时数据 -->
+        <div class="card realtime-data">
+            <div class="card-title">实时生产数据</div>
+            <div class="data-list">
+                <div class="data-item">
+                    <span class="data-label">今日总产量</span>
+                    <span class="data-value">1,256 件</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">合格品数</span>
+                    <span class="data-value">1,228 件</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">不良品数</span>
+                    <span class="data-value">28 件</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">平均节拍</span>
+                    <span class="data-value">4.5 分钟</span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">设备利用率</span>
+                    <span class="data-value">78.5%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- OEE趋势图 -->
+        <div class="card chart-container">
+            <div class="card-title">OEE趋势（近7天）</div>
+            <div class="chart-placeholder">
+                [OEE趋势图表区域]
+            </div>
+        </div>
+
+        <!-- 学生使用情况 -->
+        <div class="card student-usage">
+            <div class="card-title">学生实时使用</div>
+            <div class="usage-list">
+                <div class="usage-item">
+                    <div class="usage-avatar">张</div>
+                    <div class="usage-info">
+                        <div class="usage-name">张三</div>
+                        <div class="usage-device">数控车床-01</div>
+                    </div>
+                    <div class="usage-time">45分钟</div>
+                </div>
+                <div class="usage-item">
+                    <div class="usage-avatar">李</div>
+                    <div class="usage-info">
+                        <div class="usage-name">李四</div>
+                        <div class="usage-device">数控铣床-02</div>
+                    </div>
+                    <div class="usage-time">32分钟</div>
+                </div>
+                <div class="usage-item">
+                    <div class="usage-avatar">王</div>
+                    <div class="usage-info">
+                        <div class="usage-name">王五</div>
+                        <div class="usage-device">加工中心-03</div>
+                    </div>
+                    <div class="usage-time">28分钟</div>
+                </div>
+                <div class="usage-item">
+                    <div class="usage-avatar">赵</div>
+                    <div class="usage-info">
+                        <div class="usage-name">赵六</div>
+                        <div class="usage-device">数控车床-02</div>
+                    </div>
+                    <div class="usage-time">15分钟</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 设备告警 -->
+        <div class="card alert-section">
+            <div class="card-title">设备告警信息</div>
+            <div class="alert-list">
+                <div class="alert-item">
+                    <span class="alert-level high">紧急</span>
+                    <span class="alert-content">数控车床-05 主轴温度过高，请立即检查</span>
+                    <span class="alert-time">2分钟前</span>
+                </div>
+                <div class="alert-item">
+                    <span class="alert-level medium">警告</span>
+                    <span class="alert-content">加工中心-01 刀具磨损严重，建议更换</span>
+                    <span class="alert-time">15分钟前</span>
+                </div>
+                <div class="alert-item">
+                    <span class="alert-level medium">警告</span>
+                    <span class="alert-content">数控铣床-03 润滑液位低，请及时添加</span>
+                    <span class="alert-time">32分钟前</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 更新时间
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('currentTime').textContent = timeString;
+        }
+
+        // 每秒更新时间
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // 模拟数据更新
+        function updateData() {
+            // 这里可以添加实时数据获取逻辑
+            console.log('数据更新中...');
+        }
+
+        // 每5秒更新一次数据
+        setInterval(updateData, 5000);
+
+        // OEE计算公式展示
+        // OEE = 可用率 × 性能率 × 质量率
+        // 可用率 = 实际运行时间 / 计划生产时间
+        // 性能率 = 实际产量 / 理论最大产量
+        // 质量率 = 合格品数量 / 总产出数量
+    </script>
+</body>
+</html>

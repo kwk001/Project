@@ -1,0 +1,33 @@
+{
+  "properties": {
+    "RESOURCE_CODE": "6017ced5aef18541f8c95a7c2e614f8b",
+    "IS_COMMON": true
+  },
+  "id": "c4993c0c805b422ca3ea5a940e88da36",
+  "groupId": "1e8f330c359844b78a2543bad47c190d",
+  "name": "获取mongo聚合查询结果",
+  "createTime": 1724401025306,
+  "updateTime": 1713923474136,
+  "lock": null,
+  "createBy": "19165831388",
+  "updateBy": "admin",
+  "path": "mongoAggregateResult",
+  "description": "聚合查询结果处理",
+  "returnType": null,
+  "mappingPath": null,
+  "parameters": [
+    {
+      "name": "aggregateIterable",
+      "value": null,
+      "description": null,
+      "required": false,
+      "dataType": "String",
+      "type": null,
+      "defaultValue": null,
+      "validateType": null,
+      "error": null,
+      "expression": null,
+      "children": null
+    }
+  ]
+}

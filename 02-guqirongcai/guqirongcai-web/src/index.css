@@ -1,0 +1,365 @@
+/* 基础样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* 仪表盘样式 */
+.dashboard-container {
+  padding: 24px;
+}
+
+.stats-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  padding: 24px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 32px;
+  font-weight: 600;
+  color: #262626;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #595959;
+}
+
+/* 页面容器样式 */
+.page-container {
+  padding: 0;
+}
+
+.search-card {
+  margin-bottom: 16px;
+}
+
+.table-card {
+  margin-bottom: 16px;
+}
+
+/* 微信扫码溯源页面样式 - 支持深色模式 */
+.trace-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 浅色模式 */
+.trace-page.light {
+  --bg-primary: #f5f7fa;
+  --bg-secondary: #ffffff;
+  --text-primary: #262626;
+  --text-secondary: #595959;
+  --text-tertiary: #8c8c8c;
+  --border-color: #d9d9d9;
+  --card-bg: #ffffff;
+  --header-bg: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+  --header-text: #ffffff;
+  --footer-bg: #f0f2f5;
+  --footer-text: #595959;
+  --validation-bg: #f6ffed;
+  --validation-border: #b7eb8f;
+  --timeline-bg: #fafafa;
+  --quality-bg: #e6f7ff;
+  --quality-border: #91d5ff;
+}
+
+/* 深色模式 */
+.trace-page.dark {
+  --bg-primary: #141414;
+  --bg-secondary: #1f1f1f;
+  --text-primary: #ffffff;
+  --text-secondary: #d9d9d9;
+  --text-tertiary: #8c8c8c;
+  --border-color: #434343;
+  --card-bg: #1f1f1f;
+  --header-bg: linear-gradient(135deg, #1f1f1f 0%, #141414 100%);
+  --header-text: #ffffff;
+  --footer-bg: #1f1f1f;
+  --footer-text: #d9d9d9;
+  --validation-bg: #162312;
+  --validation-border: #49aa19;
+  --timeline-bg: #1f1f1f;
+  --quality-bg: #111b26;
+  --quality-border: #177ddc;
+}
+
+/* 头部 */
+.trace-header {
+  background: var(--header-bg);
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--header-text);
+}
+
+.trace-header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--header-text);
+}
+
+.trace-header p {
+  font-size: 16px;
+  opacity: 0.9;
+  color: var(--header-text);
+}
+
+/* 内容区域 */
+.trace-content {
+  padding: 24px 16px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* 卡片通用样式 */
+.info-card,
+.validation-card,
+.trace-code-card {
+  margin-bottom: 16px;
+  background: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.info-card .ant-card-head,
+.validation-card .ant-card-head,
+.trace-code-card .ant-card-head {
+  background: transparent;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.info-card .ant-card-head-title,
+.validation-card .ant-card-head-title,
+.trace-code-card .ant-card-head-title {
+  color: var(--text-primary);
+}
+
+.info-card .ant-card-body,
+.validation-card .ant-card-body,
+.trace-code-card .ant-card-body {
+  background: var(--card-bg);
+}
+
+/* 验证结果卡片 */
+.validation-card {
+  text-align: center;
+}
+
+.validation-card.valid {
+  background: var(--validation-bg);
+  border: 1px solid var(--validation-border);
+}
+
+.validation-card.invalid {
+  background: #fff2f0;
+  border: 1px solid #ffccc7;
+}
+
+.validation-card.expired {
+  background: #fffbe6;
+  border: 1px solid #ffe58f;
+}
+
+/* 溯源码卡片 */
+.trace-code-card {
+  text-align: center;
+  padding: 24px;
+}
+
+.trace-code-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.code-icon {
+  font-size: 48px;
+  color: #1890ff;
+}
+
+.code-text {
+  text-align: left;
+}
+
+.code-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.code-value {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: monospace;
+}
+
+.code-tip {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+/* 质量指标网格 */
+.quality-grid {
+  margin-top: 16px;
+}
+
+.quality-item {
+  text-align: center;
+  padding: 16px 8px;
+  background: var(--quality-bg);
+  border: 1px solid var(--quality-border);
+  border-radius: 8px;
+}
+
+.quality-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.quality-value {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* 产品描述 */
+.product-description {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 时间线 */
+.produce-timeline {
+  margin-top: 16px;
+}
+
+.timeline-title {
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.timeline-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* 企业介绍 */
+.company-intro {
+  margin-top: 16px;
+}
+
+.company-intro h4 {
+  font-size: 16px;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.company-intro p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 底部 */
+.trace-footer {
+  background: var(--footer-bg);
+  padding: 24px;
+  text-align: center;
+  margin-top: 32px;
+}
+
+.trace-footer p {
+  font-size: 12px;
+  color: var(--footer-text);
+  margin: 4px 0;
+}
+
+/* Ant Design 组件适配深色模式 */
+.dark .ant-descriptions-item-label,
+.dark .ant-timeline-item-content,
+.dark .ant-result-title,
+.dark .ant-result-subtitle {
+  color: var(--text-primary);
+}
+
+.dark .ant-timeline-item-tail {
+  border-left-color: var(--border-color);
+}
+
+.dark .ant-statistic-title,
+.dark .ant-statistic-content {
+  color: var(--text-primary);
+}
+
+.dark .ant-divider {
+  border-color: var(--border-color);
+}
+
+/* 响应式 */
+@media (max-width: 576px) {
+  .trace-header {
+    padding: 32px 16px;
+  }
+
+  .trace-header h1 {
+    font-size: 24px;
+  }
+
+  .trace-content {
+    padding: 16px 12px;
+  }
+
+  .quality-grid .ant-col {
+    margin-bottom: 8px;
+  }
+
+  .code-value {
+    font-size: 16px;
+  }
+}
+
+/* 加载状态 */
+.trace-page .ant-skeleton {
+  background: var(--card-bg);
+}
+
+.trace-page .ant-skeleton-paragraph li {
+  background: linear-gradient(90deg, var(--border-color) 25%, #e8e8e8 37%, var(--border-color) 63%);
+}
+
+.dark .trace-page .ant-skeleton-paragraph li {
+  background: linear-gradient(90deg, #2c2c2c 25%, #3a3a3a 37%, #2c2c2c 63%);
+}

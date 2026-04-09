@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刀具更换 - 教学实训平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: #F0F2F5;
+            color: #333;
+        }
+
+        /* 页面容器 */
+        .page-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* 侧边栏 */
+        .sidebar {
+            width: 220px;
+            background: #001529;
+            color: #fff;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .sidebar-menu {
+            padding: 10px 0;
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .menu-item:hover {
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+        }
+
+        .menu-item.active {
+            background: #1890FF;
+            color: #fff;
+        }
+
+        .menu-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            margin-left: 220px;
+            padding: 20px;
+        }
+
+        /* 顶部导航 */
+        .top-nav {
+            background: #fff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: #1890FF;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb .separator {
+            color: #999;
+        }
+
+        /* 工具栏 */
+        .toolbar {
+            background: #fff;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-item label {
+            font-size: 14px;
+            color: #666;
+            white-space: nowrap;
+        }
+
+        .filter-item input,
+        .filter-item select {
+            padding: 6px 12px;
+            border: 1px solid #D9D9D9;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .filter-item input:focus,
+        .filter-item select:focus {
+            border-color: #1890FF;
+        }
+
+        /* 按钮 */
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: #1890FF;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #40A9FF;
+        }
+
+        .btn-warning {
+            background: #FA8C16;
+            color: #fff;
+        }
+
+        .btn-warning:hover {
+            background: #FFA940;
+        }
+
+        .btn-default {
+            background: #fff;
+            color: #666;
+            border: 1px solid #D9D9D9;
+        }
+
+        .btn-default:hover {
+            border-color: #1890FF;
+            color: #1890FF;
+        }
+
+        .btn-sm {
+            padding: 4px 12px;
+            font-size: 13px;
+        }
+
+        /* 统计卡片 */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .stat-icon.blue {
+            background: #E6F7FF;
+        }
+
+        .stat-icon.orange {
+            background: #FFF7E6;
+        }
+
+        .stat-icon.green {
+            background: #F6FFED;
+        }
+
+        .stat-icon.red {
+            background: #FFF1F0;
+        }
+
+        .stat-info h3 {
+            font-size: 14px;
+            color: #666;
+            font-weight: normal;
+            margin-bottom: 4px;
+        }
+
+        .stat-info .number {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* 表格 */
+        .table-container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #F0F0F0;
+        }
+
+        .data-table th {
+            background: #FAFAFA;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .data-table tbody tr:hover {
+            background: #F5F5F5;
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* 状态标签 */
+        .status-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-normal {
+            background: #F6FFED;
+            color: #52C41A;
+        }
+
+        .status-changing {
+            background: #FFF7E6;
+            color: #FA8C16;
+        }
+
+        .status-damaged {
+            background: #FFF1F0;
+            color: #FF4D4F;
+        }
+
+        /* 操作按钮组 */
+        .action-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* 分页 */
+        .pagination {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 16px;
+            gap: 8px;
+        }
+
+        .pagination-btn {
+            padding: 6px 12px;
+            border: 1px solid #D9D9D9;
+            background: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .pagination-btn:hover {
+            border-color: #1890FF;
+            color: #1890FF;
+        }
+
+        .pagination-btn.active {
+            background: #1890FF;
+            border-color: #1890FF;
+            color: #fff;
+        }
+
+        /* 弹窗样式 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            border-radius: 8px;
+            width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .modal-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #F0F0F0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #999;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: #666;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-item {
+            flex: 1;
+        }
+
+        .form-item.full-width {
+            flex: 2;
+        }
+
+        .form-item label {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 6px;
+        }
+
+        .form-item input,
+        .form-item select,
+        .form-item textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #D9D9D9;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            background: #FAFAFA;
+        }
+
+        .form-item input:focus,
+        .form-item select:focus,
+        .form-item textarea:focus {
+            border-color: #1890FF;
+            background: #fff;
+        }
+
+        .form-item input[readonly] {
+            background: #F5F5F5;
+            color: #999;
+        }
+
+        .form-item textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .modal-footer {
+            padding: 16px 20px;
+            border-top: 1px solid #F0F0F0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .required {
+            color: #FF4D4F;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>教学实训平台</h2>
+            </div>
+            <nav class="sidebar-menu">
+                <div class="menu-item" onclick="window.location.href='./教师端_首页.html'">
+                    <i class="fas fa-home"></i>
+                    <span>首页</span>
+                </div>
+                <div class="menu-item" onclick="window.location.href='./教师端_实训项目.html'">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>实训项目</span>
+                </div>
+                <div class="menu-item" onclick="window.location.href='./教师端_教学资源.html'">
+                    <i class="fas fa-book"></i>
+                    <span>教学资源</span>
+                </div>
+                <div class="menu-item" onclick="window.location.href='./教师端_学生管理.html'">
+                    <i class="fas fa-users"></i>
+                    <span>学生管理</span>
+                </div>
+                <div class="menu-item" onclick="window.location.href='./教师端_成绩管理.html'">
+                    <i class="fas fa-chart-line"></i>
+                    <span>成绩管理</span>
+                </div>
+                <div class="menu-item" onclick="window.location.href='./教师端_刀具类型管理.html'">
+                    <i class="fas fa-tools"></i>
+                    <span>刀具类型</span>
+                </div>
+                <div class="menu-item" onclick="window.location.href='./教师端_刀具档案管理.html'">
+                    <i class="fas fa-folder-open"></i>
+                    <span>刀具档案</span>
+                </div>
+                <div class="menu-item" onclick="window.location.href='./教师端_备刀任务单.html'">
+                    <i class="fas fa-tasks"></i>
+                    <span>备刀任务单</span>
+                </div>
+                <div class="menu-item" onclick="window.location.href='./教师端_刀具签收.html'">
+                    <i class="fas fa-check-circle"></i>
+                    <span>刀具签收</span>
+                </div>
+                <div class="menu-item" onclick="window.location.href='./教师端_刀具签还.html'">
+                    <i class="fas fa-undo"></i>
+                    <span>刀具签还</span>
+                </div>
+                <div class="menu-item" onclick="window.location.href='./教师端_刀具报废与申领.html'">
+                    <i class="fas fa-recycle"></i>
+                    <span>刀具报废与申领</span>
+                </div>
+                <div class="menu-item active" onclick="window.location.href='./教师端_刀具更换.html'">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>刀具更换</span>
+                </div>
+                <div class="menu-item" onclick="window.location.href='./教师端_刀具实时定位.html'">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>刀具实时定位</span>
+                </div>
+                <div class="menu-item" onclick="window.location.href='./教师端_换刀记录.html'">
+                    <i class="fas fa-history"></i>
+                    <span>换刀记录</span>
+                </div>
+                <div class="menu-item" onclick="window.location.href='./教师端_刀具报废记录.html'">
+                    <i class="fas fa-trash-alt"></i>
+                    <span>报废记录</span>
+                </div>
+                <div class="menu-item" onclick="window.location.href='./教师端_刀具库存管理.html'">
+                    <i class="fas fa-warehouse"></i>
+                    <span>刀具库存</span>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 顶部导航 -->
+            <div class="top-nav">
+                <div class="breadcrumb">
+                    <a href="./教师端_首页.html">首页</a>
+                    <span class="separator">/</span>
+                    <span>刀具管理</span>
+                    <span class="separator">/</span>
+                    <span>刀具更换</span>
+                </div>
+            </div>
+
+            <!-- 工具栏 -->
+            <div class="toolbar">
+                <div class="filter-group">
+                    <div class="filter-item">
+                        <label>生产工单号</label>
+                        <input type="text" placeholder="请输入工单号">
+                    </div>
+                    <div class="filter-item">
+                        <label>刀具名称</label>
+                        <input type="text" placeholder="请输入刀具名称">
+                    </div>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-search"></i> 查询
+                    </button>
+                    <button class="btn btn-default">重置</button>
+                </div>
+            </div>
+
+            <!-- 统计卡片 -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon blue">🔧</div>
+                    <div class="stat-info">
+                        <h3>已领用刀具</h3>
+                        <div class="number">12</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">🔄</div>
+                    <div class="stat-info">
+                        <h3>更换中</h3>
+                        <div class="number">3</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">✅</div>
+                    <div class="stat-info">
+                        <h3>本月已更换</h3>
+                        <div class="number">8</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon red">⚠️</div>
+                    <div class="stat-info">
+                        <h3>待处理更换</h3>
+                        <div class="number">2</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 表格 -->
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;"></th>
+                            <th>生产工单号</th>
+                            <th>物料名称</th>
+                            <th>规格型号</th>
+                            <th>刀具需求数量</th>
+                            <th>需求时间段</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <span class="expand-icon" onclick="toggleDetail(this)" style="cursor: pointer; color: #1890FF;">▶</span>
+                            </td>
+                            <td><strong>WO2025011502</strong></td>
+                            <td>盘类零件B</td>
+                            <td>Φ150×30mm</td>
+                            <td>6</td>
+                            <td>2026-03-05 09:00-11:00</td>
+                        </tr>
+                        <tr class="detail-row" style="display: none; background: #FAFAFA;">
+                            <td colspan="6" style="padding: 0;">
+                                <div style="padding: 16px;">
+                                    <table class="data-table" style="margin: 0; box-shadow: none;">
+                                        <thead>
+                                            <tr>
+                                                <th>刀具名称</th>
+                                                <th>规格型号</th>
+                                                <th>单位</th>
+                                                <th>使用工序</th>
+                                                <th>使用设备</th>
+                                                <th>领用数量</th>
+                                                <th>已配送数量</th>
+                                                <th>已签收数量</th>
+                                                <th>报废数量</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>立铣刀</td>
+                                                <td>Φ20mm</td>
+                                                <td>把</td>
+                                                <td>粗铣</td>
+                                                <td>M001</td>
+                                                <td>2</td>
+                                                <td>2</td>
+                                                <td>2</td>
+                                                <td>0</td>
+                                                <td>
+                                                    <button class="btn btn-warning btn-sm" onclick="showChangeModal('WO2025011502', '盘类零件B', '立铣刀', 'Φ20mm', 'T001', 2)">更换</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>立铣刀</td>
+                                                <td>Φ12mm</td>
+                                                <td>把</td>
+                                                <td>精铣</td>
+                                                <td>M001</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>0</td>
+                                                <td>
+                                                    <button class="btn btn-warning btn-sm" onclick="showChangeModal('WO2025011502', '盘类零件B', '立铣刀', 'Φ12mm', 'T002', 1)">更换</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>麻花钻</td>
+                                                <td>Φ8mm</td>
+                                                <td>把</td>
+                                                <td>钻孔</td>
+                                                <td>D001</td>
+                                                <td>3</td>
+                                                <td>3</td>
+                                                <td>3</td>
+                                                <td>0</td>
+                                                <td>
+                                                    <button class="btn btn-warning btn-sm" onclick="showChangeModal('WO2025011502', '盘类零件B', '麻花钻', 'Φ8mm', 'T005', 3)">更换</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="expand-icon" onclick="toggleDetail(this)" style="cursor: pointer; color: #1890FF;">▶</span>
+                            </td>
+                            <td><strong>WO2025011503</strong></td>
+                            <td>箱体零件C</td>
+                            <td>200×150×100mm</td>
+                            <td>3</td>
+                            <td>2026-03-06 14:00-16:00</td>
+                        </tr>
+                        <tr class="detail-row" style="display: none; background: #FAFAFA;">
+                            <td colspan="6" style="padding: 0;">
+                                <div style="padding: 16px;">
+                                    <table class="data-table" style="margin: 0; box-shadow: none;">
+                                        <thead>
+                                            <tr>
+                                                <th>刀具名称</th>
+                                                <th>规格型号</th>
+                                                <th>单位</th>
+                                                <th>使用工序</th>
+                                                <th>使用设备</th>
+                                                <th>领用数量</th>
+                                                <th>已配送数量</th>
+                                                <th>已签收数量</th>
+                                                <th>报废数量</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>面铣刀</td>
+                                                <td>Φ50mm</td>
+                                                <td>把</td>
+                                                <td>铣面</td>
+                                                <td>M002</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>0</td>
+                                                <td>
+                                                    <button class="btn btn-default btn-sm" disabled>处理中</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>中心钻</td>
+                                                <td>Φ3mm</td>
+                                                <td>把</td>
+                                                <td>钻孔</td>
+                                                <td>D002</td>
+                                                <td>2</td>
+                                                <td>2</td>
+                                                <td>2</td>
+                                                <td>0</td>
+                                                <td>
+                                                    <button class="btn btn-warning btn-sm" onclick="showChangeModal('WO2025011503', '箱体零件C', '中心钻', 'Φ3mm', 'T006', 2)">更换</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="expand-icon" onclick="toggleDetail(this)" style="cursor: pointer; color: #1890FF;">▶</span>
+                            </td>
+                            <td><strong>WO2025011501</strong></td>
+                            <td>轴类零件A</td>
+                            <td>Φ50×200mm</td>
+                            <td>5</td>
+                            <td>2026-03-07 10:00-12:00</td>
+                        </tr>
+                        <tr class="detail-row" style="display: none; background: #FAFAFA;">
+                            <td colspan="6" style="padding: 0;">
+                                <div style="padding: 16px;">
+                                    <table class="data-table" style="margin: 0; box-shadow: none;">
+                                        <thead>
+                                            <tr>
+                                                <th>刀具名称</th>
+                                                <th>规格型号</th>
+                                                <th>单位</th>
+                                                <th>使用工序</th>
+                                                <th>使用设备</th>
+                                                <th>领用数量</th>
+                                                <th>已配送数量</th>
+                                                <th>已签收数量</th>
+                                                <th>报废数量</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>外圆车刀</td>
+                                                <td>20×20mm</td>
+                                                <td>把</td>
+                                                <td>粗车</td>
+                                                <td>C001</td>
+                                                <td>2</td>
+                                                <td>2</td>
+                                                <td>2</td>
+                                                <td>0</td>
+                                                <td>
+                                                    <button class="btn btn-warning btn-sm" onclick="showChangeModal('WO2025011501', '轴类零件A', '外圆车刀', '20×20mm', 'T101', 2)">更换</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>精车刀</td>
+                                                <td>16×16mm</td>
+                                                <td>把</td>
+                                                <td>精车</td>
+                                                <td>C001</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>0</td>
+                                                <td>
+                                                    <button class="btn btn-warning btn-sm" onclick="showChangeModal('WO2025011501', '轴类零件A', '精车刀', '16×16mm', 'T102', 1)">更换</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>切槽刀</td>
+                                                <td>3mm</td>
+                                                <td>把</td>
+                                                <td>切槽</td>
+                                                <td>C001</td>
+                                                <td>2</td>
+                                                <td>2</td>
+                                                <td>2</td>
+                                                <td>0</td>
+                                                <td>
+                                                    <button class="btn btn-warning btn-sm" onclick="showChangeModal('WO2025011501', '轴类零件A', '切槽刀', '3mm', 'T103', 2)">更换</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- 分页 -->
+                <div class="pagination">
+                    <span style="font-size: 13px; color: #666; margin-right: 16px;">共 3 条记录</span>
+                    <button class="pagination-btn">上一页</button>
+                    <button class="pagination-btn active">1</button>
+                    <button class="pagination-btn">下一页</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 更换弹窗 -->
+    <div id="changeModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>刀具更换申请</h3>
+                <button class="modal-close" onclick="closeChangeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-item">
+                        <label>生产工单号</label>
+                        <input type="text" id="changeWorkOrder" readonly>
+                    </div>
+                    <div class="form-item">
+                        <label>物料名称</label>
+                        <input type="text" id="changeMaterial" readonly>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label>刀具编码 <span class="required">*</span></label>
+                        <select id="changeToolCode" onchange="updateToolInfo()">
+                            <option value="">请选择刀具编码</option>
+                            <option value="T001">T001</option>
+                            <option value="T002">T002</option>
+                            <option value="T003">T003</option>
+                            <option value="T004">T004</option>
+                            <option value="T005">T005</option>
+                            <option value="T006">T006</option>
+                            <option value="T101">T101</option>
+                            <option value="T102">T102</option>
+                            <option value="T103">T103</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label>刀具名称</label>
+                        <input type="text" id="changeToolName" readonly>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label>规格型号</label>
+                        <input type="text" id="changeToolSpec" readonly>
+                    </div>
+                    <div class="form-item">
+                        <label>领用数量</label>
+                        <input type="text" id="changeQty" readonly>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label>更换数量 <span class="required">*</span></label>
+                        <input type="number" id="changeNewQty" min="1" value="1">
+                    </div>
+                    <div class="form-item">
+                        <label>更换原因 <span class="required">*</span></label>
+                        <select id="changeReason">
+                            <option value="">请选择原因</option>
+                            <option value="刀头磨损">刀头磨损</option>
+                            <option value="刀具断裂">刀具断裂</option>
+                            <option value="刀具崩刃">刀具崩刃</option>
+                            <option value="尺寸不合格">尺寸不合格</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item full-width">
+                        <label>备注说明</label>
+                        <textarea id="changeRemark" placeholder="请描述刀具的具体问题..."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" onclick="closeChangeModal()">取消</button>
+                <button class="btn btn-warning" onclick="submitChange()">提交更换</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 展开/收起详情
+        function toggleDetail(element) {
+            const row = element.closest('tr');
+            const detailRow = row.nextElementSibling;
+
+            if (detailRow && detailRow.classList.contains('detail-row')) {
+                if (detailRow.style.display === 'none') {
+                    detailRow.style.display = 'table-row';
+                    element.textContent = '▼';
+                } else {
+                    detailRow.style.display = 'none';
+                    element.textContent = '▶';
+                }
+            }
+        }
+
+        // 刀具编码与刀具信息映射
+        const toolCodeMap = {
+            'T001': { name: '立铣刀', spec: 'Φ20mm' },
+            'T002': { name: '立铣刀', spec: 'Φ12mm' },
+            'T003': { name: '立铣刀', spec: 'Φ8mm' },
+            'T004': { name: '立铣刀', spec: 'Φ6mm' },
+            'T005': { name: '麻花钻', spec: 'Φ8mm' },
+            'T006': { name: '中心钻', spec: 'Φ3mm' },
+            'T101': { name: '外圆车刀', spec: '20×20mm' },
+            'T102': { name: '精车刀', spec: '16×16mm' },
+            'T103': { name: '切槽刀', spec: '3mm' }
+        };
+
+        // 根据刀具编码更新刀具信息
+        function updateToolInfo() {
+            const toolCode = document.getElementById('changeToolCode').value;
+            if (toolCode && toolCodeMap[toolCode]) {
+                document.getElementById('changeToolName').value = toolCodeMap[toolCode].name;
+                document.getElementById('changeToolSpec').value = toolCodeMap[toolCode].spec;
+            } else {
+                document.getElementById('changeToolName').value = '';
+                document.getElementById('changeToolSpec').value = '';
+            }
+        }
+
+        // 打开更换弹窗
+        function showChangeModal(workOrder, material, toolName, toolSpec, toolCode, qty) {
+            document.getElementById('changeWorkOrder').value = workOrder;
+            document.getElementById('changeMaterial').value = material;
+            document.getElementById('changeToolCode').value = toolCode || '';
+            document.getElementById('changeToolName').value = toolName;
+            document.getElementById('changeToolSpec').value = toolSpec;
+            document.getElementById('changeQty').value = qty;
+            document.getElementById('changeNewQty').value = 1;
+            document.getElementById('changeNewQty').max = qty;
+            document.getElementById('changeReason').value = '';
+            document.getElementById('changeRemark').value = '';
+
+            document.getElementById('changeModal').style.display = 'flex';
+        }
+
+        // 关闭更换弹窗
+        function closeChangeModal() {
+            document.getElementById('changeModal').style.display = 'none';
+        }
+
+        // 提交更换申请
+        function submitChange() {
+            const workOrder = document.getElementById('changeWorkOrder').value;
+            const toolCode = document.getElementById('changeToolCode').value;
+            const toolName = document.getElementById('changeToolName').value;
+            const newQty = document.getElementById('changeNewQty').value;
+            const maxQty = document.getElementById('changeQty').value;
+            const reason = document.getElementById('changeReason').value;
+            const remark = document.getElementById('changeRemark').value;
+
+            // 验证
+            if (!toolCode) {
+                alert('请选择刀具编码');
+                return;
+            }
+
+            if (!newQty || newQty < 1) {
+                alert('请输入有效的更换数量');
+                return;
+            }
+
+            if (parseInt(newQty) > parseInt(maxQty)) {
+                alert('更换数量不能超过领用数量');
+                return;
+            }
+
+            if (!reason) {
+                alert('请选择更换原因');
+                return;
+            }
+
+            // 构建提示信息
+            let message = `【${toolName}】更换申请已提交！\n\n`;
+            message += `同步操作：\n`;
+            message += `1. 刀具需求计划页：已添加"更换中"标识\n`;
+            message += `2. 备刀任务单页：已生成新的备刀任务\n`;
+            message += `3. 刀具签还页：已创建归还申请\n\n`;
+            message += `更换数量：${newQty} 把\n`;
+            message += `更换原因：${reason}`;
+            if (remark) {
+                message += `\n备注：${remark}`;
+            }
+
+            alert(message);
+            closeChangeModal();
+
+            // 实际项目中这里会调用API进行数据同步
+            console.log('更换申请数据：', {
+                workOrder,
+                toolCode,
+                toolName,
+                newQty,
+                reason,
+                remark,
+                syncTargets: ['刀具需求计划', '备刀任务单', '刀具签还']
+            });
+        }
+
+        // 点击弹窗外部关闭
+        document.getElementById('changeModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeChangeModal();
+            }
+        });
+    </script>
+</body>
+</html>

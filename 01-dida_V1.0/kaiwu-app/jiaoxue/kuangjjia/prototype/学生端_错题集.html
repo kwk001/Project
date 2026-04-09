@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>错题集 - 学生端</title>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_5124072_s39q5gmh59a.css">
+    <link rel="stylesheet" href="./nav-styles.css">
+    <link rel="stylesheet" href="./common.css">
+    <style>
+        
+        .menu-item .iconfont, .menu-title .iconfont, .tree-title .iconfont {
+            width: 20px;
+            text-align: center;
+            margin-right: 8px;
+            font-size: 16px;
+            display: inline-block;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #F5F7FA;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* 侧边栏样式 */
+                /* 有导航栏时的布局 */
+        body.has-nav-sidebar {
+            display: flex;
+        }
+
+        body.has-nav-sidebar .main-content {
+            flex: 1;
+            margin-left: 260px; /* 导航栏宽度 */
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            margin-left: 0;
+        }
+        
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        /* 内容区 */
+        .content-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+        }
+
+        .page-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #FA8C16;
+            margin-bottom: 8px;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+        .filter-section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .filter-row {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filter-item label {
+            font-size: 14px;
+            color: #666;
+        }
+        .filter-item select {
+            padding: 8px 12px;
+            border: 1px solid #D9D9D9;
+            border-radius: 4px;
+            font-size: 14px;
+            min-width: 150px;
+        }
+        .btn-search {
+            padding: 8px 20px;
+            background: #FA8C16;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .error-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .error-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .error-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        .error-type {
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .type-single { background: #E6F7FF; color: #1890FF; }
+        .type-multiple { background: #F6FFED; color: #52C41A; }
+        .type-judge { background: #FFF7E6; color: #FA8C16; }
+        .error-count {
+            font-size: 13px;
+            color: #999;
+        }
+        .error-content {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .error-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .option-item.wrong {
+            background: #FFF1F0;
+            color: #FF4D4F;
+            border: 1px solid #FFCCC7;
+        }
+        .option-item.correct {
+            background: #F6FFED;
+            color: #52C41A;
+            border: 1px solid #B7EB8F;
+        }
+        .option-item.normal {
+            background: #FAFAFA;
+            color: #666;
+        }
+        .option-label {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .option-item.wrong .option-label {
+            background: #FF4D4F;
+            color: #fff;
+        }
+        .option-item.correct .option-label {
+            background: #52C41A;
+            color: #fff;
+        }
+        .option-item.normal .option-label {
+            background: #E8E8E8;
+            color: #666;
+        }
+        .error-analysis {
+            background: #F6FFED;
+            border: 1px solid #B7EB8F;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        .analysis-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #52C41A;
+            margin-bottom: 8px;
+        }
+        .analysis-content {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+        .error-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #999;
+        }
+        .error-actions {
+            display: none;
+            gap: 8px;
+        }
+        .btn-action {
+            padding: 8px 16px;
+            border: 1px solid #D9D9D9;
+            background: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #666;
+        }
+        .btn-action:hover {
+            border-color: #FA8C16;
+            color: #FA8C16;
+        }
+        .btn-action.primary {
+            background: #FA8C16;
+            color: #fff;
+            border-color: #FA8C16;
+        }
+
+        /* Tab标签页样式 */
+        .tab-container {
+            background: #fff;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+        .tab-header {
+            display: flex;
+            border-bottom: 1px solid #E8E8E8;
+            background: #FAFAFA;
+        }
+        .tab-item {
+            flex: 1;
+            padding: 16px 24px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 15px;
+            color: #666;
+            transition: all 0.3s;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .tab-item:hover {
+            color: #FA8C16;
+            background: #FFF7E6;
+        }
+        .tab-item.active {
+            color: #FA8C16;
+            background: #fff;
+            font-weight: 600;
+        }
+        .tab-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #FA8C16;
+        }
+        .tab-badge {
+            padding: 2px 8px;
+            background: #FF4D4F;
+            color: #fff;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: normal;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* 实训错题卡片样式 */
+        .training-error-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 16px;
+        }
+        .training-error-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        .training-type-tag {
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .type-machining { background: #E6F7FF; color: #1890FF; }
+        .type-design { background: #F6FFED; color: #52C41A; }
+        .type-program { background: #FFF7E6; color: #FA8C16; }
+        .type-inspection { background: #F9F0FF; color: #722ED1; }
+        .type-process { background: #FFF2E8; color: #FA541C; }
+        .training-error-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        .training-error-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .training-error-detail {
+            background: #FFF1F0;
+            border: 1px solid #FFCCC7;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        .detail-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #FF4D4F;
+            margin-bottom: 8px;
+        }
+        .detail-content {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+        }
+        .training-error-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #999;
+        }
+.menu-title.collapsed
+</style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="header">
+            <div>首页 / 我的学习 / 错题集</div>
+            <div><i class="iconfont icon-xueshengguanli"></i> 学生：李明 | <button onclick="logout()" style="padding: 6px 16px; background: #FF4D4F; color: #fff; border: none; border-radius: 4px; cursor: pointer;">退出</button></div>
+        </div>
+
+        <div class="content-body">
+            <h1 class="page-title">错题集</h1>
+
+            <!-- Tab标签页 -->
+            <div class="tab-container">
+                <div class="tab-header">
+                    <div class="tab-item active" onclick="switchTab('normal')">
+                        <i class="iconfont icon-shijuan"></i>
+                        普通错题集
+                        <span class="tab-badge">46</span>
+                    </div>
+                    <div class="tab-item" onclick="switchTab('training')">
+                        <i class="iconfont icon-shixun"></i>
+                        实训错题集
+                        <span class="tab-badge">8</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 普通错题集内容 -->
+            <div id="normalTab" class="tab-content active">
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-value">46</div>
+                        <div class="stat-label">全部错题</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">18</div>
+                        <div class="stat-label">单选题</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">多选题</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">16</div>
+                        <div class="stat-label">判断题</div>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <div class="filter-row">
+                        <div class="filter-item">
+                            <label>所属课程</label>
+                            <select>
+                                <option>全部课程</option>
+                                <option>机械制图</option>
+                                <option>数控加工技术</option>
+                                <option>CAD/CAM技术</option>
+                            </select>
+                        </div>
+                        <div class="filter-item">
+                            <label>题目类型</label>
+                            <select>
+                                <option>全部类型</option>
+                                <option>单选题</option>
+                                <option>多选题</option>
+                                <option>判断题</option>
+                            </select>
+                        </div>
+                        <div class="filter-item">
+                            <label>错误次数</label>
+                            <select>
+                                <option>全部</option>
+                                <option>1次</option>
+                                <option>2次</option>
+                                <option>3次及以上</option>
+                            </select>
+                        </div>
+                        <button class="btn-search"><i class="iconfont icon-shixun"></i> 筛选</button>
+                    </div>
+                </div>
+
+                <div class="error-list">
+                <div class="error-card">
+                    <div class="error-header">
+                        <div>
+                            <span class="error-type type-single">单选题</span>
+                            <span style="font-size: 13px; color: #999; margin-left: 12px;">机械制图 | 错误2次</span>
+                        </div>
+                        <span class="error-count"><i class="iconfont icon-xuenian"></i> 2025-01-10</span>
+                    </div>
+                    <div class="error-content">
+                        机械制图中，三视图是指哪三个视图？
+                    </div>
+                    <div class="error-options">
+                        <div class="option-item wrong">
+                            <span class="option-label">A</span>
+                            <span>主视图、俯视图、左视图（你的答案）</span>
+                        </div>
+                        <div class="option-item correct">
+                            <span class="option-label">B</span>
+                            <span>主视图、俯视图、右视图（正确答案）</span>
+                        </div>
+                        <div class="option-item normal">
+                            <span class="option-label">C</span>
+                            <span>前视图、俯视图、左视图</span>
+                        </div>
+                        <div class="option-item normal">
+                            <span class="option-label">D</span>
+                            <span>主视图、仰视图、左视图</span>
+                        </div>
+                    </div>
+                    <div class="error-analysis">
+                        <div class="analysis-title"><i class="iconfont icon-gongzuotai"></i> 解析</div>
+                        <div class="analysis-content">
+                            三视图是指主视图、俯视图和右视图。主视图是从前向后看，俯视图是从上向下看，右视图是从右向左看。左视图是错误的，应该是右视图。
+                        </div>
+                    </div>
+                    <div class="error-meta">
+                        <span>💡 知识点：三视图投影原理</span>
+                        <div class="error-actions">
+                            <button class="btn-action">收藏</button>
+                            <button class="btn-action primary">重新练习</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="error-card">
+                    <div class="error-header">
+                        <div>
+                            <span class="error-type type-multiple">多选题</span>
+                            <span style="font-size: 13px; color: #999; margin-left: 12px;">数控加工技术 | 错误3次</span>
+                        </div>
+                        <span class="error-count"><i class="iconfont icon-xuenian"></i> 2025-01-08</span>
+                    </div>
+                    <div class="error-content">
+                        以下哪些是数控加工中常用的G代码？（多选）
+                    </div>
+                    <div class="error-options">
+                        <div class="option-item correct">
+                            <span class="option-label">A</span>
+                            <span>G00 - 快速定位</span>
+                        </div>
+                        <div class="option-item correct">
+                            <span class="option-label">B</span>
+                            <span>G01 - 直线插补</span>
+                        </div>
+                        <div class="option-item wrong">
+                            <span class="option-label">C</span>
+                            <span>G02 - 顺时针圆弧插补（漏选）</span>
+                        </div>
+                        <div class="option-item wrong">
+                            <span class="option-label">D</span>
+                            <span>M03 - 主轴正转（错选）</span>
+                        </div>
+                    </div>
+                    <div class="error-analysis">
+                        <div class="analysis-title"><i class="iconfont icon-gongzuotai"></i> 解析</div>
+                        <div class="analysis-content">
+                            G00、G01、G02都是G代码，用于控制机床运动。M03是M代码，用于控制主轴正转，不属于G代码。G02是顺时针圆弧插补，是常用的G代码之一。
+                        </div>
+                    </div>
+                    <div class="error-meta">
+                        <span>💡 知识点：数控编程G代码</span>
+                        <div class="error-actions">
+                            <button class="btn-action">收藏</button>
+                            <button class="btn-action primary">重新练习</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="error-card">
+                    <div class="error-header">
+                        <div>
+                            <span class="error-type type-judge">判断题</span>
+                            <span style="font-size: 13px; color: #999; margin-left: 12px;">CAD/CAM技术 | 错误1次</span>
+                        </div>
+                        <span class="error-count"><i class="iconfont icon-xuenian"></i> 2025-01-05</span>
+                    </div>
+                    <div class="error-content">
+                        CAD软件只能用于二维绘图。
+                    </div>
+                    <div class="error-options">
+                        <div class="option-item wrong">
+                            <span class="option-label">✓</span>
+                            <span>正确（你的答案）</span>
+                        </div>
+                        <div class="option-item correct">
+                            <span class="option-label">✗</span>
+                            <span>错误（正确答案）</span>
+                        </div>
+                    </div>
+                    <div class="error-analysis">
+                        <div class="analysis-title"><i class="iconfont icon-gongzuotai"></i> 解析</div>
+                        <div class="analysis-content">
+                            CAD软件不仅可以用于二维绘图，还可以进行三维建模、装配设计、工程分析等。现代CAD软件如AutoCAD、SolidWorks、UG等都支持三维设计功能。
+                        </div>
+                    </div>
+                    <div class="error-meta">
+                        <span>💡 知识点：CAD软件功能</span>
+                        <div class="error-actions">
+                            <button class="btn-action">收藏</button>
+                            <button class="btn-action primary">重新练习</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- 实训错题集内容 -->
+            <div id="trainingTab" class="tab-content">
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">全部实训错题</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">2</div>
+                        <div class="stat-label">加工类</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">设计类</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">工艺类</div>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <div class="filter-row">
+                        <div class="filter-item">
+                            <label>实训类型</label>
+                            <select>
+                                <option>全部类型</option>
+                                <option>加工类</option>
+                                <option>设计类</option>
+                                <option>编程类</option>
+                                <option>检测类</option>
+                                <option>工艺类</option>
+                            </select>
+                        </div>
+                        <div class="filter-item">
+                            <label>错误环节</label>
+                            <select>
+                                <option>全部环节</option>
+                                <option>操作失误</option>
+                                <option>参数设置</option>
+                                <option>工艺编制</option>
+                                <option>安全规范</option>
+                            </select>
+                        </div>
+                        <button class="btn-search"><i class="iconfont icon-shixun"></i> 筛选</button>
+                    </div>
+                </div>
+
+                <div class="training-error-card">
+                    <div class="training-error-header">
+                        <div>
+                            <span class="training-type-tag type-machining">加工类</span>
+                            <span style="font-size: 13px; color: #999; margin-left: 12px;">数控车床操作实训</span>
+                        </div>
+                        <span style="font-size: 13px; color: #999;"><i class="iconfont icon-xuenian"></i> 2025-01-15</span>
+                    </div>
+                    <div class="training-error-title">外圆车削加工 - 操作失误</div>
+                    <div class="training-error-desc">
+                        在进行外圆车削加工时，未按照规范进行对刀操作，导致工件尺寸超差。
+                    </div>
+                    <div class="training-error-detail">
+                        <div class="detail-title"><i class="iconfont icon-cuowu"></i> 错误详情</div>
+                        <div class="detail-content">
+                            <strong>错误操作：</strong>对刀时未将刀具移动到工件端面，直接输入Z0坐标<br>
+                            <strong>导致后果：</strong>加工后的工件长度尺寸偏差2.5mm，超出公差范围<br>
+                            <strong>正确做法：</strong>应先将刀具轻触工件端面，确认接触后再输入Z0建立坐标系
+                        </div>
+                    </div>
+                    <div class="training-error-meta">
+                        <span>⚠️ 安全风险：中等 | 指导老师：张老师</span>
+                        <div class="error-actions">
+                            <button class="btn-action">查看回放</button>
+                            <button class="btn-action primary">重新实训</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="training-error-card">
+                    <div class="training-error-header">
+                        <div>
+                            <span class="training-type-tag type-design">设计类</span>
+                            <span style="font-size: 13px; color: #999; margin-left: 12px;">零件三维建模实训</span>
+                        </div>
+                        <span style="font-size: 13px; color: #999;"><i class="iconfont icon-xuenian"></i> 2025-01-12</span>
+                    </div>
+                    <div class="training-error-title">轴承座建模 - 尺寸标注错误</div>
+                    <div class="training-error-desc">
+                        在SolidWorks中创建轴承座模型时，部分特征的尺寸标注不符合工程图规范。
+                    </div>
+                    <div class="training-error-detail">
+                        <div class="detail-title"><i class="iconfont icon-cuowu"></i> 错误详情</div>
+                        <div class="detail-content">
+                            <strong>错误内容：</strong>孔的定位尺寸未使用对称标注，基准选择不当<br>
+                            <strong>导致后果：</strong>工程图尺寸链不完整，加工时难以保证位置精度<br>
+                            <strong>正确做法：</strong>应以中心平面为基准，采用对称标注方式标注孔距
+                        </div>
+                    </div>
+                    <div class="training-error-meta">
+                        <span>📐 设计规范 | 指导老师：李老师</span>
+                        <div class="error-actions">
+                            <button class="btn-action">查看模型</button>
+                            <button class="btn-action primary">重新实训</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="training-error-card">
+                    <div class="training-error-header">
+                        <div>
+                            <span class="training-type-tag type-process">工艺类</span>
+                            <span style="font-size: 13px; color: #999; margin-left: 12px;">工艺规程编制实训</span>
+                        </div>
+                        <span style="font-size: 13px; color: #999;"><i class="iconfont icon-xuenian"></i> 2025-01-08</span>
+                    </div>
+                    <div class="training-error-title">轴类零件工艺编制 - 工序安排不当</div>
+                    <div class="training-error-desc">
+                        编制的工艺规程中，热处理工序安排位置不合理，导致加工效率低下。
+                    </div>
+                    <div class="training-error-detail">
+                        <div class="detail-title"><i class="iconfont icon-cuowu"></i> 错误详情</div>
+                        <div class="detail-content">
+                            <strong>错误内容：</strong>将调质热处理安排在精加工之后进行<br>
+                            <strong>导致后果：</strong>精加工后的表面在热处理时产生变形和氧化<br>
+                            <strong>正确做法：</strong>调质处理应安排在粗加工之后、精加工之前进行
+                        </div>
+                    </div>
+                    <div class="training-error-meta">
+                        <span>📋 工艺规范 | 指导老师：陈老师</span>
+                        <div class="error-actions">
+                            <button class="btn-action">查看工艺卡</button>
+                            <button class="btn-action primary">重新实训</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="training-error-card">
+                    <div class="training-error-header">
+                        <div>
+                            <span class="training-type-tag type-program">编程类</span>
+                            <span style="font-size: 13px; color: #999; margin-left: 12px;">数控编程实训</span>
+                        </div>
+                        <span style="font-size: 13px; color: #999;"><i class="iconfont icon-xuenian"></i> 2025-01-05</span>
+                    </div>
+                    <div class="training-error-title">圆弧插补编程 - 参数设置错误</div>
+                    <div class="training-error-desc">
+                        编写圆弧插补程序时，I、J、K参数计算错误，导致圆弧轨迹不正确。
+                    </div>
+                    <div class="training-error-detail">
+                        <div class="detail-title"><i class="iconfont icon-cuowu"></i> 错误详情</div>
+                        <div class="detail-content">
+                            <strong>错误内容：</strong>G02圆弧插补时，I、J值计算为绝对坐标而非相对圆心坐标<br>
+                            <strong>导致后果：</strong>机床执行时圆弧轨迹偏离预期路径，可能撞刀<br>
+                            <strong>正确做法：</strong>I、J应为圆心相对于起点的增量坐标值
+                        </div>
+                    </div>
+                    <div class="training-error-meta">
+                        <span>⚠️ 安全风险：高 | 指导老师：刘老师</span>
+                        <div class="error-actions">
+                            <button class="btn-action">查看程序</button>
+                            <button class="btn-action primary">重新实训</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function logout() {
+            localStorage.removeItem('iBodaoUser');
+            window.location.href = './教学实训平台_登录.html';
+        }
+
+        // 菜单展开/收起
+        function toggleMenu(element) {
+            element.classList.toggle('collapsed');
+            const menuItems = element.nextElementSibling;
+            if (menuItems) {
+                menuItems.classList.toggle('collapsed');
+            }
+        }
+
+        // Tab切换
+        function switchTab(tabName) {
+            // 移除所有tab的active状态
+            document.querySelectorAll('.tab-item').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // 移除所有内容的active状态
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // 添加当前tab的active状态
+            event.currentTarget.classList.add('active');
+
+            // 显示对应内容
+            if (tabName === 'normal') {
+                document.getElementById('normalTab').classList.add('active');
+            } else if (tabName === 'training') {
+                document.getElementById('trainingTab').classList.add('active');
+            }
+        }
+    </script>
+    <!-- 学生端导航组件加载器 -->
+    <script src="./nav-loader-student.js"></script>
+</body>
+</html>

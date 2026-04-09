@@ -1,0 +1,184 @@
+{
+  "version": "1.0.0",
+  "componentsMap": [
+    {
+      "package": "@kaiwu-cloud/lowcode-engine-component",
+      "version": "3.1.0",
+      "exportName": "KaiwuJsx",
+      "main": "src/index.tsx",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "KaiwuJsx"
+    },
+    {
+      "devMode": "lowCode",
+      "componentName": "Page"
+    }
+  ],
+  "componentsTree": [
+    {
+      "componentName": "Page",
+      "id": "node_dockcviv8fo1",
+      "props": {
+        "ref": "outerView",
+        "style": {}
+      },
+      "docId": "doclaqkk3b9",
+      "fileName": "/",
+      "dataSource": {
+        "list": [
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/formData/query"
+            },
+            "id": "queryFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "PUT",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/formData/update"
+            },
+            "id": "updateFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/formData/add"
+            },
+            "id": "addFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "DELETE",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/formData/delete"
+            },
+            "id": "deleteFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/identity/user/query/current"
+            },
+            "id": "getCurrentUser",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "GET",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/form/getIdByCode"
+            },
+            "id": "getIdByCode",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          }
+        ]
+      },
+      "hidden": false,
+      "title": "",
+      "isLocked": false,
+      "condition": true,
+      "conditionGroup": "",
+      "children": [
+        {
+          "componentName": "KaiwuJsx",
+          "id": "node_ocmmt5w4z91",
+          "props": {
+            "content": {
+              "type": "JSFunction",
+              "value": "function(){ return this.renderJSX.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "style": {
+              "width": "100%",
+              "height": "100%"
+            }
+          },
+          "hidden": false,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": ""
+        }
+      ]
+    }
+  ],
+  "i18n": {
+    "zh-CN": {
+      "i18n-jwg27yo4": "你好 ",
+      "i18n-jwg27yo3": "{name} 博士"
+    },
+    "en-US": {
+      "i18n-jwg27yo4": "Hello ",
+      "i18n-jwg27yo3": "Doctor {name}"
+    }
+  }
+}

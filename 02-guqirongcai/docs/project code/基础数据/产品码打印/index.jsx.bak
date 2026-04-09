@@ -1,0 +1,753 @@
+class LowcodeComponent extends Component {
+  constructor() {
+    const { injectMesModuleMethods } = window.KaiwuMesModule;
+    injectMesModuleMethods(this);
+  }
+
+  static PAGE_FORMCODE = 'MES_cpdym';
+  static PAGE_FORMNAME = '产品码打印';
+
+  state = {
+    mockData: [
+      { _id: '1', batchNo: '20240407001', productName: '智能手机', specModel: 'iPhone 15 Pro 256GB', unit: '台', printQty: 100, produceDate: '2024-04-01', printStatus: 'printed', printer: '张三', printTime: '2024-04-07 09:30:00' },
+      { _id: '2', batchNo: '20240407002', productName: '平板电脑', specModel: 'iPad Pro 12.9寸 512GB', unit: '台', printQty: 50, produceDate: '2024-04-02', printStatus: 'printed', printer: '李四', printTime: '2024-04-07 10:15:00' },
+      { _id: '3', batchNo: '20240407003', productName: '无线耳机', specModel: 'AirPods Pro 2代', unit: '副', printQty: 200, produceDate: '2024-04-03', printStatus: 'printed', printer: '王五', printTime: '2024-04-07 11:00:00' },
+      { _id: '4', batchNo: '20240407004', productName: '智能手表', specModel: 'Apple Watch S9 45mm', unit: '只', printQty: 80, produceDate: '2024-04-01', printStatus: 'pending', printer: '', printTime: '' },
+      { _id: '5', batchNo: '20240407005', productName: '笔记本电脑', specModel: 'MacBook Pro 14寸 M3', unit: '台', printQty: 30, produceDate: '2024-04-02', printStatus: 'printed', printer: '张三', printTime: '2024-04-07 13:30:00' },
+      { _id: '6', batchNo: '20240407006', productName: '蓝牙音箱', specModel: 'HomePod mini', unit: '台', printQty: 150, produceDate: '2024-04-03', printStatus: 'printed', printer: '李四', printTime: '2024-04-07 14:00:00' },
+      { _id: '7', batchNo: '20240407007', productName: '充电器', specModel: '20W USB-C快充头', unit: '个', printQty: 500, produceDate: '2024-04-04', printStatus: 'printed', printer: '王五', printTime: '2024-04-07 14:30:00' },
+      { _id: '8', batchNo: '20240407008', productName: '数据线', specModel: 'USB-C to Lightning 2米', unit: '条', printQty: 300, produceDate: '2024-04-04', printStatus: 'pending', printer: '', printTime: '' },
+      { _id: '9', batchNo: '20240407009', productName: '手机壳', specModel: 'iPhone 15 Pro 硅胶壳', unit: '个', printQty: 400, produceDate: '2024-04-05', printStatus: 'printed', printer: '张三', printTime: '2024-04-07 15:30:00' },
+      { _id: '10', batchNo: '20240407010', productName: '屏幕保护膜', specModel: 'iPhone 15 Pro 钢化膜', unit: '张', printQty: 600, produceDate: '2024-04-05', printStatus: 'printed', printer: '李四', printTime: '2024-04-07 16:00:00' },
+      { _id: '11', batchNo: '20240406001', productName: '机械键盘', specModel: 'Keychron K2 红轴', unit: '把', printQty: 40, produceDate: '2024-04-01', printStatus: 'printed', printer: '王五', printTime: '2024-04-06 09:00:00' },
+      { _id: '12', batchNo: '20240406002', productName: '无线鼠标', specModel: 'Logitech MX Master 3S', unit: '只', printQty: 60, produceDate: '2024-04-02', printStatus: 'printed', printer: '张三', printTime: '2024-04-06 10:00:00' },
+      { _id: '13', batchNo: '20240406003', productName: '显示器', specModel: 'Dell U2723QX 27寸 4K', unit: '台', printQty: 25, produceDate: '2024-04-02', printStatus: 'printed', printer: '李四', printTime: '2024-04-06 11:00:00' },
+      { _id: '14', batchNo: '20240406004', productName: '固态硬盘', specModel: 'Samsung 980 Pro 1TB', unit: '个', printQty: 100, produceDate: '2024-04-03', printStatus: 'printed', printer: '王五', printTime: '2024-04-06 13:00:00' },
+      { _id: '15', batchNo: '20240406005', productName: '内存条', specModel: 'Kingston DDR5 32GB 5600MHz', unit: '条', printQty: 80, produceDate: '2024-04-03', printStatus: 'pending', printer: '', printTime: '' },
+      { _id: '16', batchNo: '20240406006', productName: '显卡', specModel: 'NVIDIA RTX 4080 16GB', unit: '张', printQty: 20, produceDate: '2024-04-01', printStatus: 'printed', printer: '张三', printTime: '2024-04-06 15:00:00' },
+      { _id: '17', batchNo: '20240406007', productName: 'CPU处理器', specModel: 'Intel i9-14900K', unit: '颗', printQty: 30, produceDate: '2024-04-01', printStatus: 'printed', printer: '李四', printTime: '2024-04-06 16:00:00' },
+      { _id: '18', batchNo: '20240406008', productName: '主板', specModel: 'ASUS ROG Z790-E', unit: '块', printQty: 25, produceDate: '2024-04-02', printStatus: 'printed', printer: '王五', printTime: '2024-04-06 17:00:00' },
+      { _id: '19', batchNo: '20240406009', productName: '电源', specModel: 'Corsair RM850x 850W', unit: '个', printQty: 35, produceDate: '2024-04-02', printStatus: 'pending', printer: '', printTime: '' },
+      { _id: '20', batchNo: '20240406010', productName: '机箱', specModel: 'NZXT H7 Flow', unit: '个', printQty: 15, produceDate: '2024-04-03', printStatus: 'printed', printer: '张三', printTime: '2024-04-06 18:00:00' },
+      { _id: '21', batchNo: '20240405001', productName: '路由器', specModel: 'ASUS RT-AX86U Pro', unit: '台', printQty: 45, produceDate: '2024-04-01', printStatus: 'printed', printer: '李四', printTime: '2024-04-05 09:00:00' },
+      { _id: '22', batchNo: '20240405002', productName: '交换机', specModel: 'TP-Link TL-SG108', unit: '台', printQty: 30, produceDate: '2024-04-01', printStatus: 'printed', printer: '王五', printTime: '2024-04-05 10:00:00' },
+      { _id: '23', batchNo: '20240405003', productName: '网络摄像头', specModel: 'Hikvision DS-2CD', unit: '个', printQty: 50, produceDate: '2024-04-02', printStatus: 'printed', printer: '张三', printTime: '2024-04-05 11:00:00' },
+      { _id: '24', batchNo: '20240405004', productName: '门禁控制器', specModel: 'ZKteco SC800', unit: '台', printQty: 20, produceDate: '2024-04-02', printStatus: 'printed', printer: '李四', printTime: '2024-04-05 13:00:00' },
+      { _id: '25', batchNo: '20240405005', productName: '指纹考勤机', specModel: 'ZKteco UA300', unit: '台', printQty: 25, produceDate: '2024-04-03', printStatus: 'printed', printer: '王五', printTime: '2024-04-05 14:00:00' },
+      { _id: '26', batchNo: '20240405006', productName: '投影仪', specModel: 'Epson CB-L630U', unit: '台', printQty: 10, produceDate: '2024-04-03', printStatus: 'pending', printer: '', printTime: '' },
+      { _id: '27', batchNo: '20240405007', productName: '幕布', specModel: '红叶120寸电动幕布', unit: '副', printQty: 15, produceDate: '2024-04-04', printStatus: 'printed', printer: '张三', printTime: '2024-04-05 16:00:00' },
+      { _id: '28', batchNo: '20240405008', productName: '激光笔', specModel: 'Logitech R800', unit: '支', printQty: 40, produceDate: '2024-04-04', printStatus: 'printed', printer: '李四', printTime: '2024-04-05 17:00:00' },
+      { _id: '29', batchNo: '20240405009', productName: '翻页笔', specModel: '诺为N99', unit: '支', printQty: 60, produceDate: '2024-04-05', printStatus: 'printed', printer: '王五', printTime: '2024-04-05 18:00:00' },
+      { _id: '30', batchNo: '20240405010', productName: '电子白板', specModel: '鸿合HD-I6590E', unit: '台', printQty: 8, produceDate: '2024-04-05', printStatus: 'printed', printer: '张三', printTime: '2024-04-05 19:00:00' },
+      { _id: '31', batchNo: '20240404001', productName: '打印机', specModel: 'HP LaserJet Pro M404', unit: '台', printQty: 12, produceDate: '2024-04-01', printStatus: 'printed', printer: '李四', printTime: '2024-04-04 09:00:00' },
+      { _id: '32', batchNo: '20240404002', productName: '复印机', specModel: 'Canon iR-ADV C3520', unit: '台', printQty: 6, produceDate: '2024-04-01', printStatus: 'printed', printer: '王五', printTime: '2024-04-04 10:00:00' },
+      { _id: '33', batchNo: '20240404003', productName: '扫描仪', specModel: 'Epson DS-530', unit: '台', printQty: 15, produceDate: '2024-04-02', printStatus: 'printed', printer: '张三', printTime: '2024-04-04 11:00:00' },
+      { _id: '34', batchNo: '20240404004', productName: '碎纸机', specModel: '科密C-838', unit: '台', printQty: 20, produceDate: '2024-04-02', printStatus: 'printed', printer: '李四', printTime: '2024-04-04 13:00:00' },
+      { _id: '35', batchNo: '20240404005', productName: '装订机', specModel: '得力3888', unit: '台', printQty: 18, produceDate: '2024-04-03', printStatus: 'printed', printer: '王五', printTime: '2024-04-04 14:00:00' },
+      { _id: '36', batchNo: '20240404006', productName: '计算器', specModel: '卡西欧FX-991CN', unit: '个', printQty: 100, produceDate: '2024-04-03', printStatus: 'printed', printer: '张三', printTime: '2024-04-04 15:00:00' },
+      { _id: '37', batchNo: '20240404007', productName: '订书机', specModel: '得力0305', unit: '个', printQty: 80, produceDate: '2024-04-04', printStatus: 'pending', printer: '', printTime: '' },
+      { _id: '38', batchNo: '20240404008', productName: '文件夹', specModel: '齐心A4双夹', unit: '个', printQty: 200, produceDate: '2024-04-04', printStatus: 'printed', printer: '李四', printTime: '2024-04-04 17:00:00' },
+      { _id: '39', batchNo: '20240404009', productName: '档案盒', specModel: '得力A4 55mm', unit: '个', printQty: 150, produceDate: '2024-04-05', printStatus: 'printed', printer: '王五', printTime: '2024-04-04 18:00:00' },
+      { _id: '40', batchNo: '20240404010', productName: '便利贴', specModel: '3M Post-it 654', unit: '本', printQty: 300, produceDate: '2024-04-05', printStatus: 'printed', printer: '张三', printTime: '2024-04-04 19:00:00' },
+      { _id: '41', batchNo: '20240403001', productName: '白板笔', specModel: '得力S01黑色', unit: '支', printQty: 500, produceDate: '2024-04-01', printStatus: 'printed', printer: '李四', printTime: '2024-04-03 09:00:00' },
+      { _id: '42', batchNo: '20240403002', productName: '记号笔', specModel: '马克油性笔红色', unit: '支', printQty: 400, produceDate: '2024-04-01', printStatus: 'printed', printer: '王五', printTime: '2024-04-03 10:00:00' },
+      { _id: '43', batchNo: '20240403003', productName: '铅笔', specModel: '中华101 2B', unit: '支', printQty: 1000, produceDate: '2024-04-02', printStatus: 'printed', printer: '张三', printTime: '2024-04-03 11:00:00' },
+      { _id: '44', batchNo: '20240403004', productName: '橡皮擦', specModel: '晨光4B美术橡皮', unit: '块', printQty: 800, produceDate: '2024-04-02', printStatus: 'printed', printer: '李四', printTime: '2024-04-03 13:00:00' },
+      { _id: '45', batchNo: '20240403005', productName: '直尺', specModel: '得力20cm塑料尺', unit: '把', printQty: 300, produceDate: '2024-04-03', printStatus: 'printed', printer: '王五', printTime: '2024-04-03 14:00:00' },
+      { _id: '46', batchNo: '20240403006', productName: '圆规', specModel: '得力8601金属圆规', unit: '套', printQty: 150, produceDate: '2024-04-03', printStatus: 'pending', printer: '', printTime: '' },
+      { _id: '47', batchNo: '20240403007', productName: '剪刀', specModel: '得力6034不锈钢剪刀', unit: '把', printQty: 200, produceDate: '2024-04-04', printStatus: 'printed', printer: '张三', printTime: '2024-04-03 16:00:00' },
+      { _id: '48', batchNo: '20240403008', productName: '美工刀', specModel: '得力2050大号', unit: '把', printQty: 250, produceDate: '2024-04-04', printStatus: 'printed', printer: '李四', printTime: '2024-04-03 17:00:00' },
+      { _id: '49', batchNo: '20240403009', productName: '胶水', specModel: '得力7302液体胶', unit: '瓶', printQty: 180, produceDate: '2024-04-05', printStatus: 'printed', printer: '王五', printTime: '2024-04-03 18:00:00' },
+      { _id: '50', batchNo: '20240403010', productName: '胶带', specModel: '得力30320透明胶带', unit: '卷', printQty: 600, produceDate: '2024-04-05', printStatus: 'printed', printer: '张三', printTime: '2024-04-03 19:00:00' }
+    ],
+    dataList: [],
+    loading: false,
+    pageNo: 1,
+    pageSize: 10,
+    total: 0,
+    searchParams: {
+      batchNo: '',
+      productName: '',
+      specModel: '',
+      unit: '',
+      printStatus: 'all',
+      printer: '',
+      printTimeRange: null
+    },
+    searchExpanded: false,
+    selectedRowKeys: []
+  };
+
+  async componentDidMount() {
+    this.loadData();
+  }
+
+  async loadData() {
+    await this.setStatePromise({ loading: true });
+    try {
+      const { searchParams, pageNo, pageSize, mockData } = this.state;
+
+      let filteredData = mockData.filter(item => {
+        // 批次号 - 模糊搜索
+        if (searchParams.batchNo && !item.batchNo.toLowerCase().includes(searchParams.batchNo.toLowerCase())) {
+          return false;
+        }
+        // 产品名称 - 模糊搜索
+        if (searchParams.productName && !item.productName.includes(searchParams.productName)) {
+          return false;
+        }
+        // 规格型号 - 模糊搜索
+        if (searchParams.specModel && !item.specModel.toLowerCase().includes(searchParams.specModel.toLowerCase())) {
+          return false;
+        }
+        // 计量单位 - 模糊搜索
+        if (searchParams.unit && !item.unit.includes(searchParams.unit)) {
+          return false;
+        }
+        // 打印状态 - 精确匹配
+        if (searchParams.printStatus !== 'all' && item.printStatus !== searchParams.printStatus) {
+          return false;
+        }
+        // 打印人 - 模糊搜索
+        if (searchParams.printer && !item.printer.includes(searchParams.printer)) {
+          return false;
+        }
+        // 打印时间范围
+        if (searchParams.printTimeRange && searchParams.printTimeRange.length === 2 && item.printTime) {
+          const itemDate = new Date(item.printTime);
+          const startDate = searchParams.printTimeRange[0];
+          const endDate = searchParams.printTimeRange[1];
+          const startTime = startDate && startDate.startOf ? startDate.startOf('day').toDate() : new Date(startDate);
+          const endTime = endDate && endDate.endOf ? endDate.endOf('day').toDate() : new Date(endDate);
+          startTime.setHours(0, 0, 0, 0);
+          endTime.setHours(23, 59, 59, 999);
+          if (itemDate < startTime || itemDate > endTime) {
+            return false;
+          }
+        }
+        return true;
+      });
+
+      const start = (pageNo - 1) * pageSize;
+      const end = start + pageSize;
+      const pageData = filteredData.slice(start, end);
+
+      await this.setStatePromise({
+        dataList: pageData,
+        total: filteredData.length
+      });
+    } catch (error) {
+      console.error('加载数据失败:', error);
+    } finally {
+      await this.setStatePromise({ loading: false });
+    }
+  }
+
+  getColumns() {
+    const { Button, Tag } = window.antd;
+
+    return [
+      {
+        title: '批次号',
+        dataIndex: 'batchNo',
+        key: 'batchNo',
+        width: 130
+      },
+      {
+        title: '产品名称',
+        dataIndex: 'productName',
+        key: 'productName',
+        width: 150
+      },
+      {
+        title: '规格型号',
+        dataIndex: 'specModel',
+        key: 'specModel',
+        width: 180,
+        ellipsis: true
+      },
+      {
+        title: '计量单位',
+        dataIndex: 'unit',
+        key: 'unit',
+        width: 90
+      },
+      {
+        title: '打印数量',
+        dataIndex: 'printQty',
+        key: 'printQty',
+        width: 90,
+        align: 'right'
+      },
+      {
+        title: '生产日期',
+        dataIndex: 'produceDate',
+        key: 'produceDate',
+        width: 110
+      },
+      {
+        title: '打印状态',
+        dataIndex: 'printStatus',
+        key: 'printStatus',
+        width: 90,
+        render: (status) => (
+          <Tag color={status === 'printed' ? 'success' : 'warning'}>
+            {status === 'printed' ? '已打印' : '待打印'}
+          </Tag>
+        )
+      },
+      {
+        title: '打印人',
+        dataIndex: 'printer',
+        key: 'printer',
+        width: 90,
+        render: (printer) => printer || '-'
+      },
+      {
+        title: '打印时间',
+        dataIndex: 'printTime',
+        key: 'printTime',
+        width: 150,
+        render: (time) => time || '-'
+      },
+      {
+        title: '操作',
+        key: 'action',
+        width: 150,
+        fixed: 'right',
+        render: (_, record) => this.renderActions(record)
+      }
+    ];
+  }
+
+  handleSearch() {
+    this.setState({ pageNo: 1 }, () => this.loadData());
+  }
+
+  handleReset() {
+    this.setState({
+      searchParams: {
+        batchNo: '',
+        productName: '',
+        specModel: '',
+        unit: '',
+        printStatus: 'all',
+        printer: '',
+        printTimeRange: null
+      },
+      pageNo: 1
+    }, () => this.loadData());
+  }
+
+  handlePageChange(page, pageSize) {
+    this.setState({ pageNo: page, pageSize }, () => this.loadData());
+  }
+
+  handleSearchParamChange(field, value) {
+    this.setState({
+      searchParams: {
+        ...this.state.searchParams,
+        [field]: value
+      }
+    });
+  }
+
+  // 预览
+  handlePreview(record) {
+    const { Modal } = window.antd;
+    Modal.info({
+      title: '打印预览',
+      width: 480,
+      content: (
+        <div style={{ marginTop: 16 }}>
+          <p><strong>批次号：</strong>{record.batchNo}</p>
+          <p><strong>产品名称：</strong>{record.productName}</p>
+          <p><strong>规格型号：</strong>{record.specModel}</p>
+          <p><strong>计量单位：</strong>{record.unit}</p>
+          <p><strong>打印数量：</strong>{record.printQty}</p>
+          <p><strong>生产日期：</strong>{record.produceDate}</p>
+          <div style={{ marginTop: 16, padding: 16, background: '#f5f5f5', textAlign: 'center' }}>
+            <svg width="200" height="80" viewBox="0 0 200 80">
+              <rect x="10" y="10" width="180" height="60" fill="white" stroke="#000" strokeWidth="2"/>
+              <text x="100" y="35" textAnchor="middle" fontSize="12">{record.batchNo}</text>
+              <text x="100" y="55" textAnchor="middle" fontSize="10">{record.productName}</text>
+            </svg>
+            <p style={{ fontSize: 12, color: '#999', marginTop: 8 }}>条码预览区域</p>
+          </div>
+        </div>
+      ),
+      okText: '关闭'
+    });
+  }
+
+  // 打印
+  handlePrint(record) {
+    const { Modal, message } = window.antd;
+    Modal.confirm({
+      title: '确认打印',
+      content: `确定要打印批次 "${record.batchNo}" 的产品码吗？打印数量：${record.printQty}`,
+      okText: '确认打印',
+      cancelText: '取消',
+      onOk: () => {
+        message.success(`批次 ${record.batchNo} 打印任务已提交`);
+      }
+    });
+  }
+
+  // 补打
+  handleReprint(record) {
+    const { Modal, message, InputNumber } = window.antd;
+    let reprintQty = 1;
+
+    Modal.confirm({
+      title: '补打产品码',
+      content: (
+        <div style={{ marginTop: 16 }}>
+          <p>批次号：{record.batchNo}</p>
+          <p>产品名称：{record.productName}</p>
+          <p>原打印数量：{record.printQty}</p>
+          <div style={{ marginTop: 16 }}>
+            <span>补打数量：</span>
+            <InputNumber
+              min={1}
+              max={100}
+              defaultValue={1}
+              onChange={(value) => { reprintQty = value; }}
+            />
+          </div>
+        </div>
+      ),
+      okText: '确认补打',
+      cancelText: '取消',
+      onOk: () => {
+        message.success(`批次 ${record.batchNo} 补打 ${reprintQty} 张任务已提交`);
+      }
+    });
+  }
+
+  renderActions(record) {
+    const { Button } = window.antd;
+
+    return (
+      <>
+        <Button
+          type="link"
+          style={{ padding: '4px', marginRight: 8 }}
+          onClick={() => this.handlePreview(record)}
+        >
+          预览
+        </Button>
+        <Button
+          type="link"
+          style={{ padding: '4px', marginRight: 8 }}
+          onClick={() => this.handlePrint(record)}
+        >
+          打印
+        </Button>
+        <Button
+          type="link"
+          style={{ padding: '4px' }}
+          onClick={() => this.handleReprint(record)}
+        >
+          补打
+        </Button>
+      </>
+    );
+  }
+
+  // 获取自动完成候选值
+  getAutoCompleteOptions(field) {
+    const { mockData } = this.state;
+    const values = [...new Set(mockData.map(item => item[field]).filter(Boolean))];
+    return values.map(value => ({ value, label: value }));
+  }
+
+  renderSearchArea() {
+    const { Input, Select, Button, Space, DatePicker, AutoComplete } = window.antd;
+    const { searchParams, searchExpanded } = this.state;
+
+    return (
+      <div className="search-area">
+        <div className="search-row">
+          <div className="search-item">
+            <span className="search-label">批次号：</span>
+            <AutoComplete
+              placeholder="请输入"
+              value={searchParams.batchNo}
+              options={this.getAutoCompleteOptions('batchNo')}
+              onChange={(value) => this.handleSearchParamChange('batchNo', value)}
+              onSelect={(value) => this.handleSearchParamChange('batchNo', value)}
+              allowClear
+              filterOption={(input, option) =>
+                option.value.toLowerCase().includes(input.toLowerCase())
+              }
+              style={{ flex: 1 }}
+            />
+          </div>
+          <div className="search-item">
+            <span className="search-label">产品名称：</span>
+            <AutoComplete
+              placeholder="请输入"
+              value={searchParams.productName}
+              options={this.getAutoCompleteOptions('productName')}
+              onChange={(value) => this.handleSearchParamChange('productName', value)}
+              onSelect={(value) => this.handleSearchParamChange('productName', value)}
+              allowClear
+              filterOption={(input, option) =>
+                option.value.toLowerCase().includes(input.toLowerCase())
+              }
+              style={{ flex: 1 }}
+            />
+          </div>
+          <div className="search-item">
+            <span className="search-label">规格型号：</span>
+            <AutoComplete
+              placeholder="请输入"
+              value={searchParams.specModel}
+              options={this.getAutoCompleteOptions('specModel')}
+              onChange={(value) => this.handleSearchParamChange('specModel', value)}
+              onSelect={(value) => this.handleSearchParamChange('specModel', value)}
+              allowClear
+              filterOption={(input, option) =>
+                option.value.toLowerCase().includes(input.toLowerCase())
+              }
+              style={{ flex: 1 }}
+            />
+          </div>
+          <div className="search-item">
+            <span className="search-label">计量单位：</span>
+            <AutoComplete
+              placeholder="请输入"
+              value={searchParams.unit}
+              options={this.getAutoCompleteOptions('unit')}
+              onChange={(value) => this.handleSearchParamChange('unit', value)}
+              onSelect={(value) => this.handleSearchParamChange('unit', value)}
+              allowClear
+              filterOption={(input, option) =>
+                option.value.toLowerCase().includes(input.toLowerCase())
+              }
+              style={{ flex: 1 }}
+            />
+          </div>
+        </div>
+
+        <div className="search-row" style={{ display: searchExpanded ? 'flex' : 'none' }}>
+          <div className="search-item">
+            <span className="search-label">打印状态：</span>
+            <Select
+              placeholder="请选择"
+              value={searchParams.printStatus === 'all' ? undefined : searchParams.printStatus}
+              onChange={(value) => this.handleSearchParamChange('printStatus', value || 'all')}
+              allowClear
+              style={{ flex: 1 }}
+            >
+              <Select.Option value="printed">已打印</Select.Option>
+              <Select.Option value="pending">待打印</Select.Option>
+            </Select>
+          </div>
+          <div className="search-item">
+            <span className="search-label">打印人：</span>
+            <AutoComplete
+              placeholder="请输入"
+              value={searchParams.printer}
+              options={this.getAutoCompleteOptions('printer').filter(item => item.value)}
+              onChange={(value) => this.handleSearchParamChange('printer', value)}
+              onSelect={(value) => this.handleSearchParamChange('printer', value)}
+              allowClear
+              filterOption={(input, option) =>
+                option.value.toLowerCase().includes(input.toLowerCase())
+              }
+              style={{ flex: 1 }}
+            />
+          </div>
+          <div className="search-item">
+            <span className="search-label">打印时间：</span>
+            <DatePicker.RangePicker
+              style={{ flex: 1 }}
+              placeholder={['开始日期', '结束日期']}
+              value={searchParams.printTimeRange}
+              onChange={(dates) => this.handleSearchParamChange('printTimeRange', dates)}
+            />
+          </div>
+          <div className="search-item" />
+        </div>
+
+        <div className="search-actions">
+          <Space>
+            <Button onClick={() => this.handleReset()}>重置</Button>
+            <Button type="primary" onClick={() => this.handleSearch()}>查询</Button>
+            <Button
+              type="link"
+              onClick={() => this.setState({ searchExpanded: !searchExpanded })}
+            >
+              {searchExpanded ? '收起' : '展开'}
+              <svg style={{ marginLeft: 2, width: 12, height: 12, transition: 'transform 0.3s', transform: searchExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </Button>
+          </Space>
+        </div>
+      </div>
+    );
+  }
+
+  renderTableArea() {
+    const { Table, Pagination, Button, Dropdown, Checkbox } = window.antd;
+    const { dataList, loading, pageNo, pageSize, total, selectedRowKeys } = this.state;
+
+    // 行选择配置
+    const rowSelection = {
+      type: 'checkbox',
+      selectedRowKeys,
+      onChange: (selectedRowKeys) => this.setState({ selectedRowKeys }),
+      columnTitle: (
+        <Dropdown
+          overlay={
+            <div className="checkbox-dropdown-menu">
+              <div className="checkbox-menu-item" onClick={() => {
+                const allIds = dataList.map(item => item._id);
+                const currentSelected = this.state.selectedRowKeys || [];
+                if (currentSelected.length === allIds.length) {
+                  this.setState({ selectedRowKeys: [] });
+                } else {
+                  this.setState({ selectedRowKeys: allIds });
+                }
+              }}>
+                全选所有
+              </div>
+              <div className="checkbox-menu-item" onClick={() => {
+                const allIds = dataList.map(item => item._id);
+                const currentSelected = this.state.selectedRowKeys || [];
+                const newSelected = allIds.filter(id => !currentSelected.includes(id));
+                this.setState({ selectedRowKeys: newSelected });
+              }}>
+                反选
+              </div>
+              <div className="checkbox-menu-item" onClick={() => this.setState({ selectedRowKeys: [] })}>
+                清空选择
+              </div>
+            </div>
+          }
+          trigger={['click']}
+        >
+          <div className="checkbox-dropdown-trigger" onClick={(e) => e.stopPropagation()}>
+            <Checkbox
+              indeterminate={selectedRowKeys.length > 0 && selectedRowKeys.length < dataList.length}
+              checked={selectedRowKeys.length === dataList.length && dataList.length > 0}
+              onChange={(e) => {
+                if (e.target.checked) {
+                  this.setState({ selectedRowKeys: dataList.map(item => item._id) });
+                } else {
+                  this.setState({ selectedRowKeys: [] });
+                }
+              }}
+            />
+            <svg className="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </div>
+        </Dropdown>
+      )
+    };
+
+    return (
+      <div className="table-area">
+        <div className="table-toolbar">
+          <div className="toolbar-left">
+            <div className="btn-group">
+              <Button type="primary" className="icon-text-btn" onClick={() => this.handleAdd()}>
+                <svg className="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span className="text">新增</span>
+              </Button>
+              <Button type="primary" className="icon-text-btn" onClick={() => {
+                const { message } = window.antd;
+                if (!selectedRowKeys || selectedRowKeys.length === 0) {
+                  message.warning('请先选择要打印的数据');
+                  return;
+                }
+                message.success(`已提交 ${selectedRowKeys.length} 条批量打印任务`);
+              }}>
+                <svg className="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                  <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                <span className="text">批量打印</span>
+              </Button>
+              <Button className="icon-text-btn" onClick={() => {
+                const { message } = window.antd;
+                message.success('导出任务已提交');
+              }}>
+                <svg className="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span className="text">导出</span>
+              </Button>
+            </div>
+          </div>
+          <div className="toolbar-right">
+          </div>
+        </div>
+        <div className="table-scroll-wrap">
+          <Table
+            columns={this.getColumns()}
+            dataSource={dataList}
+            rowKey="_id"
+            loading={loading}
+            pagination={false}
+            scroll={{ x: 1100, y: 'calc(100vh - 320px)' }}
+            rowSelection={rowSelection}
+          />
+        </div>
+        <div className="pagination-bar">
+          <span className="pagination-total">共 {total} 条</span>
+          <Pagination
+            current={pageNo}
+            pageSize={pageSize}
+            total={total}
+            showSizeChanger
+            showQuickJumper
+            showTotal={false}
+            onChange={(page, size) => this.handlePageChange(page, size)}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  renderJSX() {
+    const { ConfigProvider } = window.antd;
+
+    return (
+      <ConfigProvider locale={this.getLocale()}>
+        <div className="main-container">
+          {this.renderSearchArea()}
+          {this.renderTableArea()}
+        </div>
+      </ConfigProvider>
+    );
+  }
+
+  getLocale() {
+    const t = window.DayjsLocale.getZhCN();
+    return t;
+  }
+
+  // 新增
+  handleAdd() {
+    const { Modal, Form, Input, DatePicker, InputNumber, message } = window.antd;
+    const formRef = React.createRef();
+
+    Modal.confirm({
+      title: '新增产品码',
+      width: 520,
+      content: (
+        <Form
+          ref={formRef}
+          layout="vertical"
+          style={{ marginTop: 16 }}
+          initialValues={{
+            batchNo: this.generateBatchNo(),
+            printQty: 1,
+            produceDate: moment()
+          }}
+        >
+          <Form.Item
+            label="批次号"
+            name="batchNo"
+            rules={[{ required: true, message: '请输入批次号' }]}
+          >
+            <Input placeholder="请输入批次号" disabled />
+          </Form.Item>
+          <Form.Item
+            label="产品名称"
+            name="productName"
+            rules={[{ required: true, message: '请输入产品名称' }]}
+          >
+            <Input placeholder="请输入产品名称" />
+          </Form.Item>
+          <Form.Item
+            label="规格型号"
+            name="specModel"
+            rules={[{ required: true, message: '请输入规格型号' }]}
+          >
+            <Input placeholder="请输入规格型号" />
+          </Form.Item>
+          <Form.Item
+            label="计量单位"
+            name="unit"
+            rules={[{ required: true, message: '请输入计量单位' }]}
+          >
+            <Input placeholder="请输入计量单位" />
+          </Form.Item>
+          <Form.Item
+            label="打印数量"
+            name="printQty"
+            rules={[{ required: true, message: '请输入打印数量' }]}
+          >
+            <InputNumber min={1} max={9999} style={{ width: '100%' }} placeholder="请输入打印数量" />
+          </Form.Item>
+          <Form.Item
+            label="生产日期"
+            name="produceDate"
+            rules={[{ required: true, message: '请选择生产日期' }]}
+          >
+            <DatePicker style={{ width: '100%' }} placeholder="请选择生产日期" />
+          </Form.Item>
+        </Form>
+      ),
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => {
+        const form = formRef.current;
+        if (form) {
+          form.validateFields().then(values => {
+            const newRecord = {
+              _id: String(Date.now()),
+              batchNo: values.batchNo,
+              productName: values.productName,
+              specModel: values.specModel,
+              unit: values.unit,
+              printQty: values.printQty,
+              produceDate: values.produceDate ? values.produceDate.format('YYYY-MM-DD') : '',
+              printStatus: 'pending',
+              printer: '',
+              printTime: ''
+            };
+            this.setState({
+              mockData: [newRecord, ...this.state.mockData],
+              total: this.state.total + 1
+            }, () => {
+              this.loadData();
+              message.success('新增成功');
+            });
+          }).catch(() => {
+            return Promise.reject();
+          });
+        }
+      }
+    });
+  }
+
+  // 生成批次号
+  generateBatchNo() {
+    const now = new Date();
+    const dateStr = now.getFullYear() +
+      String(now.getMonth() + 1).padStart(2, '0') +
+      String(now.getDate()).padStart(2, '0');
+    const existingCount = this.state.mockData.filter(item =>
+      item.batchNo.startsWith(dateStr)
+    ).length;
+    return `${dateStr}${String(existingCount + 1).padStart(3, '0')}`;
+  }
+
+  componentWillUnmount() {
+    if (this.searchTimer) clearTimeout(this.searchTimer);
+    if (this.pollingTimer) clearInterval(this.pollingTimer);
+  }
+}

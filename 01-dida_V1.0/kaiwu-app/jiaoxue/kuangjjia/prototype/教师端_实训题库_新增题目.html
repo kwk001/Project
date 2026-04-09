@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增实训题目 - 教师端</title>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_5124072_s39q5gmh59a.css">
+    <link rel="stylesheet" href="./common.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #F5F7FA;
+            display: flex;
+            height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            background: #fff;
+            padding: 16px 24px;
+            border-bottom: 1px solid #F0F0F0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .breadcrumb span {
+            color: #1890FF;
+            cursor: pointer;
+        }
+
+        .breadcrumb span:hover {
+            text-decoration: underline;
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .content-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #F0F2F5;
+        }
+
+        .btn-back {
+            padding: 10px 20px;
+            background: #fff;
+            border: 1px solid #D9D9D9;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .btn-back:hover {
+            border-color: #1890FF;
+            color: #1890FF;
+        }
+
+        .form-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .form-card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #F0F0F0;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .form-label .required {
+            color: #FF4D4F;
+            margin-left: 4px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #D9D9D9;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #1890FF;
+            box-shadow: 0 0 0 3px rgba(24,144,255,0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* 题型标签 */
+        .type-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .type-tab {
+            padding: 10px 20px;
+            border: 1px solid #D9D9D9;
+            background: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .type-tab:hover {
+            border-color: #1890FF;
+            color: #1890FF;
+        }
+
+        .type-tab.active {
+            border-color: #1890FF;
+            background: #1890FF;
+            color: #fff;
+        }
+
+        /* 题型内容区域 */
+        .type-content {
+            display: none;
+        }
+
+        .type-content.active {
+            display: block;
+        }
+
+        /* 文件上传 */
+        .file-upload {
+            border: 2px dashed #D9D9D9;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .file-upload:hover {
+            border-color: #1890FF;
+            background: #E6F7FF;
+        }
+
+        .file-upload-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .file-upload-text {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* 表格样式 */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+
+        .data-table th, .data-table td {
+            padding: 12px;
+            border: 1px solid #E8E8E8;
+            text-align: left;
+        }
+
+        .data-table th {
+            background: #FAFAFA;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .data-table input, .data-table select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #D9D9D9;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .data-table .seq-num {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            background: #1890FF;
+            color: #fff;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .data-table .normal-value-cell {
+            min-width: 200px;
+        }
+
+        .data-table .number-range {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .data-table .range-input {
+            width: 80px;
+            padding: 8px 12px;
+            border: 1px solid #D9D9D9;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .data-table .range-separator {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .data-table .single-value-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #D9D9D9;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .btn-add-row {
+            margin-top: 12px;
+            padding: 10px 20px;
+            border: 1px dashed #1890FF;
+            background: #fff;
+            color: #1890FF;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-add-row:hover {
+            background: #E6F7FF;
+        }
+
+        /* 复选框 */
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        /* 按钮组 */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #F0F0F0;
+        }
+
+        .btn-primary {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #1890FF 0%, #096DD9 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .btn-secondary {
+            padding: 12px 24px;
+            background: #fff;
+            border: 1px solid #D9D9D9;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .btn-secondary:hover {
+            border-color: #1890FF;
+            color: #1890FF;
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航容器 - 由通用加载器动态加载 -->
+    <div id="nav-container"></div>
+    
+
+    <!-- 主内容区 -->
+    <div class="main-content">
+        <div class="header">
+            <div class="breadcrumb">
+                <span onclick="goBack()">实训题库</span> / 新增题目
+            </div>
+            <button class="logout-btn" onclick="logout()">退出登录</button>
+        </div>
+
+        <div class="content-body">
+            <button class="btn-back" onclick="goBack()">
+                ← 返回列表
+            </button>
+
+            <!-- 基本信息 -->
+            <div class="form-card">
+                <div class="form-card-title">基本信息</div>
+                <div class="form-row">
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">题目名称 <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="questionName" placeholder="请输入题目名称">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">所属专业 <span class="required">*</span></label>
+                        <select class="form-select" id="majorSelect">
+                            <option value="">请选择专业</option>
+                            <option value="数控技术">数控技术</option>
+                            <option value="机械设计">机械设计</option>
+                            <option value="模具设计">模具设计</option>
+                            <option value="机电一体化">机电一体化</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">所属课程 <span class="required">*</span></label>
+                        <select class="form-select" id="courseSelect">
+                            <option value="">请选择课程</option>
+                            <option value="数控车床">数控车床</option>
+                            <option value="数控铣床">数控铣床</option>
+                            <option value="数控编程">数控编程</option>
+                            <option value="机械制图">机械制图</option>
+                            <option value="模具设计">模具设计</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">难度 <span class="required">*</span></label>
+                        <select class="form-select" id="difficulty">
+                            <option value="">请选择难度</option>
+                            <option value="easy">简单</option>
+                            <option value="medium">中等</option>
+                            <option value="hard">困难</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">是否公用 <span class="required">*</span></label>
+                        <select class="form-select" id="isPublic">
+                            <option value="">请选择</option>
+                            <option value="false">否</option>
+                            <option value="true">是</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row" id="materialRow" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">题目名称 <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="questionName" placeholder="请输入题目名称">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">物料名称 <span class="required">*</span></label>
+                        <select class="form-select" id="materialName" onchange="loadSpecifications(this.value)">
+                            <option value="">请选择物料</option>
+                            <option value="shaft">传动轴</option>
+                            <option value="gear">齿轮</option>
+                            <option value="flange">法兰盘</option>
+                            <option value="sleeve">轴套</option>
+                            <option value="cover">端盖</option>
+                            <option value="bracket">支架</option>
+                            <option value="housing">箱体</option>
+                            <option value="piston">活塞</option>
+                            <option value="connecting_rod">连杆</option>
+                            <option value="cam">凸轮</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">规格型号</label>
+                        <select class="form-select" id="specification">
+                            <option value="">请先选择物料</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">分值 <span class="required">*</span></label>
+                        <input type="number" class="form-input" id="score" placeholder="请输入分值" value="20">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 题型选择 -->
+            <div class="form-card">
+                <div class="form-card-title">题型选择</div>
+                <div class="type-tabs">
+                    <button class="type-tab active" onclick="switchType('design', this)">🎨 设计类</button>
+                    <button class="type-tab" onclick="switchType('programming', this)">💻 编程类</button>
+                    <button class="type-tab" onclick="switchType('process', this)">⚙️ 工艺类</button>
+                    <button class="type-tab" onclick="switchType('machining', this)">🔧 加工类</button>
+                    <button class="type-tab" onclick="switchType('inspection', this)">📏 检测类</button>
+                </div>
+
+                <!-- 设计类内容 -->
+                <div id="designContent" class="type-content active">
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">设计要求 <span class="required">*</span></label>
+                            <textarea class="form-textarea" placeholder="请详细描述设计要求、技术参数等..."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">参考图纸</label>
+                            <div class="file-upload" onclick="document.getElementById('designFile').click()">
+                                <div class="file-upload-icon">📎</div>
+                                <div class="file-upload-text">点击上传图纸（PDF、DWG、JPG、PNG）</div>
+                            </div>
+                            <input type="file" id="designFile" style="display: none;" accept=".pdf,.dwg,.jpg,.png">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 编程类内容 -->
+                <div id="programmingContent" class="type-content">
+                    <div class="form-row" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label">编程类型 <span class="required">*</span></label>
+                            <select class="form-select">
+                                <option value="">请选择</option>
+                                <option value="gcode">G代码编程</option>
+                                <option value="macro">宏程序编程</option>
+                                <option value="cam">CAM软件编程</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">编程任务描述 <span class="required">*</span></label>
+                            <textarea class="form-textarea" placeholder="请描述编程任务要求..."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">参考程序</label>
+                            <textarea class="form-textarea" placeholder="请输入参考加工程序..." style="font-family: monospace;"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 工艺类内容 -->
+                <div id="processContent" class="type-content">
+                    <div class="form-row" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label">物料名称 <span class="required">*</span></label>
+                            <select class="form-select">
+                                <option value="">请选择零件</option>
+                                <option value="shaft">传动轴</option>
+                                <option value="gear">齿轮</option>
+                                <option value="flange">法兰盘</option>
+                                <option value="sleeve">轴套</option>
+                                <option value="cover">端盖</option>
+                                <option value="bracket">支架</option>
+                                <option value="housing">箱体</option>
+                                <option value="piston">活塞</option>
+                                <option value="connecting_rod">连杆</option>
+                                <option value="cam">凸轮</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">规格型号</label>
+                            <input type="text" class="form-input" placeholder="如：Φ50×100mm 45#钢棒料">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">工艺编制要求 <span class="required">*</span></label>
+                            <textarea class="form-textarea" placeholder="请详细描述工艺编制要求..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 加工类内容 -->
+                <div id="machiningContent" class="type-content">
+                    <div class="form-row" style="display: none;">
+                        <div class="form-group">
+                            <label class="form-label">物料名称 <span class="required">*</span></label>
+                            <select class="form-select">
+                                <option value="">请选择</option>
+                                <option value="shaft">轴类零件</option>
+                                <option value="disk">盘类零件</option>
+                                <option value="sleeve">套类零件</option>
+                                <option value="box">箱体零件</option>
+                                <option value="gear">齿轮零件</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">规格型号</label>
+                            <input type="text" class="form-input" placeholder="如：45#钢 Φ50×100mm">
+                        </div>
+                    </div>
+                    <div class="form-row" style="display: none;">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">BOM <span class="required">*</span></label>
+                            <select class="form-select" id="bomSelect">
+                                <option value="">请选择BOM</option>
+                                <option value="bom001">BOM-001 轴类零件标准BOM</option>
+                                <option value="bom002">BOM-002 盘类零件标准BOM</option>
+                                <option value="bom003">BOM-003 套类零件标准BOM</option>
+                                <option value="bom004">BOM-004 箱体零件标准BOM</option>
+                                <option value="bom005">BOM-005 齿轮零件标准BOM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">加工要求 <span class="required">*</span></label>
+                            <textarea class="form-textarea" placeholder="请描述加工要求..."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">附件</label>
+                            <div class="file-upload" onclick="document.getElementById('machiningAttachment').click()">
+                                <div class="file-upload-icon">📎</div>
+                                <div class="file-upload-text">点击上传附件（支持Word、Excel、PDF、视频、PNG、JPG等格式）</div>
+                            </div>
+                            <input type="file" id="machiningAttachment" style="display: none;" accept=".doc,.docx,.xls,.xlsx,.pdf,.mp4,.avi,.mov,.png,.jpg,.jpeg" multiple>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 检测类内容 -->
+                <div id="inspectionContent" class="type-content">
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">检测方案 <span class="required">*</span></label>
+                            <select class="form-select" id="inspectionPlan" onchange="loadInspectionItems(this.value)">
+                                <option value="">请选择</option>
+                                <option value="GB/T 1804">GB/T 1804</option>
+                                <option value="GB/T 1184">GB/T 1184</option>
+                                <option value="ISO 2768">ISO 2768</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">检测要求 <span class="required">*</span></label>
+                            <textarea class="form-textarea" placeholder="请详细描述检测要求..."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 1;">
+                            <label class="form-label">检测项目</label>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 60px;">序号</th>
+                                        <th>检测项</th>
+                                        <th style="width: 120px;">质检方式</th>
+                                        <th style="width: 120px;">属性</th>
+                                        <th>正常值</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="checkTableBody">
+                                    <tr>
+                                        <td><span class="seq-num">1</span></td>
+                                        <td><input type="text" placeholder="请输入检测项"></td>
+                                        <td>
+                                            <select class="form-select">
+                                                <option value="manual">人工</option>
+                                                <option value="auto">数采</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-select" onchange="toggleNormalValue(this)">
+                                                <option value="number">数字</option>
+                                                <option value="select">选择器</option>
+                                                <option value="custom">自定义</option>
+                                            </select>
+                                        </td>
+                                        <td class="normal-value-cell">
+                                            <div class="number-range">
+                                                <input type="number" placeholder="下限" class="range-input">
+                                                <span class="range-separator">~</span>
+                                                <input type="number" placeholder="上限" class="range-input">
+                                            </div>
+                                            <select class="form-select normal-value-select" style="display: none;">
+                                                <option value="">请选择</option>
+                                                <option value="合格">合格</option>
+                                                <option value="不合格">不合格</option>
+                                                <option value="优秀">优秀</option>
+                                                <option value="良好">良好</option>
+                                            </select>
+                                            <input type="text" placeholder="请输入正常值" class="single-value-input" style="display: none;">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="btn-add-row" onclick="addCheckRow()">+ 添加检测项</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 参考答案 -->
+            <div class="form-card" id="answerCard">
+                <div class="form-card-title">参考答案</div>
+                <div class="form-row">
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">参考答案/评分标准 <span class="required">*</span></label>
+                        <textarea class="form-textarea" placeholder="请输入参考答案或评分标准..."></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="flex: 1;">
+                        <label class="form-label">附件</label>
+                        <div class="file-upload" onclick="document.getElementById('refAttachment').click()">
+                            <div class="file-upload-icon">�</div>
+                            <div class="file-upload-text">点击上传附件（支持Word、Excel、PDF、视频、PNG、JPG等格式）</div>
+                        </div>
+                        <input type="file" id="refAttachment" style="display: none;" accept=".doc,.docx,.xls,.xlsx,.pdf,.mp4,.avi,.mov,.png,.jpg,.jpeg" multiple>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="btn-group">
+                <button class="btn-secondary" onclick="goBack()">取消</button>
+                <button class="btn-primary" onclick="saveQuestion()">保存题目</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentType = 'design';
+
+        // 返回
+        function goBack() {
+            window.location.href = './教师端_实训题库_列表.html';
+        }
+
+        // 退出登录
+        function logout() {
+            localStorage.removeItem('iBodaoUser');
+            window.location.href = './教学实训平台_登录.html';
+        }
+
+        // 菜单折叠
+        function toggleMenu(element) {
+            element.classList.toggle('collapsed');
+            const menuItems = element.nextElementSibling;
+            if (menuItems && menuItems.classList.contains('menu-items')) {
+                menuItems.classList.toggle('collapsed');
+            }
+        }
+
+        // 切换题型
+        function switchType(type, element) {
+            currentType = type;
+            
+            // 更新标签样式
+            document.querySelectorAll('.type-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            element.classList.add('active');
+            
+            // 显示对应内容
+            document.querySelectorAll('.type-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(type + 'Content').classList.add('active');
+            
+            // 检测类隐藏参考答案模块
+            const answerCard = document.getElementById('answerCard');
+            if (answerCard) {
+                answerCard.style.display = type === 'inspection' ? 'none' : 'block';
+            }
+            
+            // 工艺类、加工类隐藏物料名称和规格型号字段
+            const materialRow = document.getElementById('materialRow');
+            if (materialRow) {
+                if (type === 'process' || type === 'machining') {
+                    materialRow.style.display = 'none';
+                } else {
+                    materialRow.style.display = 'flex';
+                }
+            }
+        }
+
+        // 物料与规格型号映射数据
+        const materialSpecData = {
+            'shaft': [
+                { value: 'shaft_20x100', label: 'Φ20×100mm' },
+                { value: 'shaft_30x150', label: 'Φ30×150mm' },
+                { value: 'shaft_40x200', label: 'Φ40×200mm' },
+                { value: 'shaft_50x250', label: 'Φ50×250mm' }
+            ],
+            'gear': [
+                { value: 'gear_m2_z20', label: '模数2 齿数20' },
+                { value: 'gear_m3_z30', label: '模数3 齿数30' },
+                { value: 'gear_m4_z40', label: '模数4 齿数40' },
+                { value: 'gear_m5_z50', label: '模数5 齿数50' }
+            ],
+            'flange': [
+                { value: 'flange_dn50', label: 'DN50 PN16' },
+                { value: 'flange_dn80', label: 'DN80 PN16' },
+                { value: 'flange_dn100', label: 'DN100 PN16' },
+                { value: 'flange_dn150', label: 'DN150 PN16' }
+            ],
+            'sleeve': [
+                { value: 'sleeve_20x30', label: 'Φ20×Φ30×40mm' },
+                { value: 'sleeve_25x35', label: 'Φ25×Φ35×50mm' },
+                { value: 'sleeve_30x40', label: 'Φ30×Φ40×60mm' }
+            ],
+            'cover': [
+                { value: 'cover_100x10', label: 'Φ100×10mm' },
+                { value: 'cover_150x15', label: 'Φ150×15mm' },
+                { value: 'cover_200x20', label: 'Φ200×20mm' }
+            ],
+            'bracket': [
+                { value: 'bracket_100x50', label: '100×50×30mm' },
+                { value: 'bracket_150x80', label: '150×80×40mm' },
+                { value: 'bracket_200x100', label: '200×100×50mm' }
+            ],
+            'housing': [
+                { value: 'housing_150x100', label: '150×100×80mm' },
+                { value: 'housing_200x150', label: '200×150×100mm' },
+                { value: 'housing_250x200', label: '250×200×120mm' }
+            ],
+            'piston': [
+                { value: 'piston_50x30', label: 'Φ50×30mm' },
+                { value: 'piston_60x40', label: 'Φ60×40mm' },
+                { value: 'piston_80x50', label: 'Φ80×50mm' }
+            ],
+            'connecting_rod': [
+                { value: 'rod_100x20', label: '100×20×15mm' },
+                { value: 'rod_120x25', label: '120×25×18mm' },
+                { value: 'rod_150x30', label: '150×30×20mm' }
+            ],
+            'cam': [
+                { value: 'cam_40x20', label: 'Φ40×20mm' },
+                { value: 'cam_50x25', label: 'Φ50×25mm' },
+                { value: 'cam_60x30', label: 'Φ60×30mm' }
+            ]
+        };
+
+        // 根据物料加载规格型号
+        function loadSpecifications(materialValue) {
+            const specSelect = document.getElementById('specification');
+            specSelect.innerHTML = '<option value="">请选择规格型号</option>';
+
+            if (!materialValue || !materialSpecData[materialValue]) {
+                return;
+            }
+
+            const specs = materialSpecData[materialValue];
+            specs.forEach(spec => {
+                const option = document.createElement('option');
+                option.value = spec.value;
+                option.textContent = spec.label;
+                specSelect.appendChild(option);
+            });
+        }
+
+        // 检测方案与检测项目映射数据
+        const inspectionPlanData = {
+            'GB/T 1804': [
+                { item: '外径尺寸', method: 'manual', type: 'number', minValue: '49.98', maxValue: '50.02' },
+                { item: '内径尺寸', method: 'manual', type: 'number', minValue: '29.98', maxValue: '30.02' },
+                { item: '长度尺寸', method: 'auto', type: 'number', minValue: '99.95', maxValue: '100.05' },
+                { item: '圆度检测', method: 'manual', type: 'number', minValue: '0', maxValue: '0.01' },
+                { item: '表面粗糙度', method: 'manual', type: 'number', minValue: '0', maxValue: '1.6' }
+            ],
+            'GB/T 1184': [
+                { item: '直线度', method: 'manual', type: 'number', minValue: '0', maxValue: '0.02' },
+                { item: '平面度', method: 'manual', type: 'number', minValue: '0', maxValue: '0.01' },
+                { item: '垂直度', method: 'manual', type: 'number', minValue: '0', maxValue: '0.03' },
+                { item: '平行度', method: 'auto', type: 'number', minValue: '0', maxValue: '0.02' },
+                { item: '同轴度', method: 'manual', type: 'number', minValue: '0', maxValue: '0.02' }
+            ],
+            'ISO 2768': [
+                { item: '线性尺寸', method: 'manual', type: 'number', minValue: '-0.1', maxValue: '0.1' },
+                { item: '角度尺寸', method: 'manual', type: 'number', minValue: '-0.5', maxValue: '0.5' },
+                { item: '外观质量', method: 'manual', type: 'select', normalValue: '合格' },
+                { item: '装配精度', method: 'manual', type: 'select', normalValue: '良好' },
+                { item: '功能测试', method: 'manual', type: 'custom', normalValue: '运行正常' }
+            ]
+        };
+
+        // 切换正常值显示方式
+        function toggleNormalValue(selectElement) {
+            const row = selectElement.closest('tr');
+            const normalValueCell = row.querySelector('.normal-value-cell');
+            const numberRange = normalValueCell.querySelector('.number-range');
+            const normalValueSelect = normalValueCell.querySelector('.normal-value-select');
+            const singleValueInput = normalValueCell.querySelector('.single-value-input');
+
+            // 隐藏所有
+            numberRange.style.display = 'none';
+            if (normalValueSelect) normalValueSelect.style.display = 'none';
+            singleValueInput.style.display = 'none';
+
+            // 根据属性显示对应的输入方式
+            if (selectElement.value === 'number') {
+                numberRange.style.display = 'flex';
+            } else if (selectElement.value === 'select') {
+                if (normalValueSelect) normalValueSelect.style.display = 'block';
+            } else if (selectElement.value === 'custom') {
+                singleValueInput.style.display = 'block';
+            }
+        }
+
+        // 根据检测方案加载检测项目
+        function loadInspectionItems(planValue) {
+            const tbody = document.getElementById('checkTableBody');
+            tbody.innerHTML = ''; // 清空现有内容
+
+            if (!planValue || !inspectionPlanData[planValue]) {
+                // 如果没有选择方案或方案不存在，添加一个空行
+                addCheckRow();
+                return;
+            }
+
+            // 加载对应方案的检测项目
+            const items = inspectionPlanData[planValue];
+            items.forEach((item, index) => {
+                const isNumber = item.type === 'number';
+                const isSelect = item.type === 'select';
+                const isCustom = item.type === 'custom';
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><span class="seq-num">${index + 1}</span></td>
+                    <td><input type="text" value="${item.item}" placeholder="请输入检测项"></td>
+                    <td>
+                        <select class="form-select">
+                            <option value="manual" ${item.method === 'manual' ? 'selected' : ''}>人工</option>
+                            <option value="auto" ${item.method === 'auto' ? 'selected' : ''}>数采</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-select" onchange="toggleNormalValue(this)">
+                            <option value="number" ${item.type === 'number' ? 'selected' : ''}>数字</option>
+                            <option value="select" ${item.type === 'select' ? 'selected' : ''}>选择器</option>
+                            <option value="custom" ${item.type === 'custom' ? 'selected' : ''}>自定义</option>
+                        </select>
+                    </td>
+                    <td class="normal-value-cell">
+                        <div class="number-range" style="display: ${isNumber ? 'flex' : 'none'};">
+                            <input type="number" placeholder="下限" class="range-input" value="${isNumber ? item.minValue : ''}">
+                            <span class="range-separator">~</span>
+                            <input type="number" placeholder="上限" class="range-input" value="${isNumber ? item.maxValue : ''}">
+                        </div>
+                        <select class="form-select normal-value-select" style="display: ${isSelect ? 'block' : 'none'};">
+                            <option value="">请选择</option>
+                            <option value="合格" ${item.normalValue === '合格' ? 'selected' : ''}>合格</option>
+                            <option value="不合格" ${item.normalValue === '不合格' ? 'selected' : ''}>不合格</option>
+                            <option value="优秀" ${item.normalValue === '优秀' ? 'selected' : ''}>优秀</option>
+                            <option value="良好" ${item.normalValue === '良好' ? 'selected' : ''}>良好</option>
+                        </select>
+                        <input type="text" placeholder="请输入正常值" class="single-value-input" style="display: ${isCustom ? 'block' : 'none'};" value="${isCustom ? item.normalValue : ''}">
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 添加工序行
+        function addProcessRow() {
+            const tbody = document.getElementById('processTableBody');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><input type="text" placeholder="工序号"></td>
+                <td><input type="text" placeholder="工序名称"></td>
+                <td><input type="text" placeholder="设备"></td>
+                <td><input type="text" placeholder="工装"></td>
+                <td><input type="text" placeholder="工序内容"></td>
+            `;
+            tbody.appendChild(row);
+        }
+
+        // 添加检测项目行（手动添加空行）
+        function addCheckRow() {
+            const tbody = document.getElementById('checkTableBody');
+            const rowCount = tbody.children.length + 1;
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><span class="seq-num">${rowCount}</span></td>
+                <td><input type="text" placeholder="请输入检测项"></td>
+                <td>
+                    <select class="form-select">
+                        <option value="manual">人工</option>
+                        <option value="auto">数采</option>
+                    </select>
+                </td>
+                <td>
+                    <select class="form-select" onchange="toggleNormalValue(this)">
+                        <option value="number">数字</option>
+                        <option value="select">选择器</option>
+                        <option value="custom">自定义</option>
+                    </select>
+                </td>
+                <td class="normal-value-cell">
+                    <div class="number-range">
+                        <input type="number" placeholder="下限" class="range-input">
+                        <span class="range-separator">~</span>
+                        <input type="number" placeholder="上限" class="range-input">
+                    </div>
+                    <select class="form-select normal-value-select" style="display: none;">
+                        <option value="">请选择</option>
+                        <option value="合格">合格</option>
+                        <option value="不合格">不合格</option>
+                        <option value="优秀">优秀</option>
+                        <option value="良好">良好</option>
+                    </select>
+                    <input type="text" placeholder="请输入正常值" class="single-value-input" style="display: none;">
+                </td>
+            `;
+            tbody.appendChild(row);
+        }
+
+        // 保存题目
+        function saveQuestion() {
+            const major = document.getElementById('majorSelect').value;
+            const course = document.getElementById('courseSelect').value;
+            const difficulty = document.getElementById('difficulty').value;
+            const isPublic = document.getElementById('isPublic').value;
+            const name = document.getElementById('questionName').value;
+
+            if (!major) {
+                alert('请选择所属专业');
+                return;
+            }
+            if (!course) {
+                alert('请选择所属课程');
+                return;
+            }
+            if (!difficulty) {
+                alert('请选择难度');
+                return;
+            }
+            if (!isPublic) {
+                alert('请选择是否公用');
+                return;
+            }
+            if (!name) {
+                alert('请输入题目名称');
+                return;
+            }
+
+            alert('实训题目保存成功！');
+            goBack();
+        }
+    </script>
+    <!-- 导航组件加载器 -->
+    <script src="./nav-loader-universal.js" data-nav-type="teacher"></script>
+</body>
+</html>

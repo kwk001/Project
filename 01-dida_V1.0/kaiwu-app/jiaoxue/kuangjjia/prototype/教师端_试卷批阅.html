@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>试卷批阅 - 教师端</title>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_5124072_s39q5gmh59a.css">
+    <link rel="stylesheet" href="./common.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #F5F7FA;
+            display: flex;
+            height: 100vh;
+        }
+
+        .user-info { display: flex; align-items: center; gap: 20px; }
+        .user-info span { color: #666; font-size: 14px; }
+
+        /* 内容区域 */
+        .content-body {
+            padding: 20px;
+            background: #F0F2F5;
+            min-height: calc(100vh - 60px);
+        }
+
+        /* 统计卡片 - 教务端风格 */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        .stat-icon.blue { background: linear-gradient(135deg, #E6F7FF 0%, #BAE7FF 100%); }
+        .stat-icon.green { background: linear-gradient(135deg, #F6FFED 0%, #D9F7BE 100%); }
+        .stat-icon.orange { background: linear-gradient(135deg, #FFF7E6 0%, #FFE7BA 100%); }
+        .stat-icon.red { background: linear-gradient(135deg, #FFF1F0 0%, #FFCCC7 100%); }
+        .stat-content { flex: 1; }
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #262626;
+            line-height: 1.2;
+        }
+        .stat-label {
+            font-size: 13px;
+            color: #8C8C8C;
+            margin-top: 4px;
+        }
+        .stat-trend {
+            font-size: 12px;
+            color: #52C41A;
+            margin-top: 4px;
+        }
+        .stat-trend.down { color: #FF4D4F; }
+
+        /* 搜索筛选区 - 卡片式布局 */
+        .search-filter-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .search-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .search-row:last-child {
+            margin-bottom: 0;
+        }
+        .search-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #E8E8E8;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #1890FF;
+            box-shadow: 0 0 0 3px rgba(24,144,255,0.1);
+        }
+        .filter-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filter-label {
+            font-size: 13px;
+            color: #666;
+            white-space: nowrap;
+        }
+        .filter-select {
+            padding: 8px 12px;
+            border: 1px solid #E8E8E8;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #333;
+            background: #fff;
+            cursor: pointer;
+            min-width: 120px;
+        }
+        .filter-select:focus {
+            outline: none;
+            border-color: #1890FF;
+        }
+        .btn-search {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #1890FF 0%, #096DD9 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-search:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(24,144,255,0.3);
+        }
+        .btn-reset {
+            padding: 12px 20px;
+            background: #fff;
+            border: 1px solid #D9D9D9;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.3s;
+        }
+        .btn-reset:hover {
+            border-color: #1890FF;
+            color: #1890FF;
+        }
+        
+        /* 表格区域 */
+        .table-container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+        
+        /* 表格滚动容器 */
+        .table-scroll-wrapper {
+            overflow-x: auto;
+            overflow-y: hidden;
+            position: relative;
+        }
+        
+        .table-scroll-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .table-scroll-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        .table-scroll-wrapper::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        
+        .table-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        .table-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid #F0F0F0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .table-title { font-size: 16px; font-weight: 600; color: #333; }
+        
+        table {
+            width: max-content;
+            min-width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid #F0F0F0;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        th {
+            background: #FAFAFA;
+            font-weight: 600;
+            color: #333;
+        }
+        td { color: #666; }
+        tr:hover { background: #F5F7FA; }
+        
+        /* 序号列固定 */
+        th:first-child,
+        td:first-child {
+            width: 60px;
+            min-width: 60px;
+            position: sticky;
+            left: 0;
+            z-index: 10;
+            background: inherit;
+        }
+        
+        th:first-child {
+            background: #FAFAFA;
+        }
+        
+        td:first-child {
+            background: #fff;
+        }
+        
+        tr:hover td:first-child {
+            background: #F5F7FA;
+        }
+        
+        /* 操作列固定 */
+        th:last-child,
+        td:last-child {
+            width: 150px;
+            min-width: 150px;
+            position: sticky;
+            right: 0;
+            z-index: 10;
+            background: inherit;
+        }
+        
+        th:last-child {
+            background: #FAFAFA;
+        }
+        
+        td:last-child {
+            background: #fff;
+        }
+        
+        tr:hover td:last-child {
+            background: #F5F7FA;
+        }
+        
+        /* 其他列自适应 */
+        th:not(:first-child):not(:last-child),
+        td:not(:first-child):not(:last-child) {
+            min-width: 120px;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .tag-green { background: #E6F7FF; color: #1890FF; border: 1px solid #91D5FF; }
+        .tag-blue { background: #E6F7FF; color: #1890FF; border: 1px solid #91D5FF; }
+        .tag-orange { background: #FFF7E6; color: #FA8C16; border: 1px solid #FFD591; }
+        .tag-red { background: #FFF1F0; color: #FF4D4F; border: 1px solid #FFA39E; }
+        .tag-gray { background: #F5F5F5; color: #999; border: 1px solid #D9D9D9; }
+        
+        .action-btns { display: flex; gap: 8px; }
+        .action-btn {
+            padding: 4px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+        .action-btn.primary { background: #1890FF; color: #fff; }
+        .action-btn.primary:hover { background: #40A9FF; }
+        .action-btn.link { background: transparent; color: #1890FF; }
+        .action-btn.link:hover { color: #40A9FF; }
+        
+        /* 分页 - 优化样式 */
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding: 16px 20px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .pagination-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+        .pagination-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .page-btn {
+            padding: 8px 14px;
+            border: 1px solid #E8E8E8;
+            background: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #595959;
+            transition: all 0.3s;
+            min-width: 36px;
+            text-align: center;
+        }
+        .page-btn:hover:not(:disabled) {
+            border-color: #1890FF;
+            color: #1890FF;
+            background: #E6F7FF;
+        }
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #F5F5F5;
+        }
+        .page-btn.active {
+            background: #1890FF;
+            color: #fff;
+            border-color: #1890FF;
+            font-weight: 500;
+        }
+        .page-info {
+            font-size: 14px;
+            color: #8C8C8C;
+        }
+        .pagination-total {
+            font-size: 14px;
+            color: #262626;
+            font-weight: 500;
+        }
+        .pagination-jump {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 16px;
+            font-size: 13px;
+            color: #666;
+        }
+        .pagination-jump input {
+            width: 48px;
+            padding: 6px 8px;
+            border: 1px solid #E8E8E8;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 13px;
+        }
+        
+        /* 批阅进度 */
+        .review-progress {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .progress-bar {
+            width: 80px;
+            height: 8px;
+            background: #F0F0F0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #1890FF;
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+        .progress-text { font-size: 12px; color: #666; }
+    
+        /* 菜单图标宽度修复 */
+        .menu-item .iconfont {
+            width: 20px;
+            min-width: 20px;
+            text-align: center;
+            margin-right: 8px;
+            font-size: 16px;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        /* 学生列表对话框样式 */
+        .student-list-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            position: relative;
+            background: #fff;
+            border-radius: 12px;
+            width: 600px;
+            max-height: 80vh;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 1001;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #F0F0F0;
+            background: #FAFAFA;
+        }
+
+        .modal-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: #F0F0F0;
+            color: #666;
+        }
+
+        .modal-body {
+            padding: 20px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .student-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .student-table th,
+        .student-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #F0F0F0;
+        }
+
+        .student-table th {
+            background: #FAFAFA;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .student-table td {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .student-table tr:hover td {
+            background: #F5F7FA;
+        }
+        
+        /* 表格固定列样式 */
+        .table-scroll-wrapper {
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .table-scroll-wrapper table {
+            min-width: 1200px;
+            table-layout: auto;
+        }
+
+        /* 固定第一列（序号） */
+        th:first-child,
+        td:first-child {
+            position: sticky;
+            left: 0;
+            background: #FAFAFA;
+            z-index: 10;
+            width: 60px;
+            min-width: 60px;
+            max-width: 60px;
+        }
+
+        td:first-child {
+            background: #fff;
+        }
+
+        tr:hover td:first-child {
+            background: #F5F7FA;
+        }
+
+        /* 固定最后一列（操作栏） */
+        th:last-child,
+        td:last-child {
+            position: sticky;
+            right: 0;
+            background: #FAFAFA;
+            z-index: 10;
+            width: 150px;
+            min-width: 150px;
+            max-width: 150px;
+        }
+
+        td:last-child {
+            background: #fff;
+        }
+
+        tr:hover td:last-child {
+            background: #F5F7FA;
+        }
+
+        /* 添加阴影效果 */
+        th:first-child::after,
+        td:first-child::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -5px;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0.05), transparent);
+            pointer-events: none;
+        }
+
+        th:last-child::before,
+        td:last-child::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -5px;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to left, rgba(0,0,0,0.05), transparent);
+            pointer-events: none;
+        }
+
+        /* 其他列自适应宽度 */
+        th:not(:first-child):not(:last-child),
+        td:not(:first-child):not(:last-child) {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航容器 - 由通用加载器动态加载 -->
+    <div id="nav-container"></div>
+    
+
+    <!-- 主内容区 -->
+    <div class="main-content">
+        <div class="header">
+            <div class="breadcrumb">首页 <span>/</span> 考试管理 <span>/</span> 试卷批阅</div>
+            <div class="user-info">
+                <span>👨‍🏫 教师：张三</span>
+                <button class="logout-btn" onclick="logout()">退出登录</button>
+            </div>
+        </div>
+
+        <div class="content-body">
+            <!-- 统计卡片 -->
+            <div class="stats-bar">
+                <div class="stat-card">
+                    <div class="stat-icon blue">📝</div>
+                    <div class="stat-content">
+                        <div class="stat-value">24</div>
+                        <div class="stat-label">待批阅试卷</div>
+                        <div class="stat-trend">需尽快处理</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">⏳</div>
+                    <div class="stat-content">
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">批阅中</div>
+                        <div class="stat-trend">继续加油</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">✅</div>
+                    <div class="stat-content">
+                        <div class="stat-value">156</div>
+                        <div class="stat-label">已完成批阅</div>
+                        <div class="stat-trend">↑ 较上周 +12</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 搜索筛选 -->
+            <div class="search-filter-card">
+                <div class="search-row">
+                    <input type="text" class="search-input" placeholder="请输入普通任务名称" id="examName">
+                    <input type="text" class="search-input" placeholder="请输入课程名称" id="courseName">
+                    <button class="btn-search" onclick="search()">🔍 查询</button>
+                    <button class="btn-reset" onclick="reset()">重置</button>
+                </div>
+                <div class="search-row">
+                    <div class="filter-group">
+                        <div class="filter-item">
+                            <span class="filter-label">批阅状态：</span>
+                            <select class="filter-select" id="reviewStatus">
+                                <option value="">全部状态</option>
+                                <option value="pending">待批阅</option>
+                                <option value="reviewing">批阅中</option>
+                                <option value="completed">已完成</option>
+                            </select>
+                        </div>
+                        <div class="filter-item">
+                            <span class="filter-label">班级：</span>
+                            <select class="filter-select" id="className">
+                                <option value="">全部班级</option>
+                                <option value="2026级计算机1班">2026级计算机1班</option>
+                                <option value="2026级计算机2班">2026级计算机2班</option>
+                                <option value="2025级计算机1班">2025级计算机1班</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 表格区域 -->
+            <div class="table-container">
+                <div class="table-header">
+                    <div class="table-title">试卷批阅列表</div>
+                </div>
+                <div class="table-scroll-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>任务名称</th>
+                                <th>分数</th>
+                                <th>所属课程</th>
+                                <th>任课教师</th>
+                                <th>参加人数</th>
+                                <th>上课时间信息</th>
+                                <th>上课教室</th>
+                                <th>提交/总数</th>
+                                <th>批阅进度</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <!-- 动态生成 -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                    <div class="pagination-left">
+                        <span class="pagination-info">显示第 <span id="startRecord">1</span>-<span id="endRecord">8</span> 条，共 <span class="pagination-total" id="totalCount">0</span> 条记录</span>
+                    </div>
+                    <div class="pagination-right">
+                        <button class="page-btn" onclick="prevPage()" id="prevBtn">上一页</button>
+                        <button class="page-btn active" id="page1">1</button>
+                        <button class="page-btn" id="page2">2</button>
+                        <button class="page-btn" id="page3">3</button>
+                        <button class="page-btn" onclick="nextPage()" id="nextBtn">下一页</button>
+                        <div class="pagination-jump">
+                            <span>跳至</span>
+                            <input type="number" min="1" id="jumpPage" value="1">
+                            <span>页</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 模拟数据
+        const mockData = [
+            { id: 1, examName: '2025-2026第一学期计算机基础期中考试', score: 100, courseName: '计算机基础', teacher: '张老师', className: '2026级计算机1班', studentCount: 45, classroom: 'A101', submitCount: 45, totalCount: 45, reviewedCount: 30, status: 'reviewing', students: [
+                { name: '张三', studentNo: '202601001', className: '2026级计算机1班' },
+                { name: '李四', studentNo: '202601002', className: '2026级计算机1班' },
+                { name: '王五', studentNo: '202601003', className: '2026级计算机1班' }
+            ], classSchedules: [
+                { classDate: '2025-01-15', classTime: '09:00-11:00' },
+                { classDate: '2025-01-17', classTime: '14:00-16:00' },
+                { classDate: '2025-01-20', classTime: '09:00-11:00' }
+            ]},
+            { id: 2, examName: 'Java程序设计单元测试(一)', score: 100, courseName: 'Java程序设计', teacher: '李老师', className: '2025级计算机1班', studentCount: 42, classroom: 'B203', submitCount: 42, totalCount: 42, reviewedCount: 42, status: 'completed', students: [
+                { name: '赵六', studentNo: '202501001', className: '2025级计算机1班' },
+                { name: '钱七', studentNo: '202501002', className: '2025级计算机1班' }
+            ], classSchedules: [
+                { classDate: '2025-01-10', classTime: '14:00-16:00' }
+            ]},
+            { id: 3, examName: 'Web前端开发期末模拟考', score: 100, courseName: 'Web前端开发', teacher: '王老师', className: '2025级计算机2班', studentCount: 42, classroom: 'C305', submitCount: 40, totalCount: 42, reviewedCount: 0, status: 'pending', students: [
+                { name: '孙八', studentNo: '202502001', className: '2025级计算机2班' }
+            ], classSchedules: [
+                { classDate: '2025-01-20', classTime: '09:00-11:00' },
+                { classDate: '2025-01-22', classTime: '14:00-16:00' }
+            ]},
+            { id: 4, examName: '数据库原理期中测试', score: 100, courseName: '数据库原理', teacher: '张老师', className: '2024级计算机1班', studentCount: 38, classroom: 'A102', submitCount: 38, totalCount: 38, reviewedCount: 38, status: 'completed', students: [
+                { name: '周九', studentNo: '202401001', className: '2024级计算机1班' }
+            ], classSchedules: [
+                { classDate: '2025-01-08', classTime: '10:00-12:00' }
+            ]},
+            { id: 5, examName: '计算机网络基础期末考试', score: 100, courseName: '计算机网络', teacher: '刘老师', className: '2025级网络1班', studentCount: 36, classroom: 'D401', submitCount: 35, totalCount: 36, reviewedCount: 15, status: 'reviewing', students: [
+                { name: '吴十', studentNo: '202503001', className: '2025级网络1班' }
+            ], classSchedules: [
+                { classDate: '2025-01-18', classTime: '14:00-16:00' },
+                { classDate: '2025-01-19', classTime: '09:00-11:00' },
+                { classDate: '2025-01-21', classTime: '14:00-16:00' }
+            ]},
+            { id: 6, examName: 'Python编程基础测试', score: 100, courseName: 'Python编程', teacher: '陈老师', className: '2025级软件1班', studentCount: 39, classroom: 'B204', submitCount: 39, totalCount: 39, reviewedCount: 0, status: 'pending', students: [
+                { name: '郑十一', studentNo: '202504001', className: '2025级软件1班' }
+            ], classSchedules: [
+                { classDate: '2025-01-22', classTime: '09:00-11:00' }
+            ]},
+            { id: 7, examName: 'C语言程序设计期中考试', score: 100, courseName: 'C语言程序设计', teacher: '赵老师', className: '2026级计算机2班', studentCount: 41, classroom: 'A103', submitCount: 41, totalCount: 41, reviewedCount: 41, status: 'completed', students: [
+                { name: '王十二', studentNo: '202602001', className: '2026级计算机2班' }
+            ], classSchedules: [
+                { classDate: '2025-01-05', classTime: '08:00-10:00' },
+                { classDate: '2025-01-07', classTime: '08:00-10:00' }
+            ]},
+            { id: 8, examName: '软件工程导论期末考', score: 100, courseName: '软件工程', teacher: '孙老师', className: '2024级软件1班', studentCount: 38, classroom: 'C306', submitCount: 37, totalCount: 38, reviewedCount: 10, status: 'reviewing', students: [
+                { name: '李十三', studentNo: '202404001', className: '2024级软件1班' }
+            ], classSchedules: [
+                { classDate: '2025-01-16', classTime: '14:00-16:00' }
+            ]},
+        ];
+
+        let currentPage = 1;
+        const pageSize = 10;
+        let filteredData = [...mockData];
+
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            const start = (currentPage - 1) * pageSize;
+            const end = start + pageSize;
+            const pageData = filteredData.slice(start, end);
+
+            tbody.innerHTML = pageData.map((item, index) => {
+                const progress = Math.round((item.reviewedCount / item.submitCount) * 100) || 0;
+                const scheduleCount = item.classSchedules ? item.classSchedules.length : 0;
+                return `
+                    <tr>
+                        <td>${start + index + 1}</td>
+                        <td><strong>${item.examName}</strong></td>
+                        <td>${item.score}</td>
+                        <td>${item.courseName}</td>
+                        <td>${item.teacher}</td>
+                        <td><a href="javascript:void(0)" onclick="showStudentList(${item.id})" style="color: #1890FF; text-decoration: none;">${item.studentCount}人</a></td>
+                        <td><a href="javascript:void(0)" onclick="showClassScheduleList(${item.id})" style="color: #1890FF; text-decoration: none;">${scheduleCount}个时间段</a></td>
+                        <td>${item.classroom}</td>
+                        <td>${item.reviewedCount}/${item.submitCount}</td>
+                        <td>
+                            <div class="review-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${progress}%; background: ${progress === 100 ? '#1890FF' : '#1890FF'}"></div>
+                                </div>
+                                <span class="progress-text">${progress}%</span>
+                            </div>
+                        </td>
+                        <td>${renderStatus(item.status)}</td>
+                        <td>
+                            <div class="action-btns">
+                                ${item.status === 'completed'
+                                    ? `<button class="action-btn" disabled style="background: #f5f5f5; color: #999; cursor: not-allowed;">批阅</button>`
+                                    : `<button class="action-btn primary" onclick="startReview(${item.id})">批阅</button>`
+                                }
+                                <button class="action-btn link" onclick="viewDetail(${item.id})">详情</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            document.getElementById('totalCount').textContent = filteredData.length;
+            updatePagination();
+        }
+
+        function renderStatus(status) {
+            const statusMap = {
+                'pending': '<span class="tag tag-orange">待批阅</span>',
+                'reviewing': '<span class="tag tag-blue">批阅中</span>',
+                'completed': '<span class="tag tag-green">已完成</span>'
+            };
+            return statusMap[status] || status;
+        }
+
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredData.length / pageSize);
+            const totalRecords = filteredData.length;
+            const startRecord = (currentPage - 1) * pageSize + 1;
+            const endRecord = Math.min(currentPage * pageSize, totalRecords);
+            
+            document.getElementById('startRecord').textContent = startRecord;
+            document.getElementById('endRecord').textContent = endRecord;
+            document.getElementById('totalCount').textContent = totalRecords;
+            
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage === totalPages || totalPages === 0;
+            
+            // 更新跳转页码输入框
+            const jumpPage = document.getElementById('jumpPage');
+            jumpPage.max = totalPages;
+            jumpPage.value = currentPage;
+        }
+
+        function search() {
+            const examName = document.getElementById('examName').value.toLowerCase();
+            const courseName = document.getElementById('courseName').value.toLowerCase();
+            const reviewStatus = document.getElementById('reviewStatus').value;
+            const className = document.getElementById('className').value;
+
+            filteredData = mockData.filter(item => {
+                return (!examName || item.examName.toLowerCase().includes(examName)) &&
+                       (!courseName || item.courseName.toLowerCase().includes(courseName)) &&
+                       (!reviewStatus || item.status === reviewStatus) &&
+                       (!className || item.className === className);
+            });
+
+            currentPage = 1;
+            renderTable();
+        }
+
+        function reset() {
+            document.getElementById('examName').value = '';
+            document.getElementById('courseName').value = '';
+            document.getElementById('reviewStatus').value = '';
+            document.getElementById('className').value = '';
+            filteredData = [...mockData];
+            currentPage = 1;
+            renderTable();
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTable();
+            }
+        }
+
+        function nextPage() {
+            const totalPages = Math.ceil(filteredData.length / pageSize);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderTable();
+            }
+        }
+
+        // 跳转页码输入框事件监听
+        document.getElementById('jumpPage').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const page = parseInt(this.value);
+                const totalPages = Math.ceil(filteredData.length / pageSize);
+                if (page >= 1 && page <= totalPages) {
+                    currentPage = page;
+                    renderTable();
+                }
+            }
+        });
+
+        function startReview(id) {
+            const exam = mockData.find(item => item.id === id);
+            // 先跳转到二级页面（学生列表）
+            window.location.href = `./教师端_试卷批阅_学生列表.html?examId=${id}&examName=${encodeURIComponent(exam.examName)}`;
+        }
+
+        function viewDetail(id) {
+            const exam = mockData.find(item => item.id === id);
+            // 先跳转到二级页面（学生列表），与批阅保持一致
+            window.location.href = `./教师端_试卷批阅_学生列表.html?examId=${id}&examName=${encodeURIComponent(exam.examName)}&mode=detail`;
+        }
+
+        function toggleMenu(element) {
+            element.classList.toggle('collapsed');
+            const menuItems = element.nextElementSibling;
+            if (menuItems && menuItems.classList.contains('menu-items')) {
+                menuItems.classList.toggle('collapsed');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('iBodaoUser');
+            window.location.href = './教学实训平台_登录.html';
+        }
+
+        // 显示学生列表对话框
+        function showStudentList(examId) {
+            const exam = mockData.find(item => item.id === examId);
+            if (!exam || !exam.students) return;
+            
+            // 创建对话框
+            const modal = document.createElement('div');
+            modal.className = 'student-list-modal';
+            modal.innerHTML = `
+                <div class="modal-overlay" onclick="closeStudentList()"></div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>参加学生列表 - ${exam.examName}</h3>
+                        <button class="modal-close" onclick="closeStudentList()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="student-table">
+                            <thead>
+                                <tr>
+                                    <th>姓名</th>
+                                    <th>学号</th>
+                                    <th>所属班级</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${exam.students.map(student => `
+                                    <tr>
+                                        <td>${student.name}</td>
+                                        <td>${student.studentNo}</td>
+                                        <td>${student.className}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // 关闭学生列表对话框
+        function closeStudentList() {
+            const modal = document.querySelector('.student-list-modal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        // 显示上课时间列表对话框
+        function showClassScheduleList(examId) {
+            const exam = mockData.find(item => item.id === examId);
+            if (!exam || !exam.classSchedules) return;
+            
+            // 创建对话框
+            const modal = document.createElement('div');
+            modal.className = 'student-list-modal';
+            modal.innerHTML = `
+                <div class="modal-overlay" onclick="closeClassScheduleList()"></div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>上课时间信息 - ${exam.examName}</h3>
+                        <button class="modal-close" onclick="closeClassScheduleList()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="student-table">
+                            <thead>
+                                <tr>
+                                    <th>上课日期</th>
+                                    <th>上课时间段</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${exam.classSchedules.map(schedule => `
+                                    <tr>
+                                        <td>${schedule.classDate}</td>
+                                        <td>${schedule.classTime}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // 关闭上课时间列表对话框
+        function closeClassScheduleList() {
+            const modal = document.querySelector('.student-list-modal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        // 初始化
+        renderTable();
+    </script>
+    <!-- 导航组件加载器 -->
+    <script src="./nav-loader-universal.js" data-nav-type="teacher"></script>
+</body>
+</html>

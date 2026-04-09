@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频播放 - 学生端</title>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_5124072_s39q5gmh59a.css">
+    <link rel="stylesheet" href="./nav-styles.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #F5F7FA;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+                /* 有导航栏时的布局 */
+        body.has-nav-sidebar {
+            display: flex;
+        }
+
+        body.has-nav-sidebar .main-content {
+            flex: 1;
+            margin-left: 260px; /* 导航栏宽度 */
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            margin-left: 0;
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .content-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+        }
+
+        .logo {
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .menu-group {
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .menu-title {
+            padding: 12px 24px;
+            color: rgba(255,255,255,0.65);
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .menu-items {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-item {
+            padding: 12px 24px 12px 48px;
+            cursor: pointer;
+            color: rgba(255,255,255,0.65);
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background: #1890FF;
+            color: #fff;
+        }
+
+        .header {
+            height: 64px;
+            background: #fff;
+            border-bottom: 1px solid #E8E8E8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-text {
+            background: none;
+            border: none;
+            color: #595959;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-text:hover {
+            color: #1890ff;
+        }
+
+        .page-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f1f1f;
+            margin: 0;
+        }
+
+        .video-container {
+            display: flex;
+            gap: 24px;
+            height: calc(100vh - 200px);
+        }
+
+        .main-video-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .video-player-large {
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 16/9;
+        }
+
+        .video-placeholder-large {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            gap: 16px;
+        }
+
+        .video-placeholder-large i {
+            font-size: 80px;
+            cursor: pointer;
+        }
+
+        .video-controls-large {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .control-btn-large {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .progress-bar-large {
+            flex: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .progress-fill-large {
+            height: 100%;
+            background: #1890ff;
+            border-radius: 3px;
+        }
+
+        .time-display-large {
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .video-info-large {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .video-info-large h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f1f1f;
+            margin: 0 0 12px 0;
+        }
+
+        .video-meta {
+            display: flex;
+            gap: 24px;
+            font-size: 13px;
+            color: #8c8c8c;
+        }
+
+        .video-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .playlist-sidebar {
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f1f1f;
+            margin-bottom: 16px;
+        }
+
+        .playlist {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .playlist-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .playlist-item:hover {
+            background: #f5f5f5;
+        }
+
+        .playlist-item.current {
+            background: #e6f7ff;
+        }
+
+        .item-thumbnail {
+            width: 80px;
+            height: 60px;
+            background: #f0f0f0;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8c8c8c;
+            flex-shrink: 0;
+        }
+
+        .item-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .item-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1f1f1f;
+            margin-bottom: 4px;
+        }
+
+        .item-duration {
+            font-size: 12px;
+            color: #8c8c8c;
+        }
+
+        .resource-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .resource-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .resource-item:hover {
+            background: #f5f5f5;
+        }
+
+        .resource-item i {
+            font-size: 24px;
+            color: #1890ff;
+        }
+
+        .resource-info {
+            flex: 1;
+        }
+
+        .resource-title {
+            font-size: 14px;
+            color: #1f1f1f;
+            margin-bottom: 4px;
+        }
+
+        .resource-size {
+            font-size: 12px;
+            color: #8c8c8c;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="header">
+            <div>首页 / 我的学习 / 视频播放</div>
+            <div><i class="iconfont icon-xueshengguanli"></i> 学生：李明 | <button onclick="logout()" style="padding: 6px 16px; background: #FF4D4F; color: #fff; border: none; border-radius: 4px; cursor: pointer;">退出</button></div>
+        </div>
+
+        <div class="content-body">
+            <div class="page-header">
+                <div class="header-left">
+                    <button class="btn btn-text" onclick="goBack()">
+                        <i class="iconfont icon-fanhui"></i> 返回课程
+                    </button>
+                    <h1 class="page-title" id="videoTitle">视频播放</h1>
+                </div>
+            </div>
+
+            <div class="video-container">
+                <div class="main-video-section">
+                    <div class="video-player-large">
+                        <div class="video-placeholder-large">
+                            <i class="iconfont icon-bofang" onclick="togglePlay()"></i>
+                            <span>视频播放区域</span>
+                        </div>
+                        <div class="video-controls-large">
+                            <button class="control-btn-large" onclick="togglePlay()">
+                                <i class="iconfont icon-bofang"></i>
+                            </button>
+                            <div class="progress-bar-large">
+                                <div class="progress-fill-large" style="width: 0%"></div>
+                            </div>
+                            <span class="time-display-large">00:00 / 45:00</span>
+                            <button class="control-btn-large" onclick="toggleFullscreen()">
+                                <i class="iconfont icon-quanping"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="video-info-large">
+                        <h2 id="videoName">视频标题</h2>
+                        <div class="video-meta">
+                            <span><i class="iconfont icon-shijian"></i> 45分钟</span>
+                            <span><i class="iconfont icon-bofangliang"></i> 1,234次播放</span>
+                            <span><i class="iconfont icon-shijian1"></i> 2024-01-10上传</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="playlist-sidebar">
+                    <div class="sidebar-section">
+                        <div class="section-title">播放列表</div>
+                        <div class="playlist">
+                            <div class="playlist-item current" onclick="playVideo('video1', '三视图绘制演示视频')">
+                                <div class="item-thumbnail">
+                                    <i class="iconfont icon-bofang"></i>
+                                </div>
+                                <div class="item-info">
+                                    <div class="item-title">三视图绘制演示视频</div>
+                                    <div class="item-duration">45:00</div>
+                                </div>
+                            </div>
+                            <div class="playlist-item" onclick="playVideo('video2', '剖视图绘制方法')">
+                                <div class="item-thumbnail">
+                                    <i class="iconfont icon-bofang"></i>
+                                </div>
+                                <div class="item-info">
+                                    <div class="item-title">剖视图绘制方法</div>
+                                    <div class="item-duration">38:20</div>
+                                </div>
+                            </div>
+                            <div class="playlist-item" onclick="playVideo('video3', '零件图绘制技巧')">
+                                <div class="item-thumbnail">
+                                    <i class="iconfont icon-bofang"></i>
+                                </div>
+                                <div class="item-info">
+                                    <div class="item-title">零件图绘制技巧</div>
+                                    <div class="item-duration">52:15</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <div class="section-title">相关资源</div>
+                        <div class="resource-list">
+                            <div class="resource-item" onclick="downloadResource('ppt1', '三视图绘制课件.pptx')">
+                                <i class="iconfont icon-PPT"></i>
+                                <div class="resource-info">
+                                    <div class="resource-title">三视图绘制课件.pptx</div>
+                                    <div class="resource-size">8.2MB</div>
+                                </div>
+                            </div>
+                            <div class="resource-item" onclick="downloadResource('pdf1', '制图标准手册.pdf')">
+                                <i class="iconfont icon-PDF"></i>
+                                <div class="resource-info">
+                                    <div class="resource-title">制图标准手册.pdf</div>
+                                    <div class="resource-size">15.6MB</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getUrlParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        window.onload = function() {
+            const videoName = getUrlParam('videoName');
+            if (videoName) {
+                document.getElementById('videoTitle').textContent = videoName;
+                document.getElementById('videoName').textContent = videoName;
+            }
+        };
+
+        function goBack() {
+            window.location.href = './学生端_课程详情.html';
+        }
+
+        function logout() {
+            localStorage.removeItem('iBodaoUser');
+            window.location.href = './教学实训平台_登录.html';
+        }
+
+        function togglePlay() {
+            alert('播放/暂停视频');
+        }
+
+        function toggleFullscreen() {
+            alert('全屏播放');
+        }
+
+        function playVideo(videoId, videoName) {
+            document.getElementById('videoTitle').textContent = videoName;
+            document.getElementById('videoName').textContent = videoName;
+            
+            document.querySelectorAll('.playlist-item').forEach(item => {
+                item.classList.remove('current');
+            });
+            event.currentTarget.classList.add('current');
+        }
+
+        function downloadResource(resourceId, resourceName) {
+            alert('开始下载: ' + resourceName);
+        }
+    </script>
+    <!-- 学生端导航组件加载器 -->
+    <script src="./nav-loader-student.js"></script>
+</body>
+</html>

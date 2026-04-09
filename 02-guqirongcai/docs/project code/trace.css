@@ -1,0 +1,321 @@
+/* H5溯源页面样式 */
+body {
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+.h5-page {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+/* 加载状态 */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* 溯源页面 */
+.trace-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #1890ff 0%, #f5f5f5 200px);
+}
+
+/* 头部 */
+.trace-header {
+  text-align: center;
+  padding: 24px 16px;
+  color: #fff;
+}
+
+.company-logo {
+  margin-bottom: 12px;
+}
+
+.logo-placeholder {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #1890ff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.company-name {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.company-subtitle {
+  font-size: 12px;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* 内容区 */
+.trace-content {
+  padding: 0 16px 24px;
+}
+
+/* 验证结果卡片 */
+.result-card {
+  margin-bottom: 16px;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.result-card .ant-card-body {
+  padding: 24px;
+}
+
+.result-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 12px;
+  background: #52c41a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: #fff;
+}
+
+.result-text {
+  font-size: 20px;
+  font-weight: 600;
+  color: #52c41a;
+  margin-bottom: 8px;
+}
+
+.result-subtext {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 信息卡片 */
+.info-card {
+  margin-bottom: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.info-card .ant-card-head {
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 16px 20px;
+}
+
+.info-card .ant-card-body {
+  padding: 16px 20px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  color: #666;
+  font-size: 14px;
+}
+
+.info-value {
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: right;
+  flex: 1;
+  margin-left: 16px;
+}
+
+/* 质检指标网格 */
+.quality-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.quality-item {
+  text-align: center;
+  padding: 16px;
+  background: #f6ffed;
+  border-radius: 8px;
+}
+
+.quality-value {
+  font-size: 18px;
+  font-weight: 600;
+  color: #52c41a;
+  margin-bottom: 4px;
+}
+
+.quality-label {
+  font-size: 12px;
+  color: #666;
+}
+
+/* 溯源流程卡片 */
+.trace-card {
+  margin-bottom: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.trace-card .ant-card-head {
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 16px 20px;
+}
+
+.trace-card .ant-card-body {
+  padding: 20px;
+}
+
+/* 时间线 */
+.trace-timeline {
+  position: relative;
+}
+
+.trace-step {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.trace-step:last-child {
+  margin-bottom: 0;
+}
+
+.step-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 12px;
+}
+
+.step-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #1890ff;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.step-line {
+  width: 2px;
+  flex: 1;
+  background: #e8e8e8;
+  margin-top: 8px;
+}
+
+.step-content {
+  flex: 1;
+  padding-top: 4px;
+}
+
+.step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.step-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.step-date {
+  font-size: 12px;
+  color: #999;
+}
+
+.step-desc {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* 页面底部 */
+.trace-footer {
+  text-align: center;
+  padding: 16px;
+  color: #999;
+  font-size: 12px;
+}
+
+.trace-footer p {
+  margin: 4px 0;
+}
+
+/* 深色模式适配 */
+@media (prefers-color-scheme: dark) {
+  body, .h5-page, .trace-page {
+    background: #1f1f1f;
+  }
+
+  .trace-content {
+    background: transparent;
+  }
+
+  .result-card, .info-card, .trace-card {
+    background: #2c2c2c;
+    border: 1px solid #3a3a3a;
+  }
+
+  .info-label, .step-desc {
+    color: #999;
+  }
+
+  .info-value, .step-title {
+    color: #fff;
+  }
+
+  .step-date {
+    color: #666;
+  }
+
+  .step-line {
+    background: #3a3a3a;
+  }
+
+  .info-row {
+    border-bottom-color: #3a3a3a;
+  }
+
+  .quality-item {
+    background: #1a2f1a;
+  }
+
+  .ant-card-head {
+    color: #fff;
+    border-bottom-color: #3a3a3a;
+  }
+}

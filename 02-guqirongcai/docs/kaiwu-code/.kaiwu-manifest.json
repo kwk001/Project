@@ -1,0 +1,154 @@
+{
+  "version": "1.0",
+  "appId": null,
+  "lastSync": "2026-04-08T05:42:31.829Z",
+  "resources": {
+    "69d5e9c3f1dfd600076605db": {
+      "type": "lowcode",
+      "name": "计量单位管理",
+      "code": "jiliangdanweiguanli_5x5uhy",
+      "path": "kaiwu-app/溯源/计量单位管理",
+      "files": [
+        "index.jsx",
+        "index.css",
+        "schema.json",
+        "assets.json"
+      ],
+      "groupNames": [],
+      "appName": "溯源",
+      "lastPull": "2026-04-08T05:38:40.608Z",
+      "pullContentHash": "ad0b4452fe05d325ede53cefb715d0931ef937a2fa65732d1046e503b4d116a6"
+    },
+    "local_api_1775626951829_3792c3871": {
+      "type": "api",
+      "name": "服务商端首页企业总数和设备总数",
+      "code": "da1afde8ac2c4837a65d458ae768fe74",
+      "formCode": "da1afde8ac2c4837a65d458ae768fe74",
+      "path": "kaiwu-api/物联网应用/服务商端首页企业总数和设备总数",
+      "groupNames": [
+        "物联网应用"
+      ],
+      "isNew": true
+    },
+    "local_api_1775626951829_xj4joo5zs": {
+      "type": "api",
+      "name": "服务商端查看设备列表",
+      "code": "copy1735972573629d39465",
+      "formCode": "copy1735972573629d39465",
+      "path": "kaiwu-api/物联网应用/服务商端查看设备列表",
+      "groupNames": [
+        "物联网应用"
+      ],
+      "isNew": true
+    },
+    "local_api_1775626951829_l1qgcqwn5": {
+      "type": "api",
+      "name": "字典数据查询",
+      "code": "copy1769492461747d42295",
+      "formCode": "copy1769492461747d42295",
+      "path": "kaiwu-api/配置管理/字典数据查询",
+      "groupNames": [
+        "配置管理"
+      ],
+      "isNew": true
+    },
+    "local_api_1775626951829_gzztt5v1s": {
+      "type": "api",
+      "name": "单页面配置加载",
+      "code": "copy1769481644036d4192",
+      "formCode": "copy1769481644036d4192",
+      "path": "kaiwu-api/配置管理/单页面配置加载",
+      "groupNames": [
+        "配置管理"
+      ],
+      "isNew": true
+    },
+    "local_api_1775626951829_5igdtl5iv": {
+      "type": "api",
+      "name": "配置聚合加载",
+      "code": "copy1769423270269d5568",
+      "formCode": "copy1769423270269d5568",
+      "path": "kaiwu-api/配置管理/配置聚合加载",
+      "groupNames": [
+        "配置管理"
+      ],
+      "isNew": true
+    },
+    "local_api_1775626951829_jnum2370m": {
+      "type": "api",
+      "name": "功能配置检查",
+      "code": "copy1769492398895d77923",
+      "formCode": "copy1769492398895d77923",
+      "path": "kaiwu-api/配置管理/功能配置检查",
+      "groupNames": [
+        "配置管理"
+      ],
+      "isNew": true
+    },
+    "local_api_1775626951829_qgqbrcrej": {
+      "type": "api",
+      "name": "服务商物连设备",
+      "code": "b4c577ba85ad475da1de3b4bace6b377",
+      "formCode": "b4c577ba85ad475da1de3b4bace6b377",
+      "path": "kaiwu-api/服务商物连设备",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_task_1775626951829_g35h7m7lj": {
+      "type": "task",
+      "name": "上报应用访问数据",
+      "code": "0855034ced8549cdab2dcaf93c234c3d",
+      "formCode": "0855034ced8549cdab2dcaf93c234c3d",
+      "path": "kaiwu-task/上报应用访问数据",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_task_1775626951829_ndzgl9xyr": {
+      "type": "task",
+      "name": "上报企业数据",
+      "code": "e67694c1e7ab48deb1a3f22103deab49",
+      "formCode": "e67694c1e7ab48deb1a3f22103deab49",
+      "path": "kaiwu-task/上报企业数据",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_function_1775626951829_6wpm57vkn": {
+      "type": "function",
+      "name": "获取mongo聚合查询结果",
+      "code": "c4993c0c805b422ca3ea5a940e88da36",
+      "formCode": "c4993c0c805b422ca3ea5a940e88da36",
+      "path": "kaiwu-function/获取mongo聚合查询结果",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_function_1775626951829_2px10qmht": {
+      "type": "function",
+      "name": "获取mongo查询结果",
+      "code": "69fcca60784c4ecaa2a6cd0d757f54ea",
+      "formCode": "69fcca60784c4ecaa2a6cd0d757f54ea",
+      "path": "kaiwu-function/获取mongo查询结果",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_function_1775626951829_djkdzg1rm": {
+      "type": "function",
+      "name": "根据表单编码获取表单id",
+      "code": "e70de908e54c40fbb62593496b32412f",
+      "formCode": "e70de908e54c40fbb62593496b32412f",
+      "path": "kaiwu-function/根据表单编码获取表单id",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_function_1775626951829_24fb5orzc": {
+      "type": "function",
+      "name": "根据表单编码获取表单id及customerid",
+      "code": "23e76ab25b7d4d3882e8006f50b795f0",
+      "formCode": "23e76ab25b7d4d3882e8006f50b795f0",
+      "path": "kaiwu-function/根据表单编码获取表单id及customerid",
+      "groupNames": [],
+      "isNew": true
+    }
+  },
+  "aliases": {},
+  "appName": "溯源"
+}

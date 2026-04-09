@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刀具需求详情</title>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_5124072_s39q5gmh59a.css">
+    <link rel="stylesheet" href="./common.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #F5F5F5;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .page-header {
+            background: #fff;
+            padding: 16px 24px;
+            border-bottom: 1px solid #E8E8E8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .page-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .page-title::before {
+            content: '';
+            width: 4px;
+            height: 18px;
+            background: #1890FF;
+            border-radius: 2px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-default { background: #fff; color: #666; border: 1px solid #D9D9D9; }
+        .btn-default:hover { border-color: #1890FF; color: #1890FF; }
+        .btn-primary { background: #1890FF; color: #fff; }
+        .btn-primary:hover { background: #40A9FF; }
+        .btn-success { background: #52C41A; color: #fff; }
+        .btn-success:hover { background: #73D13D; }
+        
+        .content-body {
+            flex: 1;
+            padding: 16px 24px;
+            overflow-y: auto;
+            background: #F5F5F5;
+        }
+        
+        /* 模块卡片 */
+        .module-card {
+            background: #fff;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        
+        /* 头部区域 */
+        .detail-header-section {
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid #F0F0F0;
+        }
+        .detail-icon-box {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #1890FF 0%, #36CFC9 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 24px;
+        }
+        .detail-main-info {
+            flex: 1;
+        }
+        .detail-subtitle {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 4px;
+        }
+        .detail-order-no {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+        .detail-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .detail-tag-yellow {
+            background: #FFFBE6;
+            color: #FAAD14;
+            border: 1px solid #FAAD14;
+        }
+        .detail-tag-purple {
+            background: #F9F0FF;
+            color: #722ED1;
+            border: 1px solid #722ED1;
+        }
+        .detail-tag-blue {
+            background: #E6F7FF;
+            color: #1890FF;
+            border: 1px solid #1890FF;
+        }
+        .detail-tag-green {
+            background: #F6FFED;
+            color: #52C41A;
+            border: 1px solid #52C41A;
+        }
+        
+        /* 信息网格 */
+        .detail-info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px 16px;
+            padding: 16px;
+        }
+        .detail-info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .detail-info-label {
+            font-size: 12px;
+            color: #999;
+        }
+        .detail-info-value {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        /* 模块标题 */
+        .module-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #F0F0F0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .module-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .module-title::before {
+            content: '';
+            width: 3px;
+            height: 14px;
+            background: #1890FF;
+            border-radius: 2px;
+        }
+        
+        /* 表格样式 */
+        .table-container {
+            padding: 0 16px 16px 16px;
+            overflow-x: auto;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .data-table th,
+        .data-table td {
+            padding: 12px 8px;
+            text-align: center;
+            border-bottom: 1px solid #F0F0F0;
+            white-space: nowrap;
+        }
+        .data-table th {
+            background: #FAFAFA;
+            font-weight: 500;
+            color: #666;
+        }
+        .data-table tbody tr:hover {
+            background: #F5F7FA;
+        }
+        
+        /* 状态标签 */
+        .status-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .status-pending { background: #FFFBE6; color: #FAAD14; border: 1px solid #FFE58F; }
+        .status-partial { background: #F9F0FF; color: #722ED1; border: 1px solid #D3ADF7; }
+        .status-processing { background: #E6F7FF; color: #1890FF; border: 1px solid #91D5FF; }
+        .status-completed { background: #F6FFED; color: #52C41A; border: 1px solid #B7EB8F; }
+        
+        /* 统计信息 */
+        .summary-bar {
+            background: #F6FFED;
+            border: 1px solid #B7EB8F;
+            border-radius: 4px;
+            padding: 12px 16px;
+            margin: 0 16px 16px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .summary-text {
+            font-size: 14px;
+            color: #333;
+        }
+        .summary-text strong {
+            color: #52C41A;
+            font-size: 16px;
+        }
+        
+        /* 操作按钮组 */
+        .action-group {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-sm {
+            padding: 4px 12px;
+            font-size: 12px;
+        }
+        
+        /* 时间线 */
+        .timeline {
+            padding: 16px;
+        }
+        .timeline-item {
+            display: flex;
+            gap: 16px;
+            padding-bottom: 16px;
+            border-left: 2px solid #E8E8E8;
+            margin-left: 8px;
+            padding-left: 16px;
+            position: relative;
+        }
+        .timeline-item:last-child {
+            border-left: none;
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            width: 10px;
+            height: 10px;
+            background: #1890FF;
+            border-radius: 50%;
+            position: absolute;
+            left: -6px;
+            top: 2px;
+        }
+        .timeline-content {
+            flex: 1;
+        }
+        .timeline-title {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .timeline-time {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 4px;
+        }
+        .timeline-desc {
+            font-size: 13px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航容器 - 由通用加载器动态加载 -->
+    <div id="nav-container"></div>
+    
+
+    <!-- 主内容区 -->
+    <div class="main-content">
+        <div class="page-header">
+            <div class="page-title">刀具需求详情</div>
+            <button class="btn btn-default" onclick="goBack()">
+                <i class="iconfont icon-fanhui"></i> 返回
+            </button>
+        </div>
+        
+        <div class="content-body">
+            <!-- 需求计划基本信息 -->
+            <div class="module-card">
+                <div class="detail-header-section">
+                    <div class="detail-icon-box">
+                        <i class="iconfont icon-daoju"></i>
+                    </div>
+                    <div class="detail-main-info">
+                        <div class="detail-subtitle">生产工单</div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="detail-order-no">WO2025011501</span>
+                            <span class="detail-tag detail-tag-yellow">P1</span>
+                            <span class="detail-tag detail-tag-yellow">待领用</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-info-grid">
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">生产工单号</div>
+                        <div class="detail-info-value">WO2025011501</div>
+                    </div>
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">物料名称</div>
+                        <div class="detail-info-value">轴类零件A</div>
+                    </div>
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">规格型号</div>
+                        <div class="detail-info-value">Φ50×200</div>
+                    </div>
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">刀具BOM</div>
+                        <div class="detail-info-value">BOM-2025011501</div>
+                    </div>
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">学生</div>
+                        <div class="detail-info-value">张三</div>
+                    </div>
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">需求时间段</div>
+                        <div class="detail-info-value">2026-03-03 09:00-11:00</div>
+                    </div>
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">备注</div>
+                        <div class="detail-info-value">-</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 刀具需求清单 -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-title">刀具需求清单</div>
+                    <div class="action-group">
+                        <button class="btn btn-primary btn-sm" onclick="exportToolList()">
+                            <i class="iconfont icon-daochu"></i> 导出
+                        </button>
+                    </div>
+                </div>
+                <div class="summary-bar">
+                    <span class="summary-text">共 <strong>5</strong> 种刀具，需求总量 <strong>8</strong> 件</span>
+                    <span class="summary-text">已领用 <strong>0</strong> 件，待领用 <strong>8</strong> 件</span>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>工序</th>
+                                <th>设备</th>
+                                <th>刀具编码</th>
+                                <th>刀具名称</th>
+                                <th>规格</th>
+                                <th>需求数量</th>
+                                <th>库存</th>
+                                <th>状态</th>
+                                <th style="display: none;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>粗车</td>
+                                <td>C001</td>
+                                <td>T010</td>
+                                <td>外圆车刀</td>
+                                <td>20×20mm</td>
+                                <td>2</td>
+                                <td>15</td>
+                                <td><span class="status-tag status-pending">待领用</span></td>
+                                <td style="display: none;">
+                                    <div class="action-group">
+                                        <button class="btn btn-primary btn-sm">查看</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>精车</td>
+                                <td>C001</td>
+                                <td>T012</td>
+                                <td>精车刀</td>
+                                <td>16×16mm</td>
+                                <td>1</td>
+                                <td>8</td>
+                                <td><span class="status-tag status-pending">待领用</span></td>
+                                <td style="display: none;">
+                                    <div class="action-group">
+                                        <button class="btn btn-primary btn-sm">查看</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>铣槽</td>
+                                <td>M001</td>
+                                <td>T001</td>
+                                <td>立铣刀</td>
+                                <td>Φ10mm</td>
+                                <td>2</td>
+                                <td>50</td>
+                                <td><span class="status-tag status-pending">待领用</span></td>
+                                <td style="display: none;">
+                                    <div class="action-group">
+                                        <button class="btn btn-primary btn-sm">查看</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>铣槽</td>
+                                <td>M001</td>
+                                <td>T002</td>
+                                <td>立铣刀</td>
+                                <td>Φ8mm</td>
+                                <td>2</td>
+                                <td>45</td>
+                                <td><span class="status-tag status-pending">待领用</span></td>
+                                <td style="display: none;">
+                                    <div class="action-group">
+                                        <button class="btn btn-primary btn-sm">查看</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>钻孔</td>
+                                <td>D001</td>
+                                <td>T005</td>
+                                <td>麻花钻</td>
+                                <td>Φ6mm</td>
+                                <td>1</td>
+                                <td>25</td>
+                                <td><span class="status-tag status-pending">待领用</span></td>
+                                <td style="display: none;">
+                                    <div class="action-group">
+                                        <button class="btn btn-primary btn-sm">查看</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 领用记录 -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-title">领用记录</div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>领用时间</th>
+                                <th>刀具编码</th>
+                                <th>刀具名称</th>
+                                <th>规格</th>
+                                <th>领用数量</th>
+                                <th>领用人</th>
+                                <th>状态</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="7" style="text-align: center; color: #999; padding: 32px;">
+                                    <i class="iconfont icon-zanwushuju" style="font-size: 48px; margin-bottom: 8px; display: block;"></i>
+                                    暂无领用记录
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 更换记录 -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-title">更换记录</div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>更换时间</th>
+                                <th>原刀具</th>
+                                <th>更换为</th>
+                                <th>更换数量</th>
+                                <th>更换原因</th>
+                                <th>操作人</th>
+                                <th>状态</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="7" style="text-align: center; color: #999; padding: 32px;">
+                                    <i class="iconfont icon-zanwushuju" style="font-size: 48px; margin-bottom: 8px; display: block;"></i>
+                                    暂无更换记录
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 操作记录 -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-title">操作记录</div>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">创建需求计划</div>
+                            <div class="timeline-time">2025-01-15 10:30:25</div>
+                            <div class="timeline-desc">张三创建了刀具需求计划，包含5种刀具</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu(element) {
+            element.classList.toggle('collapsed');
+            const menuItems = element.nextElementSibling;
+            if (menuItems) {
+                menuItems.classList.toggle('show');
+            }
+        }
+        
+        function goBack() {
+            window.location.href = './教师端_刀具需求计划.html';
+        }
+        
+        function exportToolList() {
+            alert('导出刀具清单功能');
+        }
+    </script>
+    <!-- 导航组件加载器 -->
+    <script src="./nav-loader-universal.js" data-nav-type="teacher"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "properties": {
+    "RESOURCE_CODE": "ae90ff877ab334f07bcec3eb7a36dec1",
+    "IS_COMMON": true
+  },
+  "id": "69fcca60784c4ecaa2a6cd0d757f54ea",
+  "groupId": "1e8f330c359844b78a2543bad47c190d",
+  "name": "获取mongo查询结果",
+  "createTime": 1724401025296,
+  "updateTime": 1714110633498,
+  "lock": null,
+  "createBy": "19165831388",
+  "updateBy": "admin",
+  "path": "monogoQueryResult",
+  "description": null,
+  "returnType": null,
+  "mappingPath": null,
+  "parameters": [
+    {
+      "name": "result",
+      "value": null,
+      "description": null,
+      "required": false,
+      "dataType": "String",
+      "type": null,
+      "defaultValue": null,
+      "validateType": null,
+      "error": null,
+      "expression": null,
+      "children": null
+    }
+  ]
+}

@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>普通试卷批阅 - 教师端</title>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_5124072_s39q5gmh59a.css">
+    <link rel="stylesheet" href="./common.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #F5F7FA;
+            display: flex;
+            height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            background: #fff;
+            padding: 16px 24px;
+            border-bottom: 1px solid #F0F0F0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .breadcrumb span {
+            color: #1890FF;
+            cursor: pointer;
+        }
+
+        .breadcrumb span:hover {
+            text-decoration: underline;
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            color: #1890FF;
+        }
+
+        /* 内容区域 - 教务端风格 */
+        .content-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #F0F2F5;
+        }
+
+        /* 返回按钮 */
+        .btn-back {
+            padding: 10px 20px;
+            background: #fff;
+            border: 1px solid #D9D9D9;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .btn-back:hover {
+            border-color: #1890FF;
+            color: #1890FF;
+            box-shadow: 0 4px 12px rgba(24,144,255,0.15);
+        }
+
+        /* 批阅进度条 */
+        .review-progress-bar {
+            background: #fff;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .progress-info strong {
+            color: #1890FF;
+            font-size: 16px;
+        }
+
+        .progress-percentage {
+            font-weight: 600;
+            color: #1890FF;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #F0F0F0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1890FF 0%, #36CFC9 100%);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* 试卷信息卡片 */
+        .exam-info-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            margin-bottom: 20px;
+        }
+
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .exam-info-left {
+            flex: 1;
+        }
+
+        .exam-info-left h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f1f1f;
+            margin-bottom: 12px;
+        }
+
+        .student-info-inline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .student-info-inline .info-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+        }
+
+        .student-info-inline .info-label {
+            color: #999;
+        }
+
+        .student-info-inline .info-value {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .exam-status {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+
+        .status-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .status-tag.orange {
+            background: linear-gradient(135deg, #FFF7E6 0%, #FFD591 100%);
+            color: #FA8C16;
+            border: 1px solid #FFC069;
+        }
+
+        .review-progress {
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* 得分显示区域优化 */
+        .exam-score-display {
+            background: linear-gradient(135deg, #E6F7FF 0%, #F0F5FF 100%);
+            border-radius: 12px;
+            padding: 16px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 100px;
+            border: 1px solid #91D5FF;
+            box-shadow: 0 2px 8px rgba(24, 144, 255, 0.1);
+        }
+
+        .score-label {
+            font-size: 13px;
+            color: #1890FF;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .score-value-wrapper {
+            display: flex;
+            align-items: baseline;
+            gap: 2px;
+        }
+
+        .score-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1890FF;
+            line-height: 1;
+        }
+
+        .score-total {
+            font-size: 16px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* 批阅区域布局 */
+        /* 批阅区域布局 - 教务端风格 */
+        .review-container {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 20px;
+        }
+
+        /* 左侧题目面板 */
+        .question-panel {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        /* 右侧侧边栏面板 */
+        .sidebar-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .panel-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        /* 左侧：试卷内容 */
+        .paper-content {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .paper-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #F0F0F0;
+        }
+
+        .paper-header-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .paper-header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-prev, .btn-next {
+            padding: 6px 16px;
+            border: 1px solid #D9D9D9;
+            background: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .btn-prev:hover, .btn-next:hover {
+            border-color: #1890FF;
+            color: #1890FF;
+        }
+
+        .btn-prev:disabled, .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* 题目卡片 */
+        .question-card {
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #F0F0F0;
+        }
+
+        .question-card:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #F0F0F0;
+        }
+
+        .question-number {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .question-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .question-type-tag {
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .question-type-tag::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .question-type-tag.设计 {
+            background: #E6F7FF;
+            color: #1890FF;
+        }
+
+        .question-type-tag.设计::before {
+            background: #1890FF;
+        }
+
+        .question-type-tag.工艺 {
+            background: #F6FFED;
+            color: #52C41A;
+        }
+
+        .question-type-tag.工艺::before {
+            background: #52C41A;
+        }
+
+        .question-type-tag.编程 {
+            background: #FFF7E6;
+            color: #FA8C16;
+        }
+
+        .question-type-tag.编程::before {
+            background: #FA8C16;
+        }
+
+        .question-type-tag.加工 {
+            background: #FFF2F0;
+            color: #F5222D;
+        }
+
+        .question-type-tag.加工::before {
+            background: #F5222D;
+        }
+
+        .question-type-tag.检测 {
+            background: #F9F0FF;
+            color: #722ED1;
+        }
+
+        .question-type-tag.检测::before {
+            background: #722ED1;
+        }
+
+        .question-type-badge {
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            background: #F5F5F5;
+            color: #666;
+            border: 1px solid #E8E8E8;
+        }
+
+        .question-content {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .question-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            background: #FAFAFA;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .option-item.correct {
+            background: #F6FFED;
+            border: 1px solid #B7EB8F;
+            color: #52C41A;
+        }
+
+        .option-item.wrong {
+            background: #FFF2F0;
+            border: 1px solid #FFCCC7;
+            color: #FF4D4F;
+        }
+
+        .option-label {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #E8E8E8;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .option-item.correct .option-label {
+            background: #52C41A;
+            color: #fff;
+        }
+
+        .option-item.wrong .option-label {
+            background: #FF4D4F;
+            color: #fff;
+        }
+
+        /* 答案区域整体卡片 */
+        .answer-section {
+            background: #fff;
+            border: 1px solid #E8E8E8;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .answer-section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #F0F0F0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .answer-section-title::before {
+            content: '';
+            width: 3px;
+            height: 14px;
+            background: #1890FF;
+            border-radius: 2px;
+        }
+
+        /* 答案对比区域 */
+        .answer-compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .answer-box {
+            background: #FAFAFA;
+            border-radius: 6px;
+            padding: 16px;
+            border: 1px solid #E8E8E8;
+        }
+
+        .answer-box.correct-box {
+            background: #F6FFED;
+            border-color: #B7EB8F;
+        }
+
+        .answer-box.student-box {
+            background: #E6F7FF;
+            border-color: #91D5FF;
+        }
+
+        .answer-box.wrong-answer {
+            background: #FFF2F0;
+            border-color: #FFA39E;
+        }
+
+        .answer-box-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .answer-box-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .correct-box .answer-box-icon {
+            background: #52C41A;
+            color: #fff;
+        }
+
+        .student-box .answer-box-icon {
+            background: #1890FF;
+            color: #fff;
+        }
+
+        .wrong-answer .answer-box-icon {
+            background: #FF4D4F;
+            color: #fff;
+        }
+
+        .answer-box-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #666;
+        }
+
+        .correct-box .answer-box-label {
+            color: #52C41A;
+        }
+
+        .student-box .answer-box-label {
+            color: #1890FF;
+        }
+
+        .wrong-answer .answer-box-label {
+            color: #FF4D4F;
+        }
+
+        .answer-box-value {
+            font-size: 14px;
+            color: #333;
+            padding: 12px;
+            background: #fff;
+            border-radius: 4px;
+            display: block;
+            line-height: 1.6;
+            border: 1px solid #E8E8E8;
+        }
+
+        .answer-box-value.correct {
+            color: #52C41A;
+            border-color: #B7EB8F;
+        }
+
+        .answer-box-value.wrong {
+            color: #FF4D4F;
+            border-color: #FFA39E;
+        }
+
+        /* 评分区域 */
+        .score-input-section {
+            background: #FAFAFA;
+            border-radius: 6px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border: 1px solid #E8E8E8;
+        }
+
+        .score-input-section label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .score-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .score-input {
+            width: 60px;
+            padding: 8px 12px;
+            border: 1px solid #D9D9D9;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            color: #333;
+        }
+
+        .score-input:focus {
+            outline: none;
+            border-color: #1890FF;
+        }
+
+        .score-max {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .btn-save-score {
+            padding: 8px 16px;
+            background: #52C41A;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .btn-save-score:hover {
+            background: #389E0D;
+        }
+
+        /* 学生答案区域 */
+        .student-answer-section {
+            background: #F5F7FA;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .student-answer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .student-answer-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .answer-status {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .answer-status.correct {
+            background: #F6FFED;
+            color: #52C41A;
+        }
+
+        .answer-status.wrong {
+            background: #FFF2F0;
+            color: #FF4D4F;
+        }
+
+        .student-answer-content {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* 参考答案 */
+        .reference-answer {
+            background: #E6F7FF;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .reference-answer-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1890FF;
+            margin-bottom: 8px;
+        }
+
+        .reference-answer-content {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* 评语区域 */
+        .comment-section {
+            margin-bottom: 20px;
+        }
+
+        .comment-section label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .comment-section textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #D9D9D9;
+            border-radius: 6px;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .comment-section textarea:focus {
+            outline: none;
+            border-color: #1890FF;
+            box-shadow: 0 0 0 3px rgba(24,144,255,0.1);
+        }
+
+        .btn-save-comment {
+            margin-top: 8px;
+            padding: 8px 16px;
+            background: #fff;
+            border: 1px solid #D9D9D9;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .btn-save-comment:hover {
+            border-color: #1890FF;
+            color: #1890FF;
+        }
+
+        /* 右侧：学生信息和题目导航 */
+        .sidebar-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .panel-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .panel-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #F0F0F0;
+        }
+
+        /* 学生信息面板 */
+        .student-info-panel {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .student-info-panel h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #F0F0F0;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .info-label {
+            color: #666;
+        }
+
+        .info-value {
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* 题目导航面板 */
+        .question-nav-panel {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .question-nav-panel h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #F0F0F0;
+        }
+
+        /* 学生信息 */
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .student-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1890FF 0%, #36CFC9 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .student-details {
+            flex: 1;
+        }
+
+        .student-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .student-id {
+            font-size: 13px;
+            color: #999;
+        }
+
+        .student-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 12px;
+            background: #F5F7FA;
+            border-radius: 8px;
+        }
+
+        .stat-item-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1890FF;
+            margin-bottom: 4px;
+        }
+
+        .stat-item-label {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* 题目导航 */
+        .question-nav {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+
+        .question-nav .nav-item {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #E8E8E8;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #fff;
+            padding: 0;
+            width: 100%;
+        }
+
+        .question-nav .nav-item:hover {
+            border-color: #1890FF;
+            color: #1890FF;
+        }
+
+        .question-nav .nav-item.active {
+            background: #1890FF;
+            border-color: #1890FF;
+            color: #fff;
+        }
+
+        .question-nav .nav-item.answered {
+            background: #F6FFED;
+            border-color: #52C41A;
+            color: #52C41A;
+        }
+
+        .question-nav .nav-item.current {
+            box-shadow: 0 0 0 2px #1890FF;
+        }
+
+        /* 批阅操作按钮 */
+        .review-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-save, .btn-submit {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-save {
+            background: #fff;
+            border: 1px solid #D9D9D9;
+            color: #666;
+        }
+
+        .btn-save:hover {
+            border-color: #1890FF;
+            color: #1890FF;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #1890FF 0%, #36CFC9 100%);
+            color: #fff;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(24,144,255,0.3);
+        }
+
+        /* 导航按钮 */
+        .navigation-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px dashed #E8E8E8;
+        }
+
+        .btn-nav {
+            padding: 10px 20px;
+            background: #fff;
+            border: 1px solid #D9D9D9;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-nav:hover {
+            border-color: #1890FF;
+            color: #1890FF;
+        }
+
+        .btn-nav.primary {
+            background: linear-gradient(135deg, #1890FF 0%, #096DD9 100%);
+            color: #fff;
+            border: none;
+        }
+
+        .btn-nav.primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(24,144,255,0.3);
+        }
+
+        /* 保存得分按钮 */
+        .btn-save-score {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #52C41A 0%, #389E0D 100%);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-left: 12px;
+        }
+
+        .btn-save-score:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(82,196,26,0.3);
+        }
+
+        /* 保存评语按钮 */
+        .btn-save-comment {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #1890FF 0%, #096DD9 100%);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 8px;
+        }
+
+        .btn-save-comment:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(24,144,255,0.3);
+        }
+
+        /* 图例说明 */
+        /* 题目导航网格 */
+        .question-nav-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .question-nav-grid .nav-item {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .question-nav-grid .nav-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .question-nav-grid .nav-item.pending {
+            background: #F5F5F5;
+            color: #666;
+            border-color: #D9D9D9;
+        }
+
+        .question-nav-grid .nav-item.correct {
+            background: #F6FFED;
+            color: #52C41A;
+            border-color: #B7EB8F;
+        }
+
+        .question-nav-grid .nav-item.wrong {
+            background: #FFF2F0;
+            color: #FF4D4F;
+            border-color: #FFCCC7;
+        }
+
+        .question-nav-grid .nav-item.current {
+            background: #E6F7FF;
+            color: #1890FF;
+            border-color: #91D5FF;
+        }
+
+        .question-nav-grid .nav-item.active {
+            border-color: #1890FF;
+            box-shadow: 0 0 0 3px rgba(24,144,255,0.2);
+        }
+
+        .nav-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #F0F0F0;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        .legend-dot.default {
+            background: #fff;
+            border: 1px solid #E8E8E8;
+        }
+
+        .legend-dot.answered {
+            background: #F6FFED;
+            border: 1px solid #52C41A;
+        }
+
+        .legend-dot.current {
+            background: #1890FF;
+        }
+
+        .legend-dot.correct {
+            background: #52C41A;
+        }
+
+        .legend-dot.wrong {
+            background: #FF4D4F;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航容器 - 由通用加载器动态加载 -->
+    <div id="nav-container"></div>
+        
+
+    <!-- 主内容区 -->
+    <div class="main-content">
+        <div class="header">
+            <div class="breadcrumb">
+                <span onclick="window.location.href='./教师端_试卷批阅.html'">试卷批阅</span> / 
+                <span onclick="goBack()">学生列表</span> / 批阅详情
+            </div>
+            <button class="logout-btn" onclick="logout()">退出登录</button>
+        </div>
+
+        <div class="content-body">
+            <button class="btn-back" onclick="goBack()" style="display: none;">
+                ← 返回学生列表
+            </button>
+
+            <!-- 批阅进度提示 -->
+            <div class="review-progress-bar">
+                <div class="progress-info">
+                    <span>批阅进度：<strong id="reviewedCount">0</strong> / <strong id="totalQuestionsCount">20</strong> 题</span>
+                    <span class="progress-percentage" id="progressPercentage">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- 试卷信息卡片 -->
+            <div class="exam-info-card">
+                <div class="exam-header">
+                    <div class="exam-info-left">
+                        <h2 id="examTitle">机械制图期中考试</h2>
+                        <div class="student-info-inline" style="display: none;">
+                            <div class="info-item">
+                                <span class="info-label">学生：</span>
+                                <span class="info-value" id="studentName">王五</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">学号：</span>
+                                <span class="info-value">2023010105</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">班级：</span>
+                                <span class="info-value">2023级机械工程1班</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">提交时间：</span>
+                                <span class="info-value">2025-01-10 14:30</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exam-score-display">
+                        <div class="score-label">当前得分</div>
+                        <div class="score-value-wrapper">
+                            <div class="score-value" id="currentScore">0</div>
+                            <div class="score-total">/ 100</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 批阅区域 -->
+            <div class="review-container">
+                <!-- 左侧：题目内容 -->
+                <div class="question-panel">
+                    <div id="questionContainer">
+                        <!-- 动态生成的题目内容 -->
+                    </div>
+
+                    <div class="navigation-buttons">
+                        <button class="btn-nav" onclick="prevQuestion()" id="prevBtn">
+                            ← 上一题
+                        </button>
+                        <button class="btn-nav primary" onclick="nextQuestion()" id="nextBtn">
+                            下一题 →
+                        </button>
+                        <button class="btn-submit" onclick="submitReview()">
+                            提交批阅
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 右侧：题目导航 -->
+                <div class="sidebar-panel">
+                    <div class="question-nav-panel">
+                        <h3>题目导航</h3>
+                        <div class="question-nav-grid" id="questionNavGrid">
+                            <!-- 题目导航将通过 JavaScript 动态生成 -->
+                        </div>
+                        <div class="nav-legend">
+                            <div class="legend-item">
+                                <span class="legend-dot correct"></span>
+                                <span>正确</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot wrong"></span>
+                                <span>错误</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot current"></span>
+                                <span>当前</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 获取URL参数
+        function getUrlParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // 初始化页面
+        function initPage() {
+            const studentName = getUrlParam('studentName') || '王五';
+            const examName = getUrlParam('examName') || '机械制图期中考试';
+
+            document.getElementById('studentName').textContent = studentName;
+            document.getElementById('examTitle').textContent = examName;
+
+            // 初始化题目导航状态
+            initQuestionNav();
+
+            // 显示第一题
+            updateQuestionDisplay(1);
+
+            // 更新批阅进度
+            updateReviewProgress();
+        }
+
+        // 更新批阅进度
+        function updateReviewProgress() {
+            const total = questionsData.length;
+            const reviewed = questionsData.filter(q => q.status === 'answered').length;
+            const percentage = Math.round((reviewed / total) * 100);
+
+            document.getElementById('reviewedCount').textContent = reviewed;
+            document.getElementById('totalQuestionsCount').textContent = total;
+            document.getElementById('progressPercentage').textContent = percentage + '%';
+            document.getElementById('progressFill').style.width = percentage + '%';
+        }
+
+        // 返回上一页（学生列表）
+        function goBack() {
+            const examId = getUrlParam('examId');
+            const examName = getUrlParam('examName') || '机械制图期中考试';
+            window.location.href = `./教师端_试卷批阅_学生列表.html?examId=${examId}&examName=${encodeURIComponent(examName)}`;
+        }
+
+        // 退出登录
+        function logout() {
+            if (confirm('确定要退出登录吗？')) {
+                window.location.href = './教学实训平台_登录.html';
+            }
+        }
+
+        // 菜单折叠展开
+        function toggleMenu(element) {
+            element.classList.toggle('collapsed');
+            const menuItems = element.nextElementSibling;
+            if (menuItems) {
+                menuItems.style.display = menuItems.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        // 当前题号
+        let currentQuestion = 1;
+        const totalQuestions = 20;
+
+        // 题目数据
+        const questionsData = [
+            {
+                id: 1,
+                type: '单选题',
+                category: '设计',
+                content: '在机械制图中，国家标准规定的基本幅面有几种？',
+                options: ['A. 3种', 'B. 4种', 'C. 5种', 'D. 6种'],
+                correctAnswer: 'C',
+                studentAnswer: 'C',
+                isCorrect: true,
+                score: 5,
+                maxScore: 5,
+                status: 'answered'
+            },
+            {
+                id: 2,
+                type: '单选题',
+                category: '工艺',
+                content: '下列哪种材料不属于金属材料？',
+                options: ['A. 45钢', 'B. 铝合金', 'C. 工程塑料', 'D. 铜合金'],
+                correctAnswer: 'C',
+                studentAnswer: 'A',
+                isCorrect: false,
+                score: 0,
+                maxScore: 5,
+                status: 'answered'
+            },
+            {
+                id: 3,
+                type: '单选题',
+                category: '编程',
+                content: '数控编程中，G00指令表示什么？',
+                options: ['A. 直线插补', 'B. 快速定位', 'C. 圆弧插补', 'D. 暂停'],
+                correctAnswer: 'B',
+                studentAnswer: 'B',
+                isCorrect: true,
+                score: 5,
+                maxScore: 5,
+                status: 'answered'
+            },
+            {
+                id: 4,
+                type: '单选题',
+                category: '加工',
+                content: '车削加工中，主运动是什么？',
+                options: ['A. 刀具移动', 'B. 工件旋转', 'C. 刀具旋转', 'D. 工件移动'],
+                correctAnswer: 'B',
+                studentAnswer: 'B',
+                isCorrect: true,
+                score: 5,
+                maxScore: 5,
+                status: 'answered'
+            },
+            {
+                id: 5,
+                type: '单选题',
+                category: '检测',
+                content: '游标卡尺的精度一般为多少？',
+                options: ['A. 0.1mm', 'B. 0.05mm', 'C. 0.02mm', 'D. 0.01mm'],
+                correctAnswer: 'C',
+                studentAnswer: 'C',
+                isCorrect: true,
+                score: 5,
+                maxScore: 5,
+                status: 'answered'
+            },
+            {
+                id: 6,
+                type: '多选题',
+                category: '设计',
+                content: '机械制图中，常用的投影法有哪些？',
+                options: ['A. 正投影法', 'B. 斜投影法', 'C. 中心投影法', 'D. 平行投影法'],
+                correctAnswer: 'ABD',
+                studentAnswer: 'ABD',
+                isCorrect: true,
+                score: 5,
+                maxScore: 5,
+                status: 'answered'
+            },
+            {
+                id: 7,
+                type: '多选题',
+                category: '工艺',
+                content: '下列哪些属于热处理工艺？',
+                options: ['A. 退火', 'B. 正火', 'C. 淬火', 'D. 焊接'],
+                correctAnswer: 'ABC',
+                studentAnswer: 'AB',
+                isCorrect: false,
+                score: 3,
+                maxScore: 5,
+                status: 'answered'
+            },
+            {
+                id: 8,
+                type: '判断题',
+                category: '加工',
+                content: '铣削加工时，刀具旋转为主运动，工件移动为进给运动。',
+                options: ['正确', '错误'],
+                correctAnswer: '正确',
+                studentAnswer: '正确',
+                isCorrect: true,
+                score: 5,
+                maxScore: 5,
+                status: 'answered'
+            },
+            {
+                id: 9,
+                type: '单选题',
+                category: '设计',
+                content: '在机械制图中，三视图的投影规律是：主视图与俯视图（），主视图与左视图（），俯视图与左视图（）。',
+                options: ['A. 长对正、高平齐、宽相等', 'B. 长对正、宽相等、高平齐', 'C. 高平齐、长对正、宽相等', 'D. 宽相等、高平齐、长对正'],
+                correctAnswer: 'A',
+                studentAnswer: 'C',
+                isCorrect: false,
+                score: 0,
+                maxScore: 5,
+                status: 'answered'
+            },
+            {
+                id: 10,
+                type: '单选题',
+                category: '检测',
+                content: '千分尺的测量精度一般为多少？',
+                options: ['A. 0.1mm', 'B. 0.01mm', 'C. 0.001mm', 'D. 0.0001mm'],
+                correctAnswer: 'B',
+                studentAnswer: '',
+                isCorrect: false,
+                score: 0,
+                maxScore: 5,
+                status: 'pending'
+            },
+            {
+                id: 11,
+                type: '单选题',
+                category: '编程',
+                content: '数控程序中，M03指令表示什么？',
+                options: ['A. 主轴正转', 'B. 主轴反转', 'C. 主轴停止', 'D. 程序结束'],
+                correctAnswer: 'A',
+                studentAnswer: '',
+                isCorrect: false,
+                score: 0,
+                maxScore: 5,
+                status: 'pending'
+            },
+            {
+                id: 12,
+                type: '单选题',
+                category: '工艺',
+                content: '下列哪种加工方法属于特种加工？',
+                options: ['A. 车削', 'B. 铣削', 'C. 电火花加工', 'D. 磨削'],
+                correctAnswer: 'C',
+                studentAnswer: '',
+                isCorrect: false,
+                score: 0,
+                maxScore: 5,
+                status: 'pending'
+            },
+            {
+                id: 13,
+                type: '判断题',
+                category: '设计',
+                content: '在装配图中，相邻两零件的接触表面画两条线。',
+                options: ['正确', '错误'],
+                correctAnswer: '错误',
+                studentAnswer: '',
+                isCorrect: false,
+                score: 0,
+                maxScore: 5,
+                status: 'pending'
+            },
+            {
+                id: 14,
+                type: '多选题',
+                category: '加工',
+                content: '下列哪些因素会影响切削力的大小？',
+                options: ['A. 切削深度', 'B. 进给量', 'C. 切削速度', 'D. 刀具材料'],
+                correctAnswer: 'ABCD',
+                studentAnswer: '',
+                isCorrect: false,
+                score: 0,
+                maxScore: 5,
+                status: 'pending'
+            },
+            {
+                id: 15,
+                type: '单选题',
+                category: '检测',
+                content: '表面粗糙度Ra值越小，表示表面越？',
+                options: ['A. 粗糙', 'B. 光滑', 'C. 平整', 'D. 坚硬'],
+                correctAnswer: 'B',
+                studentAnswer: '',
+                isCorrect: false,
+                score: 0,
+                maxScore: 5,
+                status: 'pending'
+            },
+            {
+                id: 16,
+                type: '单选题',
+                category: '编程',
+                content: '数控加工中，G01指令表示什么？',
+                options: ['A. 快速定位', 'B. 直线插补', 'C. 圆弧插补', 'D. 螺纹加工'],
+                correctAnswer: 'B',
+                studentAnswer: '',
+                isCorrect: false,
+                score: 0,
+                maxScore: 5,
+                status: 'pending'
+            },
+            {
+                id: 17,
+                type: '判断题',
+                category: '工艺',
+                content: '淬火可以提高钢的硬度和耐磨性。',
+                options: ['正确', '错误'],
+                correctAnswer: '正确',
+                studentAnswer: '',
+                isCorrect: false,
+                score: 0,
+                maxScore: 5,
+                status: 'pending'
+            },
+            {
+                id: 18,
+                type: '多选题',
+                category: '设计',
+                content: '下列哪些属于标准件？',
+                options: ['A. 螺栓', 'B. 螺母', 'C. 齿轮', 'D. 轴承'],
+                correctAnswer: 'ABD',
+                studentAnswer: '',
+                isCorrect: false,
+                score: 0,
+                maxScore: 5,
+                status: 'pending'
+            },
+            {
+                id: 19,
+                type: '简答题',
+                category: '设计',
+                content: '请简述机械制图中尺寸标注的基本原则，并举例说明。',
+                options: [],
+                correctAnswer: '基本原则：\n1. 正确性：尺寸数值必须准确无误\n2. 完整性：不遗漏、不重复\n3. 清晰性：布置整齐、便于阅读\n4. 合理性：符合加工和测量要求\n\n举例说明应包含具体标注方法和注意事项。',
+                studentAnswer: '尺寸标注的基本原则包括：\n1. 尺寸标注应清晰、完整、正确\n2. 尺寸线应与被标注线段平行\n3. 尺寸数字应写在尺寸线上方或中断处\n4. 同一方向的尺寸应排列整齐\n举例：在标注轴类零件时，直径尺寸应标注在视图前方，长度尺寸标注在视图下方。',
+                isCorrect: null,
+                score: null,
+                maxScore: 10,
+                status: 'pending'
+            },
+            {
+                id: 20,
+                type: '简答题',
+                category: '工艺',
+                content: '请说明车削加工中刀具几何角度的主要参数及其作用。',
+                options: [],
+                correctAnswer: '主要参数包括：\n1. 前角：影响切削刃锋利程度和切削力\n2. 后角：减少刀具与工件摩擦\n3. 主偏角：影响切削宽度和切削力分配\n4. 副偏角：影响已加工表面粗糙度\n5. 刃倾角：控制切屑流向',
+                studentAnswer: '',
+                isCorrect: null,
+                score: null,
+                maxScore: 10,
+                status: 'pending'
+            }
+        ];
+
+
+
+        // 更新题目显示
+        function updateQuestionDisplay(questionNum) {
+            const question = questionsData[questionNum - 1];
+            const container = document.getElementById('questionContainer');
+            
+            if (!question || !container) return;
+            
+            let html = `
+                <div class="question-card" id="question${question.id}">
+                    <div class="question-header">
+                        <span class="question-number">第${question.id}题（${question.type}）</span>
+                        <div class="question-meta">
+                            <span class="question-type-tag ${question.category}">${question.category}</span>
+                            <span class="question-type-badge">${question.type === '简答题' ? '主观题' : '客观题'}</span>
+                        </div>
+                    </div>
+                    <div class="question-content">${question.content}</div>
+            `;
+            
+            // 添加选项（选择题）
+            if (question.options && question.options.length > 0 && question.type !== '简答题') {
+                html += '<div class="question-options">';
+                question.options.forEach((option, index) => {
+                    const label = option.charAt(0);
+                    const text = option.substring(2);
+                    let optionClass = '';
+                    
+                    if (question.status === 'answered') {
+                        if (question.type === '判断题') {
+                            // 判断题处理
+                            if (option === question.studentAnswer) {
+                                optionClass = question.isCorrect ? 'correct' : 'wrong';
+                            }
+                        } else {
+                            // 选择题处理
+                            if (label === question.correctAnswer) {
+                                optionClass = 'correct';
+                            } else if (label === question.studentAnswer && !question.isCorrect) {
+                                optionClass = 'wrong';
+                            }
+                        }
+                    }
+                    
+                    html += `
+                        <div class="option-item ${optionClass}">
+                            <span class="option-label">${label}</span>
+                            <span>${text}</span>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            // 答案对比和评分区域
+            const scoreValue = question.score !== null ? question.score : '';
+            const isCorrectClass = question.isCorrect === true ? 'correct' : (question.isCorrect === false ? 'wrong' : '');
+            const correctAnswerText = question.correctAnswer ? question.correctAnswer.replace(/\n/g, '<br>') : '';
+            const studentAnswerText = question.studentAnswer ? question.studentAnswer.replace(/\n/g, '<br>') : '未作答';
+            html += `
+                    <div class="answer-section">
+                        <div class="answer-section-title">答案对比</div>
+                        <div class="answer-compare-grid">
+                            <div class="answer-box correct-box">
+                                <div class="answer-box-header">
+                                    <div class="answer-box-icon">✓</div>
+                                    <div class="answer-box-label">正确答案</div>
+                                </div>
+                                <div class="answer-box-value correct">${correctAnswerText}</div>
+                            </div>
+                            <div class="answer-box student-box">
+                                <div class="answer-box-header">
+                                    <div class="answer-box-icon">👤</div>
+                                    <div class="answer-box-label">学生答案</div>
+                                </div>
+                                <div class="answer-box-value ${isCorrectClass}">${studentAnswerText}</div>
+                            </div>
+                        </div>
+
+                        <div class="score-input-section">
+                            <label>评分：</label>
+                            <div class="score-input-wrapper">
+                                <input type="number" id="score${question.id}" value="${scoreValue}" min="0" max="${question.maxScore}" placeholder="输入得分" class="score-input">
+                                <span class="score-max">/ ${question.maxScore} 分</span>
+                            </div>
+                            <button class="btn-save-score" onclick="saveScore(${question.id})">保存得分</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 评语区域 -->
+                    <div class="comment-section">
+                        <label>批阅评语：</label>
+                        <textarea id="comment${question.id}" placeholder="请输入批阅评语..." rows="3">${question.comment || ''}</textarea>
+                        <button class="btn-save-comment" onclick="saveComment(${question.id})">保存评语</button>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        // 初始化题目导航
+        function initQuestionNav() {
+            const navGrid = document.getElementById('questionNavGrid');
+            if (!navGrid) return;
+
+            let html = '';
+            questionsData.forEach((q, index) => {
+                const questionNum = index + 1;
+                let statusClass = '';
+                let statusText = '';
+
+                if (q.status === 'answered') {
+                    if (q.isCorrect) {
+                        statusClass = 'correct';
+                        statusText = '✓';
+                    } else {
+                        statusClass = 'wrong';
+                        statusText = '✗';
+                    }
+                } else if (q.status === 'reviewing') {
+                    statusClass = 'current';
+                    statusText = '批';
+                } else {
+                    statusClass = 'pending';
+                    statusText = questionNum;
+                }
+
+                html += `
+                    <div class="nav-item ${statusClass} ${questionNum === currentQuestion ? 'active' : ''}" 
+                         onclick="switchQuestion(${questionNum})" 
+                         title="第${questionNum}题">
+                        ${statusText}
+                    </div>
+                `;
+            });
+
+            navGrid.innerHTML = html;
+        }
+
+        // 切换题目
+        function switchQuestion(questionNum) {
+            if (questionNum < 1 || questionNum > totalQuestions) return;
+            currentQuestion = questionNum;
+            updateQuestionDisplay(questionNum);
+            initQuestionNav(); // 重新渲染导航
+        }
+
+        // 上一题
+        function prevQuestion() {
+            if (currentQuestion > 1) {
+                switchQuestion(currentQuestion - 1);
+            } else {
+                alert('已经是第一题了');
+            }
+        }
+
+        // 下一题
+        function nextQuestion() {
+            if (currentQuestion < totalQuestions) {
+                switchQuestion(currentQuestion + 1);
+            } else {
+                alert('已经是最后一题了');
+            }
+        }
+
+        // 保存批阅进度
+        function saveReview() {
+            // 显示保存成功提示
+            showToast('批阅进度已保存');
+        }
+
+        // 保存得分
+        function saveScore(questionId) {
+            const scoreInput = document.getElementById(`score${questionId}`);
+            const score = parseFloat(scoreInput.value);
+            const question = questionsData.find(q => q.id === questionId);
+            
+            if (isNaN(score) || score < 0 || score > question.maxScore) {
+                alert(`请输入有效的得分（0-${question.maxScore}分）`);
+                return;
+            }
+            
+            question.score = score;
+            updateProgress();
+            showToast('得分已保存');
+        }
+
+        // 保存评语
+        function saveComment(questionId) {
+            const commentInput = document.getElementById(`comment${questionId}`);
+            const comment = commentInput.value.trim();
+            const question = questionsData.find(q => q.id === questionId);
+            
+            question.comment = comment;
+            showToast('评语已保存');
+        }
+
+        // 提交批阅结果
+        function submitReview() {
+            if (confirm('确定要提交批阅结果吗？提交后将无法修改。')) {
+                showToast('批阅结果已提交');
+                setTimeout(() => {
+                    goBack();
+                }, 1500);
+            }
+        }
+
+        // 显示提示信息
+        function showToast(message) {
+            // 创建toast元素
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0, 0, 0, 0.8);
+                color: #fff;
+                padding: 16px 32px;
+                border-radius: 8px;
+                font-size: 14px;
+                z-index: 9999;
+                animation: fadeIn 0.3s ease;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // 2秒后移除
+            setTimeout(() => {
+                toast.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 2000);
+        }
+
+        // 播放视频
+        function playVideo() {
+            showToast('正在播放学生操作录像...');
+        }
+
+        // 添加CSS动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+                to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                to { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 页面加载时初始化
+        window.onload = initPage;
+    </script>
+    <!-- 导航组件加载器 -->
+    <script src="./nav-loader-universal.js" data-nav-type="teacher"></script>
+</body>
+</html>

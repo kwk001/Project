@@ -1,0 +1,358 @@
+/* 基础初始化样式（必需，不要删除） */
+
+/* CSS 变量定义 - 浅色主题（默认） */
+:root {
+  /* 背景色 */
+  --bg-primary: #f5f7fa;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f5f5f5;
+
+  /* 文字色 */
+  --text-primary: #262626;
+  --text-secondary: #595959;
+  --text-tertiary: #8c8c8c;
+  --text-inverse: #ffffff;
+
+  /* 边框色 */
+  --border-primary: #d9d9d9;
+  --border-secondary: #f0f0f0;
+
+  /* 品牌色 */
+  --brand-primary: #1890ff;
+  --brand-success: #52c41a;
+  --brand-warning: #faad14;
+  --brand-error: #f5222d;
+
+  /* 组件特定 */
+  --card-bg: #ffffff;
+  --card-border: #f0f0f0;
+  --table-header-bg: #fafafa;
+  --input-bg: #ffffff;
+  --modal-bg: #ffffff;
+}
+
+/* 深色主题 */
+[data-theme='dark'] {
+  /* 背景色 */
+  --bg-primary: #141414;
+  --bg-secondary: #1f1f1f;
+  --bg-tertiary: #2c2c2c;
+
+  /* 文字色 */
+  --text-primary: #ffffff;
+  --text-secondary: #d9d9d9;
+  --text-tertiary: #8c8c8c;
+  --text-inverse: #141414;
+
+  /* 边框色 */
+  --border-primary: #434343;
+  --border-secondary: #3a3a3a;
+
+  /* 品牌色（保持不变） */
+  --brand-primary: #1890ff;
+  --brand-success: #52c41a;
+  --brand-warning: #faad14;
+  --brand-error: #f5222d;
+
+  /* 组件特定 */
+  --card-bg: #1f1f1f;
+  --card-border: #3a3a3a;
+  --table-header-bg: #2c2c2c;
+  --input-bg: #1f1f1f;
+  --modal-bg: #1f1f1f;
+}
+
+/* 过渡动画 */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body {
+  font-size: 14px;
+  height: 100%;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+}
+
+/* 页面容器 - 适配 Pro Layout */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  min-height: calc(100vh - 112px);
+}
+
+/* 搜索卡片 */
+.search-card {
+  background: var(--card-bg);
+  border-radius: 8px;
+  border-color: var(--card-border);
+}
+
+.search-card .ant-card-head {
+  border-bottom: 1px solid var(--border-secondary);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.search-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-item span {
+  white-space: nowrap;
+  color: var(--text-secondary);
+}
+
+/* 表格卡片 */
+.table-card {
+  background: var(--card-bg);
+  border-radius: 8px;
+  border-color: var(--card-border);
+  flex: 1;
+}
+
+.table-card .ant-card-head {
+  border-bottom: 1px solid var(--border-secondary);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.table-card .ant-card-body {
+  padding: 16px;
+}
+
+/* 表格样式 */
+.ant-table {
+  font-size: 14px;
+  background: var(--card-bg);
+}
+
+.ant-table-thead > tr > th {
+  background: var(--table-header-bg);
+  font-weight: 500;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-secondary);
+}
+
+.ant-table-tbody > tr > td {
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-secondary);
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: var(--bg-tertiary);
+}
+
+/* 分页样式 */
+.ant-pagination {
+  margin-top: 16px;
+}
+
+.ant-pagination-item,
+.ant-pagination-prev,
+.ant-pagination-next {
+  background: var(--card-bg);
+  border-color: var(--border-primary);
+}
+
+.ant-pagination-item a {
+  color: var(--text-secondary);
+}
+
+.ant-pagination-item-active {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+}
+
+.ant-pagination-item-active a {
+  color: #ffffff;
+}
+
+/* 模态框样式 */
+.ant-modal-content {
+  border-radius: 8px;
+  background: var(--modal-bg);
+}
+
+.ant-modal-header {
+  border-bottom: 1px solid var(--border-secondary);
+  background: var(--modal-bg);
+}
+
+.ant-modal-title {
+  color: var(--text-primary);
+}
+
+.ant-modal-footer {
+  border-top: 1px solid var(--border-secondary);
+}
+
+/* 表单样式 */
+.ant-form-item {
+  margin-bottom: 16px;
+}
+
+.ant-form-item-label {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.ant-input,
+.ant-select-selector,
+.ant-picker {
+  background: var(--input-bg) !important;
+  border-color: var(--border-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+.ant-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+/* 按钮样式 */
+.ant-btn {
+  border-radius: 4px;
+}
+
+.ant-btn-primary {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+}
+
+.ant-btn-default {
+  background: var(--card-bg);
+  border-color: var(--border-primary);
+  color: var(--text-primary);
+}
+
+/* 标签样式 */
+.ant-tag {
+  border-radius: 4px;
+}
+
+/* 卡片样式 */
+.ant-card {
+  border-radius: 8px;
+  background: var(--card-bg);
+  border-color: var(--card-border);
+}
+
+.ant-card-bordered {
+  border: 1px solid var(--card-border);
+}
+
+/* 下拉菜单 */
+.ant-dropdown-menu {
+  background: var(--card-bg);
+}
+
+.ant-dropdown-menu-item {
+  color: var(--text-primary);
+}
+
+.ant-dropdown-menu-item:hover {
+  background: var(--bg-tertiary);
+}
+
+/* 选择器下拉 */
+.ant-select-dropdown {
+  background: var(--card-bg);
+}
+
+.ant-select-item {
+  color: var(--text-primary);
+}
+
+.ant-select-item-option-selected {
+  background: var(--bg-tertiary);
+}
+
+.ant-select-item-option-active {
+  background: var(--bg-tertiary);
+}
+
+/* 日期选择器 */
+.ant-picker-panel {
+  background: var(--card-bg);
+}
+
+.ant-picker-cell {
+  color: var(--text-secondary);
+}
+
+.ant-picker-cell-in-view {
+  color: var(--text-primary);
+}
+
+/* 消息提示 */
+.ant-message-notice-content {
+  background: var(--card-bg);
+  color: var(--text-primary);
+}
+
+/* 确认框 */
+.ant-modal-confirm-body {
+  color: var(--text-primary);
+}
+
+/* Space 组件 */
+.ant-space-item {
+  color: var(--text-primary);
+}
+
+/* 禁用状态 */
+.ant-input-disabled,
+.ant-select-disabled .ant-select-selector {
+  background: var(--bg-tertiary) !important;
+  color: var(--text-tertiary) !important;
+}
+
+/* 链接按钮 */
+.ant-btn-link {
+  color: var(--brand-primary);
+}
+
+.ant-btn-link:hover {
+  color: #40a9ff;
+}
+
+.ant-btn-link-danger {
+  color: var(--brand-error);
+}
+
+/* 统计数字 */
+.ant-statistic-content {
+  color: var(--text-primary);
+}
+
+.ant-statistic-title {
+  color: var(--text-secondary);
+}
+
+/* H5溯源页面特殊样式 */
+.h5-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+.trace-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--brand-primary) 0%, var(--bg-primary) 200px);
+}
+
+/* 深色模式媒体查询（H5自动适配） */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #141414;
+    --bg-secondary: #1f1f1f;
+  }
+}

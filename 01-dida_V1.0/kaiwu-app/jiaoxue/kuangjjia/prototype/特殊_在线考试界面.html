@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线考试 - 学生端</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #F5F7FA;
+            min-height: 100vh;
+        }
+        .exam-header {
+            background: #fff;
+            border-bottom: 1px solid #E8E8E8;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .exam-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+        .btn-back {
+            padding: 8px 16px;
+            background: #fff;
+            border: 1px solid #D9D9D9;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.3s;
+        }
+        .btn-back:hover {
+            border-color: #1890FF;
+            color: #1890FF;
+        }
+        .exam-info {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        .timer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #FFF1F0;
+            border: 1px solid #FFCCC7;
+            border-radius: 4px;
+            color: #FF4D4F;
+            font-weight: 500;
+        }
+        .timer.warning {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { background: #FFF1F0; }
+            50% { background: #FFCCC7; }
+        }
+        .exam-container {
+            max-width: 800px;
+            margin: 24px auto;
+            padding: 0 24px;
+        }
+        .question-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        .question-number {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #1890FF;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .question-type {
+            font-size: 13px;
+            color: #999;
+        }
+        .question-content {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 16px;
+            border: 1px solid #E8E8E8;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .option-item:hover {
+            border-color: #1890FF;
+            background: #F0F7FF;
+        }
+        .option-item.selected {
+            border-color: #1890FF;
+            background: #E6F7FF;
+        }
+        .option-label {
+            width: 28px;
+            height: 28px;
+            border: 2px solid #D9D9D9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            color: #666;
+            flex-shrink: 0;
+        }
+        .option-item.selected .option-label {
+            border-color: #1890FF;
+            background: #1890FF;
+            color: #fff;
+        }
+        .option-text {
+            flex: 1;
+            line-height: 1.6;
+            color: #333;
+        }
+        .answer-textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 12px;
+            border: 1px solid #D9D9D9;
+            border-radius: 6px;
+            font-size: 14px;
+            resize: vertical;
+        }
+        .answer-textarea:focus {
+            outline: none;
+            border-color: #1890FF;
+            box-shadow: 0 0 0 2px rgba(24,144,255,0.2);
+        }
+        .answer-card {
+            position: fixed;
+            right: 24px;
+            top: 100px;
+            width: 200px;
+            background: #fff;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+        .card-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+        .card-item {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #D9D9D9;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+        .card-item:hover {
+            border-color: #1890FF;
+            color: #1890FF;
+            transform: scale(1.1);
+        }
+        .card-item.current {
+            background: #1890FF;
+            border-color: #1890FF;
+            color: #fff;
+        }
+        .card-item.answered {
+            background: #52C41A;
+            border-color: #52C41A;
+            color: #fff;
+        }
+        .card-legend {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #F0F0F0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #666;
+        }
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+        .exam-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-top: 1px solid #E8E8E8;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+        .btn-prev, .btn-next {
+            padding: 10px 24px;
+            background: #fff;
+            border: 1px solid #D9D9D9;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-submit {
+            padding: 10px 32px;
+            background: #1890FF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        @media (max-width: 1200px) {
+            .answer-card {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="exam-header">
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <button class="btn-back" onclick="goBack()">← 返回</button>
+            <div class="exam-title">《机械制图》期末考试</div>
+        </div>
+        <div class="exam-info">
+            <span>考生：李明</span>
+            <div class="timer">
+                <span>⏱️</span>
+                <span>剩余时间：01:45:32</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="exam-container">
+        <!-- 单选题 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">第1题</span>
+                <span class="question-type">单选题（5分）</span>
+            </div>
+            <div class="question-content">
+                机械制图中，三视图是指哪三个视图？
+            </div>
+            <div class="options-list">
+                <div class="option-item selected">
+                    <span class="option-label">A</span>
+                    <span class="option-text">主视图、俯视图、左视图</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">B</span>
+                    <span class="option-text">主视图、俯视图、右视图</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">C</span>
+                    <span class="option-text">前视图、俯视图、左视图</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">D</span>
+                    <span class="option-text">主视图、仰视图、左视图</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 多选题 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">第2题</span>
+                <span class="question-type">多选题（10分）</span>
+            </div>
+            <div class="question-content">
+                以下哪些是数控加工中常用的G代码？（多选）
+            </div>
+            <div class="options-list">
+                <div class="option-item selected">
+                    <span class="option-label">A</span>
+                    <span class="option-text">G00 - 快速定位</span>
+                </div>
+                <div class="option-item selected">
+                    <span class="option-label">B</span>
+                    <span class="option-text">G01 - 直线插补</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">C</span>
+                    <span class="option-text">G02 - 顺时针圆弧插补</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">D</span>
+                    <span class="option-text">M03 - 主轴正转</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 判断题 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">第3题</span>
+                <span class="question-type">判断题（3分）</span>
+            </div>
+            <div class="question-content">
+                CAD软件只能用于二维绘图。
+            </div>
+            <div class="options-list">
+                <div class="option-item">
+                    <span class="option-label">A</span>
+                    <span class="option-text">正确</span>
+                </div>
+                <div class="option-item selected">
+                    <span class="option-label">B</span>
+                    <span class="option-text">错误</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 填空题 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">第4题</span>
+                <span class="question-type">填空题（5分）</span>
+            </div>
+            <div class="question-content">
+                在机械制图中，尺寸标注的三要素是：________、________和________。
+            </div>
+            <textarea class="answer-textarea" placeholder="请输入答案，多个答案用逗号分隔"></textarea>
+        </div>
+
+        <!-- 简答题 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">第5题</span>
+                <span class="question-type">简答题（15分）</span>
+            </div>
+            <div class="question-content">
+                请简述数控加工中心的组成结构及其各部分的功能。
+            </div>
+            <textarea class="answer-textarea" placeholder="请输入答案"></textarea>
+        </div>
+
+        <!-- 单选题 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">第6题</span>
+                <span class="question-type">单选题（5分）</span>
+            </div>
+            <div class="question-content">
+                在机械制图中，中心线用什么线型表示？
+            </div>
+            <div class="options-list">
+                <div class="option-item">
+                    <span class="option-label">A</span>
+                    <span class="option-text">实线</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">B</span>
+                    <span class="option-text">虚线</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">C</span>
+                    <span class="option-text">点画线</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">D</span>
+                    <span class="option-text">双点画线</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 多选题 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">第7题</span>
+                <span class="question-type">多选题（10分）</span>
+            </div>
+            <div class="question-content">
+                以下哪些是常用的机械加工工艺？（多选）
+            </div>
+            <div class="options-list">
+                <div class="option-item">
+                    <span class="option-label">A</span>
+                    <span class="option-text">车削</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">B</span>
+                    <span class="option-text">铣削</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">C</span>
+                    <span class="option-text">磨削</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">D</span>
+                    <span class="option-text">焊接</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 判断题 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">第8题</span>
+                <span class="question-type">判断题（3分）</span>
+            </div>
+            <div class="question-content">
+                公差等级数字越大，表示精度越高。
+            </div>
+            <div class="options-list">
+                <div class="option-item">
+                    <span class="option-label">A</span>
+                    <span class="option-text">正确</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">B</span>
+                    <span class="option-text">错误</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 填空题 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">第9题</span>
+                <span class="question-type">填空题（5分）</span>
+            </div>
+            <div class="question-content">
+                金属材料的力学性能主要包括：________、________、________和韧性。
+            </div>
+            <textarea class="answer-textarea" placeholder="请输入答案，多个答案用逗号分隔"></textarea>
+        </div>
+
+        <!-- 简答题 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">第10题</span>
+                <span class="question-type">简答题（15分）</span>
+            </div>
+            <div class="question-content">
+                请说明数控编程中G00和G01指令的区别及应用场景。
+            </div>
+            <textarea class="answer-textarea" placeholder="请输入答案"></textarea>
+        </div>
+
+        <!-- 单选题 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">第11题</span>
+                <span class="question-type">单选题（5分）</span>
+            </div>
+            <div class="question-content">
+                以下哪种材料最适合制作切削刀具？
+            </div>
+            <div class="options-list">
+                <div class="option-item">
+                    <span class="option-label">A</span>
+                    <span class="option-text">低碳钢</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">B</span>
+                    <span class="option-text">高速钢</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">C</span>
+                    <span class="option-text">铝合金</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">D</span>
+                    <span class="option-text">铜合金</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 多选题 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">第12题</span>
+                <span class="question-type">多选题（10分）</span>
+            </div>
+            <div class="question-content">
+                数控加工中，影响表面粗糙度的因素有哪些？（多选）
+            </div>
+            <div class="options-list">
+                <div class="option-item">
+                    <span class="option-label">A</span>
+                    <span class="option-text">切削速度</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">B</span>
+                    <span class="option-text">进给量</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">C</span>
+                    <span class="option-text">切削深度</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">D</span>
+                    <span class="option-text">刀具几何角度</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 判断题 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">第13题</span>
+                <span class="question-type">判断题（3分）</span>
+            </div>
+            <div class="question-content">
+                硬质合金刀具的硬度比高速钢刀具低。
+            </div>
+            <div class="options-list">
+                <div class="option-item">
+                    <span class="option-label">A</span>
+                    <span class="option-text">正确</span>
+                </div>
+                <div class="option-item">
+                    <span class="option-label">B</span>
+                    <span class="option-text">错误</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 填空题 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">第14题</span>
+                <span class="question-type">填空题（5分）</span>
+            </div>
+            <div class="question-content">
+                数控机床的坐标系中，X轴通常与工件的________方向平行，Z轴与工件的________方向平行。
+            </div>
+            <textarea class="answer-textarea" placeholder="请输入答案，多个答案用逗号分隔"></textarea>
+        </div>
+
+        <!-- 简答题 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">第15题</span>
+                <span class="question-type">简答题（15分）</span>
+            </div>
+            <div class="question-content">
+                请阐述机械加工中定位与夹紧的区别，并说明定位的基本原则。
+            </div>
+            <textarea class="answer-textarea" placeholder="请输入答案"></textarea>
+        </div>
+    </div>
+
+    <!-- 题目导航 -->
+    <div class="answer-card">
+        <div class="card-title">题目导航</div>
+        <div class="card-grid">
+            <div class="card-item answered" onclick="goToQuestion(0)">1</div>
+            <div class="card-item answered" onclick="goToQuestion(1)">2</div>
+            <div class="card-item answered" onclick="goToQuestion(2)">3</div>
+            <div class="card-item current" onclick="goToQuestion(3)">4</div>
+            <div class="card-item" onclick="goToQuestion(4)">5</div>
+            <div class="card-item" onclick="goToQuestion(5)">6</div>
+            <div class="card-item" onclick="goToQuestion(6)">7</div>
+            <div class="card-item" onclick="goToQuestion(7)">8</div>
+            <div class="card-item" onclick="goToQuestion(8)">9</div>
+            <div class="card-item" onclick="goToQuestion(9)">10</div>
+            <div class="card-item" onclick="goToQuestion(10)">11</div>
+            <div class="card-item" onclick="goToQuestion(11)">12</div>
+            <div class="card-item" onclick="goToQuestion(12)">13</div>
+            <div class="card-item" onclick="goToQuestion(13)">14</div>
+            <div class="card-item" onclick="goToQuestion(14)">15</div>
+        </div>
+        <div class="card-legend">
+            <div class="legend-item">
+                <div class="legend-dot" style="background: #1890FF;"></div>
+                <span>当前题目</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot" style="background: #52C41A;"></div>
+                <span>已作答</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot" style="border: 1px solid #D9D9D9; background: #fff;"></div>
+                <span>未作答</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部操作 -->
+    <div class="exam-footer">
+        <button class="btn-prev">上一题</button>
+        <button class="btn-next">下一题</button>
+        <button class="btn-submit">提交试卷</button>
+    </div>
+    <script>
+        // 当前题目索引
+        let currentQuestionIndex = 3;
+        const totalQuestions = 15;
+
+        // 返回上级页面
+        function goBack() {
+            if (confirm('确定要退出考试吗？退出后已作答的题目将保存，但计时不会暂停。')) {
+                window.location.href = './学生端_我的考试.html';
+            }
+        }
+
+        // 跳转到指定题目
+        function goToQuestion(index) {
+            if (index < 0 || index >= totalQuestions) return;
+            
+            currentQuestionIndex = index;
+            
+            // 获取所有题目卡片
+            const questionCards = document.querySelectorAll('.question-card');
+            
+            if (questionCards[index]) {
+                // 滚动到对应题目
+                questionCards[index].scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+                
+                // 更新答题卡高亮状态
+                updateAnswerCardHighlight(index);
+            }
+        }
+
+        // 更新答题卡高亮
+        function updateAnswerCardHighlight(index) {
+            const cardItems = document.querySelectorAll('.card-item');
+            cardItems.forEach((item, i) => {
+                item.classList.remove('current');
+                if (i === index) {
+                    item.classList.add('current');
+                }
+            });
+        }
+
+        // 上一题
+        document.querySelector('.btn-prev').addEventListener('click', function() {
+            if (currentQuestionIndex > 0) {
+                goToQuestion(currentQuestionIndex - 1);
+            }
+        });
+
+        // 下一题
+        document.querySelector('.btn-next').addEventListener('click', function() {
+            if (currentQuestionIndex < totalQuestions - 1) {
+                goToQuestion(currentQuestionIndex + 1);
+            }
+        });
+
+        // 提交试卷
+        document.querySelector('.btn-submit').addEventListener('click', function() {
+            if (confirm('确定要提交试卷吗？提交后将无法修改答案。')) {
+                alert('试卷提交成功！');
+            }
+        });
+
+        // 选项点击事件
+        document.querySelectorAll('.option-item').forEach(option => {
+            option.addEventListener('click', function() {
+                const questionCard = this.closest('.question-card');
+                const questionIndex = Array.from(document.querySelectorAll('.question-card')).indexOf(questionCard);
+                
+                // 单选和判断题：只能选一个
+                const questionType = questionCard.querySelector('.question-type').textContent;
+                if (questionType.includes('单选') || questionType.includes('判断')) {
+                    questionCard.querySelectorAll('.option-item').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                } else if (questionType.includes('多选')) {
+                    // 多选题：可以选多个
+                    this.classList.toggle('selected');
+                }
+                
+                // 标记为已作答
+                markQuestionAsAnswered(questionIndex);
+            });
+        });
+
+        // 标记题目为已作答
+        function markQuestionAsAnswered(index) {
+            const cardItems = document.querySelectorAll('.card-item');
+            if (cardItems[index]) {
+                cardItems[index].classList.add('answered');
+            }
+        }
+
+        // 监听滚动，自动更新当前题目高亮
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(function() {
+                updateCurrentQuestionFromScroll();
+            }, 100);
+        });
+
+        // 根据滚动位置更新当前题目
+        function updateCurrentQuestionFromScroll() {
+            const questionCards = document.querySelectorAll('.question-card');
+            const scrollPosition = window.scrollY + window.innerHeight / 2;
+            
+            questionCards.forEach((card, index) => {
+                const rect = card.getBoundingClientRect();
+                const cardTop = rect.top + window.scrollY;
+                const cardBottom = cardTop + rect.height;
+                
+                if (scrollPosition >= cardTop && scrollPosition <= cardBottom) {
+                    currentQuestionIndex = index;
+                    updateAnswerCardHighlight(index);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

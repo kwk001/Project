@@ -1,0 +1,208 @@
+{
+  "version": "1.0.0",
+  "componentsMap": [
+    {
+      "devMode": "lowCode",
+      "componentName": "Page"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Button",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Button"
+    }
+  ],
+  "componentsTree": [
+    {
+      "componentName": "Page",
+      "id": "node_dockcviv8fo1",
+      "props": {
+        "ref": "outerView",
+        "style": {
+          "height": "100%"
+        }
+      },
+      "docId": "doclaqkk3b9",
+      "fileName": "/",
+      "dataSource": {
+        "list": [
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/formData/query"
+            },
+            "id": "queryFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "PUT",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/formData/update"
+            },
+            "id": "updateFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/formData/add"
+            },
+            "id": "addFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "DELETE",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/formData/delete"
+            },
+            "id": "deleteFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "GET",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/identity/user/query/current"
+            },
+            "id": "getCurrentUser",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/form/getIdByCode"
+            },
+            "id": "getIdByCode",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/formData/batchAdd"
+            },
+            "id": "addMoreFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          }
+        ]
+      },
+      "hidden": false,
+      "title": "",
+      "isLocked": false,
+      "condition": true,
+      "conditionGroup": "",
+      "children": [
+        {
+          "componentName": "Button",
+          "id": "node_ocmnpmads11",
+          "props": {
+            "prefix": "next-",
+            "type": "primary",
+            "size": "medium",
+            "htmlType": "button",
+            "component": "button",
+            "children": "取消",
+            "iconSize": "xxs",
+            "loading": false,
+            "text": false,
+            "warning": false,
+            "disabled": false
+          },
+          "hidden": false,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": ""
+        }
+      ]
+    }
+  ],
+  "i18n": {
+    "zh-CN": {
+      "i18n-jwg27yo4": "你好 ",
+      "i18n-jwg27yo3": "{name} 博士"
+    },
+    "en-US": {
+      "i18n-jwg27yo4": "Hello ",
+      "i18n-jwg27yo3": "Doctor {name}"
+    }
+  }
+}

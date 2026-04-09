@@ -1,0 +1,751 @@
+<!-- 我的考试页面内容 -->
+<div class="page-header">
+    <h1 class="page-title">我的考试</h1>
+    <div class="page-actions">
+        <button class="btn btn-primary" onclick="alert('功能开发中...')">
+            <i class="iconfont icon-lishi"></i> 考试记录
+        </button>
+    </div>
+</div>
+
+<!-- 统计卡片 -->
+<div class="stats-row">
+    <div class="stat-card">
+        <div class="stat-icon blue">
+            <i class="iconfont icon-shijuan"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-value">12</div>
+            <div class="stat-label">全部考试</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon orange">
+            <i class="iconfont icon-daojishi"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-value">3</div>
+            <div class="stat-label">待考试</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon purple">
+            <i class="iconfont icon-jinhangzhong"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-value">1</div>
+            <div class="stat-label">进行中</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon green">
+            <i class="iconfont icon-wancheng"></i>
+        </div>
+        <div class="stat-info">
+            <div class="stat-value">8</div>
+            <div class="stat-label">已完成</div>
+        </div>
+    </div>
+</div>
+
+<!-- 筛选栏 -->
+<div class="filter-bar">
+    <div class="filter-group">
+        <input type="text" class="search-input" placeholder="搜索考试名称">
+        <select class="filter-select">
+            <option value="">全部状态</option>
+            <option value="pending">待考试</option>
+            <option value="ongoing">进行中</option>
+            <option value="finished">已完成</option>
+        </select>
+        <select class="filter-select">
+            <option value="">全部类型</option>
+            <option value="mid">期中考试</option>
+            <option value="final">期末考试</option>
+            <option value="quiz">随堂测验</option>
+        </select>
+    </div>
+    <div class="filter-actions">
+        <button class="btn btn-primary">查询</button>
+        <button class="btn btn-default">重置</button>
+    </div>
+</div>
+
+<!-- 考试列表 -->
+<div class="exam-list">
+    <!-- 待考试 -->
+    <div class="exam-card status-pending">
+        <div class="exam-header">
+            <div class="exam-info-main">
+                <h3 class="exam-title">机械制图期末考试</h3>
+                <div class="exam-tags">
+                    <span class="tag tag-type">期末考试</span>
+                    <span class="tag tag-urgent">紧急</span>
+                </div>
+            </div>
+            <div class="exam-status-badge pending">待考试</div>
+        </div>
+        <div class="exam-body">
+            <div class="exam-detail">
+                <div class="detail-item">
+                    <i class="iconfont icon-shijian"></i>
+                    <span class="label">考试时间：</span>
+                    <span class="value">2025-01-15 14:00-16:00</span>
+                </div>
+                <div class="detail-item">
+                    <i class="iconfont icon-daojishi"></i>
+                    <span class="label">考试时长：</span>
+                    <span class="value">120分钟</span>
+                </div>
+                <div class="detail-item">
+                    <i class="iconfont icon-timu"></i>
+                    <span class="label">题目数量：</span>
+                    <span class="value">50题</span>
+                </div>
+                <div class="detail-item">
+                    <i class="iconfont icon-fenshu"></i>
+                    <span class="label">总分：</span>
+                    <span class="value">100分</span>
+                </div>
+            </div>
+            <div class="exam-countdown">
+                <div class="countdown-label">距离考试开始</div>
+                <div class="countdown-value">2天 14小时</div>
+            </div>
+        </div>
+        <div class="exam-footer">
+            <div class="exam-tips">
+                <i class="iconfont icon-tishi"></i>
+                <span>请提前准备好身份证和学生证，按时参加考试</span>
+            </div>
+            <div class="exam-actions">
+                <button class="btn btn-primary" onclick="loadPage('exam-detail')">进入考场</button>
+                <button class="btn btn-default" onclick="viewExamDetail()">查看详情</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 进行中 -->
+    <div class="exam-card status-ongoing">
+        <div class="exam-header">
+            <div class="exam-info-main">
+                <h3 class="exam-title">数控加工技术期中考试</h3>
+                <div class="exam-tags">
+                    <span class="tag tag-type">期中考试</span>
+                </div>
+            </div>
+            <div class="exam-status-badge ongoing">进行中</div>
+        </div>
+        <div class="exam-body">
+            <div class="exam-detail">
+                <div class="detail-item">
+                    <i class="iconfont icon-shijian"></i>
+                    <span class="label">考试时间：</span>
+                    <span class="value">2025-01-10 09:00-11:00</span>
+                </div>
+                <div class="detail-item">
+                    <i class="iconfont icon-daojishi"></i>
+                    <span class="label">剩余时间：</span>
+                    <span class="value" style="color: #ff4d4f; font-weight: 600;">45分钟</span>
+                </div>
+                <div class="detail-item">
+                    <i class="iconfont icon-timu"></i>
+                    <span class="label">已答题：</span>
+                    <span class="value">32/50题</span>
+                </div>
+                <div class="detail-item">
+                    <i class="iconfont icon-jindu"></i>
+                    <span class="label">完成进度：</span>
+                    <div class="mini-progress">
+                        <div class="mini-progress-bar" style="width: 64%"></div>
+                    </div>
+                    <span class="value">64%</span>
+                </div>
+            </div>
+            <div class="exam-urgent">
+                <div class="urgent-icon">⚠️</div>
+                <div class="urgent-text">考试进行中，请尽快完成答题</div>
+            </div>
+        </div>
+        <div class="exam-footer">
+            <div class="exam-tips" style="color: #ff4d4f;">
+                <i class="iconfont icon-jinggao"></i>
+                <span>考试时间有限，请合理分配答题时间</span>
+            </div>
+            <div class="exam-actions">
+                <button class="btn btn-primary btn-pulse" onclick="loadPage('exam-detail')">继续答题</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 已完成 -->
+    <div class="exam-card status-finished">
+        <div class="exam-header">
+            <div class="exam-info-main">
+                <h3 class="exam-title">机械设计基础随堂测验</h3>
+                <div class="exam-tags">
+                    <span class="tag tag-type">随堂测验</span>
+                </div>
+            </div>
+            <div class="exam-status-badge finished">已完成</div>
+        </div>
+        <div class="exam-body">
+            <div class="exam-detail">
+                <div class="detail-item">
+                    <i class="iconfont icon-shijian"></i>
+                    <span class="label">考试时间：</span>
+                    <span class="value">2025-01-05 10:00-10:45</span>
+                </div>
+                <div class="detail-item">
+                    <i class="iconfont icon-fenshu"></i>
+                    <span class="label">得分：</span>
+                    <span class="value score-good">88分</span>
+                </div>
+                <div class="detail-item">
+                    <i class="iconfont icon-paiming"></i>
+                    <span class="label">班级排名：</span>
+                    <span class="value">第5名 / 45人</span>
+                </div>
+                <div class="detail-item">
+                    <i class="iconfont icon-zhengquelu"></i>
+                    <span class="label">正确率：</span>
+                    <span class="value">88%</span>
+                </div>
+            </div>
+            <div class="exam-score">
+                <div class="score-circle good">
+                    <span class="score-value">88</span>
+                    <span class="score-label">分</span>
+                </div>
+                <div class="score-rating">良好</div>
+            </div>
+        </div>
+        <div class="exam-footer">
+            <div class="exam-tips">
+                <i class="iconfont icon-tishi"></i>
+                <span>可以查看解析和错题回顾，巩固知识点</span>
+            </div>
+            <div class="exam-actions">
+                <button class="btn btn-default" onclick="loadPage('exam-result')">查看成绩</button>
+                <button class="btn btn-default" onclick="loadPage('wrong-detail')">错题回顾</button>
+                <button class="btn btn-default" onclick="downloadReport()">下载成绩单</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 已完成 -->
+    <div class="exam-card status-finished">
+        <div class="exam-header">
+            <div class="exam-info-main">
+                <h3 class="exam-title">CAD/CAM技术期末考试</h3>
+                <div class="exam-tags">
+                    <span class="tag tag-type">期末考试</span>
+                </div>
+            </div>
+            <div class="exam-status-badge finished">已完成</div>
+        </div>
+        <div class="exam-body">
+            <div class="exam-detail">
+                <div class="detail-item">
+                    <i class="iconfont icon-shijian"></i>
+                    <span class="label">考试时间：</span>
+                    <span class="value">2024-12-28 14:00-16:00</span>
+                </div>
+                <div class="detail-item">
+                    <i class="iconfont icon-fenshu"></i>
+                    <span class="label">得分：</span>
+                    <span class="value score-excellent">92分</span>
+                </div>
+                <div class="detail-item">
+                    <i class="iconfont icon-paiming"></i>
+                    <span class="label">班级排名：</span>
+                    <span class="value">第2名 / 45人</span>
+                </div>
+                <div class="detail-item">
+                    <i class="iconfont icon-zhengquelu"></i>
+                    <span class="label">正确率：</span>
+                    <span class="value">92%</span>
+                </div>
+            </div>
+            <div class="exam-score">
+                <div class="score-circle excellent">
+                    <span class="score-value">92</span>
+                    <span class="score-label">分</span>
+                </div>
+                <div class="score-rating">优秀</div>
+            </div>
+        </div>
+        <div class="exam-footer">
+            <div class="exam-tips">
+                <i class="iconfont icon-tishi"></i>
+                <span>可以查看解析和错题回顾，巩固知识点</span>
+            </div>
+            <div class="exam-actions">
+                <button class="btn btn-default" onclick="loadPage('exam-result')">查看成绩</button>
+                <button class="btn btn-default" onclick="loadPage('wrong-detail')">错题回顾</button>
+                <button class="btn btn-default" onclick="downloadReport()">下载成绩单</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 分页 -->
+<div class="pagination">
+    <span class="page-info">共 12 场考试</span>
+    <button class="page-btn" disabled>上一页</button>
+    <button class="page-btn active">1</button>
+    <button class="page-btn">2</button>
+    <button class="page-btn">3</button>
+    <button class="page-btn">下一页</button>
+</div>
+
+<script>
+// 查看考试详情
+function viewExamDetail() {
+    alert('查看考试详情');
+}
+
+// 下载成绩单
+function downloadReport() {
+    alert('成绩单下载中...');
+}
+</script>
+
+<style>
+/* 页面头部 */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1f1f1f;
+    margin: 0;
+}
+
+.page-actions .btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 统计卡片 */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: all 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.stat-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #fff;
+}
+
+.stat-icon.blue { background: linear-gradient(135deg, #1890ff, #36cfc9); }
+.stat-icon.orange { background: linear-gradient(135deg, #fa8c16, #ffc53d); }
+.stat-icon.purple { background: linear-gradient(135deg, #722ed1, #b37feb); }
+.stat-icon.green { background: linear-gradient(135deg, #52c41a, #73d13d); }
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1f1f1f;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #8c8c8c;
+}
+
+/* 筛选栏 */
+.filter-bar {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.filter-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.search-input {
+    width: 280px;
+    padding: 10px 16px;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #1890ff;
+    box-shadow: 0 0 0 3px rgba(24,144,255,0.1);
+}
+
+.filter-select {
+    padding: 10px 16px;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fff;
+    min-width: 120px;
+    cursor: pointer;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* 按钮样式 */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background: #1890ff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: #40a9ff;
+}
+
+.btn-default {
+    background: #fff;
+    color: #595959;
+    border: 1px solid #d9d9d9;
+}
+
+.btn-default:hover {
+    border-color: #1890ff;
+    color: #1890ff;
+}
+
+.btn-pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(24,144,255,0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(24,144,255,0); }
+}
+
+/* 考试列表 */
+.exam-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.exam-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: all 0.3s;
+    border-left: 4px solid transparent;
+}
+
+.exam-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.exam-card.status-pending { border-left-color: #fa8c16; }
+.exam-card.status-ongoing { border-left-color: #722ed1; }
+.exam-card.status-finished { border-left-color: #52c41a; }
+
+.exam-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.exam-info-main {
+    flex: 1;
+}
+
+.exam-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f1f1f;
+    margin: 0 0 8px 0;
+}
+
+.exam-tags {
+    display: flex;
+    gap: 8px;
+}
+
+.tag {
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.tag-type { background: #e6f7ff; color: #1890ff; }
+.tag-urgent { background: #fff1f0; color: #ff4d4f; }
+
+.exam-status-badge {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.exam-status-badge.pending { background: #fff7e6; color: #fa8c16; }
+.exam-status-badge.ongoing { background: #f9f0ff; color: #722ed1; }
+.exam-status-badge.finished { background: #f6ffed; color: #52c41a; }
+
+.exam-body {
+    display: flex;
+    padding: 20px 24px;
+    gap: 40px;
+}
+
+.exam-detail {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.detail-item i {
+    color: #8c8c8c;
+    font-size: 16px;
+}
+
+.detail-item .label {
+    color: #8c8c8c;
+}
+
+.detail-item .value {
+    color: #1f1f1f;
+    font-weight: 500;
+}
+
+.detail-item .value.score-good { color: #52c41a; }
+.detail-item .value.score-excellent { color: #1890ff; }
+
+.mini-progress {
+    width: 60px;
+    height: 6px;
+    background: #f0f0f0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.mini-progress-bar {
+    height: 100%;
+    background: #1890ff;
+    border-radius: 3px;
+}
+
+.exam-countdown {
+    text-align: center;
+    padding: 16px 24px;
+    background: #fff7e6;
+    border-radius: 8px;
+    min-width: 140px;
+}
+
+.countdown-label {
+    font-size: 12px;
+    color: #8c8c8c;
+    margin-bottom: 4px;
+}
+
+.countdown-value {
+    font-size: 20px;
+    font-weight: 600;
+    color: #fa8c16;
+}
+
+.exam-urgent {
+    text-align: center;
+    padding: 16px 24px;
+    background: #f9f0ff;
+    border-radius: 8px;
+    min-width: 140px;
+}
+
+.urgent-icon {
+    font-size: 32px;
+    margin-bottom: 4px;
+}
+
+.urgent-text {
+    font-size: 13px;
+    color: #722ed1;
+    font-weight: 500;
+}
+
+.exam-score {
+    text-align: center;
+    padding: 16px 24px;
+    background: #f6ffed;
+    border-radius: 8px;
+    min-width: 140px;
+}
+
+.score-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+    background: #fff;
+    border: 4px solid #52c41a;
+}
+
+.score-circle.good { border-color: #52c41a; }
+.score-circle.excellent { border-color: #1890ff; }
+
+.score-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f1f1f;
+}
+
+.score-label {
+    font-size: 14px;
+    color: #8c8c8c;
+    margin-left: 2px;
+}
+
+.score-rating {
+    font-size: 14px;
+    font-weight: 500;
+    color: #52c41a;
+}
+
+.exam-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: #fafafa;
+    border-top: 1px solid #f0f0f0;
+}
+
+.exam-tips {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #8c8c8c;
+}
+
+.exam-tips i {
+    font-size: 16px;
+}
+
+.exam-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* 分页 */
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.page-info {
+    color: #8c8c8c;
+    font-size: 14px;
+    margin-right: 16px;
+}
+
+.page-btn {
+    padding: 8px 16px;
+    border: 1px solid #d9d9d9;
+    background: #fff;
+    color: #595959;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.page-btn:hover:not(:disabled) {
+    border-color: #1890ff;
+    color: #1890ff;
+}
+
+.page-btn.active {
+    background: #1890ff;
+    color: #fff;
+    border-color: #1890ff;
+}
+
+.page-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+</style>
