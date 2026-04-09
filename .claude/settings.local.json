@@ -166,7 +166,12 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5174)",
       "Bash(python3 /tmp/remove_bg.py)",
       "Bash(start-lc-server --project-dir \"/Users/apple/Desktop/文件/kaiwu-project/02-guqirongcai/docs\")",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5556/preview)"
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5556/preview)",
+      "Bash(python3 /tmp/process_doc.py)",
+      "Bash(python3 /tmp/final_reorganize.py)",
+      "Bash(python3 /tmp/final_reorganize2.py)",
+      "Bash(python3 /tmp/add_missing.py)",
+      "Bash(python3 /tmp/create_final_doc.py)"
     ],
     "additionalDirectories": [
       "/tmp",
