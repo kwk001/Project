@@ -171,7 +171,9 @@
       "Bash(python3 /tmp/final_reorganize.py)",
       "Bash(python3 /tmp/final_reorganize2.py)",
       "Bash(python3 /tmp/add_missing.py)",
-      "Bash(python3 /tmp/create_final_doc.py)"
+      "Bash(python3 /tmp/create_final_doc.py)",
+      "Bash(python3 generate_42_section.py)",
+      "Bash(python3 \"生成_4.2节_页面级.py\")"
     ],
     "additionalDirectories": [
       "/tmp",
