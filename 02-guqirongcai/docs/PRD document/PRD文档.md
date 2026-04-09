@@ -1619,6 +1619,7 @@ flowchart TD
 | 3 | 产品分类 | categoryName | 只读展示 |
 | 4 | 规格型号 | specification | 只读展示 |
 | 5 | 计量单位 | unitName | 只读展示 |
+| 6 | 规格型号 | specification | 只读展示 |
 | 6 | 备注说明 | remark | 只读展示 |
 | 7 | 状态 | status | 只读展示 |
 | 8 | 创建人 | createBy | 只读展示 |
@@ -2391,12 +2392,13 @@ flowchart TD
 | 1 | 产品档案 | materialId | 下拉选择(Select) | 是 | - | - | 选择后带出编号、单位 |
 | 2 | 产品编号 | materialCode | 输入框(只读) | - | - | - | 由产品档案带出 |
 | 3 | 计量单位 | unitName | 输入框(只读) | - | - | - | 由产品档案带出 |
-| 4 | 批次号 | batchNo | 输入框(Input) | 是 | 唯一，长度4-30 | - | - |
-| 5 | 数量 | quantity | 数字框(Number) | 是 | >0，最大999999 | - | - |
-| 6 | 生产日期 | produceDate | 日期选择(DatePicker) | 是 | 不能晚于今天 | 当天日期 | - |
-| 7 | 执行标准 | executionStandard | 下拉选择(Select) | 是 | - | - | 关联执行标准管理 |
-| 8 | 产品标准类别 | productStandardCategory | 下拉选择 | 是 | 国标/行标/企标 | - | - |
-| 9 | 生产年度 | productionYear | 年份选择(YearPicker) | 是 | 4位年份 | 当年 | - |
+| 4 | 规格型号 | specification | 输入框(只读) | - | - | - | 由产品档案带出 |
+| 5 | 批次号 | batchNo | 输入框(Input) | 是 | 唯一，长度4-30 | - | - |
+| 6 | 数量 | quantity | 数字框(Number) | 是 | >0，最大999999 | - | - |
+| 7 | 生产日期 | produceDate | 日期选择(DatePicker) | 是 | 不能晚于今天 | 当天日期 | - |
+| 8 | 执行标准 | executionStandard | 下拉选择(Select) | 是 | - | - | 关联执行标准管理 |
+| 9 | 产品标准类别 | productStandardCategory | 下拉选择 | 是 | 国标/行标/企标 | - | - |
+| 10 | 生产年度 | productionYear | 年份选择(YearPicker) | 是 | 4位年份 | 当年 | - |
 
 **媒体信息区域**：
 
@@ -2452,21 +2454,22 @@ flowchart TD
 | 3 | 产品名称 | materialName | 只读展示 |
 | 4 | 数量 | quantity | 只读展示 |
 | 5 | 计量单位 | unitName | 只读展示 |
-| 6 | 生产日期 | produceDate | 只读展示 |
-| 7 | 执行标准 | executionStandard | 只读展示 |
-| 8 | 产品标准类别 | productStandardCategory | 只读展示 |
-| 9 | 生产年度 | productionYear | 只读展示 |
-| 10 | 绒子含量 | downContent | 只读展示 |
-| 11 | 蓬松度 | fluffiness | 只读展示 |
-| 12 | 浊度 | turbidity | 只读展示 |
-| 13 | 气味 | odor | 只读展示 |
-| 14 | 产品码状态 | productCodeStatus | 只读展示 |
-| 15 | 下载次数 | downloadCount | 只读展示 |
-| 16 | 产品码图片 | productCodeImage | 展示可下载的产品码图片 |
-| 17 | 创建人 | createBy | 只读展示 |
-| 18 | 创建时间 | createTime | 只读展示 |
-| 19 | 产品视频 | productVideo | 视频播放（如有） |
-| 20 | 认证信息 | certificationImages | 图片展示（如有） |
+| 6 | 规格型号 | specification | 只读展示 |
+| 7 | 生产日期 | produceDate | 只读展示 |
+| 8 | 执行标准 | executionStandard | 只读展示 |
+| 9 | 产品标准类别 | productStandardCategory | 只读展示 |
+| 10 | 生产年度 | productionYear | 只读展示 |
+| 11 | 绒子含量 | downContent | 只读展示 |
+| 12 | 蓬松度 | fluffiness | 只读展示 |
+| 13 | 浊度 | turbidity | 只读展示 |
+| 14 | 气味 | odor | 只读展示 |
+| 15 | 产品码状态 | productCodeStatus | 只读展示 |
+| 16 | 下载次数 | downloadCount | 只读展示 |
+| 17 | 产品码图片 | productCodeImage | 展示可下载的产品码图片 |
+| 18 | 创建人 | createBy | 只读展示 |
+| 19 | 创建时间 | createTime | 只读展示 |
+| 20 | 产品视频 | productVideo | 视频播放（如有） |
+| 21 | 认证信息 | certificationImages | 图片展示（如有） |
 
 ##### 4.4.7.3 功能点三：下载产品码
 
@@ -2871,10 +2874,11 @@ flowchart TD
 页面结构：
 - 头部区域：企业Logo、企业名称
 - 验证结果区域：验证图标、验证文字、验证说明
-- 产品信息区域：产品名称、规格、质量等级、生产地、生产日期、批次号
+- 产品信息区域：产品名称、规格、质量等级、生产地、生产日期、批次号、执行标准、产品标准类别、生产年度
 - 质检指标区域：四宫格卡片（绒子含量、蓬松度、浊度、气味）
 - 溯源流程区域：时间线（原料采购→原料检验→生产加工→成品检验→包装入库）
 - 企业信息区域：企业名称、地址、生产许可证、质检员、微信公众号图片、企业链接（多链接）
+- 媒体展示区域：产品视频、认证信息图片（如有）
 - 底部区域：数据来源说明
 
 #### 4.5.6 数据获取与展示
