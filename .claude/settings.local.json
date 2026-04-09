@@ -173,7 +173,15 @@
       "Bash(python3 /tmp/add_missing.py)",
       "Bash(python3 /tmp/create_final_doc.py)",
       "Bash(python3 generate_42_section.py)",
-      "Bash(python3 \"生成_4.2节_页面级.py\")"
+      "Bash(python3 \"生成_4.2节_页面级.py\")",
+      "Bash(sed -i '' '2699s/二维码生成失败/产品码生成失败/' \"/Users/apple/Desktop/文件/kaiwu-project/02-guqirongcai/docs/PRD document/PRD文档.md\")",
+      "Bash(grep -c \"^\\\\`\\\\`\\\\`mermaid\" \"/Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书/技术方案说明书_国际物流航空货站运行平台及海关信息平台_V3.1.md\")",
+      "Bash(sed -n 4840,6279p /Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书/技术方案说明书_V3.0_按二级目录组织_备份.md)",
+      "Bash(sed -n 6280,6360p /Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书/技术方案说明书_V3.0_按二级目录组织_备份.md)",
+      "Bash(sed -n 6361,6425p /Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书/技术方案说明书_V3.0_按二级目录组织_备份.md)",
+      "Bash(sed -n 6426,6468p /Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书/技术方案说明书_V3.0_按二级目录组织_备份.md)",
+      "Bash(sed -n 6469,6603p /Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书/技术方案说明书_V3.0_按二级目录组织_备份.md)",
+      "Bash(python3 \"/Users/apple/Desktop/文件/kaiwu-project/03-hangk/docs/技术方案说明书/合并修复脚本.py\")"
     ],
     "additionalDirectories": [
       "/tmp",

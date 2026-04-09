@@ -117,7 +117,7 @@
 1. 操作员点击"新增批次"按钮，打开批次表单
 2. 选择产品档案（系统自动带出产品名称、编号）
 3. 填写批次号（系统校验唯一性）、数量、生产日期
-4. 录入质检数据：绒子含量、蓬松度、清洁度、耗氧量
+4. 录入质检数据：绒子含量、蓬松度、浊度、气味
 5. 点击"生成产品码"预览产品码
 6. 确认信息无误后点击"保存并生成产品码"
 7. 系统生成高清产品码图片
@@ -2291,13 +2291,16 @@ flowchart TD
 | 4 | 产品编号 | materialCode | String | 是 | - |
 | 5 | 数量 | quantity | Number | 是 | 大于0 |
 | 6 | 生产日期 | produceDate | Date | 是 | - |
-| 7 | 绒子含量 | downContent | String | 是 | 如：95% |
-| 8 | 蓬松度 | fluffiness | String | 是 | 如：900+ in³/30g |
-| 9 | 产品码状态 | productCodeStatus | Enum | 是 | 已生成/未生成 |
-| 10 | 下载次数 | downloadCount | Number | 是 | 默认为0 |
-| 11 | 创建人 | createBy | String | 是 | - |
-| 12 | 创建时间 | createTime | DateTime | 是 | 系统自动记录 |
-| 13 | 操作 | - | - | - | 查看/下载 |
+| 7 | 执行标准 | executionStandard | String | 是 | 关联执行标准 |
+| 8 | 产品标准类别 | productStandardCategory | String | 是 | 国标/行标/企标 |
+| 9 | 生产年度 | productionYear | Number | 是 | 4位年份 |
+| 10 | 绒子含量 | downContent | String | 是 | 如：95% |
+| 11 | 蓬松度 | fluffiness | String | 是 | 如：900+ in³/30g |
+| 12 | 产品码状态 | productCodeStatus | Enum | 是 | 已生成/未生成 |
+| 13 | 下载次数 | downloadCount | Number | 是 | 默认为0 |
+| 14 | 创建人 | createBy | String | 是 | - |
+| 15 | 创建时间 | createTime | DateTime | 是 | 系统自动记录 |
+| 16 | 操作 | - | - | - | 查看/下载 |
 
 ##### 4.4.5.4 筛选条件
 
@@ -2363,7 +2366,7 @@ flowchart TD
 | BR2 | 批次号格式 | 批次号长度4-30字符，建议格式BC+年月日+流水号 | 建议 |
 | BR3 | 数量范围 | 数量必须大于0，最大999999 | 必须 |
 | BR4 | 生产日期限制 | 生产日期不能晚于今天 | 必须 |
-| BR5 | 质检必填 | 绒子含量、蓬松度、清洁度、耗氧量必须填写 | 必须 |
+| BR5 | 质检必填 | 绒子含量、蓬松度、浊度、气味必须填写 | 必须 |
 | BR6 | 产品码生成 | 保存成功后自动生成高清产品码（产品标签/吊牌） | 必须 |
 | BR7 | 溯源URL | 自动生成溯源URL，格式：https://domain/trace/{batchNo} | 必须 |
 | BR8 | 下载格式 | 支持下载PNG格式高清产品码图片（产品标签/吊牌），分辨率不低于600dpi | 必须 |
@@ -2391,15 +2394,24 @@ flowchart TD
 | 4 | 批次号 | batchNo | 输入框(Input) | 是 | 唯一，长度4-30 | - | - |
 | 5 | 数量 | quantity | 数字框(Number) | 是 | >0，最大999999 | - | - |
 | 6 | 生产日期 | produceDate | 日期选择(DatePicker) | 是 | 不能晚于今天 | 当天日期 | - |
+| 7 | 执行标准 | executionStandard | 下拉选择(Select) | 是 | - | - | 关联执行标准管理 |
+| 8 | 产品标准类别 | productStandardCategory | 下拉选择 | 是 | 国标/行标/企标 | - | - |
+| 9 | 生产年度 | productionYear | 年份选择(YearPicker) | 是 | 4位年份 | 当年 | - |
 
+**媒体信息区域**：
+
+| 序号 | 字段名称 | 字段标识 | 控件类型 | 是否必填 | 验证规则 | 默认值 | 联动规则 |
+|------|---------|---------|---------|---------|---------|--------|---------|
+| 1 | 产品视频 | productVideo | 文件上传(Video) | 否 | 支持MP4，最大100MB | - | - |
+| 2 | 认证信息 | certificationImages | 图片上传(Image) | 否 | 支持JPG/PNG，最多5张 | - | - |
 **质检信息区域**：
 
 | 序号 | 字段名称 | 字段标识 | 控件类型 | 是否必填 | 验证规则 | 默认值 | 联动规则 |
 |------|---------|---------|---------|---------|---------|--------|---------|
 | 1 | 绒子含量 | downContent | 输入框 | 是 | 如：90%、95% | - | - |
 | 2 | 蓬松度 | fluffiness | 输入框 | 是 | 如：850、900+ | - | - |
-| 3 | 清洁度 | cleanliness | 输入框 | 是 | 如：1000+ | - | - |
-| 4 | 耗氧量 | oxygenConsumption | 输入框 | 是 | 如：≤4.8 | - | - |
+| 3 | 浊度 | turbidity | 输入框 | 是 | 如：10mm | - | - |
+| 4 | 气味 | odor | 输入框 | 是 | 如：无异物 | - | - |
 
 ##### 4.4.7.2 功能点二：查看详情
 
@@ -2441,17 +2453,22 @@ flowchart TD
 | 4 | 数量 | quantity | 只读展示 |
 | 5 | 计量单位 | unitName | 只读展示 |
 | 6 | 生产日期 | produceDate | 只读展示 |
-| 7 | 绒子含量 | downContent | 只读展示 |
-| 8 | 蓬松度 | fluffiness | 只读展示 |
-| 9 | 清洁度 | cleanliness | 只读展示 |
-| 10 | 耗氧量 | oxygenConsumption | 只读展示 |
-| 11 | 产品码状态 | productCodeStatus | 只读展示 |
-| 12 | 下载次数 | downloadCount | 只读展示 |
-| 13 | 产品码图片 | productCodeImage | 展示可下载的产品码图片 |
-| 14 | 创建人 | createBy | 只读展示 |
-| 15 | 创建时间 | createTime | 只读展示 |
+| 7 | 执行标准 | executionStandard | 只读展示 |
+| 8 | 产品标准类别 | productStandardCategory | 只读展示 |
+| 9 | 生产年度 | productionYear | 只读展示 |
+| 10 | 绒子含量 | downContent | 只读展示 |
+| 11 | 蓬松度 | fluffiness | 只读展示 |
+| 12 | 浊度 | turbidity | 只读展示 |
+| 13 | 气味 | odor | 只读展示 |
+| 14 | 产品码状态 | productCodeStatus | 只读展示 |
+| 15 | 下载次数 | downloadCount | 只读展示 |
+| 16 | 产品码图片 | productCodeImage | 展示可下载的产品码图片 |
+| 17 | 创建人 | createBy | 只读展示 |
+| 18 | 创建时间 | createTime | 只读展示 |
+| 19 | 产品视频 | productVideo | 视频播放（如有） |
+| 20 | 认证信息 | certificationImages | 图片展示（如有） |
 
-##### 4.4.7.3 功能点三：下载二维码
+##### 4.4.7.3 功能点三：下载产品码
 
 ###### 4.4.7.3.1 功能描述
 
@@ -2463,7 +2480,7 @@ flowchart TD
 |------|------|
 | **入口位置** | 列表页操作列、详情弹窗 |
 | **入口形式** | 图标按钮 |
-| **入口文案** | 下载二维码 |
+| **入口文案** | 下载产品码 |
 | **显示条件** | 用户有下载权限时显示 |
 
 ###### 4.4.7.3.3 业务规则
@@ -2472,7 +2489,7 @@ flowchart TD
 |---------|---------|---------|--------|
 | BR1 | 下载次数限制 | 不限制下载次数，可重复下载 | 必须 |
 | BR2 | 图片格式 | 下载PNG格式产品码图片，分辨率不低于600dpi | 必须 |
-| BR3 | 文件命名 | 文件名格式：{批次号}_二维码.png | 建议 |
+| BR3 | 文件命名 | 文件名格式：{批次号}_产品码.png | 建议 |
 
 ###### 4.4.7.3.4 操作逻辑
 
@@ -2501,7 +2518,7 @@ flowchart TD
 | 规则编号 | 规则名称 | 规则描述 | 优先级 |
 |---------|---------|---------|--------|
 | BR1 | 模糊匹配 | 批次号、产品名称支持模糊查询 | 必须 |
-| BR2 | 精确匹配 | 二维码状态下拉选择精确匹配 | 必须 |
+| BR2 | 精确匹配 | 产品码状态下拉选择精确匹配 | 必须 |
 | BR3 | 区间查询 | 生产日期支持区间查询 | 必须 |
 | BR4 | 组合查询 | 多个条件组合AND查询 | 必须 |
 
@@ -2558,18 +2575,23 @@ flowchart TD
 | 6 | 数量 | quantity | 数字框 | Number | - | 是 | - | >0，最大999999 | - |
 | 7 | 计量单位 | unitName | - | String | 20 | 是 | - | 冗余字段 | - |
 | 8 | 生产日期 | produceDate | 日期选择 | Date | - | 是 | - | 不能晚于今天 | - |
-| 9 | 绒子含量 | downContent | 输入框 | String | 20 | 是 | - | - | - |
-| 10 | 蓬松度 | fluffiness | 输入框 | String | 20 | 是 | - | - | - |
-| 11 | 清洁度 | cleanliness | 输入框 | String | 20 | 是 | - | - | - |
-| 12 | 耗氧量 | oxygenConsumption | 输入框 | String | 20 | 是 | - | - | - |
-| 13 | 产品码状态 | productCodeStatus | - | String | 10 | 是 | 未生成 | - | 已生成/未生成 |
-| 14 | 下载次数 | downloadCount | - | Number | - | 是 | 0 | - | - |
-| 15 | 溯源URL | traceUrl | - | String | 200 | 系统 | 自动生成 | - | - |
-| 16 | 删除标记 | delFlag | - | Number | - | 是 | 0 | 0=正常,1=删除 | - |
-| 17 | 创建人 | createBy | - | String | 32 | 系统 | 当前用户 | - | - |
-| 18 | 创建时间 | createTime | - | DateTime | - | 系统 | 当前时间 | - | - |
-| 19 | 更新人 | updateBy | - | String | 32 | 系统 | 当前用户 | - | - |
-| 20 | 更新时间 | updateTime | - | DateTime | - | 系统 | 当前时间 | - | - |
+| 9 | 执行标准 | executionStandard | 下拉选择 | String | 32 | 是 | - | 外键 | 关联执行标准 |
+| 10 | 产品标准类别 | productStandardCategory | 下拉选择 | String | 20 | 是 | - | 国标/行标/企标 | - |
+| 11 | 生产年度 | productionYear | 年份选择 | Number | - | 是 | - | 4位年份 | - |
+| 12 | 产品视频 | productVideo | 文件上传 | String | 200 | 否 | - | URL | 视频文件地址 |
+| 13 | 认证信息图片 | certificationImages | 图片上传 | String | 500 | 否 | - | JSON数组 | 图片URL列表 |
+| 14 | 绒子含量 | downContent | 输入框 | String | 20 | 是 | - | - | - |
+| 15 | 蓬松度 | fluffiness | 输入框 | String | 20 | 是 | - | - | - |
+| 16 | 浊度 | turbidity | 输入框 | String | 20 | 是 | - | - | - |
+| 17 | 气味 | odor | 输入框 | String | 20 | 是 | - | - | - |
+| 18 | 产品码状态 | productCodeStatus | - | String | 10 | 是 | 未生成 | - | 已生成/未生成 |
+| 19 | 下载次数 | downloadCount | - | Number | - | 是 | 0 | - | - |
+| 20 | 溯源URL | traceUrl | - | String | 200 | 系统 | 自动生成 | - | - |
+| 21 | 删除标记 | delFlag | - | Number | - | 是 | 0 | 0=正常,1=删除 | - |
+| 22 | 创建人 | createBy | - | String | 32 | 系统 | 当前用户 | - | - |
+| 23 | 创建时间 | createTime | - | DateTime | - | 系统 | 当前时间 | - | - |
+| 24 | 更新人 | updateBy | - | String | 32 | 系统 | 当前用户 | - | - |
+| 25 | 更新时间 | updateTime | - | DateTime | - | 系统 | 当前时间 | - | - |
 
 ##### 4.4.8.2 关联实体
 
@@ -2582,7 +2604,7 @@ flowchart TD
 1. 批次号全局唯一，不可重复
 2. 批次号长度4-30字符，建议格式BC+年月日+流水号
 3. 生产日期不能晚于今天
-4. 二维码下载次数不限，可重复下载
+4. 产品码下载次数不限，可重复下载
 
 #### 4.4.9 UI界面设计
 
@@ -2596,7 +2618,7 @@ flowchart TD
 │       └── 质检信息区域
 ├── KaiwuFlexDialog（详情对话框）
 │   ├── 批次信息展示
-│   └── 二维码展示
+│   └── 产品码展示
 ├── KaiwuFlexDialog（确认对话框）
 └── KaiwuFlexLayout（主布局）
     ├── 搜索区域
@@ -2655,10 +2677,10 @@ flowchart TD
 │ │ 耗 氧 量: [                  ] *              ││
 │ └────────────────────────────────────────────────┘│
 │                                                    │
-│ [生成二维码预览]                                   │
+│ [生成产品码预览]                                   │
 │                                                    │
 ├────────────────────────────────────────────────────┤
-│                         [取消]  [保存并生成二维码] │
+│                         [取消]  [保存并生成产品码] │
 └────────────────────────────────────────────────────┘
 ```
 
@@ -2696,7 +2718,7 @@ flowchart TD
 | 重复提交 | 按钮loading+防抖 | 禁用按钮直到请求完成 | 按钮显示loading状态 |
 | 批次号重复 | 唯一性校验 | 阻止保存 | "批次号已存在，请更换" |
 | 质检数据不完整 | 必填项校验 | 提示补充 | "请填写完整的质检信息" |
-| 二维码生成失败 | 生成服务 | 重试或提示 | "二维码生成失败，请重试" |
+| 产品码生成失败 | 生成服务 | 重试或提示 | "产品码生成失败，请重试" |
 | 批次号重复 | 提交前校验 | 阻止提交 | "批次号已存在，请更换" |
 
 ##### 4.4.10.5 输入异常
@@ -2726,8 +2748,13 @@ const batchData = [
     produceDate: "2024-01-15",
     downContent: "95%",
     fluffiness: "900+",
-    cleanliness: "1000+",
-    oxygenConsumption: "≤4.8",
+    turbidity: "10mm",
+    executionStandard: "GB/T 14272-2021",
+    productStandardCategory: "国家标准",
+    productionYear: 2024,
+    productVideo: "https://guqi.example.com/videos/batch_001.mp4",
+    certificationImages: ["https://guqi.example.com/images/cert1.jpg", "https://guqi.example.com/images/cert2.jpg"],
+    odor: "无异物",
     productCodeStatus: "已生成",
     downloadCount: 1,
     traceUrl: "https://guqi.example.com/trace/BC202401001",
@@ -2748,8 +2775,13 @@ const batchData = [
     produceDate: "2024-01-16",
     downContent: "90%",
     fluffiness: "850+",
-    cleanliness: "950+",
-    oxygenConsumption: "≤5.0",
+    turbidity: "8mm",
+    executionStandard: "QB/T 2024-001",
+    productStandardCategory: "行业标准",
+    productionYear: 2024,
+    productVideo: null,
+    certificationImages: [],
+    odor: "无异味",
     productCodeStatus: "已生成",
     downloadCount: 2,
     traceUrl: "https://guqi.example.com/trace/BC202401002",
@@ -2840,7 +2872,7 @@ flowchart TD
 - 头部区域：企业Logo、企业名称
 - 验证结果区域：验证图标、验证文字、验证说明
 - 产品信息区域：产品名称、规格、质量等级、生产地、生产日期、批次号
-- 质检指标区域：四宫格卡片（绒子含量、蓬松度、清洁度、耗氧量）
+- 质检指标区域：四宫格卡片（绒子含量、蓬松度、浊度、气味）
 - 溯源流程区域：时间线（原料采购→原料检验→生产加工→成品检验→包装入库）
 - 企业信息区域：企业名称、地址、生产许可证、质检员、微信公众号图片、企业链接（多链接）
 - 底部区域：数据来源说明
@@ -2865,16 +2897,21 @@ flowchart TD
 | 3 | 规格型号 | specification | 产品信息区域 | - |
 | 4 | 生产日期 | produceDate | 产品信息区域 | - |
 | 5 | 批次号 | batchNo | 产品信息区域 | - |
-| 6 | 绒子含量 | downContent | 质检指标区域 | 四宫格卡片 |
-| 7 | 蓬松度 | fluffiness | 质检指标区域 | 四宫格卡片 |
-| 8 | 清洁度 | cleanliness | 质检指标区域 | 四宫格卡片 |
-| 9 | 耗氧量 | oxygenConsumption | 质检指标区域 | 四宫格卡片 |
-| 10 | 企业名称 | companyName | 企业信息区域 | - |
-| 11 | 企业地址 | companyAddress | 企业信息区域 | - |
-| 12 | 生产许可证 | licenseNo | 企业信息区域 | - |
-| 13 | 质检员 | inspector | 企业信息区域 | - |
-| 14 | 微信公众号图片 | wechatQrImage | 企业信息区域 | 公众号二维码图片URL |
-| 15 | 企业链接 | companyLinks | 企业信息区域 | 多链接数组，支持官网、电商平台等 |
+| 6 | 执行标准 | executionStandard | 产品信息区域 | - |
+| 7 | 产品标准类别 | productStandardCategory | 产品信息区域 | 国标/行标/企标 |
+| 8 | 生产年度 | productionYear | 产品信息区域 | 4位年份 |
+| 9 | 绒子含量 | downContent | 质检指标区域 | 四宫格卡片 |
+| 10 | 蓬松度 | fluffiness | 质检指标区域 | 四宫格卡片 |
+| 11 | 浊度 | turbidity | 质检指标区域 | 四宫格卡片 |
+| 12 | 气味 | odor | 质检指标区域 | 四宫格卡片 |
+| 13 | 企业名称 | companyName | 企业信息区域 | - |
+| 14 | 企业地址 | companyAddress | 企业信息区域 | - |
+| 15 | 生产许可证 | licenseNo | 企业信息区域 | - |
+| 16 | 质检员 | inspector | 企业信息区域 | - |
+| 17 | 微信公众号图片 | wechatQrImage | 企业信息区域 | 公众号二维码图片URL |
+| 18 | 企业链接 | companyLinks | 企业信息区域 | 多链接数组，支持官网、电商平台等 |
+| 19 | 产品视频 | productVideo | 媒体展示区域 | 视频播放（如有） |
+| 20 | 认证信息 | certificationImages | 媒体展示区域 | 图片展示（如有） |
 
 #### 4.5.7 业务模块协同
 
@@ -3024,7 +3061,7 @@ flowchart TD
 │  │ 绒子含量  │ 蓬松度    │           │
 │  │   95%    │  900+    │           │
 │  ├──────────┼──────────┤           │
-│  │ 清洁度    │ 耗氧量    │           │
+│  │ 浊度    │ 气味    │           │
 │  │  1000+   │  ≤4.8    │           │
 │  └──────────┴──────────┘           │
 └─────────────────────────────────────┘
@@ -3124,8 +3161,8 @@ flowchart TD
 | 7 | 生产日期 | produceDate | Date | - |
 | 8 | 绒子含量 | downContent | String | - |
 | 9 | 蓬松度 | fluffiness | String | - |
-| 10 | 清洁度 | cleanliness | String | - |
-| 11 | 耗氧量 | oxygenConsumption | String | - |
+| 10 | 浊度 | turbidity | String | - |
+| 11 | 气味 | odor | String | - |
 | 12 | 二维码状态 | qrCodeStatus | String | - |
 | 13 | 删除标记 | delFlag | Number | 0=正常 |
 
@@ -3158,8 +3195,8 @@ flowchart TD
     ├── QualityCard（质检指标卡片）
     │   ├── GridItem（绒子含量）
     │   ├── GridItem（蓬松度）
-    │   ├── GridItem（清洁度）
-    │   └── GridItem（耗氧量）
+    │   ├── GridItem（浊度）
+    │   └── GridItem（气味）
     ├── TimelineCard（溯源流程卡片）
     │   └── Timeline（时间线组件）
     ├── CompanyCard（企业信息卡片）
@@ -3199,7 +3236,7 @@ flowchart TD
 │  │            │            │       │
 │  ├────────────┼────────────┤       │
 │  │            │            │       │
-│  │   清洁度    │   耗氧量    │       │
+│  │   浊度    │   气味    │       │
 │  │   1000+    │   ≤4.8     │       │
 │  │            │            │       │
 │  └────────────┴────────────┘       │
@@ -3308,8 +3345,13 @@ const traceData = {
   quality: {
     downContent: "95%",
     fluffiness: "900+",
-    cleanliness: "1000+",
-    oxygenConsumption: "≤4.8"
+    turbidity: "10mm",
+    executionStandard: "GB/T 14272-2021",
+    productStandardCategory: "国家标准",
+    productionYear: 2024,
+    productVideo: "https://guqi.example.com/videos/batch_001.mp4",
+    certificationImages: ["https://guqi.example.com/images/cert1.jpg", "https://guqi.example.com/images/cert2.jpg"],
+    odor: "≤4.8"
   },
   // 溯源流程
   timeline: [
@@ -4151,8 +4193,13 @@ const batchData = [
     produceDate: "2024-01-15",
     downContent: "95%",
     fluffiness: "900+",
-    cleanliness: "1000+",
-    oxygenConsumption: "≤4.8",
+    turbidity: "10mm",
+    executionStandard: "GB/T 14272-2021",
+    productStandardCategory: "国家标准",
+    productionYear: 2024,
+    productVideo: "https://guqi.example.com/videos/batch_001.mp4",
+    certificationImages: ["https://guqi.example.com/images/cert1.jpg", "https://guqi.example.com/images/cert2.jpg"],
+    odor: "无异物",
     qrCodeStatus: "已生成"
   }
 ];
