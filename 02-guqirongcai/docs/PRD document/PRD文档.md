@@ -681,58 +681,6 @@ flowchart TD
 | 格式不正确 | 正则校验 | 实时提示 | "格式不正确" |
 | 编码重复 | 失去焦点校验 | 实时提示 | "该编码已存在" |
 
-#### 3.1.11 数据示例
-
-##### 3.1.11.1 Mock数据
-
-```javascript
-const unitData = [
-  {
-    _id: "unit_001",
-    unitCode: "kg",
-    unitName: "千克",
-    status: "启用",
-    delFlag: 0,
-    createBy: "管理员",
-    createTime: "2024-01-15 10:30:00",
-    updateBy: "管理员",
-    updateTime: "2024-01-15 10:30:00"
-  },
-  {
-    _id: "unit_002",
-    unitCode: "g",
-    unitName: "克",
-    status: "启用",
-    delFlag: 0,
-    createBy: "管理员",
-    createTime: "2024-01-15 10:31:00",
-    updateBy: "管理员",
-    updateTime: "2024-01-15 10:31:00"
-  },
-  {
-    _id: "unit_003",
-    unitCode: "t",
-    unitName: "吨",
-    status: "启用",
-    delFlag: 0,
-    createBy: "管理员",
-    createTime: "2024-01-15 10:32:00",
-    updateBy: "管理员",
-    updateTime: "2024-01-15 10:32:00"
-  }
-];
-```
-
-##### 3.1.11.2 字典数据
-
-```javascript
-const dictData = {
-  STATUS: [
-    { value: "启用", label: "启用", color: "#52c41a" },
-    { value: "禁用", label: "禁用", color: "#d9d9d9" }
-  ]
-};
-```
 
 ---
 
@@ -1360,78 +1308,6 @@ flowchart TD
 | 格式不正确 | 正则校验 | 实时提示 | "格式不正确" |
 | 编码重复 | 失去焦点校验 | 实时提示 | "该编码已存在" |
 
-#### 3.2.11 数据示例
-
-##### 3.2.11.1 Mock数据
-
-```javascript
-const materialData = [
-  {
-    _id: "mat_001",
-    materialCode: "WL001",
-    materialName: "95%白鹅绒",
-    specification: "高规格",
-    categoryId: "cat_001",
-    categoryName: "白鹅绒",
-    specification: "高规格",
-    unitId: "unit_001",
-    unitName: "千克",
-    remark: "优质白鹅绒产品",
-    status: "启用",
-    delFlag: 0,
-    createBy: "管理员",
-    createTime: "2024-01-15 10:30:00",
-    updateBy: "管理员",
-    updateTime: "2024-01-15 10:30:00"
-  },
-  {
-    _id: "mat_002",
-    materialCode: "WL002",
-    materialName: "90%白鹅绒",
-    specification: "标准规格",
-    categoryId: "cat_001",
-    categoryName: "白鹅绒",
-    specification: "标准规格",
-    unitId: "unit_001",
-    unitName: "千克",
-    remark: "",
-    status: "启用",
-    delFlag: 0,
-    createBy: "管理员",
-    createTime: "2024-01-15 10:31:00",
-    updateBy: "管理员",
-    updateTime: "2024-01-15 10:31:00"
-  },
-  {
-    _id: "mat_003",
-    materialCode: "WL003",
-    materialName: "95%灰鹅绒",
-    categoryId: "cat_002",
-    categoryName: "灰鹅绒",
-    specification: "高规格",
-    unitId: "unit_001",
-    unitName: "千克",
-    remark: "",
-    status: "启用",
-    delFlag: 0,
-    createBy: "管理员",
-    createTime: "2024-01-15 10:32:00",
-    updateBy: "管理员",
-    updateTime: "2024-01-15 10:32:00"
-  }
-];
-```
-
-##### 3.2.11.2 字典数据
-
-```javascript
-const dictData = {
-  STATUS: [
-    { value: "启用", label: "启用", color: "#52c41a" },
-    { value: "禁用", label: "禁用", color: "#d9d9d9" }
-  ]
-};
-```
 
 ---
 
@@ -1628,7 +1504,6 @@ flowchart TD
 | 12 | 更新时间 | updateTime | - | DateTime | - | 系统 | 当前时间 | - |
 
 ---
-
 
 
 #### 3.3.10 边界与异常处理
@@ -2268,44 +2143,6 @@ flowchart TD
 └────────────────────────────────────────────────────┘
 ```
 
-#### 3.5.10 边界与异常处理
-
-##### 3.5.10.1 网络异常
-
-| 场景 | 检测方式 | 处理方式 | 用户提示 |
-|------|---------|---------|---------|
-| 请求超时 | 超时时间30s | 自动重试1次 | "网络超时，请稍后重试" |
-| 断网 | navigator.onLine | 禁用提交按钮 | "网络已断开，请检查网络连接" |
-| 服务器错误 | HTTP状态码5xx | 显示错误页面 | "服务器繁忙，请稍后重试" |
-
-##### 3.5.10.2 数据异常
-
-| 场景 | 检测方式 | 处理方式 | 用户提示 |
-|------|---------|---------|---------|
-| 列表数据为空 | records.length === 0 | 显示空状态组件 | "暂无数据" |
-| 搜索无结果 | 有筛选条件但结果为空 | 显示空状态+重置按钮 | "未找到匹配数据" |
-| 详情数据不存在 | 接口返回404 | 返回列表页 | "数据不存在或已被删除" |
-
-##### 3.5.10.3 权限异常
-
-| 场景 | 检测方式 | 处理方式 | 用户提示 |
-|------|---------|---------|---------|
-| 无页面权限 | 路由守卫校验 | 跳转到403页面 | "您没有权限访问此页面" |
-| 无操作权限 | 按钮权限校验 | 隐藏或禁用按钮 | 按钮禁用态 |
-| Token过期 | 401响应 | 跳转登录页 | "登录已过期，请重新登录" |
-
-##### 3.5.10.4 操作冲突
-
-| 场景 | 检测方式 | 处理方式 | 用户提示 |
-|------|---------|---------|---------|
-| 并发编辑 | 乐观锁版本号 | 提示刷新后重试 | "数据已被他人修改" |
-| 重复提交 | 按钮loading+防抖 | 禁用按钮直到请求完成 | 按钮显示loading状态 |
-| 批次号重复 | 唯一性校验 | 阻止保存 | "批次号已存在，请更换" |
-| 质检数据不完整 | 必填项校验 | 提示补充 | "请填写完整的质检信息" |
-| 产品码生成失败 | 生成服务 | 重试或提示 | "产品码生成失败，请重试" |
-| 批次号重复 | 提交前校验 | 阻止提交 | "批次号已存在，请更换" |
-
-##### 3.5.10.5 输入异常
 
 | 场景 | 检测方式 | 处理方式 | 用户提示 |
 |------|---------|---------|---------|
@@ -2315,72 +2152,6 @@ flowchart TD
 | 日期晚于今天 | 日期校验 | 阻止提交 | "生产日期不能晚于今天" |
 | 编码重复 | 失去焦点校验 | 实时提示 | "该批次号已存在" |
 
-#### 3.5.11 数据示例
-
-##### 3.5.11.1 Mock数据
-
-```javascript
-const batchData = [
-  {
-    _id: "batch_001",
-    batchNo: "BC202401001",
-    materialId: "mat_001",
-    materialCode: "WL001",
-    materialName: "95%白鹅绒",
-    specification: "高规格",
-    quantity: 500,
-    unitName: "千克",
-    produceDate: "2024-01-15",
-    downContent: "95%",
-    fluffiness: "900+",
-    turbidity: "10mm",
-    executionStandard: "GB/T 14272-2021",
-    productStandardCategory: "国家标准",
-    productionYear: 2024,
-    productVideo: "https://guqi.example.com/videos/batch_001.mp4",
-    certificationImages: ["https://guqi.example.com/images/cert1.jpg", "https://guqi.example.com/images/cert2.jpg"],
-    odor: "无异物",
-    productCodeStatus: "已生成",
-    downloadCount: 1,
-    traceUrl: "https://guqi.example.com/trace/BC202401001",
-    delFlag: 0,
-    createBy: "操作员A",
-    createTime: "2024-01-15 10:30:00",
-    updateBy: "操作员A",
-    updateTime: "2024-01-15 10:30:00"
-  },
-  {
-    _id: "batch_002",
-    batchNo: "BC202401002",
-    materialId: "mat_002",
-    materialCode: "WL002",
-    materialName: "90%白鹅绒",
-    specification: "标准规格",
-    quantity: 300,
-    unitName: "千克",
-    produceDate: "2024-01-16",
-    downContent: "90%",
-    fluffiness: "850+",
-    turbidity: "8mm",
-    executionStandard: "QB/T 2024-001",
-    productStandardCategory: "行业标准",
-    productionYear: 2024,
-    productVideo: null,
-    certificationImages: [],
-    odor: "无异味",
-    productCodeStatus: "已生成",
-    downloadCount: 2,
-    traceUrl: "https://guqi.example.com/trace/BC202401002",
-    delFlag: 0,
-    createBy: "操作员B",
-    createTime: "2024-01-16 14:20:00",
-    updateBy: "操作员B",
-    updateTime: "2024-01-16 14:25:00"
-  }
-];
-```
-
-##### 3.5.11.2 字典数据
 
 ```javascript
 const dictData = {
@@ -2392,7 +2163,6 @@ const dictData = {
 ```
 
 ---
-
 
 
 #### 3.4.10 边界与异常处理
@@ -2807,7 +2577,7 @@ flowchart TD
 | 产品批次 | MES_chanpibici | 一对一 | batchNo | 主数据源 |
 | 产品档案 | MES_wuliaodangan | 多对一 | materialId → _id | 产品详细信息 |
 
-#### 3.5.11 UI界面设计
+#### 3.5.10 UI界面设计
 
 ##### 3.5.10.1 页面布局结构
 
@@ -3039,8 +2809,6 @@ const expiredData = {
 ---
 
 
-
-
 ## 四、非功能性需求
 
 ### 4.1 性能要求
@@ -3086,7 +2854,6 @@ const expiredData = {
 | 灾难恢复 | 支持跨地域容灾切换 |
 
 ---
-
 
 
 ## 五、测试要点
@@ -3161,7 +2928,6 @@ const expiredData = {
 3. 预计回滚时间：15分钟
 
 ---
-
 
 
 ## 六、附录
