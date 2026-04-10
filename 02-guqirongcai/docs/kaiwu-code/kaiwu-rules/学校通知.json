@@ -1,0 +1,37 @@
+{
+  "id": "69d7569ed2c24e0007cbaeae",
+  "name": "学校通知",
+  "type": "FORM_EVENT",
+  "formId": null,
+  "status": "ENABLE",
+  "applicationId": "8458f839b9260c7487315662282d1818",
+  "metadata": {
+    "firstNode": "69d7569ed2c24e0007cbaeaf",
+    "nodes": [
+      {
+        "id": "69d7569ed2c24e0007cbaeaf",
+        "name": "表单事件触发",
+        "type": "cn.kaiwu.mind.automation.rulenode.trigger.FormEventNode",
+        "configuration": "{\"location\":{\"left\":\"200px\",\"top\":\"200px\"},\"properties\":{\"conditionList\":[],\"triggerEvent\":\"CREATE\",\"dataFilterValue\":\"ALL\"}}",
+        "ruleChainId": "69d7569ed2c24e0007cbaeae",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569ed2c24e0007cbaeb0",
+        "name": "发送站内消息",
+        "type": "cn.kaiwu.mind.automation.rulenode.connector.MessageNode",
+        "configuration": "{\"location\":{\"left\":\"500px\",\"top\":\"200px\"},\"properties\":{\"messageContent\":{\"content\":\"${formF967mesjk479abc}\",\"toList\":[{\"name\":\"发送对象\",\"key\":\"formFy6emesjkcthaec\",\"type\":\"FROM_DATA\",\"extend\":\"deptcascader\"}],\"htmlParameterList\":[{\"type\":\"FROM_DATA\",\"key\":\"formF967mesjk479abc\",\"extend\":\"TextArea\"}],\"collection\":\"t68adace3c5f22500070fea40\",\"collectionType\":\"baseform\",\"appId\":\"8458f839b9260c7487315662282d1818\"},\"link\":false,\"byMessage\":false}}",
+        "ruleChainId": "69d7569ed2c24e0007cbaeae",
+        "authenticationData": null
+      }
+    ],
+    "connections": [
+      {
+        "id": "69d7569ed2c24e0007cbaeb2",
+        "from": "69d7569ed2c24e0007cbaeaf",
+        "to": "69d7569ed2c24e0007cbaeb0",
+        "type": "Success"
+      }
+    ]
+  }
+}

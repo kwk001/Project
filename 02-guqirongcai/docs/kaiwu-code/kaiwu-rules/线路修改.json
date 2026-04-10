@@ -1,0 +1,37 @@
+{
+  "id": "69d7569dd2c24e0007cbae51",
+  "name": "线路修改",
+  "type": "FORM_EVENT",
+  "formId": null,
+  "status": "ENABLE",
+  "applicationId": "8458f839b9260c7487315662282d1818",
+  "metadata": {
+    "firstNode": "69d7569dd2c24e0007cbae52",
+    "nodes": [
+      {
+        "id": "69d7569dd2c24e0007cbae52",
+        "name": "表单事件触发",
+        "type": "cn.kaiwu.mind.automation.rulenode.trigger.FormEventNode",
+        "configuration": "{\"location\":{\"left\":\"265px\",\"top\":\"-5px\"},\"properties\":{\"conditionList\":[],\"triggerEvent\":\"UPDATE\",\"dataFilterValue\":\"ALL\"}}",
+        "ruleChainId": "69d7569dd2c24e0007cbae51",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569dd2c24e0007cbae53",
+        "name": "更新数据节点",
+        "type": "cn.kaiwu.mind.automation.rulenode.executor.FormDataUpdateNode",
+        "configuration": "{\"location\":{\"left\":\"260px\",\"top\":\"280px\"},\"properties\":{\"executionFilter\":[{\"isUpdate\":false,\"executionValue\":\"routeId\",\"executionKey\":\"routeId\",\"valueType\":1,\"title\":\"线路ID\"}],\"executionResult\":[{\"isUpdate\":true,\"executionValue\":\"routeName\",\"executionKey\":\"routeName\",\"valueType\":1,\"title\":\"线路名称\",\"fieldType\":\"mainFields\"}],\"mode\":\"BATCH\",\"dataSourceType\":\"RULE_NODE\",\"sourceId\":\"69d7569dd2c24e0007cbae52\",\"targetFormName\":\"t687f41c8c5f2250007aa4750\",\"notFoundType\":\"SKIP\"}}",
+        "ruleChainId": "69d7569dd2c24e0007cbae51",
+        "authenticationData": null
+      }
+    ],
+    "connections": [
+      {
+        "id": "69d7569dd2c24e0007cbae55",
+        "from": "69d7569dd2c24e0007cbae52",
+        "to": "69d7569dd2c24e0007cbae53",
+        "type": "Success"
+      }
+    ]
+  }
+}

@@ -1,0 +1,88 @@
+body {
+  font-size: 12px;
+}
+
+html {
+  height: 100%;
+  background-color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.button {
+  width: 100px;
+  color: #ff00ff
+}
+
+.next-dialog-body {
+  padding: 5px 20px 20px;
+}
+
+.tagItem {
+  cursor: pointer;
+  background: #5584ff;
+  color: #fff;
+  padding: 2px 10px;
+  border-radius: 10px;
+  margin: 4px 0;
+}
+
+.btnBox {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 20px 0 0;
+  box-sizing: border-box;
+  text-align: right;
+  box-shadow: 4px 4px 6px #888888;
+}
+
+.dialogBox {
+  margin-bottom: 30px;
+}
+
+.btnBox .next-form-item {
+  margin-bottom: 0;
+  padding: 10px 0;
+  background: #fff;
+}
+
+.fullWith {
+  width: 100%;
+}
+
+.cTable {
+  border: 1px solid #ccc;
+}
+
+.cTable .myTableTr {
+  min-height: 40px;
+  display: flex;
+}
+
+.cTable .myTableTr .tableTh {
+  width: 120px;
+  display: flex;
+  background: #ebecf0;
+  borderRight: 1px solid #ccc;
+  align-items: center;
+  justify-content: center;
+}
+
+.cTable .myTableTr .tableTd {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 5px 10px;
+  box-sizing: border-box;
+}
+
+.tableTd .next-tag-small>.next-tag-body {
+  cursor: pointer;
+}
+
+.next-overlay-backdrop {
+  opacity: 1 !important;
+}

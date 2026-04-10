@@ -1,0 +1,91 @@
+body {
+  font-size: 12px;
+}
+
+.button {
+  width: 100px;
+  color: #ff00ff
+}
+
+html {
+  background: #fff;
+  height: 100%;
+}
+
+.next-pagination {
+  padding-top: 10px;
+  text-align: right;
+}
+
+.table-top-button {
+  margin-bottom: 10px;
+}
+
+
+
+.table-top-button .next-btn {
+  margin-right: 14px;
+  position: relative;
+}
+
+.table-top-button .next-btn #fileInput {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.table-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.form-cols-box {
+  margin-bottom: 10px;
+}
+
+.recorddialog-title {
+  font-size: 15px;
+}
+
+.recorddialog-box {
+  display: flex;
+  align-items: center;
+}
+
+.recorddialog-box img {
+  height: 124px;
+  min-width: 80px;
+  margin-left: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.recorddialog-info {
+  margin: 10px 0;
+  border-bottom: 1px solid #ccc;
+  flex: 1;
+}
+
+.recorddialog-info .recorddialog-info-item {
+  display: flex;
+  border-top: 1px solid #ccc;
+  line-height: 30px;
+}
+
+.recorddialog-info .recorddialog-info-item .label {
+  width: 100px;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  text-indent: 10px;
+}
+
+.recorddialog-info .recorddialog-info-item .value {
+  flex: 1;
+  border-right: 1px solid #ccc;
+  text-indent: 10px;
+}

@@ -1,0 +1,1050 @@
+{
+  "version": "1.0.0",
+  "componentsMap": [
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Select",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Select"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Form",
+      "main": "",
+      "destructuring": true,
+      "subName": "Item",
+      "componentName": "Form.Item"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Input",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Input"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Radio",
+      "main": "",
+      "destructuring": true,
+      "subName": "Group",
+      "componentName": "Radio.Group"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Form",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Form"
+    },
+    {
+      "package": "@alilc/lowcode-materials",
+      "version": "1.1.0",
+      "exportName": "NextText",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "NextText"
+    },
+    {
+      "package": "@alifd/fusion-ui",
+      "version": "2.0.1",
+      "exportName": "FormCascaderSelect",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "FormCascaderSelect"
+    },
+    {
+      "package": "@alifd/fusion-ui",
+      "version": "2.0.1",
+      "exportName": "FormInput",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "FormInput"
+    },
+    {
+      "package": "@alifd/fusion-ui",
+      "version": "2.0.1",
+      "exportName": "Filter",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Filter"
+    },
+    {
+      "package": "@kaiwu-cloud/lowcode-engine-component",
+      "version": "1.0.0",
+      "exportName": "KaiwuJsx",
+      "main": "src/index.tsx",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "KaiwuJsx"
+    },
+    {
+      "package": "@alifd/fusion-ui",
+      "version": "2.0.1",
+      "exportName": "ProDrawer",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Drawer"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Button",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Button"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Pagination",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Pagination"
+    },
+    {
+      "devMode": "lowCode",
+      "componentName": "Page"
+    }
+  ],
+  "componentsTree": [
+    {
+      "componentName": "Page",
+      "id": "node_dockcviv8fo1",
+      "props": {
+        "ref": "outerView",
+        "style": {
+          "height": "100%"
+        }
+      },
+      "docId": "doclaqkk3b9",
+      "fileName": "/",
+      "dataSource": {
+        "list": [
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/formData/query"
+            },
+            "id": "queryFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "PUT",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/formData/update"
+            },
+            "id": "updateFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/formData/add"
+            },
+            "id": "addFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "DELETE",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/formData/delete"
+            },
+            "id": "deleteFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "GET",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/identity/user/query/current"
+            },
+            "id": "getCurrentUser",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/form/getIdByCode"
+            },
+            "id": "getIdByCode",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/formData/batchAdd"
+            },
+            "id": "addMoreFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json"
+              },
+              "uri": {
+                "type": "JSExpression",
+                "value": "this.state.kaiwuApiUrl"
+              }
+            },
+            "id": "kaiwuApi"
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json"
+              },
+              "uri": {
+                "type": "JSExpression",
+                "value": "`/kaiwuApi/${this.state.currentUser.customerId}/queryMoreTableData`"
+              }
+            },
+            "id": "queryMoreTableData"
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json"
+              },
+              "uri": "/mainApi/formEngine/formData/batchAdd"
+            },
+            "id": "batchAdd"
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "DELETE",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json"
+              },
+              "uri": "/mainApi/formEngine/formData/remove"
+            },
+            "id": "removeFormData"
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "DELETE",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json"
+              },
+              "uri": {
+                "type": "JSExpression",
+                "value": "`/kaiwuApi/${this.state.currentUser.customerId}/deletePackage`"
+              }
+            },
+            "id": "deletePackage"
+          }
+        ]
+      },
+      "hidden": false,
+      "title": "",
+      "isLocked": false,
+      "condition": true,
+      "conditionGroup": "",
+      "children": [
+        {
+          "componentName": "Drawer",
+          "id": "node_oclv6bjqay1",
+          "props": {
+            "prefix": "next-",
+            "triggerType": "click",
+            "closeable": true,
+            "placement": "right",
+            "hasMask": true,
+            "isAutoContainer": true,
+            "visible": true,
+            "ref": "pro-drawer-entrylv6bjqn4",
+            "title": {
+              "type": "JSExpression",
+              "value": "this.state.isEditFlag ? '编辑':'新增'",
+              "mock": ""
+            },
+            "size": "large",
+            "style": {
+              "width": "90vw"
+            },
+            "className": "theme",
+            "_unsafe_MixedSetter____condition____select": "VariableSetter",
+            "__events": {
+              "eventDataList": [
+                {
+                  "type": "componentEvent",
+                  "name": "onClose",
+                  "relatedEventName": "onClose"
+                },
+                {
+                  "type": "componentEvent",
+                  "name": "onOk",
+                  "relatedEventName": "onOk"
+                }
+              ],
+              "eventList": [
+                {
+                  "name": "onClose",
+                  "disabled": true
+                },
+                {
+                  "name": "onOk",
+                  "disabled": true
+                }
+              ]
+            },
+            "onClose": {
+              "type": "JSFunction",
+              "value": "function(){return this.onClose.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "onOk": {
+              "type": "JSFunction",
+              "value": "function(){return this.onOk.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "titleTip": {
+              "enable": false
+            },
+            "closeMode": [
+              "close"
+            ],
+            "operationConfig": {
+              "fixed": true,
+              "align": "right"
+            },
+            "operations": [
+              {
+                "content": "提交",
+                "action": "submit",
+                "type": "primary",
+                "id": "entrylvak7ivg",
+                "onClick": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.onConfirmSubmit.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                }
+              },
+              {
+                "content": "取消",
+                "action": "submit",
+                "type": "secondary",
+                "id": "entrylvak7kko",
+                "onClick": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.onClose.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                }
+              }
+            ]
+          },
+          "hidden": true,
+          "title": "",
+          "isLocked": false,
+          "condition": {
+            "type": "JSExpression",
+            "value": "this.state.showDrawer"
+          },
+          "conditionGroup": "",
+          "loopArgs": [
+            null,
+            null
+          ],
+          "children": [
+            {
+              "componentName": "Form",
+              "id": "node_oclv6bjqay2",
+              "props": {
+                "labelAlign": "left",
+                "inline": true,
+                "fullWidth": true,
+                "size": "medium",
+                "labelTextAlign": "left",
+                "style": {
+                  "marginBottom": "10px",
+                  "borderBottom": "1px solid #cccccc"
+                },
+                "field": {
+                  "type": "JSExpression",
+                  "value": ""
+                },
+                "value": {
+                  "type": "JSExpression",
+                  "value": "this.state.formValue"
+                },
+                "_unsafe_MixedSetter_value_select": "ExpressionSetter",
+                "__events": {
+                  "eventDataList": [
+                    {
+                      "type": "componentEvent",
+                      "name": "onChange",
+                      "relatedEventName": "onChangeFormValue"
+                    }
+                  ],
+                  "eventList": [
+                    {
+                      "name": "saveField",
+                      "disabled": false
+                    },
+                    {
+                      "name": "onSubmit",
+                      "disabled": false
+                    },
+                    {
+                      "name": "onChange",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "onChange": {
+                  "type": "JSFunction",
+                  "value": "function(){return this.onChangeFormValue.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                },
+                "isPreview": false
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": "",
+              "children": [
+                {
+                  "componentName": "Form.Item",
+                  "id": "node_oclv6bjqaya",
+                  "props": {
+                    "label": "类型: ",
+                    "required": true,
+                    "labelCol": {
+                      "span": 6
+                    },
+                    "wrapperCol": {
+                      "span": 18
+                    },
+                    "style": {
+                      "width": "30%"
+                    },
+                    "fullWidth": true,
+                    "name": "packageType",
+                    "requiredMessage": "名称不能为空"
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": "",
+                  "children": [
+                    {
+                      "componentName": "Select",
+                      "id": "node_oclxbpfupa1",
+                      "props": {
+                        "mode": "single",
+                        "hasArrow": true,
+                        "cacheValue": true,
+                        "dataSource": {
+                          "type": "JSExpression",
+                          "value": "this.state.supplierTypeList"
+                        },
+                        "disabled": {
+                          "type": "JSExpression",
+                          "value": "this.state.isEditFlag"
+                        },
+                        "placeholder": "",
+                        "defaultValue": "",
+                        "hasClear": false,
+                        "showSearch": false,
+                        "style": {
+                          "width": "200PX"
+                        },
+                        "__events": {
+                          "eventDataList": [
+                            {
+                              "type": "componentEvent",
+                              "name": "onChange",
+                              "relatedEventName": "onChangeSupplierType"
+                            }
+                          ],
+                          "eventList": [
+                            {
+                              "name": "onChange",
+                              "propType": "func",
+                              "description": "值发生变化",
+                              "disabled": true
+                            },
+                            {
+                              "name": "onVisibleChange",
+                              "propType": "func",
+                              "description": "弹层显示隐藏变化",
+                              "disabled": false
+                            },
+                            {
+                              "name": "onRemove",
+                              "propType": "func",
+                              "description": "Tag 被删除",
+                              "disabled": false
+                            },
+                            {
+                              "name": "onSearch",
+                              "propType": "func",
+                              "description": "搜索",
+                              "disabled": false
+                            }
+                          ]
+                        },
+                        "_unsafe_MixedSetter_dataSource_select": "ExpressionSetter",
+                        "onChange": {
+                          "type": "JSFunction",
+                          "value": "function(){return this.onChangeSupplierType.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                        },
+                        "ref": "select-a88b742c"
+                      },
+                      "hidden": false,
+                      "title": "",
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": "",
+                      "loopArgs": [
+                        null,
+                        null
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "componentName": "Form.Item",
+                  "id": "node_oclv6bjqaye",
+                  "props": {
+                    "label": "备注: ",
+                    "required": false,
+                    "fullWidth": true,
+                    "labelCol": {
+                      "span": 6
+                    },
+                    "wrapperCol": {
+                      "span": 18
+                    },
+                    "style": {
+                      "width": "30%"
+                    },
+                    "name": "remarks"
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": "",
+                  "children": [
+                    {
+                      "componentName": "Input",
+                      "id": "node_oclv6bjqayl",
+                      "props": {
+                        "hasBorder": true,
+                        "size": "medium",
+                        "autoComplete": "off",
+                        "placeholder": "请输入",
+                        "name": "remarks"
+                      },
+                      "hidden": false,
+                      "title": "",
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": ""
+                    }
+                  ]
+                },
+                {
+                  "componentName": "Form.Item",
+                  "id": "node_oclv6bjqayh",
+                  "props": {
+                    "label": "状态: ",
+                    "required": true,
+                    "fullWidth": true,
+                    "labelCol": {
+                      "span": 6
+                    },
+                    "wrapperCol": {
+                      "span": 18
+                    },
+                    "style": {
+                      "width": "30%"
+                    },
+                    "name": "status",
+                    "requiredMessage": "状态不能为空"
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": "",
+                  "children": [
+                    {
+                      "componentName": "Radio.Group",
+                      "id": "node_oclv6bjqayu",
+                      "props": {
+                        "dataSource": [
+                          {
+                            "label": "启用",
+                            "value": "启用"
+                          },
+                          {
+                            "label": "禁用",
+                            "value": "禁用"
+                          }
+                        ],
+                        "name": "status",
+                        "__events": {
+                          "eventDataList": [],
+                          "eventList": [
+                            {
+                              "name": "onChange",
+                              "disabled": true
+                            }
+                          ]
+                        }
+                      },
+                      "hidden": false,
+                      "title": "",
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "componentName": "NextText",
+              "id": "node_oclv6bjxxr2",
+              "props": {
+                "type": "h5",
+                "children": "商品选择",
+                "mark": false,
+                "code": false,
+                "delete": false,
+                "underline": false,
+                "strong": false,
+                "prefix": "",
+                "classname": "",
+                "style": {
+                  "fontSize": "18px",
+                  "color": "#4D87FA"
+                }
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            },
+            {
+              "componentName": "Filter",
+              "id": "node_ockt5mo4jj1",
+              "props": {
+                "labelAlign": "left",
+                "enableFilterConfiguration": false,
+                "cols": 4,
+                "labelTextAlign": "right",
+                "labelCol": {
+                  "fixedSpan": 4
+                },
+                "__events": {
+                  "eventDataList": [
+                    {
+                      "type": "componentEvent",
+                      "name": "onSearch",
+                      "relatedEventName": "onSearchProduct"
+                    },
+                    {
+                      "type": "componentEvent",
+                      "name": "onReset",
+                      "relatedEventName": "onReset"
+                    }
+                  ],
+                  "eventList": [
+                    {
+                      "name": "onExpand",
+                      "disabled": false
+                    },
+                    {
+                      "name": "onSearch",
+                      "disabled": true
+                    },
+                    {
+                      "name": "onReset",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "onSearch": {
+                  "type": "JSFunction",
+                  "value": "function(){return this.onSearchProduct.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                },
+                "style": {
+                  "marginBottom": "5px"
+                },
+                "onReset": {
+                  "type": "JSFunction",
+                  "value": "function(){return this.onReset.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                }
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": "",
+              "children": [
+                {
+                  "componentName": "FormCascaderSelect",
+                  "id": "node_ocmm4prppj3",
+                  "props": {
+                    "formItemProps": {
+                      "primaryKey": "6378",
+                      "label": "分类",
+                      "size": "medium",
+                      "device": "desktop",
+                      "fullWidth": true,
+                      "required": false,
+                      "labelTextAlign": "right",
+                      "name": "productType"
+                    },
+                    "placeholder": "请输入",
+                    "dataSource": {
+                      "type": "JSExpression",
+                      "value": "this.state.productTypeList"
+                    },
+                    "changeOnSelect": true,
+                    "disabled": false,
+                    "hasArrow": true,
+                    "hasBorder": true,
+                    "hasClear": true,
+                    "multiple": false,
+                    "showSearch": false,
+                    "size": "small"
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": ""
+                },
+                {
+                  "componentName": "FormInput",
+                  "id": "node_ocmm4prppj4",
+                  "props": {
+                    "formItemProps": {
+                      "primaryKey": "7308",
+                      "label": "商品名称",
+                      "size": "medium",
+                      "device": "desktop",
+                      "fullWidth": true,
+                      "required": false,
+                      "name": "productName"
+                    },
+                    "placeholder": "请输入"
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": ""
+                }
+              ]
+            },
+            {
+              "componentName": "KaiwuJsx",
+              "id": "node_oclv6bjz571",
+              "props": {
+                "content": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.renderProductTransfer.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                },
+                "style": {
+                  "width": "100%",
+                  "minHeight": "300px"
+                },
+                "ref": "kaiwujsx-16af55c8"
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": "",
+              "loopArgs": [
+                null,
+                null
+              ]
+            }
+          ]
+        },
+        {
+          "componentName": "Button",
+          "id": "node_oclv4wd64r1",
+          "props": {
+            "prefix": "next-",
+            "type": "primary",
+            "size": "medium",
+            "htmlType": "button",
+            "component": "button",
+            "children": "添加",
+            "iconSize": "xxs",
+            "loading": false,
+            "text": false,
+            "warning": false,
+            "disabled": false,
+            "__events": {
+              "eventDataList": [
+                {
+                  "type": "componentEvent",
+                  "name": "onClick",
+                  "relatedEventName": "onClickAddBtn",
+                  "paramStr": "{\n \t \"type\":\"add\"\n}"
+                }
+              ],
+              "eventList": [
+                {
+                  "name": "onClick",
+                  "description": "点击按钮的回调\n@param {Object} e Event Object",
+                  "disabled": true
+                },
+                {
+                  "name": "onMouseUp",
+                  "disabled": false
+                }
+              ]
+            },
+            "onClick": {
+              "type": "JSFunction",
+              "value": "function(){return this.onClickAddBtn.apply(this,Array.prototype.slice.call(arguments).concat([{\n \t \"type\":\"add\"\n}])) }"
+            }
+          },
+          "hidden": false,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": ""
+        },
+        {
+          "componentName": "KaiwuJsx",
+          "id": "node_oclv4wd64r6",
+          "props": {
+            "style": {
+              "width": "100%",
+              "minHeight": "500px"
+            },
+            "content": {
+              "type": "JSFunction",
+              "value": "function(){ return this.renderTable.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            }
+          },
+          "hidden": false,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": ""
+        },
+        {
+          "componentName": "Pagination",
+          "id": "node_oclvaqf9yh2",
+          "props": {
+            "prefix": "next-",
+            "type": "normal",
+            "shape": "normal",
+            "size": "medium",
+            "defaultCurrent": 1,
+            "total": {
+              "type": "JSExpression",
+              "value": "this.state.total"
+            },
+            "pageShowCount": 5,
+            "pageSize": {
+              "type": "JSExpression",
+              "value": "this.state.queryConditions.page.size",
+              "mock": 10
+            },
+            "pageSizePosition": "start",
+            "showJump": true,
+            "pageSizeSelector": "dropdown",
+            "hideOnlyOnePage": false,
+            "link": "",
+            "rtl": "",
+            "current": {
+              "type": "JSExpression",
+              "value": "this.state.queryConditions.page.current"
+            },
+            "style": {
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "flex-end"
+            },
+            "_unsafe_MixedSetter_total_select": "ExpressionSetter",
+            "_unsafe_MixedSetter_current_select": "VariableSetter",
+            "__events": {
+              "eventDataList": [
+                {
+                  "type": "componentEvent",
+                  "name": "onChange",
+                  "relatedEventName": "onPageChange"
+                },
+                {
+                  "type": "componentEvent",
+                  "name": "onPageSizeChange",
+                  "relatedEventName": "onPageSizeChange"
+                }
+              ],
+              "eventList": [
+                {
+                  "name": "onChange",
+                  "description": "页码发生改变时的回调函数\n@param {Number} current 改变后的页码数\n@param {Object} e 点击事件对象",
+                  "disabled": true
+                },
+                {
+                  "name": "onPageSizeChange",
+                  "description": "每页显示记录数量改变时的回调函数\n@param {Number} pageSize 改变后的每页显示记录数",
+                  "disabled": true
+                }
+              ]
+            },
+            "onChange": {
+              "type": "JSFunction",
+              "value": "function(){return this.onPageChange.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "totalRender": {
+              "type": "JSExpression",
+              "value": "this.renderTotal "
+            },
+            "onPageSizeChange": {
+              "type": "JSFunction",
+              "value": "function(){return this.onPageSizeChange.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            }
+          },
+          "hidden": false,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": ""
+        }
+      ]
+    }
+  ],
+  "i18n": {
+    "zh-CN": {
+      "i18n-jwg27yo4": "你好 ",
+      "i18n-jwg27yo3": "{name} 博士"
+    },
+    "en-US": {
+      "i18n-jwg27yo4": "Hello ",
+      "i18n-jwg27yo3": "Doctor {name}"
+    }
+  }
+}

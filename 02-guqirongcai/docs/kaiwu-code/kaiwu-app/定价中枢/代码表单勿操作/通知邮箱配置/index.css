@@ -1,0 +1,28 @@
+body {
+  font-size: 12px;
+}
+
+.button {
+  width: 100px;
+  color: #ff00ff
+}
+
+.richtexteditor-box {
+  padding: 0 20px;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.richtexteditor-box .richtexteditor-box-tip {
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+
+.richtexteditor-box .richtexteditor-box-tip span {
+  color: #ff0000;
+  margin-right: 4px;
+}
+
+.richtexteditor-box .ql-container {
+  height: 80%;
+}

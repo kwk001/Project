@@ -21,23 +21,29 @@ import response;
 //     activeProject: {...},           // 激活的项目配置
 //     appConfigs: [...],              // 应用配置列表
 //     pageConfigs: {...},             // 页面配置 (pageCode -> config)
-//     dictData: {...}                 // 字典数据 (dictType -> options[])
+//     globalConfig: {                 // 全局配置（项目级，跨应用共享）
+//       functions: [...],             // 全局业务功能列表
+//       dictTypes: [...]              // 全局字典类型列表
+//     },
+//     dictData: {...}                 // 字典数据 (dictType -> options[]，含全局+页面)
 //   }
 // }
 //
 // 性能优化说明：
 // - 原 kaiwu-dataservice 需要 40-50 次 HTTP API 调用
-// - 本接口仅需 1 次 HTTP 调用，内部 4 次 MongoDB 查询
-// - 功能配置和API路由直接从页面配置子表单获取，减少2次查询
+// - 本接口仅需 1 次 HTTP 调用，内部 6 次 MongoDB 查询
+// - 功能配置和API路由直接从页面配置子表单获取
+// - 全局功能和全局字典通过 scope="global" + projectCode 查询
 // - 性能提升约 98%
 
 try {
-    // 获取真实表名（优化：去掉CM_yewugongneng和CM_APIluyou）
+    // 获取真实表名（增加CM_yewugongneng用于全局功能查询）
     var formMap = getFormIdByCodes([
         "CM_xiangmupeizhi",
         "CM_yingyongpeizhi",
         "CM_yemianpeizhi",
-        "CM_shujuzidian"
+        "CM_shujuzidian",
+        "CM_yewugongneng"
     ]);
 
     var pageCodes = body.pageCodes || [];
@@ -257,6 +263,129 @@ try {
 
     log.info('字典数据查询完成，类型数：{}', dictTypes.length);
 
+    // ========== 4.5 全局业务功能查询 ==========
+    var globalFunctions = [];
+    if (activeProject && activeProject.projectCode) {
+        var globalFuncRequestBody = {
+            formId: formMap['CM_yewugongneng'],
+            conditionFilter: {
+                conditionType: "and",
+                conditions: [{
+                        field: "projectCode",
+                        conditionOperator: "eq",
+                        conditionValues: [activeProject.projectCode]
+                    },
+                    {
+                        field: "scope",
+                        conditionOperator: "eq",
+                        conditionValues: ["global"]
+                    },
+                    {
+                        field: "funcStatus",
+                        conditionOperator: "eq",
+                        conditionValues: ["启用"]
+                    }
+                ]
+            },
+            page: {
+                current: 1,
+                size: 1000,
+                pages: 0,
+                total: 1
+            },
+            sorts: []
+        };
+        var globalFuncResult = http.connect("http://kaiwu-form-engine-core:18666/formEngine/formData/query")
+            .body(globalFuncRequestBody)
+            .header("Authorization", authorization)
+            .post()
+            .getBody();
+        if (globalFuncResult && globalFuncResult.code == 200 && globalFuncResult.result && globalFuncResult.result.records) {
+            for (func in globalFuncResult.result.records) {
+                globalFunctions.push({
+                    funcCode: func.funcCode,
+                    funcName: func.funcName,
+                    funcStatus: func.funcStatus,
+                    funcExpression: func.funcExpression,
+                    expressionParams: func.expressionParams,
+                    funcDesc: func.funcDesc,
+                    scope: "global"
+                });
+            }
+        }
+    }
+    log.info('全局功能查询完成，数量：{}', globalFunctions.length);
+
+    // ========== 4.6 全局字典查询 ==========
+    var globalDictTypes = [];
+    if (activeProject && activeProject.globalDictTypeList) {
+        for (item in activeProject.globalDictTypeList) {
+            if (item.dictType && item.dicStatus == "启用" && globalDictTypes.indexOf(item.dictType) == -1) {
+                globalDictTypes.push(item.dictType);
+            }
+        }
+    }
+
+    if (globalDictTypes.length > 0) {
+        var globalDictRequestBody = {
+            formId: formMap['CM_shujuzidian'],
+            conditionFilter: {
+                conditionType: "and",
+                conditions: [{
+                        field: "dictType",
+                        conditionOperator: "eqa",
+                        conditionValues: globalDictTypes
+                    },
+                    {
+                        field: "scope",
+                        conditionOperator: "eq",
+                        conditionValues: ["global"]
+                    },
+                    {
+                        field: "projectCode",
+                        conditionOperator: "eq",
+                        conditionValues: [activeProject.projectCode]
+                    },
+                    {
+                        field: "isEnable",
+                        conditionOperator: "eq",
+                        conditionValues: ["启用"]
+                    }
+                ]
+            },
+            page: {
+                current: 1,
+                size: 1000,
+                pages: 0,
+                total: 1
+            },
+            sorts: []
+        };
+        var globalDictResult = http.connect("http://kaiwu-form-engine-core:18666/formEngine/formData/query")
+            .body(globalDictRequestBody)
+            .header("Authorization", authorization)
+            .post()
+            .getBody();
+
+        if (globalDictResult && globalDictResult.code == 200 && globalDictResult.result && globalDictResult.result.records) {
+            for (dict in globalDictResult.result.records) {
+                var gDictType = dict.dictType;
+                if (!dictData[gDictType]) {
+                    dictData[gDictType] = [];
+                }
+                dictData[gDictType].push({
+                    label: dict.dictItem,
+                    value: dict.dictItemCode,
+                    color: dict.color,
+                    icon: dict.icon,
+                    isDefault: dict.is_default == "是",
+                    scope: "global"
+                });
+            }
+        }
+    }
+    log.info('全局字典查询完成，类型数：{}', globalDictTypes.length);
+
     // ========== 5. 组装每个页面的完整配置（直接使用子表单数据） ==========
     var pageLoadedConfigs = {};
     var totalFuncCount = 0;
@@ -342,15 +471,21 @@ try {
             appConfigs: appConfigs,
             availablePageCodes: availablePageCodes,
             pageConfigs: pageLoadedConfigs,
+            globalConfig: {
+                functions: globalFunctions,
+                dictTypes: globalDictTypes
+            },
             dictData: dictData,
             stats: {
                 projectCount: activeProject ? 1 : 0,
                 appConfigCount: appConfigs.length,
                 pageConfigCount: pageConfigCount,
                 funcConfigCount: totalFuncCount,
+                globalFuncCount: globalFunctions.length,
                 apiConfigCount: totalApiCount,
                 dictTypeCount: dictTypes.length,
-                mongoQueries: 4
+                globalDictTypeCount: globalDictTypes.length,
+                mongoQueries: 6
             }
         }
     });

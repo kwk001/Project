@@ -1,0 +1,37 @@
+{
+  "id": "69d7569cd2c24e0007cbae28",
+  "name": "修改供应商",
+  "type": "FORM_EVENT",
+  "formId": "t69d7569c7184860008baae43",
+  "status": "ENABLE",
+  "applicationId": "8458f839b9260c7487315662282d1818",
+  "metadata": {
+    "firstNode": "69d7569cd2c24e0007cbae29",
+    "nodes": [
+      {
+        "id": "69d7569cd2c24e0007cbae29",
+        "name": "表单事件触发",
+        "type": "cn.kaiwu.mind.automation.rulenode.trigger.FormEventNode",
+        "configuration": "{\"location\":{\"left\":\"360px\",\"top\":\"295px\"},\"properties\":{\"conditionList\":[{\"conditionsValue\":\"0\",\"conditionsKey\":\"supplierMoney\",\"operationSymbol\":\"gt\"}],\"triggerEvent\":\"UPDATE\",\"dataFilterValue\":\"CONDITION\"}}",
+        "ruleChainId": "69d7569cd2c24e0007cbae28",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569cd2c24e0007cbae2a",
+        "name": "更新数据节点",
+        "type": "cn.kaiwu.mind.automation.rulenode.executor.FormDataUpdateNode",
+        "configuration": "{\"location\":{\"left\":\"640px\",\"top\":\"300px\"},\"properties\":{\"executionFilter\":[{\"isUpdate\":false,\"executionValue\":\"supplierId\",\"executionKey\":\"supplier_code\",\"valueType\":1,\"title\":\"供应商编码\"}],\"executionResult\":[{\"isUpdate\":true,\"executionValue\":\"contactPhoneNumber\",\"executionKey\":\"mobile\",\"valueType\":1,\"title\":\"供应商联系方式\",\"fieldType\":\"mainFields\"},{\"isUpdate\":true,\"executionValue\":\"supplierName\",\"executionKey\":\"supplier\",\"valueType\":1,\"title\":\"供应商名称\",\"fieldType\":\"mainFields\"},{\"isUpdate\":true,\"executionValue\":\"supplierMoney\",\"executionKey\":\"payableDeposi\",\"valueType\":1,\"title\":\"应缴合同保证金（元）\",\"fieldType\":\"mainFields\"},{\"isUpdate\":true,\"executionValue\":\"supplierMoney\",\"executionKey\":\"deliveredDeposi\",\"valueType\":1,\"title\":\"累计缴纳保证金（元）\",\"fieldType\":\"mainFields\"},{\"isUpdate\":true,\"executionValue\":\"supplierMoney\",\"executionKey\":\"balance\",\"valueType\":1,\"title\":\"当前保证金余额（元）\",\"fieldType\":\"mainFields\"},{\"isUpdate\":true,\"executionValue\":\"supplierAccount\",\"executionKey\":\"supplierAccount\",\"valueType\":1,\"title\":\"供应商账号\",\"fieldType\":\"mainFields\"}],\"mode\":\"SINGLE\",\"dataSourceType\":\"RULE_NODE\",\"sourceId\":\"69d7569cd2c24e0007cbae29\",\"targetFormName\":\"t687f41c8c5f2250007aa4732\",\"notFoundType\":\"SKIP\"}}",
+        "ruleChainId": "69d7569cd2c24e0007cbae28",
+        "authenticationData": null
+      }
+    ],
+    "connections": [
+      {
+        "id": "69d7569cd2c24e0007cbae2c",
+        "from": "69d7569cd2c24e0007cbae29",
+        "to": "69d7569cd2c24e0007cbae2a",
+        "type": "Success"
+      }
+    ]
+  }
+}

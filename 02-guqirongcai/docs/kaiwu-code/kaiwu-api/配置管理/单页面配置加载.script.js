@@ -24,18 +24,24 @@ import response;
 //     functions: [...],
 //     apiRoutes: [...],
 //     dictTypes: [...],
-//     dictData: {...}
+//     dictData: {...},
+//     globalConfig: {              // 全局配置（项目级，跨应用共享）
+//       functions: [...],          // 全局业务功能列表
+//       dictTypes: [...]           // 全局字典类型列表
+//     }
 //   }
 // }
 //
 // 性能优化说明：
 // - 功能配置、API路由、字典类型直接从页面配置子表单获取
-// - 仅需 1 次 HTTP 调用
+// - 全局配置从项目配置子表获取（globalFuncList、globalDictTypeList）
+// - 仅需 2 次 HTTP 调用（页面配置 + 项目配置）
 // - 子表单数据按状态过滤（启用）
 
 try {
     var formMap = getFormIdByCodes([
-        "CM_yemianpeizhi"
+        "CM_yemianpeizhi",
+        "CM_xiangmupeizhi"
     ]);
     
     var pageCode = body.pageCode;
@@ -114,6 +120,7 @@ try {
                 funcItem["expressionParams"] = func.expressionParams;
                 funcItem["funcDesc"] = func.funcDesc;
                 funcItem["formCode"] = func.funcConfigFormCode || baseFormCode;
+                funcItem["scope"] = "page";
                 mergedFuncs.push(funcItem);
             }
         }
@@ -159,7 +166,8 @@ try {
                     label: dictItem.dictItem,
                     value: dictItem.dictItemCode,
                     color: dictItem.color,
-                    parentDictType: dictItem.parentDictType
+                    parentDictType: dictItem.parentDictType,
+                    scope: "page"
                 });
             }
         }
@@ -167,7 +175,133 @@ try {
     
     log.info('字典数据加载完成，类型数：{}', dictTypes.length);
 
-    // ========== 5. 返回响应 ==========
+    // ========== 5. 查询项目配置，获取全局业务功能和全局字典 ==========
+    var globalFunctions = [];
+    var globalDictTypes = [];
+
+    var projectRequestBody = {
+        formId: formMap['CM_xiangmupeizhi'],
+        conditionFilter: {
+            conditionType: "and",
+            conditions: [{
+                field: "status",
+                conditionOperator: "eq",
+                conditionValues: ["启用"]
+            }]
+        },
+        page: {
+            current: 1,
+            size: 1,
+            pages: 0,
+            total: 1
+        },
+        sorts: []
+    };
+    var projectResult = http.connect("http://kaiwu-form-engine-core:18666/formEngine/formData/query")
+        .body(projectRequestBody)
+        .header("Authorization", authorization)
+        .post()
+        .getBody();
+
+    if (projectResult && projectResult.code == 200 && projectResult.result && projectResult.result.records && projectResult.result.records.size() > 0) {
+        var activeProject = projectResult.result.records.get(0);
+
+        // 从项目配置子表获取全局业务功能
+        if (activeProject.globalFuncList) {
+            for (func in activeProject.globalFuncList) {
+                if (func.funcStatus == "启用") {
+                    globalFunctions.push({
+                        funcCode: func.funcCode,
+                        funcName: func.funcName,
+                        funcStatus: func.funcStatus,
+                        funcExpression: func.funcExpression || '',
+                        expressionParams: func.expressionParams || '',
+                        funcDesc: func.funcDesc || '',
+                        scope: "global"
+                    });
+                }
+            }
+        }
+
+        // 从项目配置子表获取全局字典类型
+        if (activeProject.globalDictTypeList) {
+            for (item in activeProject.globalDictTypeList) {
+                if (item.dictType && item.dicStatus == "启用") {
+                    if (globalDictTypes.indexOf(item.dictType) == -1) {
+                        globalDictTypes.push(item.dictType);
+                    }
+                }
+            }
+        }
+    }
+
+    log.info('全局配置加载完成，功能数：{}，字典类型数：{}', globalFunctions.length, globalDictTypes.length);
+
+    // ========== 6. 合并全局配置到页面配置 ==========
+
+    // 6.1 合并全局功能（页面级已在构建时带 scope: "page"）
+    var allFunctions = [];
+    for (func in mergedFuncs) {
+        allFunctions.push(func);
+    }
+    for (gFunc in globalFunctions) {
+        // 全局功能已有 scope: "global"，检查是否被页面级覆盖
+        var overridden = false;
+        for (pFunc in mergedFuncs) {
+            if (pFunc.funcCode == gFunc.funcCode) {
+                overridden = true;
+            }
+        }
+        if (!overridden) {
+            allFunctions.push(gFunc);
+        }
+    }
+
+    // 6.2 合并全局字典类型到页面字典类型
+    var allDictTypes = [];
+    for (dt in dictTypes) {
+        allDictTypes.push(dt);
+    }
+    for (gType in globalDictTypes) {
+        if (allDictTypes.indexOf(gType) == -1) {
+            allDictTypes.push(gType);
+        }
+    }
+
+    // 6.3 全局字典数据补充到 dictData（页面级已在构建时带 scope: "page"）
+    if (projectResult && projectResult.code == 200 && projectResult.result && projectResult.result.records && projectResult.result.records.size() > 0) {
+        var activeProjectForDict = projectResult.result.records.get(0);
+        if (activeProjectForDict.globalDictTypeList) {
+            for (item in activeProjectForDict.globalDictTypeList) {
+                if (item.dictType && item.dicStatus == "启用") {
+                    var gDictType = item.dictType;
+                    if (!dictData[gDictType]) {
+                        dictData[gDictType] = [];
+                    }
+                    // 仅添加全局字典类型的条目（带 scope 标识）
+                    var exists = false;
+                    for (existing in dictData[gDictType]) {
+                        if (existing.value == item.dictItemCode && existing.scope == "global") {
+                            exists = true;
+                        }
+                    }
+                    if (!exists && item.dictItem) {
+                        dictData[gDictType].push({
+                            label: item.dictItem,
+                            value: item.dictItemCode,
+                            color: null,
+                            parentDictType: null,
+                            scope: "global"
+                        });
+                    }
+                }
+            }
+        }
+    }
+
+    log.info('配置合并完成，功能总数：{}，字典类型总数：{}', allFunctions.length, allDictTypes.length);
+
+    // ========== 7. 返回响应 ==========
     return response.json({
         code: 0,
         message: '页面配置加载成功',
@@ -176,10 +310,14 @@ try {
             formName: pageConfig.instanceFormName || pageConfig.formName || pageCode,
             isInstance: isInstance,
             baseFormCode: isInstance ? baseFormCode : null,
-            functions: mergedFuncs,
+            functions: allFunctions,
             apiRoutes: mergedApis,
-            dictTypes: dictTypes,
+            dictTypes: allDictTypes,
             dictData: dictData
+            // globalConfig: {
+            //     functions: globalFunctions,
+            //     dictTypes: globalDictTypes
+            // }
         }
     });
 

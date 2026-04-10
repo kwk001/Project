@@ -1,0 +1,42 @@
+{
+  "id": "69d7569dd2c24e0007cbae32",
+  "name": "发送报价邮箱通知",
+  "type": "FORM_EVENT",
+  "formId": "t69d7569c7184860008baae2e",
+  "status": "DISABLE",
+  "applicationId": "8458f839b9260c7487315662282d1818",
+  "metadata": {
+    "firstNode": "69d7569dd2c24e0007cbae33",
+    "nodes": [
+      {
+        "id": "69d7569dd2c24e0007cbae33",
+        "name": "表单事件触发",
+        "type": "cn.kaiwu.mind.automation.rulenode.trigger.FormEventNode",
+        "configuration": "{\"location\":{\"left\":\"95px\",\"top\":\"255px\"},\"properties\":{\"conditionList\":[{\"conditionsValue\":\"已发送\",\"conditionsKey\":\"sendingStatus\",\"operationSymbol\":\"eq\"}],\"triggerEvent\":\"UPDATE\",\"dataFilterValue\":\"CONDITION\"}}",
+        "ruleChainId": "69d7569dd2c24e0007cbae32",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569dd2c24e0007cbae34",
+        "name": "发送邮件",
+        "type": "cn.kaiwu.mind.automation.rulenode.connector.EmailNode",
+        "configuration": "{\"location\":{\"left\":\"400px\",\"top\":\"260px\"},\"properties\":{\"provider\":\"NET_EASE_126\",\"emailContent\":{\"subject\":\"报价通知\",\"toList\":[{\"name\":\"gqy\",\"key\":\"61d8c2d753431913e3f7cd1aea0a1619\",\"type\":\"FROM_USER\"}],\"ccList\":[],\"attachmentList\":\"quotationNotice\",\"content\":\"<p>报价通知单</p>\",\"htmlParameterList\":[],\"collection\":\"t69d7569c7184860008baae2e\"},\"byMessage\":false,\"html\":true}}",
+        "ruleChainId": "69d7569dd2c24e0007cbae32",
+        "authenticationData": {
+          "type": "BASIC",
+          "data": {
+            "username": "gcs987@126.com"
+          }
+        }
+      }
+    ],
+    "connections": [
+      {
+        "id": "69d7569dd2c24e0007cbae36",
+        "from": "69d7569dd2c24e0007cbae33",
+        "to": "69d7569dd2c24e0007cbae34",
+        "type": "Success"
+      }
+    ]
+  }
+}

@@ -1,0 +1,350 @@
+{
+  "version": "1.0.0",
+  "componentsMap": [
+    {
+      "package": "@kaiwu-cloud/lowcode-engine-component",
+      "version": "1.0.0",
+      "exportName": "KaiwuJsx",
+      "main": "src/index.tsx",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "KaiwuJsx"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Dialog",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Dialog"
+    },
+    {
+      "package": "@alifd/layout",
+      "version": "2.0.11",
+      "exportName": "Page",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "componentName": "FDPage"
+    },
+    {
+      "devMode": "lowCode",
+      "componentName": "Page"
+    }
+  ],
+  "componentsTree": [
+    {
+      "componentName": "Page",
+      "id": "node_dockcviv8fo1",
+      "props": {
+        "ref": "outerView",
+        "style": {
+          "height": "100%"
+        }
+      },
+      "docId": "doclaqkk3b9",
+      "fileName": "/",
+      "dataSource": {
+        "list": [
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/formData/query"
+            },
+            "id": "queryFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "PUT",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/formData/update"
+            },
+            "id": "updateFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/formData/add"
+            },
+            "id": "addFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "DELETE",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/formData/delete"
+            },
+            "id": "deleteFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "GET",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/identity/user/query/current"
+            },
+            "id": "getCurrentUser",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/form/getIdByCode"
+            },
+            "id": "getIdByCode",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/formData/batchAdd"
+            },
+            "id": "addMoreFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/application/getFileUrls"
+            },
+            "id": "getFileUrlList",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          }
+        ]
+      },
+      "hidden": false,
+      "title": "",
+      "isLocked": false,
+      "condition": true,
+      "conditionGroup": "",
+      "children": [
+        {
+          "componentName": "Dialog",
+          "id": "node_oclxfjn9qk1",
+          "props": {
+            "prefix": "next-",
+            "footerAlign": "right",
+            "title": {
+              "type": "JSExpression",
+              "value": "this.state.dialogTitle",
+              "mock": "Title"
+            },
+            "footer": false,
+            "footerActions": [
+              "ok",
+              "cancel"
+            ],
+            "closeable": "esc,close",
+            "hasMask": true,
+            "align": "cc cc",
+            "minMargin": 40,
+            "isAutoContainer": true,
+            "visible": {
+              "type": "JSExpression",
+              "value": "this.state.isShowDialog",
+              "mock": true
+            },
+            "style": {
+              "width": "45%"
+            },
+            "__events": {
+              "eventDataList": [
+                {
+                  "type": "componentEvent",
+                  "name": "onClose",
+                  "relatedEventName": "onCancel"
+                }
+              ],
+              "eventList": [
+                {
+                  "name": "onOk",
+                  "disabled": false
+                },
+                {
+                  "name": "onCancel",
+                  "disabled": false
+                },
+                {
+                  "name": "onClose",
+                  "disabled": true
+                }
+              ]
+            },
+            "onClose": {
+              "type": "JSFunction",
+              "value": "function(){return this.onCancel.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            }
+          },
+          "hidden": true,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "children": [
+            {
+              "componentName": "KaiwuJsx",
+              "id": "node_oclxfjn9qk2",
+              "props": {
+                "style": {
+                  "width": "100%",
+                  "paddingBottom": "30px"
+                },
+                "content": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.renderJSXForm.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                }
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            }
+          ]
+        },
+        {
+          "componentName": "KaiwuJsx",
+          "id": "node_oclxfhfmqh19",
+          "props": {
+            "style": {
+              "width": "100%"
+            },
+            "content": {
+              "type": "JSFunction",
+              "value": "function(){ return this.renderJSXTable.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "ref": "kaiwujsx-d6553afd"
+          },
+          "hidden": false,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "loopArgs": [
+            null,
+            null
+          ]
+        },
+        {
+          "componentName": "FDPage",
+          "id": "node_oclvadorbn3",
+          "props": {
+            "contentProps": {
+              "style": {
+                "background": "rgba(255,255,255,0)"
+              }
+            },
+            "ref": "fdpage-62758b9e"
+          },
+          "title": "页面",
+          "hidden": false,
+          "isLocked": false,
+          "condition": false,
+          "conditionGroup": "",
+          "loopArgs": [
+            null,
+            null
+          ]
+        }
+      ]
+    }
+  ],
+  "i18n": {
+    "zh-CN": {
+      "i18n-jwg27yo4": "你好 ",
+      "i18n-jwg27yo3": "{name} 博士"
+    },
+    "en-US": {
+      "i18n-jwg27yo4": "Hello ",
+      "i18n-jwg27yo3": "Doctor {name}"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "id": "69d7569dd2c24e0007cbae3e",
+  "name": "临期提醒",
+  "type": "CRON",
+  "formId": null,
+  "status": "DISABLE",
+  "applicationId": "8458f839b9260c7487315662282d1818",
+  "metadata": {
+    "firstNode": "69d7569dd2c24e0007cbae3f",
+    "nodes": [
+      {
+        "id": "69d7569dd2c24e0007cbae3f",
+        "name": "定时触发",
+        "type": "cn.kaiwu.mind.automation.rulenode.cron.CronStartNode",
+        "configuration": "{\"location\":{\"left\":\"200px\",\"top\":\"205px\"},\"properties\":{\"ruleChainId\":\"69d7569dd2c24e0007cbae3e\",\"startTime\":\"2024-06-09 00:00:00\",\"finishTime\":\"2024-06-21 00:00:00\",\"repeat\":\"1h\",\"repeatUnit\":\"month\",\"step\":1,\"numbers\":null}}",
+        "ruleChainId": "69d7569dd2c24e0007cbae3e",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569dd2c24e0007cbae40",
+        "name": "查询批量数据",
+        "type": "cn.kaiwu.mind.automation.rulenode.fetch.FetchBatchDataNode",
+        "configuration": "{\"location\":{\"left\":\"490px\",\"top\":\"200px\"},\"properties\":{\"dataSourceType\":\"FORM\",\"dataFilterValue\":\"CONDITION\",\"conditionList\":[{\"conditionsValue\":\"\",\"conditionsKey\":\"quotationEndTime\",\"operationSymbol\":\"between\",\"valueType\":4,\"conditionsMultiValue\":[\"{\\\"formula\\\":\\\"DATEFORMAT(DATEOFFSET(DATENOW(),key_offsetunit5,-1),\\\\\\\"yyyy-MM-dd HH:mm:ss\\\\\\\")\\\",\\\"vars\\\":{\\\"DATENOW\\\":\\\"DATENOW\\\",\\\"DATEOFFSET\\\":\\\"DATEOFFSET\\\",\\\"DATEFORMAT\\\":\\\"DATEFORMAT\\\",\\\"key_offsetunit5\\\":{\\\"key\\\":5,\\\"keyType\\\":\\\"SELF_DEFINITION\\\"}}}\",\"{\\\"formula\\\":\\\"DATEFORMAT(DATEOFFSET(DATENOW(),key_offsetunit5,0),\\\\\\\"yyyy-MM-dd HH:mm:ss\\\\\\\")\\\",\\\"vars\\\":{\\\"DATENOW\\\":\\\"DATENOW\\\",\\\"DATEOFFSET\\\":\\\"DATEOFFSET\\\",\\\"DATEFORMAT\\\":\\\"DATEFORMAT\\\",\\\"key_offsetunit5\\\":{\\\"key\\\":5,\\\"keyType\\\":\\\"SELF_DEFINITION\\\"}}}\"]}],\"orderType\":\"NONE\",\"orderField\":\"\",\"mode\":\"BATCH\",\"sourceId\":\"t69d7569c7184860008baae3b\"}}",
+        "ruleChainId": "69d7569dd2c24e0007cbae3e",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569dd2c24e0007cbae41",
+        "name": "发送邮件",
+        "type": "cn.kaiwu.mind.automation.rulenode.connector.EmailNode",
+        "configuration": "{\"location\":{\"left\":\"500px\",\"top\":\"405px\"},\"properties\":{\"provider\":\"NET_EASE_126\",\"emailContent\":{\"subject\":\"测试临期\",\"toList\":[{\"name\":\"1348467828@qq.com\",\"key\":\"1348467828@qq.com\",\"type\":\"SELF_DEFINITION\"}],\"ccList\":[],\"attachmentList\":\"\",\"content\":\"34\",\"htmlParameterList\":[],\"collection\":\"t69d7569c7184860008baae3b\"},\"byMessage\":false,\"html\":false}}",
+        "ruleChainId": "69d7569dd2c24e0007cbae3e",
+        "authenticationData": {
+          "type": "BASIC",
+          "data": {
+            "username": "gcs987@126.com"
+          }
+        }
+      }
+    ],
+    "connections": [
+      {
+        "id": "69d7569dd2c24e0007cbae44",
+        "from": "69d7569dd2c24e0007cbae3f",
+        "to": "69d7569dd2c24e0007cbae40",
+        "type": "Success"
+      },
+      {
+        "id": "69d7569dd2c24e0007cbae45",
+        "from": "69d7569dd2c24e0007cbae40",
+        "to": "69d7569dd2c24e0007cbae41",
+        "type": "Success"
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+body {
+  font-size: 12px;
+}
+
+.next-upload {
+  display: flex;
+  align-items: flex-start;
+}
+
+.next-upload-inner {
+  margin-right: 10px;
+}
+
+.next-table-cell-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.titleName {
+  display: flex;
+  align-items: center;
+}
+
+.titleName .img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}

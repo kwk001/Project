@@ -1,0 +1,37 @@
+{
+  "id": "69d7569dd2c24e0007cbae2d",
+  "name": "删除供应商档案",
+  "type": "FORM_EVENT",
+  "formId": "t69d7569c7184860008baae43",
+  "status": "ENABLE",
+  "applicationId": "8458f839b9260c7487315662282d1818",
+  "metadata": {
+    "firstNode": "69d7569dd2c24e0007cbae2e",
+    "nodes": [
+      {
+        "id": "69d7569dd2c24e0007cbae2e",
+        "name": "表单事件触发",
+        "type": "cn.kaiwu.mind.automation.rulenode.trigger.FormEventNode",
+        "configuration": "{\"location\":{\"left\":\"200px\",\"top\":\"200px\"},\"properties\":{\"conditionList\":[],\"triggerEvent\":\"DELETE\",\"dataFilterValue\":\"ALL\"}}",
+        "ruleChainId": "69d7569dd2c24e0007cbae2d",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569dd2c24e0007cbae2f",
+        "name": "删除数据",
+        "type": "cn.kaiwu.mind.automation.rulenode.executor.FormDataDeleteNode",
+        "configuration": "{\"location\":{\"left\":\"505px\",\"top\":\"200px\"},\"properties\":{\"mode\":\"SINGLE\",\"dataSourceType\":\"FORM\",\"conditionList\":[{\"conditionsValue\":\"${69d7569dd2c24e0007cbae2e}.supplierId\",\"conditionsKey\":\"supplier_code\",\"operationSymbol\":\"eq\",\"valueType\":1}],\"targetFormName\":\"t687f41c8c5f2250007aa4732\"}}",
+        "ruleChainId": "69d7569dd2c24e0007cbae2d",
+        "authenticationData": null
+      }
+    ],
+    "connections": [
+      {
+        "id": "69d7569dd2c24e0007cbae31",
+        "from": "69d7569dd2c24e0007cbae2e",
+        "to": "69d7569dd2c24e0007cbae2f",
+        "type": "Success"
+      }
+    ]
+  }
+}

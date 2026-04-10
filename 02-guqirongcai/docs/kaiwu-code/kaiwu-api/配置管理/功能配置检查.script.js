@@ -10,6 +10,7 @@ import response;
 // 
 // 参数说明：
 // - funcCode (String): body.funcCode 获取 - 功能编码
+// - projectCode (String): body.projectCode 获取 - 项目编码，可选（用于全局功能查询）
 // - context (Object): body.context 获取 - 表达式执行上下文，可选
 //
 // 返回值：
@@ -27,8 +28,9 @@ try {
     var formMap = getFormIdByCodes(["CM_yewugongneng"]);
     
     var funcCode = body.funcCode;
+    var projectCode = body.projectCode;
     var context = body.context || {};
-    
+
     if (!funcCode) {
         return response.json({
             code: -1,
@@ -36,21 +38,38 @@ try {
             data: null
         });
     }
-    
-    log.info('功能配置检查接口被调用，功能编码：{}', funcCode);
+
+    log.info('功能配置检查接口被调用，功能编码：{}，项目编码：{}', funcCode, projectCode);
 
     var authorization = (header && header.Authorization) || (header && header.authorization);
+
+    // 构建查询条件
+    var conditions = [{
+        field: "funcCode",
+        conditionOperator: "eq",
+        conditionValues: [funcCode]
+    }];
+
+    // 如果传入 projectCode，优先查全局配置（scope=global）
+    if (projectCode) {
+        conditions.push({
+            field: "projectCode",
+            conditionOperator: "eq",
+            conditionValues: [projectCode]
+        });
+        conditions.push({
+            field: "scope",
+            conditionOperator: "eq",
+            conditionValues: ["global"]
+        });
+    }
 
     // 查询功能配置
     var requestBody = {
         formId: formMap['CM_yewugongneng'],
         conditionFilter: {
             conditionType: "and",
-            conditions: [{
-                field: "funcCode",
-                conditionOperator: "eq",
-                conditionValues: [funcCode]
-            }]
+            conditions: conditions
         },
         page: {
             current: 1,
@@ -65,10 +84,41 @@ try {
         .header("Authorization", authorization)
         .post()
         .getBody();
-    
+
     var funcConfig = null;
     if (result && result.code == 200 && result.result && result.result.records && result.result.records.size() > 0) {
         funcConfig = result.result.records.get(0);
+    }
+
+    // 如果全局配置未找到且传入了 projectCode，回退查页面级配置
+    if (!funcConfig && projectCode) {
+        log.info('全局配置未找到，回退查页面级配置');
+        var fallbackRequestBody = {
+            formId: formMap['CM_yewugongneng'],
+            conditionFilter: {
+                conditionType: "and",
+                conditions: [{
+                    field: "funcCode",
+                    conditionOperator: "eq",
+                    conditionValues: [funcCode]
+                }]
+            },
+            page: {
+                current: 1,
+                size: 1,
+                pages: 0,
+                total: 1
+            },
+            sorts: []
+        };
+        var fallbackResult = http.connect("http://kaiwu-form-engine-core:18666/formEngine/formData/query")
+            .body(fallbackRequestBody)
+            .header("Authorization", authorization)
+            .post()
+            .getBody();
+        if (fallbackResult && fallbackResult.code == 200 && fallbackResult.result && fallbackResult.result.records && fallbackResult.result.records.size() > 0) {
+            funcConfig = fallbackResult.result.records.get(0);
+        }
     }
     
     if (!funcConfig) {

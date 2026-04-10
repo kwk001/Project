@@ -1,0 +1,2615 @@
+{
+  "version": "1.0.0",
+  "componentsMap": [
+    {
+      "package": "@alilc/lowcode-materials",
+      "version": "1.1.0",
+      "exportName": "NextText",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "NextText"
+    },
+    {
+      "package": "@alifd/layout",
+      "version": "2.4.1",
+      "exportName": "P",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "FDP"
+    },
+    {
+      "package": "@alifd/layout",
+      "version": "2.4.1",
+      "exportName": "Cell",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "FDCell"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Button",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Button"
+    },
+    {
+      "package": "@alifd/layout",
+      "version": "2.4.1",
+      "exportName": "Row",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "FDRow"
+    },
+    {
+      "package": "@alifd/layout",
+      "version": "2.4.1",
+      "exportName": "Col",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "FDCol"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "CascaderSelect",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "CascaderSelect"
+    },
+    {
+      "package": "@alifd/fusion-ui",
+      "version": "2.0.1",
+      "exportName": "ProTable",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "ProTable"
+    },
+    {
+      "package": "@kaiwu-cloud/lowcode-engine-component",
+      "version": "1.0.0",
+      "exportName": "KaiwuJsx",
+      "main": "src/index.tsx",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "KaiwuJsx"
+    },
+    {
+      "package": "@alifd/fusion-ui",
+      "version": "2.0.1",
+      "exportName": "ProDrawer",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Drawer"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Dialog",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Dialog"
+    },
+    {
+      "package": "@alifd/fusion-ui",
+      "version": "2.0.1",
+      "exportName": "FormRangePicker",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "FormRangePicker"
+    },
+    {
+      "package": "@alifd/fusion-ui",
+      "version": "2.0.1",
+      "exportName": "FormSelect",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "FormSelect"
+    },
+    {
+      "package": "@alifd/fusion-ui",
+      "version": "2.0.1",
+      "exportName": "Filter",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Filter"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Loading",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Loading"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Pagination",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Pagination"
+    },
+    {
+      "devMode": "lowCode",
+      "componentName": "Page"
+    }
+  ],
+  "componentsTree": [
+    {
+      "componentName": "Page",
+      "id": "node_dockcviv8fo1",
+      "props": {
+        "ref": "outerView",
+        "style": {
+          "height": "100%",
+          "backgroundColor": "#FFFFFF"
+        }
+      },
+      "docId": "doclaqkk3b9",
+      "fileName": "/",
+      "dataSource": {
+        "list": [
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/formData/query"
+            },
+            "id": "queryFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "PUT",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/formData/update"
+            },
+            "id": "updateFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/formData/add"
+            },
+            "id": "addFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "DELETE",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/formData/delete"
+            },
+            "id": "deleteFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "GET",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/identity/user/query/current"
+            },
+            "id": "getCurrentUser",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/form/getIdByCode"
+            },
+            "id": "getIdByCode",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/formData/batchAdd"
+            },
+            "id": "addMoreFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json"
+              },
+              "uri": {
+                "type": "JSExpression",
+                "value": "`/kaiwuApi/${this.state.currentUser.customerId}/queryMoreTableData`"
+              }
+            },
+            "id": "queryMoreTableData"
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "GET",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {},
+              "uri": {
+                "type": "JSExpression",
+                "value": "`/kaiwuApi/${this.state.currentUser.customerId}/queryPackageList`"
+              }
+            },
+            "id": "queryPackageList"
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json"
+              },
+              "uri": "/mainApi/apiProxy/111/haiju/getFileUrls"
+            },
+            "id": "getFileUrlList"
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "DELETE",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json"
+              },
+              "uri": "/mainApi/formEngine/formData/remove"
+            },
+            "id": "removeFormData"
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json"
+              },
+              "uri": {
+                "type": "JSExpression",
+                "value": "`/kaiwuApi/${this.state.currentUser.customerId}/toc/getGoodsDetailList`"
+              }
+            },
+            "id": "getGoodsDetail"
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 30000,
+              "headers": {
+                "content-type": "application/json"
+              },
+              "uri": {
+                "type": "JSExpression",
+                "value": "`/kaiwuApi/${this.state.currentUser.customerId}/queryPackageInfoById`"
+              }
+            },
+            "id": "queryPackageInfoById"
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 30000,
+              "headers": {
+                "content-type": "application/json"
+              },
+              "uri": {
+                "type": "JSExpression",
+                "value": "`/kaiwuApi/${this.state.currentUser.customerId}/reportCockpit/exportSupplyPlan`"
+              }
+            },
+            "id": "exportSupplyPlan",
+            "willFetch": {
+              "type": "JSFunction",
+              "value": "function(options) {\n\n  options.dataType = 'blob'\n  return options;\n}"
+            },
+            "dataHandler": {
+              "type": "JSFunction",
+              "value": "function(res) {\n  console.log(res, '=====')\n  return res.data\n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json"
+              },
+              "uri": "/mainApi/formEngine/formData/batchUpdate"
+            },
+            "id": "batchUpdate"
+          }
+        ]
+      },
+      "hidden": false,
+      "title": "",
+      "isLocked": false,
+      "condition": true,
+      "conditionGroup": "",
+      "children": [
+        {
+          "componentName": "Drawer",
+          "id": "node_oclvd7ynjv3",
+          "props": {
+            "prefix": "next-",
+            "triggerType": "click",
+            "closeable": true,
+            "placement": "bottom",
+            "hasMask": true,
+            "isAutoContainer": true,
+            "visible": {
+              "type": "JSExpression",
+              "value": "this.state.isShowDialog",
+              "mock": true
+            },
+            "ref": "pro-drawer-entrylvd7yo71",
+            "style": {
+              "height": "100vh"
+            },
+            "className": "button",
+            "__events": {
+              "eventDataList": [
+                {
+                  "type": "componentEvent",
+                  "name": "onClose",
+                  "relatedEventName": "onCloseDrawer"
+                }
+              ],
+              "eventList": [
+                {
+                  "name": "onClose",
+                  "disabled": true
+                },
+                {
+                  "name": "onOk",
+                  "disabled": false
+                }
+              ]
+            },
+            "onClose": {
+              "type": "JSFunction",
+              "value": "function(){return this.onCloseDrawer.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "_unsafe_MixedSetter____condition____select": "BoolSetter",
+            "size": "large"
+          },
+          "hidden": true,
+          "title": "",
+          "isLocked": false,
+          "conditionGroup": "",
+          "loopArgs": [
+            null,
+            null
+          ],
+          "condition": true,
+          "children": [
+            {
+              "componentName": "FDRow",
+              "id": "node_oclvg0lo1265",
+              "props": {
+                "style": {
+                  "height": "50px",
+                  "overflow": "hidden",
+                  "lineHeight": "50px",
+                  "paddingBottom": "5px",
+                  "marginBottom": "10px",
+                  "borderBottom": "1px solid #CCCCCC",
+                  "backgroundColor": "rgba(255,255,255,1)",
+                  "minHeight": ""
+                },
+                "gap": 0,
+                "ref": "fdrow-547b2a04"
+              },
+              "title": "行容器",
+              "hidden": false,
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": "",
+              "loopArgs": [
+                null,
+                null
+              ],
+              "children": [
+                {
+                  "componentName": "FDCell",
+                  "id": "node_oclvg0lo1264",
+                  "props": {
+                    "align": "left",
+                    "verAlign": "middle",
+                    "style": {
+                      "height": "50px",
+                      "lineHeight": "50px",
+                      "backgroundColor": "rgba(255,255,255,1)"
+                    },
+                    "width": "",
+                    "ref": "fdcell-379b3cc3"
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": "",
+                  "children": [
+                    {
+                      "componentName": "FDP",
+                      "id": "node_oclvg0lo1272",
+                      "props": {},
+                      "title": "段落",
+                      "hidden": false,
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": "",
+                      "children": [
+                        {
+                          "componentName": "NextText",
+                          "id": "node_oclvg0lo1271",
+                          "props": {
+                            "type": "h5",
+                            "children": {
+                              "type": "JSExpression",
+                              "value": " this.state.operType == 'add' ? '新建计划单'\n  : (this.state.operType == 'edit' ? '编辑计划单'\n   :'详情' )",
+                              "mock": "新建计划单"
+                            },
+                            "mark": false,
+                            "code": false,
+                            "delete": false,
+                            "underline": false,
+                            "strong": false,
+                            "prefix": "",
+                            "classname": "",
+                            "style": {
+                              "fontSize": "22px"
+                            },
+                            "ref": "nexttext-8c15f201"
+                          },
+                          "hidden": false,
+                          "title": "",
+                          "isLocked": false,
+                          "condition": true,
+                          "conditionGroup": "",
+                          "loopArgs": [
+                            null,
+                            null
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "componentName": "FDCell",
+                  "id": "node_oclvg0lo1266",
+                  "props": {
+                    "align": "right",
+                    "verAlign": "top",
+                    "style": {
+                      "height": "50px",
+                      "backgroundColor": "rgba(255,255,255,1)",
+                      "display": "flex",
+                      "width": "500px",
+                      "flexFlow": "row nowrap",
+                      "flexDirection": "row-reverse",
+                      "justifyContent": "space-around",
+                      "alignItems": "center"
+                    },
+                    "width": 399,
+                    "ref": "fdcell-8d07cbb7",
+                    "_unsafe_MixedSetter____condition____select": "VariableSetter"
+                  },
+                  "title": "容器",
+                  "hidden": false,
+                  "isLocked": false,
+                  "condition": {
+                    "type": "JSExpression",
+                    "value": "this.state.productList?.length"
+                  },
+                  "conditionGroup": "",
+                  "children": [
+                    {
+                      "componentName": "FDP",
+                      "id": "node_oclvg0lo1286",
+                      "props": {},
+                      "title": "段落",
+                      "hidden": false,
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": "",
+                      "children": [
+                        {
+                          "componentName": "Button",
+                          "id": "node_oclvj4itzh7",
+                          "props": {
+                            "prefix": "next-",
+                            "type": "normal",
+                            "size": "medium",
+                            "htmlType": "button",
+                            "component": "button",
+                            "children": "撤销",
+                            "iconSize": "xxs",
+                            "loading": false,
+                            "text": false,
+                            "warning": false,
+                            "disabled": false,
+                            "ref": "button-25379868",
+                            "_unsafe_MixedSetter____condition____select": "VariableSetter",
+                            "__events": {
+                              "eventDataList": [
+                                {
+                                  "type": "componentEvent",
+                                  "name": "onClick",
+                                  "relatedEventName": "onClick",
+                                  "paramStr": "{\n \t \"name\":\"撤销\" \n}"
+                                }
+                              ],
+                              "eventList": [
+                                {
+                                  "name": "onClick",
+                                  "description": "点击按钮的回调\n@param {Object} e Event Object",
+                                  "disabled": true
+                                },
+                                {
+                                  "name": "onMouseUp",
+                                  "disabled": false
+                                }
+                              ]
+                            },
+                            "onClick": {
+                              "type": "JSFunction",
+                              "value": "function(){return this.onClick.apply(this,Array.prototype.slice.call(arguments).concat([{\n \t \"name\":\"撤销\" \n}])) }"
+                            }
+                          },
+                          "hidden": false,
+                          "title": "",
+                          "isLocked": false,
+                          "condition": {
+                            "type": "JSExpression",
+                            "value": "this.state.editRow?.status == '待提交'   && this.state.operType !== 'view'"
+                          },
+                          "conditionGroup": "",
+                          "loopArgs": [
+                            null,
+                            null
+                          ]
+                        },
+                        {
+                          "componentName": "Button",
+                          "id": "node_ocm2odzpiab",
+                          "props": {
+                            "prefix": "next-",
+                            "type": "primary",
+                            "size": "medium",
+                            "htmlType": "button",
+                            "component": "button",
+                            "children": "审批通过",
+                            "iconSize": "xxs",
+                            "loading": false,
+                            "text": false,
+                            "warning": false,
+                            "disabled": false,
+                            "ref": "button-ca0b4dc0",
+                            "_unsafe_MixedSetter____condition____select": "VariableSetter",
+                            "__events": {
+                              "eventDataList": [
+                                {
+                                  "type": "componentEvent",
+                                  "name": "onClick",
+                                  "relatedEventName": "onClick",
+                                  "paramStr": "{\n\t\"name\": \"通过\"\n}"
+                                }
+                              ],
+                              "eventList": [
+                                {
+                                  "name": "onClick",
+                                  "description": "点击按钮的回调\n@param {Object} e Event Object",
+                                  "disabled": true
+                                },
+                                {
+                                  "name": "onMouseUp",
+                                  "disabled": false
+                                }
+                              ]
+                            },
+                            "onClick": {
+                              "type": "JSFunction",
+                              "value": "function(){return this.onClick.apply(this,Array.prototype.slice.call(arguments).concat([{\n\t\"name\": \"通过\"\n}])) }"
+                            }
+                          },
+                          "hidden": false,
+                          "title": "",
+                          "isLocked": false,
+                          "condition": {
+                            "type": "JSExpression",
+                            "value": "this.state.editRow?.status == '审批中' && this.state.operType  == 'view'"
+                          },
+                          "conditionGroup": "",
+                          "loopArgs": [
+                            null,
+                            null
+                          ]
+                        },
+                        {
+                          "componentName": "Button",
+                          "id": "node_oclvg0lo128d",
+                          "props": {
+                            "prefix": "next-",
+                            "type": "primary",
+                            "size": "medium",
+                            "htmlType": "button",
+                            "component": "button",
+                            "children": "保存",
+                            "iconSize": "xxs",
+                            "loading": false,
+                            "text": false,
+                            "warning": false,
+                            "disabled": false,
+                            "__events": {
+                              "eventDataList": [
+                                {
+                                  "type": "componentEvent",
+                                  "name": "onClick",
+                                  "relatedEventName": "onClick",
+                                  "paramStr": "{\n \t \"name\":\"save\"\n}"
+                                }
+                              ],
+                              "eventList": [
+                                {
+                                  "name": "onClick",
+                                  "description": "点击按钮的回调\n@param {Object} e Event Object",
+                                  "disabled": true
+                                },
+                                {
+                                  "name": "onMouseUp",
+                                  "disabled": false
+                                }
+                              ]
+                            },
+                            "onClick": {
+                              "type": "JSFunction",
+                              "value": "function(){return this.onClick.apply(this,Array.prototype.slice.call(arguments).concat([{\n \t \"name\":\"save\"\n}])) }"
+                            },
+                            "ref": "button-68235811",
+                            "_unsafe_MixedSetter____condition____select": "VariableSetter"
+                          },
+                          "hidden": false,
+                          "title": "",
+                          "isLocked": false,
+                          "condition": {
+                            "type": "JSExpression",
+                            "value": "(!this.state.editRow || this.state.editRow?.status == '待提交') && this.state.operType !== 'view'"
+                          },
+                          "conditionGroup": "",
+                          "loopArgs": [
+                            null,
+                            null
+                          ]
+                        },
+                        {
+                          "componentName": "Button",
+                          "id": "node_ocm5p94j2zd",
+                          "props": {
+                            "prefix": "next-",
+                            "type": "primary",
+                            "size": "medium",
+                            "htmlType": "button",
+                            "component": "button",
+                            "children": "驳回",
+                            "iconSize": "xxs",
+                            "loading": false,
+                            "text": false,
+                            "warning": false,
+                            "disabled": false,
+                            "__events": {
+                              "eventDataList": [
+                                {
+                                  "type": "componentEvent",
+                                  "name": "onClick",
+                                  "relatedEventName": "onClick",
+                                  "paramStr": "{\n \t \"name\":\"驳回\" \n}"
+                                }
+                              ],
+                              "eventList": [
+                                {
+                                  "name": "onClick",
+                                  "description": "点击按钮的回调\n@param {Object} e Event Object",
+                                  "disabled": true
+                                },
+                                {
+                                  "name": "onMouseUp",
+                                  "disabled": false
+                                }
+                              ]
+                            },
+                            "onClick": {
+                              "type": "JSFunction",
+                              "value": "function(){return this.onClick.apply(this,Array.prototype.slice.call(arguments).concat([{\n \t \"name\":\"驳回\" \n}])) }"
+                            },
+                            "ref": "button-3ce9181c",
+                            "_unsafe_MixedSetter____condition____select": "VariableSetter"
+                          },
+                          "hidden": false,
+                          "title": "",
+                          "isLocked": false,
+                          "condition": {
+                            "type": "JSExpression",
+                            "value": "this.state.editRow?.status == '审批中' && this.state.operType == 'view'"
+                          },
+                          "conditionGroup": "",
+                          "loopArgs": [
+                            null,
+                            null
+                          ]
+                        },
+                        {
+                          "componentName": "Button",
+                          "id": "node_oclvg9375h5",
+                          "props": {
+                            "prefix": "next-",
+                            "type": "primary",
+                            "size": "medium",
+                            "htmlType": "button",
+                            "component": "button",
+                            "children": "提交审核",
+                            "iconSize": "xxs",
+                            "loading": false,
+                            "text": false,
+                            "warning": false,
+                            "disabled": false,
+                            "__events": {
+                              "eventDataList": [
+                                {
+                                  "type": "componentEvent",
+                                  "name": "onClick",
+                                  "relatedEventName": "onClick",
+                                  "paramStr": "{\n\t\"name\": \"addsubmit\"\n}"
+                                }
+                              ],
+                              "eventList": [
+                                {
+                                  "name": "onClick",
+                                  "description": "点击按钮的回调\n@param {Object} e Event Object",
+                                  "disabled": true
+                                },
+                                {
+                                  "name": "onMouseUp",
+                                  "disabled": false
+                                }
+                              ]
+                            },
+                            "onClick": {
+                              "type": "JSFunction",
+                              "value": "function(){return this.onClick.apply(this,Array.prototype.slice.call(arguments).concat([{\n\t\"name\": \"addsubmit\"\n}])) }"
+                            },
+                            "ref": "button-2cb162ad",
+                            "_unsafe_MixedSetter____condition____select": "VariableSetter"
+                          },
+                          "hidden": false,
+                          "title": "",
+                          "isLocked": false,
+                          "condition": {
+                            "type": "JSExpression",
+                            "value": "!this.state.editRow && this.state.operType !== 'view'"
+                          },
+                          "conditionGroup": "",
+                          "loopArgs": [
+                            null,
+                            null
+                          ]
+                        },
+                        {
+                          "componentName": "Button",
+                          "id": "node_oclxjsjeo81",
+                          "props": {
+                            "prefix": "next-",
+                            "type": "primary",
+                            "size": "medium",
+                            "htmlType": "button",
+                            "component": "button",
+                            "children": "提交",
+                            "iconSize": "xxs",
+                            "loading": false,
+                            "text": false,
+                            "warning": false,
+                            "disabled": false,
+                            "__events": {
+                              "eventDataList": [
+                                {
+                                  "type": "componentEvent",
+                                  "name": "onClick",
+                                  "relatedEventName": "onClick",
+                                  "paramStr": "{\n\t\"name\": \"submit\"\n}"
+                                }
+                              ],
+                              "eventList": [
+                                {
+                                  "name": "onClick",
+                                  "description": "点击按钮的回调\n@param {Object} e Event Object",
+                                  "disabled": true
+                                },
+                                {
+                                  "name": "onMouseUp",
+                                  "disabled": false
+                                }
+                              ]
+                            },
+                            "onClick": {
+                              "type": "JSFunction",
+                              "value": "function(){return this.onClick.apply(this,Array.prototype.slice.call(arguments).concat([{\n\t\"name\": \"submit\"\n}])) }"
+                            },
+                            "ref": "button-6wtetyk",
+                            "_unsafe_MixedSetter____condition____select": "VariableSetter"
+                          },
+                          "hidden": false,
+                          "title": "",
+                          "isLocked": false,
+                          "condition": {
+                            "type": "JSExpression",
+                            "value": "this.state.editRow && this.state.editRow.status =='待提交' &&   this.state.operType !== 'view'"
+                          },
+                          "conditionGroup": "",
+                          "loopArgs": [
+                            null,
+                            null
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "componentName": "FDCol",
+              "id": "node_oclvj2uer63s",
+              "props": {
+                "style": {
+                  "backgroundColor": "rgba(255,255,255,1)"
+                },
+                "ref": "fdcol-4dd210b2",
+                "_unsafe_MixedSetter____condition____select": "VariableSetter",
+                "width": ""
+              },
+              "title": "列容器",
+              "hidden": false,
+              "isLocked": false,
+              "condition": {
+                "type": "JSExpression",
+                "value": "this.state.operType === 'view'"
+              },
+              "conditionGroup": "",
+              "loopArgs": [
+                null,
+                null
+              ],
+              "children": [
+                {
+                  "componentName": "FDCell",
+                  "id": "node_oclvj2uer62n",
+                  "props": {
+                    "align": "left",
+                    "verAlign": "top",
+                    "style": {
+                      "backgroundColor": "rgba(255,255,255,1)"
+                    },
+                    "ref": "fdcell-663db091"
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": "",
+                  "children": [
+                    {
+                      "componentName": "FDP",
+                      "id": "node_oclvj2uer63p",
+                      "props": {},
+                      "title": "段落",
+                      "hidden": false,
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": "",
+                      "children": [
+                        {
+                          "componentName": "NextText",
+                          "id": "node_oclvj2uer63o",
+                          "props": {
+                            "type": "h5",
+                            "children": "单号：",
+                            "mark": false,
+                            "code": false,
+                            "delete": false,
+                            "underline": false,
+                            "strong": false,
+                            "prefix": "",
+                            "classname": ""
+                          },
+                          "hidden": false,
+                          "title": "",
+                          "isLocked": false,
+                          "condition": true,
+                          "conditionGroup": ""
+                        },
+                        {
+                          "componentName": "NextText",
+                          "id": "node_oclvj2uer63q",
+                          "props": {
+                            "type": "h5",
+                            "children": {
+                              "type": "JSExpression",
+                              "value": "this.state.editRow.code",
+                              "mock": "标题标题"
+                            },
+                            "mark": false,
+                            "code": false,
+                            "delete": false,
+                            "underline": false,
+                            "strong": false,
+                            "prefix": "",
+                            "classname": "",
+                            "ref": "nexttext-010a90e2"
+                          },
+                          "hidden": false,
+                          "title": "",
+                          "isLocked": false,
+                          "condition": true,
+                          "conditionGroup": "",
+                          "loopArgs": [
+                            null,
+                            null
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "componentName": "FDRow",
+                  "id": "node_oclvj2uer63v",
+                  "props": {
+                    "style": {
+                      "height": "30px",
+                      "backgroundColor": "rgba(255,255,255,1)"
+                    },
+                    "ref": "fdrow-13aa7bc2"
+                  },
+                  "title": "行容器",
+                  "hidden": false,
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": "",
+                  "loopArgs": [
+                    null,
+                    null
+                  ],
+                  "children": [
+                    {
+                      "componentName": "FDCell",
+                      "id": "node_oclvj2uer63t",
+                      "props": {
+                        "align": "left",
+                        "verAlign": "top",
+                        "style": {
+                          "height": "30px",
+                          "backgroundColor": "rgba(255,255,255,1)"
+                        }
+                      },
+                      "title": "容器",
+                      "hidden": false,
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": "",
+                      "children": [
+                        {
+                          "componentName": "FDP",
+                          "id": "node_oclvj2uer65k",
+                          "props": {},
+                          "title": "段落",
+                          "hidden": false,
+                          "isLocked": false,
+                          "condition": true,
+                          "conditionGroup": "",
+                          "children": [
+                            {
+                              "componentName": "NextText",
+                              "id": "node_oclvj2uer65j",
+                              "props": {
+                                "type": "body1",
+                                "children": "供货标包：",
+                                "mark": false,
+                                "code": false,
+                                "delete": false,
+                                "underline": false,
+                                "strong": false,
+                                "prefix": "",
+                                "classname": ""
+                              },
+                              "hidden": false,
+                              "title": "",
+                              "isLocked": false,
+                              "condition": true,
+                              "conditionGroup": ""
+                            },
+                            {
+                              "componentName": "NextText",
+                              "id": "node_oclvj2uer65l",
+                              "props": {
+                                "type": "inherit",
+                                "children": {
+                                  "type": "JSExpression",
+                                  "value": "this.state.editRow.packages_name",
+                                  "mock": "供货标包："
+                                },
+                                "mark": false,
+                                "code": false,
+                                "delete": false,
+                                "underline": false,
+                                "strong": false,
+                                "prefix": "",
+                                "classname": ""
+                              },
+                              "hidden": false,
+                              "title": "",
+                              "isLocked": false,
+                              "condition": true,
+                              "conditionGroup": ""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "componentName": "FDCell",
+                      "id": "node_oclvj2uer63w",
+                      "props": {
+                        "align": "left",
+                        "verAlign": "top",
+                        "style": {
+                          "backgroundColor": "rgba(255,255,255,1)"
+                        }
+                      },
+                      "title": "容器",
+                      "hidden": false,
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": "",
+                      "children": [
+                        {
+                          "componentName": "FDP",
+                          "id": "node_oclvj2uer67d",
+                          "props": {},
+                          "title": "段落",
+                          "hidden": false,
+                          "isLocked": false,
+                          "condition": true,
+                          "conditionGroup": "",
+                          "children": [
+                            {
+                              "componentName": "NextText",
+                              "id": "node_oclvj2uer67c",
+                              "props": {
+                                "type": "body1",
+                                "children": "供应商数量：",
+                                "mark": false,
+                                "code": false,
+                                "delete": false,
+                                "underline": false,
+                                "strong": false,
+                                "prefix": "",
+                                "classname": ""
+                              },
+                              "hidden": false,
+                              "title": "",
+                              "isLocked": false,
+                              "condition": true,
+                              "conditionGroup": ""
+                            },
+                            {
+                              "componentName": "NextText",
+                              "id": "node_oclvj2uer6f0",
+                              "props": {
+                                "type": "body1",
+                                "children": {
+                                  "type": "JSExpression",
+                                  "value": "this.state.editRow.supplier_count",
+                                  "mock": "供应商数量："
+                                },
+                                "mark": false,
+                                "code": false,
+                                "delete": false,
+                                "underline": false,
+                                "strong": false,
+                                "prefix": "",
+                                "classname": ""
+                              },
+                              "hidden": false,
+                              "title": "",
+                              "isLocked": false,
+                              "condition": true,
+                              "conditionGroup": ""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "componentName": "FDCell",
+                      "id": "node_oclvj2uer63x",
+                      "props": {
+                        "align": "left",
+                        "verAlign": "top",
+                        "style": {
+                          "backgroundColor": "rgba(255,255,255,1)"
+                        }
+                      },
+                      "title": "容器",
+                      "hidden": false,
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": "",
+                      "children": [
+                        {
+                          "componentName": "FDP",
+                          "id": "node_oclvj2uer68v",
+                          "props": {},
+                          "title": "段落",
+                          "hidden": false,
+                          "isLocked": false,
+                          "condition": true,
+                          "conditionGroup": "",
+                          "children": [
+                            {
+                              "componentName": "NextText",
+                              "id": "node_oclvj2uer68u",
+                              "props": {
+                                "type": "body1",
+                                "children": "供货商品数量：",
+                                "mark": false,
+                                "code": false,
+                                "delete": false,
+                                "underline": false,
+                                "strong": false,
+                                "prefix": "",
+                                "classname": ""
+                              },
+                              "hidden": false,
+                              "title": "",
+                              "isLocked": false,
+                              "condition": true,
+                              "conditionGroup": ""
+                            },
+                            {
+                              "componentName": "NextText",
+                              "id": "node_oclvj2uer6f1",
+                              "props": {
+                                "type": "body1",
+                                "children": {
+                                  "type": "JSExpression",
+                                  "value": "this.state.editRow.product_count",
+                                  "mock": "供货商品数量："
+                                },
+                                "mark": false,
+                                "code": false,
+                                "delete": false,
+                                "underline": false,
+                                "strong": false,
+                                "prefix": "",
+                                "classname": ""
+                              },
+                              "hidden": false,
+                              "title": "",
+                              "isLocked": false,
+                              "condition": true,
+                              "conditionGroup": ""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "componentName": "FDCell",
+                      "id": "node_oclvj2uer63y",
+                      "props": {
+                        "align": "left",
+                        "verAlign": "top",
+                        "style": {
+                          "backgroundColor": "rgba(255,255,255,1)"
+                        }
+                      },
+                      "title": "容器",
+                      "hidden": false,
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": "",
+                      "children": [
+                        {
+                          "componentName": "FDP",
+                          "id": "node_oclvj2uer6al",
+                          "props": {},
+                          "title": "段落",
+                          "hidden": false,
+                          "isLocked": false,
+                          "condition": true,
+                          "conditionGroup": "",
+                          "children": [
+                            {
+                              "componentName": "NextText",
+                              "id": "node_oclvj2uer6ak",
+                              "props": {
+                                "type": "body1",
+                                "children": "状态",
+                                "mark": false,
+                                "code": false,
+                                "delete": false,
+                                "underline": false,
+                                "strong": false,
+                                "prefix": "",
+                                "classname": ""
+                              },
+                              "hidden": false,
+                              "title": "",
+                              "isLocked": false,
+                              "condition": true,
+                              "conditionGroup": ""
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "componentName": "FDRow",
+                  "id": "node_oclvj2uer63z",
+                  "props": {
+                    "style": {
+                      "marginBottom": "10px",
+                      "backgroundColor": "rgba(255,255,255,1)"
+                    },
+                    "ref": "fdrow-799de5c8"
+                  },
+                  "title": "行容器",
+                  "hidden": false,
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": "",
+                  "loopArgs": [
+                    null,
+                    null
+                  ],
+                  "children": [
+                    {
+                      "componentName": "FDCell",
+                      "id": "node_oclvj2uer63u",
+                      "props": {
+                        "align": "left",
+                        "verAlign": "top",
+                        "style": {
+                          "marginBottom": "10px",
+                          "backgroundColor": "rgba(255,255,255,1)"
+                        }
+                      },
+                      "title": "容器",
+                      "hidden": false,
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": "",
+                      "children": [
+                        {
+                          "componentName": "FDP",
+                          "id": "node_oclvj2uer6bz",
+                          "props": {},
+                          "title": "段落",
+                          "hidden": false,
+                          "isLocked": false,
+                          "condition": true,
+                          "conditionGroup": "",
+                          "children": [
+                            {
+                              "componentName": "NextText",
+                              "id": "node_oclvj2uer6by",
+                              "props": {
+                                "type": "inherit",
+                                "children": "关联询价单：",
+                                "mark": false,
+                                "code": false,
+                                "delete": false,
+                                "underline": false,
+                                "strong": false,
+                                "prefix": "",
+                                "classname": ""
+                              },
+                              "hidden": false,
+                              "title": "",
+                              "isLocked": false,
+                              "condition": true,
+                              "conditionGroup": ""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "componentName": "FDCell",
+                      "id": "node_oclvj2uer640",
+                      "props": {
+                        "align": "left",
+                        "verAlign": "top",
+                        "style": {
+                          "backgroundColor": "rgba(255,255,255,1)"
+                        }
+                      },
+                      "title": "容器",
+                      "hidden": false,
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": "",
+                      "children": [
+                        {
+                          "componentName": "FDP",
+                          "id": "node_oclvj2uer6cn",
+                          "props": {},
+                          "title": "段落",
+                          "hidden": false,
+                          "isLocked": false,
+                          "condition": true,
+                          "conditionGroup": "",
+                          "children": [
+                            {
+                              "componentName": "NextText",
+                              "id": "node_oclvj2uer6cm",
+                              "props": {
+                                "type": "body1",
+                                "children": "创建人:",
+                                "mark": false,
+                                "code": false,
+                                "delete": false,
+                                "underline": false,
+                                "strong": false,
+                                "prefix": "",
+                                "classname": ""
+                              },
+                              "hidden": false,
+                              "title": "",
+                              "isLocked": false,
+                              "condition": true,
+                              "conditionGroup": ""
+                            },
+                            {
+                              "componentName": "NextText",
+                              "id": "node_oclvj2uer6f3",
+                              "props": {
+                                "type": "body1",
+                                "children": {
+                                  "type": "JSExpression",
+                                  "value": "this.state.editRow.createBy_user",
+                                  "mock": "创建人:"
+                                },
+                                "mark": false,
+                                "code": false,
+                                "delete": false,
+                                "underline": false,
+                                "strong": false,
+                                "prefix": "",
+                                "classname": ""
+                              },
+                              "hidden": false,
+                              "title": "",
+                              "isLocked": false,
+                              "condition": true,
+                              "conditionGroup": ""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "componentName": "FDCell",
+                      "id": "node_oclvj2uer641",
+                      "props": {
+                        "align": "left",
+                        "verAlign": "top",
+                        "style": {
+                          "backgroundColor": "rgba(255,255,255,1)"
+                        },
+                        "ref": "fdcell-e98ddf8f"
+                      },
+                      "title": "容器",
+                      "hidden": false,
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": "",
+                      "children": [
+                        {
+                          "componentName": "FDP",
+                          "id": "node_oclvj2uer6dn",
+                          "props": {},
+                          "title": "段落",
+                          "hidden": false,
+                          "isLocked": false,
+                          "condition": true,
+                          "conditionGroup": "",
+                          "children": [
+                            {
+                              "componentName": "NextText",
+                              "id": "node_oclvj2uer6dm",
+                              "props": {
+                                "type": "body1",
+                                "children": "提交时间：",
+                                "mark": false,
+                                "code": false,
+                                "delete": false,
+                                "underline": false,
+                                "strong": false,
+                                "prefix": "",
+                                "classname": ""
+                              },
+                              "hidden": false,
+                              "title": "",
+                              "isLocked": false,
+                              "condition": true,
+                              "conditionGroup": ""
+                            },
+                            {
+                              "componentName": "NextText",
+                              "id": "node_oclvj2uer6f2",
+                              "props": {
+                                "type": "body1",
+                                "children": {
+                                  "type": "JSExpression",
+                                  "value": "this.state.editRow.createTime",
+                                  "mock": "提交时间："
+                                },
+                                "mark": false,
+                                "code": false,
+                                "delete": false,
+                                "underline": false,
+                                "strong": false,
+                                "prefix": "",
+                                "classname": "",
+                                "ref": "nexttext-a4d3956e"
+                              },
+                              "hidden": false,
+                              "title": "",
+                              "isLocked": false,
+                              "condition": true,
+                              "conditionGroup": "",
+                              "loopArgs": [
+                                null,
+                                null
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "componentName": "FDCell",
+                      "id": "node_oclvj2uer642",
+                      "props": {
+                        "align": "left",
+                        "verAlign": "top",
+                        "style": {
+                          "backgroundColor": "rgba(255,255,255,1)"
+                        }
+                      },
+                      "title": "容器",
+                      "hidden": false,
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": "",
+                      "children": [
+                        {
+                          "componentName": "FDP",
+                          "id": "node_oclvj2uer6ez",
+                          "props": {},
+                          "title": "段落",
+                          "hidden": false,
+                          "isLocked": false,
+                          "condition": true,
+                          "conditionGroup": "",
+                          "children": [
+                            {
+                              "componentName": "NextText",
+                              "id": "node_oclvj2uer6ey",
+                              "props": {
+                                "type": "body1",
+                                "children": {
+                                  "type": "JSExpression",
+                                  "value": "this.state.editRow.status",
+                                  "mock": "待提交"
+                                },
+                                "mark": false,
+                                "code": false,
+                                "delete": false,
+                                "underline": false,
+                                "strong": false,
+                                "prefix": "",
+                                "classname": "",
+                                "style": {
+                                  "fontSize": "24px"
+                                }
+                              },
+                              "hidden": false,
+                              "title": "",
+                              "isLocked": false,
+                              "condition": true,
+                              "conditionGroup": ""
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "componentName": "FDCell",
+              "id": "node_oclvd7ypk37",
+              "props": {
+                "align": "left",
+                "verAlign": "top",
+                "style": {
+                  "backgroundColor": "rgba(255,255,255,1)",
+                  "minHeight": ""
+                },
+                "width": "",
+                "ref": "fdcell-5cce08cd"
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": "",
+              "children": [
+                {
+                  "componentName": "FDP",
+                  "id": "node_oclvd7yrz53b",
+                  "props": {},
+                  "title": "段落",
+                  "hidden": false,
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": "",
+                  "children": [
+                    {
+                      "componentName": "NextText",
+                      "id": "node_oclvd7yrz53c",
+                      "props": {
+                        "type": "h5",
+                        "children": "标包:",
+                        "mark": false,
+                        "code": false,
+                        "delete": false,
+                        "underline": false,
+                        "strong": false,
+                        "prefix": "",
+                        "classname": "",
+                        "style": {
+                          "fontSize": "14px"
+                        },
+                        "ref": "nexttext-7eb6a6f6"
+                      },
+                      "hidden": false,
+                      "title": "",
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": "",
+                      "loopArgs": [
+                        null,
+                        null
+                      ]
+                    },
+                    {
+                      "componentName": "CascaderSelect",
+                      "id": "node_oclvd7yrz53a",
+                      "props": {
+                        "prefix": "next-",
+                        "size": "medium",
+                        "hasArrow": true,
+                        "hasBorder": true,
+                        "expandTriggerType": "click",
+                        "resultAutoWidth": true,
+                        "notFoundContent": "Not Found",
+                        "checkStrictly": true,
+                        "changeOnSelect": true,
+                        "dataSource": {
+                          "type": "JSExpression",
+                          "value": "this.state.packageOptions",
+                          "mock": [
+                            {
+                              "value": "2974",
+                              "label": "西安",
+                              "children": [
+                                {
+                                  "value": "2975",
+                                  "label": "西安市"
+                                },
+                                {
+                                  "value": "2976",
+                                  "label": "高陵县"
+                                },
+                                {
+                                  "value": "2977",
+                                  "label": "蓝田县"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "disabled": false,
+                        "hasClear": false,
+                        "multiple": false,
+                        "showSearch": true,
+                        "style": {
+                          "width": "250px"
+                        },
+                        "__events": {
+                          "eventDataList": [
+                            {
+                              "type": "componentEvent",
+                              "name": "onChange",
+                              "relatedEventName": "onChangePackage"
+                            }
+                          ],
+                          "eventList": [
+                            {
+                              "name": "onChange",
+                              "disabled": true
+                            },
+                            {
+                              "name": "onExpand",
+                              "disabled": false
+                            },
+                            {
+                              "name": "onVisibleChange",
+                              "disabled": false
+                            }
+                          ]
+                        },
+                        "onChange": {
+                          "type": "JSFunction",
+                          "value": "function(){return this.onChangePackage.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                        },
+                        "ref": "cascaderselect-dd0e7d73",
+                        "_unsafe_MixedSetter____condition____select": "VariableSetter"
+                      },
+                      "hidden": false,
+                      "title": "",
+                      "isLocked": false,
+                      "condition": {
+                        "type": "JSExpression",
+                        "value": "!this.state.editFlag"
+                      },
+                      "conditionGroup": "",
+                      "loopArgs": [
+                        null,
+                        null
+                      ]
+                    },
+                    {
+                      "componentName": "NextText",
+                      "id": "node_oclviywj8z3",
+                      "props": {
+                        "type": "body1",
+                        "children": {
+                          "type": "JSExpression",
+                          "value": "this.state.editRow.packages_name",
+                          "mock": "标题标题"
+                        },
+                        "mark": false,
+                        "code": false,
+                        "delete": false,
+                        "underline": false,
+                        "strong": false,
+                        "prefix": "",
+                        "classname": "",
+                        "style": {
+                          "width": "200px",
+                          "border": "1px solid #CCCCCC",
+                          "padding": "5px 20px 5px 5px\n\tfont-size: 14px",
+                          "fontWeight": "400px"
+                        },
+                        "ref": "nexttext-d6b11e3e",
+                        "_unsafe_MixedSetter____condition____select": "VariableSetter"
+                      },
+                      "hidden": false,
+                      "title": "",
+                      "isLocked": false,
+                      "condition": {
+                        "type": "JSExpression",
+                        "value": "this.state.editFlag"
+                      },
+                      "conditionGroup": "",
+                      "loopArgs": [
+                        null,
+                        null
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "componentName": "FDRow",
+              "id": "node_oclvdhw8iz9w",
+              "props": {
+                "style": {
+                  "display": "flex",
+                  "flexFlow": "row nowrap",
+                  "width": "100%",
+                  "backgroundColor": "rgba(255,255,255,1)"
+                }
+              },
+              "title": "行容器",
+              "hidden": false,
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": "",
+              "children": [
+                {
+                  "componentName": "FDCell",
+                  "id": "node_oclvdhw8iz9v",
+                  "props": {
+                    "align": "left",
+                    "verAlign": "top",
+                    "style": {
+                      "marginBottom": "10px",
+                      "width": "300px",
+                      "backgroundColor": "rgba(255,255,255,1)"
+                    },
+                    "width": "",
+                    "ref": "fdcell-24cbd018"
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": false,
+                  "conditionGroup": "",
+                  "children": [
+                    {
+                      "componentName": "FDP",
+                      "id": "node_oclvdhw8izdz",
+                      "props": {},
+                      "title": "段落",
+                      "hidden": false,
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": "",
+                      "children": [
+                        {
+                          "componentName": "NextText",
+                          "id": "node_oclvdhw8izdy",
+                          "props": {
+                            "type": "h5",
+                            "children": "供应商",
+                            "mark": false,
+                            "code": false,
+                            "delete": false,
+                            "underline": false,
+                            "strong": false,
+                            "prefix": "",
+                            "classname": ""
+                          },
+                          "hidden": false,
+                          "title": "",
+                          "isLocked": false,
+                          "condition": true,
+                          "conditionGroup": ""
+                        }
+                      ]
+                    },
+                    {
+                      "componentName": "ProTable",
+                      "id": "node_oclvdhw8izbe",
+                      "props": {
+                        "dataSource": {
+                          "type": "JSExpression",
+                          "value": "this.state.supplierList"
+                        },
+                        "actionColumnButtons": {
+                          "dataSource": [],
+                          "text": true,
+                          "visibleButtonCount": 3
+                        },
+                        "actionBarButtons": {
+                          "dataSource": [],
+                          "visibleButtonCount": 3
+                        },
+                        "paginationProps": {
+                          "pageSize": 20,
+                          "current": 1,
+                          "hidden": true
+                        },
+                        "settingButtons": false,
+                        "columns": [
+                          {
+                            "title": "供应商名称",
+                            "dataIndex": "supplierName",
+                            "width": 160,
+                            "formatType": "text",
+                            "searchable": false,
+                            "_format_options_date": "YYYY-MM-DD HH:mm:ss"
+                          },
+                          {
+                            "title": "是否询价",
+                            "dataIndex": "inquiry_flag",
+                            "formatType": "extra",
+                            "cell": {
+                              "type": "JSFunction",
+                              "value": "function(){ return this.renderSupplier.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                            },
+                            "_format_options_date": "YYYY-MM-DD HH:mm:ss"
+                          }
+                        ],
+                        "primaryKey": "id",
+                        "actionColumnProps": {
+                          "title": "操作"
+                        },
+                        "indexColumn": false,
+                        "hasBorder": false,
+                        "isZebra": false,
+                        "fixedHeader": false,
+                        "ref": "protable-ff25b9fc",
+                        "_unsafe_MixedSetter_dataSource_select": "ExpressionSetter"
+                      },
+                      "hidden": false,
+                      "title": "",
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": "",
+                      "loopArgs": [
+                        null,
+                        null
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "componentName": "FDCell",
+                  "id": "node_oclvdhw8iz9x",
+                  "props": {
+                    "align": "left",
+                    "verAlign": "top",
+                    "style": {
+                      "flex": "1",
+                      "backgroundColor": "rgba(255,255,255,1)",
+                      "minHeight": ""
+                    },
+                    "width": 619,
+                    "ref": "fdcell-6150a225"
+                  },
+                  "title": "容器",
+                  "hidden": false,
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": "",
+                  "children": [
+                    {
+                      "componentName": "FDP",
+                      "id": "node_oclvdhw8izfh",
+                      "props": {},
+                      "title": "段落",
+                      "hidden": false,
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": "",
+                      "children": [
+                        {
+                          "componentName": "NextText",
+                          "id": "node_oclvdhw8izfg",
+                          "props": {
+                            "type": "h5",
+                            "children": "计划供应商品",
+                            "mark": false,
+                            "code": false,
+                            "delete": false,
+                            "underline": false,
+                            "strong": false,
+                            "prefix": "",
+                            "classname": ""
+                          },
+                          "hidden": false,
+                          "title": "",
+                          "isLocked": false,
+                          "condition": true,
+                          "conditionGroup": ""
+                        }
+                      ]
+                    },
+                    {
+                      "componentName": "FDP",
+                      "id": "node_oclvez2p3d1i",
+                      "props": {},
+                      "title": "段落",
+                      "hidden": false,
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": "",
+                      "children": [
+                        {
+                          "componentName": "KaiwuJsx",
+                          "id": "node_oclvez2p3d1h",
+                          "props": {
+                            "content": {
+                              "type": "JSFunction",
+                              "value": "function(){ return this.renderProductListTable.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                            },
+                            "style": {
+                              "width": "100%",
+                              "height": "500px"
+                            }
+                          },
+                          "hidden": false,
+                          "title": "",
+                          "isLocked": false,
+                          "condition": true,
+                          "conditionGroup": ""
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "componentName": "Dialog",
+          "id": "node_ocm3fm9bz51x",
+          "props": {
+            "prefix": "next-",
+            "footerAlign": "right",
+            "title": "审批记录",
+            "footer": false,
+            "footerActions": [
+              "ok",
+              "cancel"
+            ],
+            "closeable": "esc,close",
+            "hasMask": true,
+            "align": "cc cc",
+            "minMargin": 40,
+            "isAutoContainer": true,
+            "visible": {
+              "type": "JSExpression",
+              "value": "this.state.isShowApprovalDialog",
+              "mock": true
+            },
+            "style": {
+              "width": "70vw"
+            },
+            "__events": {
+              "eventDataList": [
+                {
+                  "type": "componentEvent",
+                  "name": "onClose",
+                  "relatedEventName": "onCloseApproval"
+                }
+              ],
+              "eventList": [
+                {
+                  "name": "onOk",
+                  "disabled": false
+                },
+                {
+                  "name": "onCancel",
+                  "disabled": false
+                },
+                {
+                  "name": "onClose",
+                  "disabled": true
+                }
+              ]
+            },
+            "onClose": {
+              "type": "JSFunction",
+              "value": "function(){return this.onCloseApproval.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            }
+          },
+          "hidden": true,
+          "title": "审批记录",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "children": [
+            {
+              "componentName": "Button",
+              "id": "node_ocm3fpd3r21",
+              "props": {
+                "prefix": "next-",
+                "type": "primary",
+                "size": "medium",
+                "htmlType": "button",
+                "component": "button",
+                "children": "导出",
+                "iconSize": "xxs",
+                "loading": false,
+                "text": false,
+                "warning": false,
+                "disabled": false,
+                "__events": {
+                  "eventDataList": [
+                    {
+                      "type": "componentEvent",
+                      "name": "onClick",
+                      "relatedEventName": "exportExcelApproval"
+                    }
+                  ],
+                  "eventList": [
+                    {
+                      "name": "onClick",
+                      "description": "点击按钮的回调\n@param {Object} e Event Object",
+                      "disabled": true
+                    },
+                    {
+                      "name": "onMouseUp",
+                      "disabled": false
+                    }
+                  ]
+                },
+                "onClick": {
+                  "type": "JSFunction",
+                  "value": "function(){return this.exportExcelApproval.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                }
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            },
+            {
+              "componentName": "KaiwuJsx",
+              "id": "node_ocm3fm9kje1",
+              "props": {
+                "content": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.renderApprovalDetailJSX.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                },
+                "style": {
+                  "width": "100%",
+                  "minHeight": "20px"
+                }
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            }
+          ]
+        },
+        {
+          "componentName": "Filter",
+          "id": "node_ockt5mo4jj1",
+          "props": {
+            "labelAlign": "top",
+            "status": "editable",
+            "isPreview": false,
+            "cols": 4,
+            "labelTextAlign": "right",
+            "labelCol": {
+              "fixedSpan": 3
+            },
+            "wrapperCol": {
+              "span": 24
+            },
+            "style": {
+              "marginBottom": "10px"
+            },
+            "__events": {
+              "eventDataList": [
+                {
+                  "type": "componentEvent",
+                  "name": "onSearch",
+                  "relatedEventName": "onSearch"
+                },
+                {
+                  "type": "componentEvent",
+                  "name": "onReset",
+                  "relatedEventName": "onReset"
+                }
+              ],
+              "eventList": [
+                {
+                  "name": "onExpand",
+                  "disabled": false
+                },
+                {
+                  "name": "onSearch",
+                  "disabled": true
+                },
+                {
+                  "name": "onReset",
+                  "disabled": true
+                }
+              ]
+            },
+            "onSearch": {
+              "type": "JSFunction",
+              "value": "function(){return this.onSearch.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "onReset": {
+              "type": "JSFunction",
+              "value": "function(){return this.onReset.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "ref": "filter-74e422a7"
+          },
+          "hidden": false,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "loopArgs": [
+            null,
+            null
+          ],
+          "children": [
+            {
+              "componentName": "FormRangePicker",
+              "id": "node_ocm5p4h9sa3",
+              "props": {
+                "formItemProps": {
+                  "primaryKey": "6635",
+                  "label": "制单日期",
+                  "size": "medium",
+                  "device": "desktop",
+                  "fullWidth": true,
+                  "required": false,
+                  "labelTextAlign": "right",
+                  "name": "dateRange"
+                },
+                "placeholder": "请输入",
+                "defaultValue": [
+                  null,
+                  null
+                ],
+                "type": "date",
+                "size": "medium",
+                "hasClear": true,
+                "defaultVisible": false
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            },
+            {
+              "componentName": "FormSelect",
+              "id": "node_ocm5p4h9sa4",
+              "props": {
+                "formItemProps": {
+                  "primaryKey": "9604",
+                  "label": "状态",
+                  "size": "medium",
+                  "device": "desktop",
+                  "fullWidth": true,
+                  "required": false,
+                  "labelTextAlign": "right",
+                  "name": "status"
+                },
+                "placeholder": "请输入",
+                "hasClear": false,
+                "showSearch": false,
+                "dataSource": [
+                  {
+                    "title": "Title",
+                    "label": "全部",
+                    "value": "全部"
+                  },
+                  {
+                    "title": "Title",
+                    "label": "待提交",
+                    "value": "待提交"
+                  },
+                  {
+                    "title": "Title",
+                    "label": "待审核",
+                    "value": "待审核"
+                  },
+                  {
+                    "title": "Title",
+                    "label": "已驳回",
+                    "value": "已驳回"
+                  },
+                  {
+                    "title": "Title",
+                    "label": "已审核",
+                    "value": "已审核"
+                  },
+                  {
+                    "title": "Title",
+                    "label": "已关闭",
+                    "value": "已关闭"
+                  }
+                ],
+                "mode": "single",
+                "hasArrow": true,
+                "ref": "formselect-853537ec",
+                "_unsafe_MixedSetter____condition____select": "VariableSetter"
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            }
+          ]
+        },
+        {
+          "componentName": "FDCell",
+          "id": "node_oclvbzgobn1",
+          "props": {
+            "align": "left",
+            "verAlign": "top",
+            "style": {
+              "backgroundColor": "rgba(255,255,255,1)",
+              "minHeight": ""
+            },
+            "width": "",
+            "ref": "fdcell-5f47578a"
+          },
+          "hidden": false,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "children": [
+            {
+              "componentName": "FDP",
+              "id": "node_oclvbzgobn1j",
+              "props": {},
+              "title": "段落",
+              "hidden": false,
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": "",
+              "children": [
+                {
+                  "componentName": "Button",
+                  "id": "node_oclvbzgobn1i",
+                  "props": {
+                    "prefix": "next-",
+                    "type": "primary",
+                    "size": "medium",
+                    "htmlType": "button",
+                    "component": "button",
+                    "children": "新增",
+                    "iconSize": "xxs",
+                    "loading": false,
+                    "text": false,
+                    "warning": false,
+                    "disabled": false,
+                    "__events": {
+                      "eventDataList": [
+                        {
+                          "type": "componentEvent",
+                          "name": "onClick",
+                          "relatedEventName": "openDrawer",
+                          "paramStr": "{\n \t \"operType\":\"add\" \n}"
+                        }
+                      ],
+                      "eventList": [
+                        {
+                          "name": "onClick",
+                          "description": "点击按钮的回调\n@param {Object} e Event Object",
+                          "disabled": true
+                        },
+                        {
+                          "name": "onMouseUp",
+                          "disabled": false
+                        }
+                      ]
+                    },
+                    "onClick": {
+                      "type": "JSFunction",
+                      "value": "function(){return this.openDrawer.apply(this,Array.prototype.slice.call(arguments).concat([{\n \t \"operType\":\"add\" \n}])) }"
+                    }
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": ""
+                },
+                {
+                  "componentName": "Button",
+                  "id": "node_oclvbzgobn1k",
+                  "props": {
+                    "prefix": "next-",
+                    "type": "normal",
+                    "size": "medium",
+                    "htmlType": "button",
+                    "component": "button",
+                    "children": "导出",
+                    "iconSize": "xxs",
+                    "loading": false,
+                    "text": false,
+                    "warning": false,
+                    "disabled": false,
+                    "ref": "button-759ee275",
+                    "__events": {
+                      "eventDataList": [
+                        {
+                          "type": "componentEvent",
+                          "name": "onClick",
+                          "relatedEventName": "onExportClick"
+                        }
+                      ],
+                      "eventList": [
+                        {
+                          "name": "onClick",
+                          "description": "点击按钮的回调\n@param {Object} e Event Object",
+                          "disabled": true
+                        },
+                        {
+                          "name": "onMouseUp",
+                          "disabled": false
+                        }
+                      ]
+                    },
+                    "onClick": {
+                      "type": "JSFunction",
+                      "value": "function(){return this.onExportClick.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                    }
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": false,
+                  "conditionGroup": "",
+                  "loopArgs": [
+                    null,
+                    null
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "componentName": "Loading",
+          "id": "node_ocm1adqknx1",
+          "props": {
+            "color": "#4a90e2",
+            "prefix": "next-",
+            "tipAlign": "bottom",
+            "visible": {
+              "type": "JSExpression",
+              "value": "this.state.isShowLoading"
+            },
+            "size": "medium",
+            "inline": false,
+            "tip": "正在下载，请稍后",
+            "fullScreen": true,
+            "_unsafe_MixedSetter_visible_select": "ExpressionSetter"
+          },
+          "hidden": false,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": ""
+        },
+        {
+          "componentName": "KaiwuJsx",
+          "id": "node_oclvbxhmz9e",
+          "props": {
+            "style": {
+              "width": "100%",
+              "minHeight": "300px"
+            },
+            "content": {
+              "type": "JSFunction",
+              "value": "function(){ return this.renderTable.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "ref": "kaiwujsx-deb9fba9"
+          },
+          "hidden": false,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "loopArgs": [
+            null,
+            null
+          ]
+        },
+        {
+          "componentName": "Pagination",
+          "id": "node_oclvbzctif1",
+          "props": {
+            "prefix": "next-",
+            "type": "normal",
+            "shape": "normal",
+            "size": "medium",
+            "defaultCurrent": 1,
+            "total": {
+              "type": "JSExpression",
+              "value": "this.state.total"
+            },
+            "pageShowCount": 5,
+            "pageSize": 10,
+            "pageSizePosition": "start",
+            "showJump": true,
+            "pageSizeSelector": false,
+            "hideOnlyOnePage": false,
+            "link": "",
+            "rtl": "",
+            "style": {
+              "display": "flex",
+              "flexDirection": "row",
+              "justifyContent": "flex-end"
+            },
+            "current": {
+              "type": "JSExpression",
+              "value": "this.state.queryConditions.page.current"
+            },
+            "_unsafe_MixedSetter_total_select": "ExpressionSetter",
+            "_unsafe_MixedSetter_current_select": "ExpressionSetter",
+            "__events": {
+              "eventDataList": [
+                {
+                  "type": "componentEvent",
+                  "name": "onChange",
+                  "relatedEventName": "onPageChange"
+                }
+              ],
+              "eventList": [
+                {
+                  "name": "onChange",
+                  "description": "页码发生改变时的回调函数\n@param {Number} current 改变后的页码数\n@param {Object} e 点击事件对象",
+                  "disabled": true
+                },
+                {
+                  "name": "onPageSizeChange",
+                  "description": "每页显示记录数量改变时的回调函数\n@param {Number} pageSize 改变后的每页显示记录数",
+                  "disabled": false
+                }
+              ]
+            },
+            "onChange": {
+              "type": "JSFunction",
+              "value": "function(){return this.onPageChange.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            }
+          },
+          "hidden": false,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": ""
+        }
+      ]
+    }
+  ],
+  "i18n": {
+    "zh-CN": {
+      "i18n-jwg27yo4": "你好 ",
+      "i18n-jwg27yo3": "{name} 博士"
+    },
+    "en-US": {
+      "i18n-jwg27yo4": "Hello ",
+      "i18n-jwg27yo3": "Doctor {name}"
+    }
+  }
+}

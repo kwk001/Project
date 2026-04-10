@@ -1,0 +1,37 @@
+{
+  "id": "69d7569cd2c24e0007cbae23",
+  "name": "添加供应商档案",
+  "type": "FORM_EVENT",
+  "formId": "t69d7569c7184860008baae43",
+  "status": "ENABLE",
+  "applicationId": "8458f839b9260c7487315662282d1818",
+  "metadata": {
+    "firstNode": "69d7569cd2c24e0007cbae24",
+    "nodes": [
+      {
+        "id": "69d7569cd2c24e0007cbae24",
+        "name": "表单事件触发",
+        "type": "cn.kaiwu.mind.automation.rulenode.trigger.FormEventNode",
+        "configuration": "{\"location\":{\"left\":\"200px\",\"top\":\"200px\"},\"properties\":{\"conditionList\":[],\"triggerEvent\":\"CREATE\",\"dataFilterValue\":\"ALL\"}}",
+        "ruleChainId": "69d7569cd2c24e0007cbae23",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569cd2c24e0007cbae25",
+        "name": "新增数据",
+        "type": "cn.kaiwu.mind.automation.rulenode.executor.FormDataCreateNode",
+        "configuration": "{\"location\":{\"left\":\"500px\",\"top\":\"200px\"},\"properties\":{\"executionResult\":[{\"executionKey\":\"supplier_code\",\"executionValue\":\"supplierId\",\"isUpdate\":false,\"valueType\":1,\"title\":\"供应商编码\",\"fieldType\":\"mainFields\"},{\"executionKey\":\"mobile\",\"executionValue\":\"contactPhoneNumber\",\"isUpdate\":false,\"valueType\":1,\"title\":\"供应商联系方式\",\"fieldType\":\"mainFields\"},{\"executionKey\":\"supplierAccount\",\"executionValue\":\"supplierAccount\",\"isUpdate\":false,\"valueType\":1,\"title\":\"供应商账号\",\"fieldType\":\"mainFields\"},{\"executionKey\":\"supplier\",\"executionValue\":\"supplierName\",\"isUpdate\":false,\"valueType\":1,\"title\":\"供应商名称\",\"fieldType\":\"mainFields\"},{\"executionKey\":\"payableDeposi\",\"executionValue\":\"supplierMoney\",\"isUpdate\":false,\"valueType\":1,\"title\":\"应缴合同保证金（元）\",\"fieldType\":\"mainFields\"},{\"executionKey\":\"deliveredDeposi\",\"executionValue\":\"supplierMoney\",\"isUpdate\":false,\"valueType\":1,\"title\":\"累计缴纳保证金\",\"fieldType\":\"mainFields\"},{\"executionKey\":\"balance\",\"executionValue\":\"supplierMoney\",\"isUpdate\":false,\"valueType\":1,\"title\":\"当前保证金余额（元）\",\"fieldType\":\"mainFields\"},{\"executionKey\":\"supplementedDeposi\",\"executionValue\":\"0\",\"isUpdate\":false,\"valueType\":2,\"title\":\"实时累计处罚金（元）\",\"fieldType\":\"mainFields\"},{\"executionKey\":\"totalPenaltyDeduction\",\"executionValue\":\"0\",\"isUpdate\":false,\"valueType\":2,\"title\":\"历史累计处罚金额（元）\",\"fieldType\":\"mainFields\"},{\"executionKey\":\"status\",\"executionValue\":\"已缴清\",\"isUpdate\":false,\"valueType\":2,\"title\":\"状态\",\"fieldType\":\"mainFields\"}],\"mode\":\"SINGLE\",\"dataSourceType\":\"RULE_NODE\",\"sourceId\":\"69d7569cd2c24e0007cbae24\",\"targetFormName\":\"t687f41c8c5f2250007aa4732\"}}",
+        "ruleChainId": "69d7569cd2c24e0007cbae23",
+        "authenticationData": null
+      }
+    ],
+    "connections": [
+      {
+        "id": "69d7569cd2c24e0007cbae27",
+        "from": "69d7569cd2c24e0007cbae24",
+        "to": "69d7569cd2c24e0007cbae25",
+        "type": "Success"
+      }
+    ]
+  }
+}

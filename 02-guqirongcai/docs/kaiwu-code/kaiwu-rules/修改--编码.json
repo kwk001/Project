@@ -1,0 +1,219 @@
+{
+  "id": "69d7569ed2c24e0007cbae65",
+  "name": "修改--编码",
+  "type": "FORM_EVENT",
+  "formId": "t69d7569c7184860008baae49",
+  "status": "DISABLE",
+  "applicationId": "8458f839b9260c7487315662282d1818",
+  "metadata": {
+    "firstNode": "69d7569ed2c24e0007cbae66",
+    "nodes": [
+      {
+        "id": "69d7569ed2c24e0007cbae66",
+        "name": "表单事件触发",
+        "type": "cn.kaiwu.mind.automation.rulenode.trigger.FormEventNode",
+        "configuration": "{\"location\":{\"left\":\"125px\",\"top\":\"275px\"},\"properties\":{\"conditionList\":[{\"conditionsValue\":\"6922824013582\",\"conditionsKey\":\"goodsId\",\"operationSymbol\":\"eq\"}],\"triggerEvent\":\"UPDATE\",\"dataFilterValue\":\"CONDITION\"}}",
+        "ruleChainId": "69d7569ed2c24e0007cbae65",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae67",
+        "name": "数据处理",
+        "type": "cn.kaiwu.mind.automation.rulenode.dataprocess.JsProcessNode",
+        "configuration": "{\"location\":{\"left\":\"395px\",\"top\":\"280px\"},\"properties\":{\"jsScript\":\"var newId = newId;\\nvar old = \\\"6922824012424\\\";\\nvar goodname = goodname;\\nreturn {\\n\\tnewId: newId, Old: old,goodName:goodname\\n};\",\"inputs\":[{\"executionValue\":\"${69d7569ed2c24e0007cbae66}.goodsId\",\"executionKey\":\"newId\",\"valueType\":1,\"isUpdate\":false,\"dataMode\":\"SINGLE\",\"fieldType\":\"\"},{\"executionValue\":\"${69d7569ed2c24e0007cbae66}.goodsName\",\"executionKey\":\"goodname\",\"valueType\":1,\"isUpdate\":false,\"dataMode\":\"SINGLE\",\"fieldType\":\"\"}],\"outputs\":[{\"executionKey\":\"newId\",\"executionValue\":\"6922824013582\",\"isUpdate\":false,\"valueType\":2,\"fieldType\":\"STRING\"},{\"executionKey\":\"Old\",\"executionValue\":\"6922824012424\",\"isUpdate\":false,\"valueType\":2,\"fieldType\":\"STRING\"},{\"executionKey\":\"goodName\",\"executionValue\":\"213\",\"isUpdate\":false,\"valueType\":2,\"fieldType\":\"STRING\"}],\"testDatas\":[{\"key\":\"newId\",\"type\":\"String\",\"value\":\"6922824013582\"},{\"key\":\"goodname\",\"type\":\"String\",\"value\":\"213\"}],\"mode\":\"BATCH\"}}",
+        "ruleChainId": "69d7569ed2c24e0007cbae65",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae68",
+        "name": "更新数据节点",
+        "type": "cn.kaiwu.mind.automation.rulenode.executor.FormDataUpdateNode",
+        "configuration": "{\"location\":{\"left\":\"410px\",\"top\":\"75px\"},\"properties\":{\"executionFilter\":[{\"isUpdate\":false,\"executionValue\":\"Old\",\"executionKey\":\"goodsId\",\"valueType\":1,\"title\":\"商品ID\"}],\"executionResult\":[{\"isUpdate\":true,\"executionValue\":\"newId\",\"executionKey\":\"goodsId\",\"valueType\":1,\"title\":\"商品ID\",\"fieldType\":\"mainFields\"}],\"mode\":\"BATCH\",\"dataSourceType\":\"RULE_NODE\",\"sourceId\":\"69d7569ed2c24e0007cbae67\",\"targetFormName\":\"t69d7569c7184860008baae44\",\"notFoundType\":\"SKIP\"}}",
+        "ruleChainId": "69d7569ed2c24e0007cbae65",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae69",
+        "name": "更新数据节点",
+        "type": "cn.kaiwu.mind.automation.rulenode.executor.FormDataUpdateNode",
+        "configuration": "{\"location\":{\"left\":\"735px\",\"top\":\"190px\"},\"properties\":{\"executionFilter\":[{\"isUpdate\":false,\"executionValue\":\"Old\",\"executionKey\":\"product_code\",\"valueType\":1,\"title\":\"商品编码\"}],\"executionResult\":[{\"isUpdate\":true,\"executionValue\":\"newId\",\"executionKey\":\"product_code\",\"valueType\":1,\"title\":\"商品编码\",\"fieldType\":\"mainFields\"}],\"mode\":\"SINGLE\",\"dataSourceType\":\"RULE_NODE\",\"sourceId\":\"69d7569ed2c24e0007cbae67\",\"targetFormName\":\"t687f41c8c5f2250007aa4755\",\"notFoundType\":\"SKIP\"}}",
+        "ruleChainId": "69d7569ed2c24e0007cbae65",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae6a",
+        "name": "更新数据节点",
+        "type": "cn.kaiwu.mind.automation.rulenode.executor.FormDataUpdateNode",
+        "configuration": "{\"location\":{\"left\":\"175px\",\"top\":\"415px\"},\"properties\":{\"executionFilter\":[{\"isUpdate\":false,\"executionValue\":\"Old\",\"executionKey\":\"inquiryGoodsId\",\"valueType\":1,\"title\":\"询价商品编号\"}],\"executionResult\":[{\"isUpdate\":true,\"executionValue\":\"newId\",\"executionKey\":\"inquiryGoodsId\",\"valueType\":1,\"title\":\"询价商品编号\",\"fieldType\":\"mainFields\"}],\"mode\":\"BATCH\",\"dataSourceType\":\"RULE_NODE\",\"sourceId\":\"69d7569ed2c24e0007cbae67\",\"targetFormName\":\"t69d7569c7184860008baae38\",\"notFoundType\":\"SKIP\"}}",
+        "ruleChainId": "69d7569ed2c24e0007cbae65",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae6b",
+        "name": "更新数据节点",
+        "type": "cn.kaiwu.mind.automation.rulenode.executor.FormDataUpdateNode",
+        "configuration": "{\"location\":{\"left\":\"290px\",\"top\":\"610px\"},\"properties\":{\"executionFilter\":[{\"isUpdate\":false,\"executionValue\":\"Old\",\"executionKey\":\"goodsId\",\"valueType\":1,\"title\":\"商品编码\"}],\"executionResult\":[{\"isUpdate\":true,\"executionValue\":\"newId\",\"executionKey\":\"goodsId\",\"valueType\":1,\"title\":\"商品编码\",\"fieldType\":\"mainFields\"}],\"mode\":\"SINGLE\",\"dataSourceType\":\"RULE_NODE\",\"sourceId\":\"69d7569ed2c24e0007cbae67\",\"targetFormName\":\"t69d7569c7184860008baae34\",\"notFoundType\":\"SKIP\"}}",
+        "ruleChainId": "69d7569ed2c24e0007cbae65",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae6c",
+        "name": "更新数据节点",
+        "type": "cn.kaiwu.mind.automation.rulenode.executor.FormDataUpdateNode",
+        "configuration": "{\"location\":{\"left\":\"700px\",\"top\":\"350px\"},\"properties\":{\"executionFilter\":[{\"isUpdate\":false,\"executionValue\":\"Old\",\"executionKey\":\"goodsCode\",\"valueType\":1,\"title\":\"商品编号\"}],\"executionResult\":[{\"isUpdate\":true,\"executionValue\":\"newId\",\"executionKey\":\"goodsCode\",\"valueType\":1,\"title\":\"商品编号\",\"fieldType\":\"mainFields\"}],\"mode\":\"SINGLE\",\"dataSourceType\":\"RULE_NODE\",\"sourceId\":\"69d7569ed2c24e0007cbae67\",\"targetFormName\":\"t69d7569c7184860008baae35\",\"notFoundType\":\"SKIP\"}}",
+        "ruleChainId": "69d7569ed2c24e0007cbae65",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae6d",
+        "name": "更新数据节点",
+        "type": "cn.kaiwu.mind.automation.rulenode.executor.FormDataUpdateNode",
+        "configuration": "{\"location\":{\"left\":\"695px\",\"top\":\"535px\"},\"properties\":{\"executionFilter\":[{\"isUpdate\":false,\"executionValue\":\"Old\",\"executionKey\":\"goodsId\",\"valueType\":1,\"title\":\"商品编号\"}],\"executionResult\":[{\"isUpdate\":true,\"executionValue\":\"newId\",\"executionKey\":\"goodsId\",\"valueType\":1,\"title\":\"商品编号\",\"fieldType\":\"mainFields\"}],\"mode\":\"BATCH\",\"dataSourceType\":\"RULE_NODE\",\"sourceId\":\"69d7569ed2c24e0007cbae67\",\"targetFormName\":\"t69d7569c7184860008baae33\",\"notFoundType\":\"SKIP\"}}",
+        "ruleChainId": "69d7569ed2c24e0007cbae65",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae6e",
+        "name": "更新数据节点",
+        "type": "cn.kaiwu.mind.automation.rulenode.executor.FormDataUpdateNode",
+        "configuration": "{\"location\":{\"left\":\"515px\",\"top\":\"665px\"},\"properties\":{\"executionFilter\":[{\"isUpdate\":false,\"executionValue\":\"Old\",\"executionKey\":\"goodsId\",\"valueType\":1,\"title\":\"商品ID\"}],\"executionResult\":[{\"isUpdate\":true,\"executionValue\":\"newId\",\"executionKey\":\"goodsId\",\"valueType\":1,\"title\":\"商品ID\",\"fieldType\":\"mainFields\"},{\"isUpdate\":true,\"executionValue\":\"goodName\",\"executionKey\":\"goodsName\",\"valueType\":1,\"title\":\"商品名称\",\"fieldType\":\"mainFields\"}],\"mode\":\"BATCH\",\"dataSourceType\":\"RULE_NODE\",\"sourceId\":\"69d7569ed2c24e0007cbae67\",\"targetFormName\":\"t687f41c8c5f2250007aa472b\",\"notFoundType\":\"SKIP\"}}",
+        "ruleChainId": "69d7569ed2c24e0007cbae65",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae6f",
+        "name": "更新数据节点",
+        "type": "cn.kaiwu.mind.automation.rulenode.executor.FormDataUpdateNode",
+        "configuration": "{\"location\":{\"left\":\"780px\",\"top\":\"40px\"},\"properties\":{\"executionFilter\":[{\"isUpdate\":false,\"executionValue\":\"Old\",\"executionKey\":\"product_code\",\"valueType\":1,\"title\":\"商品编码\"}],\"executionResult\":[{\"isUpdate\":true,\"executionValue\":\"newId\",\"executionKey\":\"product_code\",\"valueType\":1,\"title\":\"商品编码\",\"fieldType\":\"mainFields\"}],\"mode\":\"BATCH\",\"dataSourceType\":\"RULE_NODE\",\"sourceId\":\"69d7569ed2c24e0007cbae67\",\"targetFormName\":\"t69d7569c7184860008baae3d\",\"notFoundType\":\"SKIP\"}}",
+        "ruleChainId": "69d7569ed2c24e0007cbae65",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae70",
+        "name": "更新数据节点",
+        "type": "cn.kaiwu.mind.automation.rulenode.executor.FormDataUpdateNode",
+        "configuration": "{\"location\":{\"left\":\"1090px\",\"top\":\"265px\"},\"properties\":{\"executionFilter\":[{\"isUpdate\":false,\"executionValue\":\"Old\",\"executionKey\":\"goodsIdList\",\"valueType\":1,\"title\":\"商品ids\"}],\"executionResult\":[{\"isUpdate\":true,\"executionValue\":\"newId\",\"executionKey\":\"goodsIdList\",\"valueType\":1,\"title\":\"商品ids\",\"fieldType\":\"mainFields\"}],\"mode\":\"BATCH\",\"dataSourceType\":\"RULE_NODE\",\"sourceId\":\"69d7569ed2c24e0007cbae67\",\"targetFormName\":\"t687f41c8c5f2250007aa4778\",\"notFoundType\":\"SKIP\"}}",
+        "ruleChainId": "69d7569ed2c24e0007cbae65",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae71",
+        "name": "更新数据节点",
+        "type": "cn.kaiwu.mind.automation.rulenode.executor.FormDataUpdateNode",
+        "configuration": "{\"location\":{\"left\":\"1020px\",\"top\":\"375px\"},\"properties\":{\"executionFilter\":[{\"isUpdate\":false,\"executionValue\":\"Old\",\"executionKey\":\"goodsId\",\"valueType\":1,\"title\":\"商品ID\"}],\"executionResult\":[{\"isUpdate\":true,\"executionValue\":\"newId\",\"executionKey\":\"goodsId\",\"valueType\":1,\"title\":\"商品ID\",\"fieldType\":\"mainFields\"},{\"isUpdate\":true,\"executionValue\":\"goodName\",\"executionKey\":\"goodsName\",\"valueType\":1,\"title\":\"商品名称\",\"fieldType\":\"mainFields\"}],\"mode\":\"BATCH\",\"dataSourceType\":\"RULE_NODE\",\"sourceId\":\"69d7569ed2c24e0007cbae67\",\"targetFormName\":\"t687f41c8c5f2250007aa4762\",\"notFoundType\":\"SKIP\"}}",
+        "ruleChainId": "69d7569ed2c24e0007cbae65",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae72",
+        "name": "更新数据节点",
+        "type": "cn.kaiwu.mind.automation.rulenode.executor.FormDataUpdateNode",
+        "configuration": "{\"location\":{\"left\":\"1040px\",\"top\":\"520px\"},\"properties\":{\"executionFilter\":[{\"isUpdate\":false,\"executionValue\":\"Old\",\"executionKey\":\"goodsIdList\",\"valueType\":1,\"title\":\"相关商品id组\"}],\"executionResult\":[{\"isUpdate\":true,\"executionValue\":\"newId\",\"executionKey\":\"goodsIdList\",\"valueType\":1,\"title\":\"相关商品id组\",\"fieldType\":\"mainFields\"}],\"mode\":\"BATCH\",\"dataSourceType\":\"RULE_NODE\",\"sourceId\":\"69d7569ed2c24e0007cbae67\",\"targetFormName\":\"t687f41c8c5f2250007aa474f\",\"notFoundType\":\"SKIP\"}}",
+        "ruleChainId": "69d7569ed2c24e0007cbae65",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae73",
+        "name": "更新数据节点",
+        "type": "cn.kaiwu.mind.automation.rulenode.executor.FormDataUpdateNode",
+        "configuration": "{\"location\":{\"left\":\"140px\",\"top\":\"40px\"},\"properties\":{\"executionFilter\":[{\"isUpdate\":false,\"executionValue\":\"Old\",\"executionKey\":\"goodsId\",\"valueType\":1,\"title\":\"商品ID\"}],\"executionResult\":[{\"isUpdate\":true,\"executionValue\":\"newId\",\"executionKey\":\"goodsId\",\"valueType\":1,\"title\":\"商品ID\",\"fieldType\":\"mainFields\"},{\"isUpdate\":true,\"executionValue\":\"goodName\",\"executionKey\":\"goodsName\",\"valueType\":1,\"title\":\"商品名称\",\"fieldType\":\"mainFields\"}],\"mode\":\"BATCH\",\"dataSourceType\":\"RULE_NODE\",\"sourceId\":\"69d7569ed2c24e0007cbae67\",\"targetFormName\":\"t687f41c8c5f2250007aa475c\",\"notFoundType\":\"SKIP\"}}",
+        "ruleChainId": "69d7569ed2c24e0007cbae65",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae74",
+        "name": "更新数据节点",
+        "type": "cn.kaiwu.mind.automation.rulenode.executor.FormDataUpdateNode",
+        "configuration": "{\"location\":{\"left\":\"25px\",\"top\":\"575px\"},\"properties\":{\"executionFilter\":[{\"isUpdate\":false,\"executionValue\":\"Old\",\"executionKey\":\"goodsId\",\"valueType\":1,\"title\":\"商品Id\"}],\"executionResult\":[{\"isUpdate\":true,\"executionValue\":\"newId\",\"executionKey\":\"goodsId\",\"valueType\":1,\"title\":\"商品Id\",\"fieldType\":\"mainFields\"},{\"isUpdate\":true,\"executionValue\":\"goodName\",\"executionKey\":\"goodsName\",\"valueType\":1,\"title\":\"商品名称\",\"fieldType\":\"mainFields\"}],\"mode\":\"BATCH\",\"dataSourceType\":\"RULE_NODE\",\"sourceId\":\"69d7569ed2c24e0007cbae67\",\"targetFormName\":\"t687f41c8c5f2250007aa476d\",\"notFoundType\":\"SKIP\"}}",
+        "ruleChainId": "69d7569ed2c24e0007cbae65",
+        "authenticationData": null
+      }
+    ],
+    "connections": [
+      {
+        "id": "69d7569ed2c24e0007cbae83",
+        "from": "69d7569ed2c24e0007cbae66",
+        "to": "69d7569ed2c24e0007cbae67",
+        "type": "Success"
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae84",
+        "from": "69d7569ed2c24e0007cbae67",
+        "to": "69d7569ed2c24e0007cbae6c",
+        "type": "Success"
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae85",
+        "from": "69d7569ed2c24e0007cbae67",
+        "to": "69d7569ed2c24e0007cbae6d",
+        "type": "Success"
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae86",
+        "from": "69d7569ed2c24e0007cbae67",
+        "to": "69d7569ed2c24e0007cbae69",
+        "type": "Success"
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae87",
+        "from": "69d7569ed2c24e0007cbae67",
+        "to": "69d7569ed2c24e0007cbae6b",
+        "type": "Success"
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae88",
+        "from": "69d7569ed2c24e0007cbae67",
+        "to": "69d7569ed2c24e0007cbae6a",
+        "type": "Success"
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae89",
+        "from": "69d7569ed2c24e0007cbae67",
+        "to": "69d7569ed2c24e0007cbae6f",
+        "type": "Success"
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae8a",
+        "from": "69d7569ed2c24e0007cbae67",
+        "to": "69d7569ed2c24e0007cbae68",
+        "type": "Success"
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae8b",
+        "from": "69d7569ed2c24e0007cbae67",
+        "to": "69d7569ed2c24e0007cbae6e",
+        "type": "Success"
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae8c",
+        "from": "69d7569ed2c24e0007cbae67",
+        "to": "69d7569ed2c24e0007cbae70",
+        "type": "Success"
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae8d",
+        "from": "69d7569ed2c24e0007cbae67",
+        "to": "69d7569ed2c24e0007cbae71",
+        "type": "Success"
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae8e",
+        "from": "69d7569ed2c24e0007cbae67",
+        "to": "69d7569ed2c24e0007cbae72",
+        "type": "Success"
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae8f",
+        "from": "69d7569ed2c24e0007cbae67",
+        "to": "69d7569ed2c24e0007cbae73",
+        "type": "Success"
+      },
+      {
+        "id": "69d7569ed2c24e0007cbae90",
+        "from": "69d7569ed2c24e0007cbae67",
+        "to": "69d7569ed2c24e0007cbae74",
+        "type": "Success"
+      }
+    ]
+  }
+}

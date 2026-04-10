@@ -1,0 +1,37 @@
+{
+  "id": "69d7569dd2c24e0007cbae4c",
+  "name": "站内信触发-副本",
+  "type": "FORM_EVENT",
+  "formId": "t69d7569c7184860008baae4f",
+  "status": "ENABLE",
+  "applicationId": "8458f839b9260c7487315662282d1818",
+  "metadata": {
+    "firstNode": "69d7569dd2c24e0007cbae4d",
+    "nodes": [
+      {
+        "id": "69d7569dd2c24e0007cbae4d",
+        "name": "表单事件触发",
+        "type": "cn.kaiwu.mind.automation.rulenode.trigger.FormEventNode",
+        "configuration": "{\"location\":{\"left\":\"200px\",\"top\":\"200px\"},\"properties\":{\"conditionList\":[],\"triggerEvent\":\"UPDATE\",\"dataFilterValue\":\"ALL\"}}",
+        "ruleChainId": "69d7569dd2c24e0007cbae4c",
+        "authenticationData": null
+      },
+      {
+        "id": "69d7569dd2c24e0007cbae4e",
+        "name": "发送站内消息",
+        "type": "cn.kaiwu.mind.automation.rulenode.connector.MessageNode",
+        "configuration": "{\"location\":{\"left\":\"830px\",\"top\":\"200px\"},\"properties\":{\"messageContent\":{\"content\":\"${messageContent}\",\"toList\":[{\"name\":\"接收人id\",\"key\":\"receiverId\",\"type\":\"FROM_DATA\",\"extend\":\"usercascader\"}],\"htmlParameterList\":[{\"type\":\"FROM_DATA\",\"key\":\"messageContent\",\"extend\":\"input\"}],\"collection\":\"t69d7569c7184860008baae4f\",\"collectionType\":\"baseform\",\"appId\":\"8458f839b9260c7487315662282d1818\"},\"link\":false,\"byMessage\":true}}",
+        "ruleChainId": "69d7569dd2c24e0007cbae4c",
+        "authenticationData": null
+      }
+    ],
+    "connections": [
+      {
+        "id": "69d7569dd2c24e0007cbae50",
+        "from": "69d7569dd2c24e0007cbae4d",
+        "to": "69d7569dd2c24e0007cbae4e",
+        "type": "Success"
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+body {
+  font-size: 14px;
+  background-color: #FFFFFF;
+}
+
+.button {
+  width: 100px;
+  color: #ff00ff;
+  overflow: hidden;
+}

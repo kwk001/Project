@@ -1,0 +1,2228 @@
+{
+  "version": "1.0.0",
+  "componentsMap": [
+    {
+      "package": "@alilc/lowcode-materials",
+      "version": "1.1.0",
+      "exportName": "NextText",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "NextText"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Dialog",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Dialog"
+    },
+    {
+      "package": "@kaiwu-cloud/lowcode-engine-component",
+      "version": "1.0.0",
+      "exportName": "KaiwuJsx",
+      "main": "src/index.tsx",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "KaiwuJsx"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Pagination",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Pagination"
+    },
+    {
+      "package": "@alifd/layout",
+      "version": "2.0.11",
+      "exportName": "P",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "FDP"
+    },
+    {
+      "package": "@alifd/layout",
+      "version": "2.0.11",
+      "exportName": "Cell",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "FDCell"
+    },
+    {
+      "package": "@alifd/fusion-ui",
+      "version": "2.0.1",
+      "exportName": "ProDrawer",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Drawer"
+    },
+    {
+      "package": "@alifd/fusion-ui",
+      "version": "2.0.1",
+      "exportName": "TabContainer",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "Item",
+      "componentName": "Tab.Item"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Tab",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Tab"
+    },
+    {
+      "package": "@alifd/fusion-ui",
+      "version": "2.0.1",
+      "exportName": "FormInput",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "FormInput"
+    },
+    {
+      "package": "@alifd/fusion-ui",
+      "version": "2.0.1",
+      "exportName": "FormCascaderSelect",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "FormCascaderSelect"
+    },
+    {
+      "package": "@alifd/fusion-ui",
+      "version": "2.0.1",
+      "exportName": "FormRangePicker",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "FormRangePicker"
+    },
+    {
+      "package": "@alifd/fusion-ui",
+      "version": "2.0.1",
+      "exportName": "FormSelect",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "FormSelect"
+    },
+    {
+      "package": "@alifd/fusion-ui",
+      "version": "2.0.1",
+      "exportName": "Filter",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Filter"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Button",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Button"
+    },
+    {
+      "devMode": "lowCode",
+      "componentName": "Page"
+    }
+  ],
+  "componentsTree": [
+    {
+      "componentName": "Page",
+      "id": "node_dockcviv8fo1",
+      "props": {
+        "ref": "outerView",
+        "style": {
+          "height": "100%",
+          "padding": "20px"
+        }
+      },
+      "docId": "doclaqkk3b9",
+      "fileName": "/",
+      "dataSource": {
+        "list": [
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/formData/query"
+            },
+            "id": "queryFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "PUT",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/formData/update"
+            },
+            "id": "updateFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/formData/add"
+            },
+            "id": "addFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "DELETE",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/formData/delete"
+            },
+            "id": "deleteFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "GET",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/identity/user/query/current"
+            },
+            "id": "getCurrentUser",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/form/getIdByCode"
+            },
+            "id": "getIdByCode",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/formData/batchAdd"
+            },
+            "id": "addMoreFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 60000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": {
+                "type": "JSExpression",
+                "value": "`/kaiwuApi/${this.state.currentUser.customerId}/queryMoreTableData`"
+              }
+            },
+            "id": "queryMoreTableData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": {
+                "type": "JSExpression",
+                "value": "`/mainApi/identity/department/getOutAndInnerDeptUserByCustomerId?customerId=${this.state.currentUser.customerId}`"
+              }
+            },
+            "id": "getUserList",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": {
+                "type": "JSExpression",
+                "value": "`/mainApi/apiProxy/${this.state.currentUser.customerId}/haiju/getFileUrls`"
+              }
+            },
+            "id": "getFileUrlList",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/formData/batchUpdate"
+            },
+            "id": "batchUpdate",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 60000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": {
+                "type": "JSExpression",
+                "value": "`/mainApi/apiProxy/${this.state.currentUser.customerId}/haiju/generateXunjiaPdf`"
+              }
+            },
+            "id": "generateXunjiaPdf",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 60000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": {
+                "type": "JSExpression",
+                "value": "`/kaiwuApi/${this.state.currentUser.customerId}/goods/goodsQuoteToExcel`"
+              }
+            },
+            "id": "goodsQuoteToExcel",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            },
+            "willFetch": {
+              "type": "JSFunction",
+              "value": "function(options) { \n  options.dataType = 'blob'\n  return options; \n  }"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 60000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": {
+                "type": "JSExpression",
+                "value": "`/kaiwuApi/${this.state.currentUser.customerId}/supplier/sendSms`"
+              }
+            },
+            "id": "sendSms",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 60000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": {
+                "type": "JSExpression",
+                "value": "`/kaiwuApi/${this.state.currentUser.customerId}/goods/queryInquiryDetailByGoods`"
+              }
+            },
+            "id": "queryInquiryDetailByGoods",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 60000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": {
+                "type": "JSExpression",
+                "value": "`/kaiwuApi/${this.state.currentUser.customerId}/goods/inquiryConfigAudit`"
+              }
+            },
+            "id": "inquiryConfigAudit",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 60000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": {
+                "type": "JSExpression",
+                "value": "`/kaiwuApi/${this.state.currentUser.customerId}/goods/inquiryConfigSubmit`"
+              }
+            },
+            "id": "inquiryConfigSubmit",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          }
+        ]
+      },
+      "hidden": false,
+      "title": "",
+      "isLocked": false,
+      "condition": true,
+      "conditionGroup": "",
+      "children": [
+        {
+          "componentName": "Dialog",
+          "id": "node_ocm5magjnw1",
+          "props": {
+            "prefix": "next-",
+            "footerAlign": "right",
+            "title": "确认",
+            "footer": true,
+            "footerActions": [
+              "ok",
+              "cancel"
+            ],
+            "closeable": "esc,close",
+            "hasMask": true,
+            "align": "cc cc",
+            "minMargin": 40,
+            "isAutoContainer": true,
+            "visible": {
+              "type": "JSExpression",
+              "value": "this.state.showAgreeFlag",
+              "mock": true
+            },
+            "okProps": {
+              "loading": {
+                "type": "JSExpression",
+                "value": "this.state.agreeLoading"
+              }
+            },
+            "style": {
+              "width": "300px"
+            },
+            "__events": {
+              "eventDataList": [
+                {
+                  "type": "componentEvent",
+                  "name": "onCancel",
+                  "relatedEventName": "onCancelSubmitExamineData"
+                },
+                {
+                  "type": "componentEvent",
+                  "name": "onClose",
+                  "relatedEventName": "onCancelSubmitExamineData"
+                },
+                {
+                  "type": "componentEvent",
+                  "name": "onOk",
+                  "relatedEventName": "onConfirmSubmitExamineDataNew"
+                }
+              ],
+              "eventList": [
+                {
+                  "name": "onOk",
+                  "disabled": true
+                },
+                {
+                  "name": "onCancel",
+                  "disabled": true
+                },
+                {
+                  "name": "onClose",
+                  "disabled": true
+                }
+              ]
+            },
+            "onOk": {
+              "type": "JSFunction",
+              "value": "function(){return this.onConfirmSubmitExamineDataNew.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "onCancel": {
+              "type": "JSFunction",
+              "value": "function(){return this.onCancelSubmitExamineData.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "onClose": {
+              "type": "JSFunction",
+              "value": "function(){return this.onCancelSubmitExamineData.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            }
+          },
+          "hidden": true,
+          "title": "确认通过审核对话框",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "children": [
+            {
+              "componentName": "NextText",
+              "id": "node_ocm5magjnw2",
+              "props": {
+                "type": "inherit",
+                "children": "确定要通过该条数据？",
+                "mark": false,
+                "code": false,
+                "delete": false,
+                "underline": false,
+                "strong": false,
+                "prefix": "",
+                "classname": "",
+                "style": {
+                  "fontSize": "16px"
+                }
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            }
+          ]
+        },
+        {
+          "componentName": "Dialog",
+          "id": "node_ocly5hn9db1",
+          "props": {
+            "prefix": "next-",
+            "footerAlign": "right",
+            "title": "报价汇总表",
+            "footer": true,
+            "footerActions": [
+              "ok",
+              "cancel"
+            ],
+            "closeable": "esc,close",
+            "hasMask": true,
+            "align": "cc cc",
+            "minMargin": 40,
+            "isAutoContainer": true,
+            "visible": {
+              "type": "JSExpression",
+              "value": "this.state.showExportDataDialogFlag",
+              "mock": true
+            },
+            "style": {
+              "width": "50%"
+            },
+            "__events": {
+              "eventDataList": [
+                {
+                  "type": "componentEvent",
+                  "name": "onOk",
+                  "relatedEventName": "confirmExportInquiryData"
+                },
+                {
+                  "type": "componentEvent",
+                  "name": "onCancel",
+                  "relatedEventName": "closeExportInquiryDialog"
+                },
+                {
+                  "type": "componentEvent",
+                  "name": "onClose",
+                  "relatedEventName": "closeExportInquiryDialog"
+                }
+              ],
+              "eventList": [
+                {
+                  "name": "onOk",
+                  "disabled": true
+                },
+                {
+                  "name": "onCancel",
+                  "disabled": true
+                },
+                {
+                  "name": "onClose",
+                  "disabled": true
+                }
+              ]
+            },
+            "onOk": {
+              "type": "JSFunction",
+              "value": "function(){return this.confirmExportInquiryData.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "onCancel": {
+              "type": "JSFunction",
+              "value": "function(){return this.closeExportInquiryDialog.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "onClose": {
+              "type": "JSFunction",
+              "value": "function(){return this.closeExportInquiryDialog.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            }
+          },
+          "hidden": true,
+          "title": "报价汇总表对话框",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "children": [
+            {
+              "componentName": "KaiwuJsx",
+              "id": "node_ocly5hn9db2",
+              "props": {
+                "content": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.renderExportInquiryJSX.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                },
+                "style": {
+                  "width": "100%",
+                  "minHeight": "20px"
+                }
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            }
+          ]
+        },
+        {
+          "componentName": "Dialog",
+          "id": "node_oclx1fle6et",
+          "props": {
+            "prefix": "next-",
+            "footerAlign": "right",
+            "title": {
+              "type": "JSExpression",
+              "value": "this.state.batchDialogTitle",
+              "mock": "Title"
+            },
+            "footer": true,
+            "footerActions": [
+              "ok",
+              "cancel"
+            ],
+            "closeable": "esc,close",
+            "hasMask": true,
+            "align": "cc cc",
+            "minMargin": 40,
+            "isAutoContainer": true,
+            "visible": {
+              "type": "JSExpression",
+              "value": "this.state.showBatchDialogFlag",
+              "mock": true
+            },
+            "style": {
+              "width": "60vw"
+            },
+            "__events": {
+              "eventDataList": [
+                {
+                  "type": "componentEvent",
+                  "name": "onOk",
+                  "relatedEventName": "onConfirmBatchData"
+                },
+                {
+                  "type": "componentEvent",
+                  "name": "onCancel",
+                  "relatedEventName": "onCancelBatchData"
+                },
+                {
+                  "type": "componentEvent",
+                  "name": "onClose",
+                  "relatedEventName": "onCancelBatchData"
+                }
+              ],
+              "eventList": [
+                {
+                  "name": "onOk",
+                  "disabled": true
+                },
+                {
+                  "name": "onCancel",
+                  "disabled": true
+                },
+                {
+                  "name": "onClose",
+                  "disabled": true
+                }
+              ]
+            },
+            "onOk": {
+              "type": "JSFunction",
+              "value": "function(){return this.onConfirmBatchData.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "onCancel": {
+              "type": "JSFunction",
+              "value": "function(){return this.onCancelBatchData.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "onClose": {
+              "type": "JSFunction",
+              "value": "function(){return this.onCancelBatchData.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            }
+          },
+          "hidden": true,
+          "title": "批量处理对话框",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "children": [
+            {
+              "componentName": "KaiwuJsx",
+              "id": "node_oclx1flihk1",
+              "props": {
+                "style": {
+                  "width": "100%",
+                  "minHeight": "20px"
+                },
+                "content": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.renderBatchDialogJSX.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                }
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            }
+          ]
+        },
+        {
+          "componentName": "Dialog",
+          "id": "node_oclw4edq6qn",
+          "props": {
+            "prefix": "next-",
+            "footerAlign": "right",
+            "title": {
+              "type": "JSExpression",
+              "value": "this.state.quoteType === 'REQUOTE' ? '再报价' : '供应商确认'",
+              "mock": "Title"
+            },
+            "footer": true,
+            "footerActions": [
+              "ok",
+              "cancel"
+            ],
+            "closeable": "esc,close",
+            "hasMask": true,
+            "align": "cc cc",
+            "minMargin": 40,
+            "isAutoContainer": true,
+            "visible": {
+              "type": "JSExpression",
+              "value": "this.state.showReQuoteFlag",
+              "mock": true
+            },
+            "style": {
+              "width": "75vw"
+            },
+            "__events": {
+              "eventDataList": [
+                {
+                  "type": "componentEvent",
+                  "name": "onOk",
+                  "relatedEventName": "confirmSubmitReQuoteData"
+                },
+                {
+                  "type": "componentEvent",
+                  "name": "onCancel",
+                  "relatedEventName": "closeReQuoteDialog"
+                },
+                {
+                  "type": "componentEvent",
+                  "name": "onClose",
+                  "relatedEventName": "closeReQuoteDialog"
+                }
+              ],
+              "eventList": [
+                {
+                  "name": "onOk",
+                  "disabled": true
+                },
+                {
+                  "name": "onCancel",
+                  "disabled": true
+                },
+                {
+                  "name": "onClose",
+                  "disabled": true
+                }
+              ]
+            },
+            "onOk": {
+              "type": "JSFunction",
+              "value": "function(){return this.confirmSubmitReQuoteData.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "onCancel": {
+              "type": "JSFunction",
+              "value": "function(){return this.closeReQuoteDialog.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "onClose": {
+              "type": "JSFunction",
+              "value": "function(){return this.closeReQuoteDialog.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            }
+          },
+          "hidden": true,
+          "title": "再报价/确认供应商对话框",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "children": [
+            {
+              "componentName": "KaiwuJsx",
+              "id": "node_oclw4ee1rl1",
+              "props": {
+                "content": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.renderQuoteDetailJSX.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                },
+                "style": {
+                  "width": "100%",
+                  "minHeight": "20px"
+                }
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            }
+          ]
+        },
+        {
+          "componentName": "Dialog",
+          "id": "node_oclw1nnejy1",
+          "props": {
+            "prefix": "next-",
+            "footerAlign": "right",
+            "title": {
+              "type": "JSExpression",
+              "value": "this.state.quotationDetailType === this.state.byType.GOODS ?\n  '报价供应商详情' : this.state.quotationDetailType === this.state.byType.SUPPLIER ?\n    '供应商报价详情' : '轮次报价详情'",
+              "mock": "详情"
+            },
+            "footer": false,
+            "footerActions": [
+              "ok",
+              "cancel"
+            ],
+            "closeable": "esc,close",
+            "hasMask": true,
+            "align": "cc cc",
+            "minMargin": 40,
+            "isAutoContainer": true,
+            "visible": {
+              "type": "JSExpression",
+              "value": "this.state.showQuotationDetailFlag",
+              "mock": true
+            },
+            "style": {
+              "width": "80vw"
+            },
+            "__events": {
+              "eventDataList": [
+                {
+                  "type": "componentEvent",
+                  "name": "onClose",
+                  "relatedEventName": "closeQuotationDetailDialog"
+                }
+              ],
+              "eventList": [
+                {
+                  "name": "onOk",
+                  "disabled": false
+                },
+                {
+                  "name": "onCancel",
+                  "disabled": false
+                },
+                {
+                  "name": "onClose",
+                  "disabled": true
+                }
+              ]
+            },
+            "onClose": {
+              "type": "JSFunction",
+              "value": "function(){return this.closeQuotationDetailDialog.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            }
+          },
+          "hidden": true,
+          "title": "报价中报价详情弹窗数据",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "children": [
+            {
+              "componentName": "KaiwuJsx",
+              "id": "node_oclw1nnk7t1",
+              "props": {
+                "content": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.renderQuotationDetailData.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                },
+                "style": {
+                  "width": "100%",
+                  "minHeight": "20px"
+                }
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            },
+            {
+              "componentName": "FDCell",
+              "id": "node_oclw1nnk7t3",
+              "props": {
+                "align": "right",
+                "verAlign": "top",
+                "style": {
+                  "backgroundColor": "rgba(255,255,255,1)",
+                  "minHeight": ""
+                },
+                "width": "",
+                "ref": "fdcell-1ec61212"
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": "",
+              "children": [
+                {
+                  "componentName": "FDP",
+                  "id": "node_oclw1nnk7t4",
+                  "props": {},
+                  "title": "段落",
+                  "hidden": false,
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": "",
+                  "children": [
+                    {
+                      "componentName": "Pagination",
+                      "id": "node_oclw1nnk7t2",
+                      "props": {
+                        "prefix": "next-",
+                        "type": "normal",
+                        "shape": "normal",
+                        "size": "medium",
+                        "defaultCurrent": 1,
+                        "total": {
+                          "type": "JSExpression",
+                          "value": "this.state.quotationDetailTotalElements"
+                        },
+                        "pageShowCount": 5,
+                        "pageSize": {
+                          "type": "JSExpression",
+                          "value": "this.state.quotationDetailPageParam.page.size",
+                          "mock": 10
+                        },
+                        "pageSizePosition": "start",
+                        "showJump": true,
+                        "pageSizeSelector": false,
+                        "hideOnlyOnePage": false,
+                        "link": "",
+                        "rtl": "",
+                        "current": {
+                          "type": "JSExpression",
+                          "value": "this.state.quotationDetailPageParam.page.current"
+                        },
+                        "_unsafe_MixedSetter_current_select": "VariableSetter",
+                        "_unsafe_MixedSetter_total_select": "ExpressionSetter",
+                        "__events": {
+                          "eventDataList": [
+                            {
+                              "type": "componentEvent",
+                              "name": "onChange",
+                              "relatedEventName": "onQuotationDetailPageChange"
+                            }
+                          ],
+                          "eventList": [
+                            {
+                              "name": "onChange",
+                              "description": "页码发生改变时的回调函数\n@param {Number} current 改变后的页码数\n@param {Object} e 点击事件对象",
+                              "disabled": true
+                            },
+                            {
+                              "name": "onPageSizeChange",
+                              "description": "每页显示记录数量改变时的回调函数\n@param {Number} pageSize 改变后的每页显示记录数",
+                              "disabled": false
+                            }
+                          ]
+                        },
+                        "onChange": {
+                          "type": "JSFunction",
+                          "value": "function(){return this.onQuotationDetailPageChange.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                        },
+                        "ref": "pagination-78237d38"
+                      },
+                      "hidden": false,
+                      "title": "",
+                      "isLocked": false,
+                      "condition": false,
+                      "conditionGroup": "",
+                      "loopArgs": [
+                        null,
+                        null
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "componentName": "Drawer",
+          "id": "node_oclvymd8ab1",
+          "props": {
+            "prefix": "next-",
+            "triggerType": "click",
+            "closeable": true,
+            "placement": "right",
+            "hasMask": true,
+            "isAutoContainer": true,
+            "visible": {
+              "type": "JSExpression",
+              "value": "this.state.showDetailFlag",
+              "mock": true
+            },
+            "ref": "pro-drawer-entrylvymd9bo",
+            "title": "详情",
+            "style": {
+              "width": "100vw"
+            },
+            "size": "large",
+            "__events": {
+              "eventDataList": [
+                {
+                  "type": "componentEvent",
+                  "name": "onClose",
+                  "relatedEventName": "closeDetailDrawer"
+                }
+              ],
+              "eventList": [
+                {
+                  "name": "onClose",
+                  "disabled": true
+                },
+                {
+                  "name": "onOk",
+                  "disabled": false
+                }
+              ]
+            },
+            "onClose": {
+              "type": "JSFunction",
+              "value": "function(){return this.closeDetailDrawer.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "operationConfig": {
+              "fixed": true,
+              "align": "right"
+            },
+            "operations": [
+              {
+                "content": "发起再报价",
+                "action": "submit",
+                "type": "normal",
+                "id": "entrylw8o7d10",
+                "onClick": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.repeatOffer.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                },
+                "hidden": true
+              },
+              {
+                "content": "提交审核",
+                "action": "submit",
+                "type": "normal",
+                "id": "entrylw8o7d1l",
+                "onClick": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.submitForReview.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                },
+                "hidden": true
+              },
+              {
+                "content": "返回",
+                "action": "submit",
+                "type": "normal",
+                "id": "entrylvytogxp",
+                "onClick": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.closeDetailDrawer.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                }
+              }
+            ]
+          },
+          "hidden": true,
+          "title": "详情抽屉",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "children": [
+            {
+              "componentName": "KaiwuJsx",
+              "id": "node_oclxya9vue1",
+              "props": {
+                "style": {
+                  "height": "calc(100% - 35px)",
+                  "width": "100%"
+                },
+                "content": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.renderInquiryDetailData.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                }
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            }
+          ]
+        },
+        {
+          "componentName": "Drawer",
+          "id": "node_oclvg83fm31",
+          "props": {
+            "prefix": "next-",
+            "triggerType": "click",
+            "closeable": true,
+            "placement": "right",
+            "hasMask": true,
+            "isAutoContainer": true,
+            "visible": {
+              "type": "JSExpression",
+              "value": "this.state.showAllocationFlag",
+              "mock": true
+            },
+            "ref": "pro-drawer-entrylvg83gcq",
+            "style": {
+              "width": "100vw"
+            },
+            "title": "",
+            "size": "large",
+            "operationConfig": {
+              "fixed": true,
+              "align": "right"
+            },
+            "operations": [
+              {
+                "content": "提交",
+                "action": "submit",
+                "type": "primary",
+                "id": "entrylvg83itm",
+                "onClick": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.submitInquiryData.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                },
+                "hidden": {
+                  "type": "JSExpression",
+                  "value": "this.state.curEditData.bidStatus === '待审核'"
+                }
+              },
+              {
+                "content": "关闭",
+                "action": "submit",
+                "type": "normal",
+                "id": "entrylvkrbgic",
+                "onClick": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.closeCurInquiry.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                },
+                "hidden": true
+              },
+              {
+                "content": "通过",
+                "action": "submit",
+                "type": "primary",
+                "id": "entrylvkrbgk8",
+                "hidden": {
+                  "type": "JSExpression",
+                  "value": "this.state.curEditData.bidStatus === '待配置'"
+                },
+                "onClick": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.examineCurData.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                }
+              },
+              {
+                "content": "驳回",
+                "action": "submit",
+                "type": "secondary",
+                "id": "entrylvkrbgo4",
+                "hidden": {
+                  "type": "JSExpression",
+                  "value": "this.state.curEditData.bidStatus === '待配置'"
+                },
+                "onClick": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.rejectCurData.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                }
+              },
+              {
+                "content": "返回",
+                "action": "submit",
+                "type": "normal",
+                "id": "entrylvj2qwbw",
+                "onClick": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.closeInquiryDrawer.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                }
+              }
+            ],
+            "__events": {
+              "eventDataList": [],
+              "eventList": [
+                {
+                  "name": "onClose",
+                  "disabled": true
+                },
+                {
+                  "name": "onOk",
+                  "disabled": false
+                }
+              ]
+            },
+            "className": ""
+          },
+          "hidden": true,
+          "title": "配置报价抽屉",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "loopArgs": [
+            null,
+            null
+          ],
+          "children": [
+            {
+              "componentName": "FDCell",
+              "id": "node_oclvg83khhi",
+              "props": {
+                "align": "left",
+                "verAlign": "top",
+                "style": {
+                  "backgroundColor": "rgba(255,255,255,1)"
+                },
+                "width": ""
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": "",
+              "children": [
+                {
+                  "componentName": "FDP",
+                  "id": "node_oclvg83khh16",
+                  "props": {},
+                  "title": "段落",
+                  "hidden": false,
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": "",
+                  "children": [
+                    {
+                      "componentName": "KaiwuJsx",
+                      "id": "node_oclvg83khh15",
+                      "props": {
+                        "style": {
+                          "width": "100%",
+                          "minHeight": "20px"
+                        },
+                        "content": {
+                          "type": "JSFunction",
+                          "value": "function(){ return this.renderInquiryBaseJSX.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                        }
+                      },
+                      "hidden": false,
+                      "title": "",
+                      "isLocked": false,
+                      "condition": true,
+                      "conditionGroup": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "componentName": "KaiwuJsx",
+              "id": "node_oclvivmu621",
+              "props": {
+                "style": {
+                  "width": "100%",
+                  "minHeight": "20px",
+                  "marginTop": "20px"
+                },
+                "content": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.renderInquiryDetailJSX.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                }
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            }
+          ]
+        },
+        {
+          "componentName": "Dialog",
+          "id": "node_oclw8o7vqzr",
+          "props": {
+            "prefix": "next-",
+            "footerAlign": "right",
+            "title": "发起再报价",
+            "footer": true,
+            "footerActions": [
+              "ok",
+              "cancel"
+            ],
+            "closeable": "esc,close",
+            "hasMask": true,
+            "align": "cc cc",
+            "minMargin": 40,
+            "isAutoContainer": true,
+            "visible": {
+              "type": "JSExpression",
+              "value": "this.state.showRepeatOfferFlag",
+              "mock": true
+            },
+            "style": {
+              "width": "30vw"
+            },
+            "__events": {
+              "eventDataList": [
+                {
+                  "type": "componentEvent",
+                  "name": "onCancel",
+                  "relatedEventName": "closeRepeatOffer"
+                },
+                {
+                  "type": "componentEvent",
+                  "name": "onClose",
+                  "relatedEventName": "closeRepeatOffer"
+                },
+                {
+                  "type": "componentEvent",
+                  "name": "onOk",
+                  "relatedEventName": "confirmRepeatOfferDialog"
+                }
+              ],
+              "eventList": [
+                {
+                  "name": "onOk",
+                  "disabled": true
+                },
+                {
+                  "name": "onCancel",
+                  "disabled": true
+                },
+                {
+                  "name": "onClose",
+                  "disabled": true
+                }
+              ]
+            },
+            "onOk": {
+              "type": "JSFunction",
+              "value": "function(){return this.confirmRepeatOfferDialog.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "onCancel": {
+              "type": "JSFunction",
+              "value": "function(){return this.closeRepeatOffer.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "onClose": {
+              "type": "JSFunction",
+              "value": "function(){return this.closeRepeatOffer.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            }
+          },
+          "hidden": true,
+          "title": "发起再报价对话框",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "children": [
+            {
+              "componentName": "KaiwuJsx",
+              "id": "node_oclw8o8cot1",
+              "props": {
+                "content": {
+                  "type": "JSFunction",
+                  "value": "function(){ return this.renderRepeatOfferTimeJSX.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                },
+                "style": {
+                  "width": "100%",
+                  "minHeight": "20px"
+                }
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            }
+          ]
+        },
+        {
+          "componentName": "Tab",
+          "id": "node_oclvdi7iuc4",
+          "props": {
+            "shape": "text",
+            "size": "medium",
+            "excessMode": "slide",
+            "items": [
+              {
+                "key": "ALL",
+                "title": "全部"
+              },
+              {
+                "key": "WAIT_CONFIG",
+                "title": "待配置"
+              },
+              {
+                "key": "WAIT_EXAMINE",
+                "title": "待审核"
+              },
+              {
+                "key": "QUOTATION",
+                "title": "报价中",
+                "closeable": false,
+                "disabled": false
+              },
+              {
+                "key": "SECONDARY_QUOTATION",
+                "title": "二次报价",
+                "closeable": false,
+                "disabled": false
+              },
+              {
+                "key": "WAIT_CONFIRM",
+                "title": "待确认",
+                "closeable": false,
+                "disabled": false
+              },
+              {
+                "key": "TO_BE_PRICED",
+                "title": "待定价",
+                "closeable": false,
+                "disabled": false
+              },
+              {
+                "key": "PRICED",
+                "title": "已定价",
+                "closeable": false,
+                "disabled": false
+              },
+              {
+                "key": "CLOSED",
+                "title": "已关闭",
+                "closeable": false,
+                "disabled": false
+              }
+            ],
+            "unmountInactiveTabs": false,
+            "needBadge": false,
+            "__events": {
+              "eventDataList": [
+                {
+                  "type": "componentEvent",
+                  "name": "onChange",
+                  "relatedEventName": "onChangeTab"
+                }
+              ],
+              "eventList": [
+                {
+                  "name": "onClick",
+                  "disabled": false
+                },
+                {
+                  "name": "onChange",
+                  "disabled": true
+                },
+                {
+                  "name": "onClose",
+                  "disabled": false
+                }
+              ]
+            },
+            "onChange": {
+              "type": "JSFunction",
+              "value": "function(){return this.onChangeTab.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            }
+          },
+          "hidden": false,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "children": [
+            {
+              "componentName": "Tab.Item",
+              "id": "node_oclvdkxai62",
+              "props": {
+                "key": "ALL",
+                "title": "全部"
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            },
+            {
+              "componentName": "Tab.Item",
+              "id": "node_oclvdkxai63",
+              "props": {
+                "key": "WAIT_CONFIG",
+                "title": "待配置"
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            },
+            {
+              "componentName": "Tab.Item",
+              "id": "node_oclvdkxai66",
+              "props": {
+                "key": "WAIT_EXAMINE",
+                "title": "待审核"
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            },
+            {
+              "componentName": "Tab.Item",
+              "id": "node_oclvdkxai67",
+              "props": {
+                "key": "QUOTATION",
+                "title": "报价中",
+                "closeable": false,
+                "disabled": false
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            },
+            {
+              "componentName": "Tab.Item",
+              "id": "node_oclvez02as2",
+              "props": {
+                "key": "SECONDARY_QUOTATION",
+                "title": "二次报价",
+                "closeable": false,
+                "disabled": false
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            },
+            {
+              "componentName": "Tab.Item",
+              "id": "node_oclvdkxai68",
+              "props": {
+                "key": "WAIT_CONFIRM",
+                "title": "待确认",
+                "closeable": false,
+                "disabled": false
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            },
+            {
+              "componentName": "Tab.Item",
+              "id": "node_oclvymco0d2",
+              "props": {
+                "key": "TO_BE_PRICED",
+                "title": "待定价",
+                "closeable": false,
+                "disabled": false
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            },
+            {
+              "componentName": "Tab.Item",
+              "id": "node_oclvymco0d4",
+              "props": {
+                "key": "PRICED",
+                "title": "已定价",
+                "closeable": false,
+                "disabled": false
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            },
+            {
+              "componentName": "Tab.Item",
+              "id": "node_oclvdkxai69",
+              "props": {
+                "key": "CLOSED",
+                "title": "已关闭",
+                "closeable": false,
+                "disabled": false
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            }
+          ]
+        },
+        {
+          "componentName": "Filter",
+          "id": "node_ockt5mo4jj1",
+          "props": {
+            "labelAlign": "top",
+            "labelTextAlign": "right",
+            "__events": {
+              "eventDataList": [
+                {
+                  "type": "componentEvent",
+                  "name": "onSearch",
+                  "relatedEventName": "onSearchData"
+                },
+                {
+                  "type": "componentEvent",
+                  "name": "onReset",
+                  "relatedEventName": "onResetData"
+                }
+              ],
+              "eventList": [
+                {
+                  "name": "onExpand",
+                  "disabled": false
+                },
+                {
+                  "name": "onSearch",
+                  "disabled": true
+                },
+                {
+                  "name": "onReset",
+                  "disabled": true
+                }
+              ]
+            },
+            "onSearch": {
+              "type": "JSFunction",
+              "value": "function(){return this.onSearchData.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "onReset": {
+              "type": "JSFunction",
+              "value": "function(){return this.onResetData.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            }
+          },
+          "hidden": false,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "children": [
+            {
+              "componentName": "FormInput",
+              "id": "node_oclypo8c5936s",
+              "props": {
+                "formItemProps": {
+                  "primaryKey": "id-aoux8p",
+                  "label": "询价单号",
+                  "size": "medium",
+                  "columnSpan": 1,
+                  "fullWidth": true,
+                  "required": false,
+                  "name": "inquiryNumber"
+                }
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            },
+            {
+              "componentName": "FormCascaderSelect",
+              "id": "node_oclypo8c5936t",
+              "props": {
+                "formItemProps": {
+                  "primaryKey": "2634",
+                  "label": " 询价标包",
+                  "size": "medium",
+                  "device": "desktop",
+                  "fullWidth": true,
+                  "required": false,
+                  "name": "inquiryPackageId",
+                  "labelTextAlign": "right"
+                },
+                "changeOnSelect": true,
+                "placeholder": "请输入",
+                "dataSource": {
+                  "type": "JSExpression",
+                  "value": "this.state.inquiryPackagesList"
+                },
+                "disabled": false,
+                "hasArrow": true,
+                "hasBorder": true,
+                "hasClear": false,
+                "multiple": false,
+                "showSearch": true
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            },
+            {
+              "componentName": "FormRangePicker",
+              "id": "node_oclypo8c5936u",
+              "props": {
+                "formItemProps": {
+                  "primaryKey": "2191",
+                  "label": "报价开始日期",
+                  "size": "medium",
+                  "device": "desktop",
+                  "fullWidth": true,
+                  "required": false,
+                  "labelTextAlign": "right",
+                  "name": "quotationStartTime"
+                },
+                "placeholder": "请输入",
+                "format": "YYYY-MM-DD",
+                "hasClear": true
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            },
+            {
+              "componentName": "FormRangePicker",
+              "id": "node_oclypo8c5936v",
+              "props": {
+                "formItemProps": {
+                  "primaryKey": "id-8532bc",
+                  "label": "供货周期",
+                  "size": "medium",
+                  "columnSpan": 1,
+                  "fullWidth": true,
+                  "required": false,
+                  "name": "deliveryCycleTime"
+                }
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            },
+            {
+              "componentName": "FormSelect",
+              "id": "node_oclypo8c5936w",
+              "props": {
+                "formItemProps": {
+                  "primaryKey": "id-odal0f",
+                  "label": "供货通知单状态",
+                  "size": "medium",
+                  "columnSpan": 1,
+                  "fullWidth": true,
+                  "required": false,
+                  "name": "supplyOrderStatus",
+                  "labelTextAlign": "right"
+                },
+                "placeholder": "请选择",
+                "hasClear": true,
+                "showSearch": false,
+                "dataSource": [
+                  {
+                    "title": "Title",
+                    "label": "已生成",
+                    "value": "已生成"
+                  },
+                  {
+                    "title": "Title",
+                    "label": "未生成",
+                    "value": "未生成"
+                  }
+                ],
+                "hasArrow": true
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            },
+            {
+              "componentName": "FormSelect",
+              "id": "node_oclypo8c5936x",
+              "props": {
+                "formItemProps": {
+                  "primaryKey": "id-4zvnye",
+                  "label": "报价通知单状态",
+                  "size": "medium",
+                  "columnSpan": 1,
+                  "fullWidth": true,
+                  "required": false,
+                  "name": "offerNoticeStatus"
+                },
+                "placeholder": "请选择",
+                "hasClear": true,
+                "showSearch": false,
+                "dataSource": [
+                  {
+                    "title": "Title",
+                    "label": "已生成",
+                    "value": "已生成"
+                  },
+                  {
+                    "title": "Title",
+                    "label": "未生成",
+                    "value": "未生成"
+                  }
+                ],
+                "hasArrow": true
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            }
+          ]
+        },
+        {
+          "componentName": "FDCell",
+          "id": "node_oclvez02asgej",
+          "props": {
+            "align": "left",
+            "verAlign": "middle",
+            "style": {
+              "backgroundColor": "rgba(255,255,255,1)",
+              "minHeight": ""
+            },
+            "width": ""
+          },
+          "hidden": false,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "children": [
+            {
+              "componentName": "FDP",
+              "id": "node_oclvez02asgfb",
+              "props": {},
+              "title": "段落",
+              "hidden": false,
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": "",
+              "children": [
+                {
+                  "componentName": "Button",
+                  "id": "node_oclvez02asgfa",
+                  "props": {
+                    "prefix": "next-",
+                    "type": "secondary",
+                    "size": "medium",
+                    "htmlType": "button",
+                    "component": "button",
+                    "children": "生成报价通知单",
+                    "iconSize": "xxs",
+                    "loading": false,
+                    "text": false,
+                    "warning": false,
+                    "disabled": false,
+                    "__events": {
+                      "eventDataList": [
+                        {
+                          "type": "componentEvent",
+                          "name": "onClick",
+                          "relatedEventName": "generateQuotationNotification"
+                        }
+                      ],
+                      "eventList": [
+                        {
+                          "name": "onClick",
+                          "description": "点击按钮的回调\n@param {Object} e Event Object",
+                          "disabled": true
+                        },
+                        {
+                          "name": "onMouseUp",
+                          "disabled": false
+                        }
+                      ]
+                    },
+                    "onClick": {
+                      "type": "JSFunction",
+                      "value": "function(){return this.generateQuotationNotification.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                    }
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": ""
+                },
+                {
+                  "componentName": "Button",
+                  "id": "node_oclvez02asgfd",
+                  "props": {
+                    "prefix": "next-",
+                    "type": "secondary",
+                    "size": "medium",
+                    "htmlType": "button",
+                    "component": "button",
+                    "children": "批量配置",
+                    "iconSize": "xxs",
+                    "loading": false,
+                    "text": false,
+                    "warning": false,
+                    "disabled": false,
+                    "__events": {
+                      "eventDataList": [
+                        {
+                          "type": "componentEvent",
+                          "name": "onClick",
+                          "relatedEventName": "batchConfiguration"
+                        }
+                      ],
+                      "eventList": [
+                        {
+                          "name": "onClick",
+                          "description": "点击按钮的回调\n@param {Object} e Event Object",
+                          "disabled": true
+                        },
+                        {
+                          "name": "onMouseUp",
+                          "disabled": false
+                        }
+                      ]
+                    },
+                    "onClick": {
+                      "type": "JSFunction",
+                      "value": "function(){return this.batchConfiguration.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                    }
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "componentName": "KaiwuJsx",
+          "id": "node_oclvezp0vz1",
+          "props": {
+            "content": {
+              "type": "JSFunction",
+              "value": "function(){ return this.renderTableJSX.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            },
+            "style": {
+              "width": "100%",
+              "minHeight": "20px",
+              "marginTop": "8px"
+            }
+          },
+          "hidden": false,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": ""
+        },
+        {
+          "componentName": "FDCell",
+          "id": "node_oclvkanoiw1",
+          "props": {
+            "align": "right",
+            "verAlign": "top",
+            "style": {
+              "backgroundColor": "rgba(255,255,255,1)",
+              "marginTop": "8px"
+            },
+            "width": ""
+          },
+          "hidden": false,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "children": [
+            {
+              "componentName": "FDP",
+              "id": "node_oclvkanoiwb",
+              "props": {},
+              "title": "段落",
+              "hidden": false,
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": "",
+              "children": [
+                {
+                  "componentName": "Pagination",
+                  "id": "node_oclvkanoiwa",
+                  "props": {
+                    "prefix": "next-",
+                    "type": "normal",
+                    "shape": "normal",
+                    "size": "medium",
+                    "defaultCurrent": 1,
+                    "total": {
+                      "type": "JSExpression",
+                      "value": "this.state.totalElements"
+                    },
+                    "pageShowCount": 5,
+                    "pageSize": {
+                      "type": "JSExpression",
+                      "value": "this.state.queryParam.page.size",
+                      "mock": 10
+                    },
+                    "pageSizePosition": "start",
+                    "showJump": true,
+                    "current": {
+                      "type": "JSExpression",
+                      "value": "this.state.queryParam.page.current"
+                    },
+                    "pageSizeSelector": "dropdown",
+                    "hideOnlyOnePage": false,
+                    "pageSizeList": [
+                      10,
+                      20,
+                      50,
+                      100
+                    ],
+                    "link": "",
+                    "rtl": "",
+                    "_unsafe_MixedSetter_current_select": "VariableSetter",
+                    "_unsafe_MixedSetter_total_select": "ExpressionSetter",
+                    "__events": {
+                      "eventDataList": [
+                        {
+                          "type": "componentEvent",
+                          "name": "onChange",
+                          "relatedEventName": "onPageChange"
+                        },
+                        {
+                          "type": "componentEvent",
+                          "name": "onPageSizeChange",
+                          "relatedEventName": "onPageSizeChange"
+                        }
+                      ],
+                      "eventList": [
+                        {
+                          "name": "onChange",
+                          "description": "页码发生改变时的回调函数\n@param {Number} current 改变后的页码数\n@param {Object} e 点击事件对象",
+                          "disabled": true
+                        },
+                        {
+                          "name": "onPageSizeChange",
+                          "description": "每页显示记录数量改变时的回调函数\n@param {Number} pageSize 改变后的每页显示记录数",
+                          "disabled": true
+                        }
+                      ]
+                    },
+                    "onChange": {
+                      "type": "JSFunction",
+                      "value": "function(){return this.onPageChange.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                    },
+                    "ref": "pagination-589b0911",
+                    "onPageSizeChange": {
+                      "type": "JSFunction",
+                      "value": "function(){return this.onPageSizeChange.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                    }
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": "",
+                  "loopArgs": [
+                    null,
+                    null
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "i18n": {
+    "zh-CN": {
+      "i18n-jwg27yo4": "你好 ",
+      "i18n-jwg27yo3": "{name} 博士"
+    },
+    "en-US": {
+      "i18n-jwg27yo4": "Hello ",
+      "i18n-jwg27yo3": "Doctor {name}"
+    }
+  }
+}

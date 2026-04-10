@@ -1,0 +1,84 @@
+body {
+  font-size: 12px;
+}
+
+
+.button {
+  width: 100px;
+  color: #ff00ff
+}
+
+
+.goodsPanel {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+}
+
+.comparePricePanel {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+}
+
+.comparePricePanel div {
+  line-height: 40px;
+  display: flex;
+  font-size: 14px;
+}
+
+.comparePricePanel div label {
+  width: 230px;
+  line-height: 40px;
+  display: flex;
+  font-size: 14px;
+  padding-left: 20px;
+  border: 1px solid #10a693;
+}
+
+.comparePricePanel div span {
+  padding-left: 20px;
+  line-height: 40px;
+  width: 150px;
+  border-bottom: 2px solid #FFFFFF;
+  color: #10a693 !important;
+  background: #e7f6f4 !important;
+}
+
+.goodsRow {
+  min-height: 40px;
+  display: flex;
+  font-size: 14px;
+
+}
+
+.goodsRow label {
+  width: 150px;
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+.subPrice {
+  display: inline-block;
+  height: 35px;
+  font-size: 14px;
+  line-height: 35px;
+  width: 80px;
+  border: 1px solid #dcdee3;
+}
+
+.goodsRow span {
+  padding-left: 20px;
+  width: 150px;
+  line-height: 40px;
+  color: #10a693 !important;
+  background: #e7f6f4 !important;
+}
+
+.history_table_box {
+  width: 100%;
+  max-height: 350px;
+
+}

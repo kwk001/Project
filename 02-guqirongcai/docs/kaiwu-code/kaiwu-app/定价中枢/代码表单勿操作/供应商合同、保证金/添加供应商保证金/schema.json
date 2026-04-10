@@ -1,0 +1,873 @@
+{
+  "version": "1.0.0",
+  "componentsMap": [
+    {
+      "package": "@alilc/lowcode-materials",
+      "version": "1.1.0",
+      "exportName": "NextText",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "NextText"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Form",
+      "main": "",
+      "destructuring": true,
+      "subName": "Item",
+      "componentName": "Form.Item"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "NumberPicker",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "NumberPicker"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "DatePicker",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "DatePicker"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Upload",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Upload"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Form",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Form"
+    },
+    {
+      "package": "@alifd/next",
+      "version": "1.25.23",
+      "exportName": "Button",
+      "main": "",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "Button"
+    },
+    {
+      "package": "@alifd/layout",
+      "version": "2.0.11",
+      "exportName": "P",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "FDP"
+    },
+    {
+      "package": "@alifd/layout",
+      "version": "2.0.11",
+      "exportName": "Cell",
+      "main": "lib/index.js",
+      "destructuring": true,
+      "subName": "",
+      "componentName": "FDCell"
+    },
+    {
+      "devMode": "lowCode",
+      "componentName": "Page"
+    }
+  ],
+  "componentsTree": [
+    {
+      "componentName": "Page",
+      "id": "node_dockcviv8fo1",
+      "props": {
+        "ref": "outerView",
+        "style": {
+          "height": "420px",
+          "backgroundColor": "#FFFFFF"
+        }
+      },
+      "docId": "doclaqkk3b9",
+      "fileName": "/",
+      "dataSource": {
+        "list": [
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/formData/query"
+            },
+            "id": "queryFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "PUT",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/formData/update"
+            },
+            "id": "updateFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/formData/add"
+            },
+            "id": "addFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "DELETE",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/processengine/app/formData/delete"
+            },
+            "id": "deleteFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "GET",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/identity/user/query/current"
+            },
+            "id": "getCurrentUser",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/form/getIdByCode"
+            },
+            "id": "getIdByCode",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json; charset=UTF-8"
+              },
+              "uri": "/mainApi/formEngine/formData/batchAdd"
+            },
+            "id": "addMoreFormData",
+            "shouldFetch": {
+              "type": "JSFunction",
+              "value": "function() { \n  return true; \n}"
+            }
+          },
+          {
+            "type": "fetch",
+            "isInit": true,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json"
+              },
+              "uri": {
+                "type": "JSExpression",
+                "value": "this.state.kaiwuApiUrl"
+              }
+            },
+            "id": "kaiwuApi"
+          },
+          {
+            "type": "fetch",
+            "isInit": false,
+            "options": {
+              "params": {},
+              "method": "POST",
+              "isCors": true,
+              "timeout": 5000,
+              "headers": {
+                "content-type": "application/json"
+              },
+              "uri": {
+                "type": "JSExpression",
+                "value": "`/kaiwuApi/${this.state.currentUser.customerId}/paymargins`"
+              }
+            },
+            "id": "paymargins"
+          }
+        ]
+      },
+      "hidden": false,
+      "title": "",
+      "isLocked": false,
+      "condition": true,
+      "conditionGroup": "",
+      "children": [
+        {
+          "componentName": "Form",
+          "id": "node_oclv0m683b2",
+          "props": {
+            "labelCol": {
+              "span": 2
+            },
+            "wrapperCol": {
+              "span": 14
+            },
+            "labelAlign": "left",
+            "style": {},
+            "value": {
+              "type": "JSExpression",
+              "value": "this.state.formData"
+            },
+            "_unsafe_MixedSetter_value_select": "ExpressionSetter",
+            "__events": {
+              "eventDataList": [
+                {
+                  "type": "componentEvent",
+                  "name": "onChange",
+                  "relatedEventName": "onChangeFormData"
+                }
+              ],
+              "eventList": [
+                {
+                  "name": "saveField",
+                  "disabled": false
+                },
+                {
+                  "name": "onSubmit",
+                  "disabled": false
+                },
+                {
+                  "name": "onChange",
+                  "disabled": true
+                }
+              ]
+            },
+            "onChange": {
+              "type": "JSFunction",
+              "value": "function(){return this.onChangeFormData.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+            }
+          },
+          "hidden": false,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "children": [
+            {
+              "componentName": "Form.Item",
+              "id": "node_oclv0m683b3",
+              "props": {
+                "label": "供应商：",
+                "required": false,
+                "labelCol": {
+                  "span": 3
+                }
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": "",
+              "children": [
+                {
+                  "componentName": "NextText",
+                  "id": "node_oclv0o3zrc1",
+                  "props": {
+                    "type": "inherit",
+                    "children": {
+                      "type": "JSExpression",
+                      "value": "this.state.formData.supplier",
+                      "mock": ""
+                    },
+                    "mark": false,
+                    "code": false,
+                    "delete": false,
+                    "underline": false,
+                    "strong": false,
+                    "prefix": "",
+                    "classname": "",
+                    "style": {
+                      "lineHeight": "30px",
+                      "fontSize": "14px"
+                    }
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": ""
+                }
+              ]
+            },
+            {
+              "componentName": "Form.Item",
+              "id": "node_oclv0m683b5",
+              "props": {
+                "label": "应交金额: ",
+                "required": false,
+                "labelCol": {
+                  "span": 3
+                }
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": "",
+              "children": [
+                {
+                  "componentName": "NextText",
+                  "id": "node_oclv0o3zrc4",
+                  "props": {
+                    "type": "inherit",
+                    "children": {
+                      "type": "JSExpression",
+                      "value": "this.state.payableDeposi + \"元\"",
+                      "mock": "基于 Ali-Lowcode-Engine 快速打造高生产力的低代码研发平台, 基于自然布局体系快速搭建页面"
+                    },
+                    "mark": false,
+                    "code": false,
+                    "delete": false,
+                    "underline": false,
+                    "strong": false,
+                    "prefix": "",
+                    "classname": "",
+                    "style": {
+                      "lineHeight": "30px",
+                      "fontSize": "14px"
+                    },
+                    "ref": "nexttext-dcda5093"
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": "",
+                  "loopArgs": [
+                    null,
+                    null
+                  ]
+                }
+              ]
+            },
+            {
+              "componentName": "Form.Item",
+              "id": "node_oclv0m683bd",
+              "props": {
+                "label": "缴纳金额(元)：",
+                "required": true,
+                "labelCol": {
+                  "span": 3
+                },
+                "requiredMessage": "金额必填",
+                "minmaxMessage": "",
+                "name": "payment"
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": "",
+              "children": [
+                {
+                  "componentName": "NumberPicker",
+                  "id": "node_oclv0m683bf",
+                  "props": {
+                    "prefix": "next-",
+                    "type": "normal",
+                    "size": "medium",
+                    "step": 1,
+                    "editable": true,
+                    "precision": 2,
+                    "value": {
+                      "type": "JSExpression",
+                      "value": "this.state.formData.payment"
+                    },
+                    "_unsafe_MixedSetter_value_select": "ExpressionSetter",
+                    "name": "payment",
+                    "__events": {
+                      "eventDataList": [],
+                      "eventList": [
+                        {
+                          "name": "onChange",
+                          "disabled": true
+                        },
+                        {
+                          "name": "onKeyDown",
+                          "disabled": false
+                        },
+                        {
+                          "name": "onFocus",
+                          "disabled": false
+                        },
+                        {
+                          "name": "onBlur",
+                          "disabled": false
+                        },
+                        {
+                          "name": "onCorrect",
+                          "disabled": false
+                        }
+                      ]
+                    },
+                    "defaultValue": {
+                      "type": "JSExpression"
+                    },
+                    "_unsafe_MixedSetter_defaultValue_select": "VariableSetter"
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": ""
+                }
+              ]
+            },
+            {
+              "componentName": "Form.Item",
+              "id": "node_oclv0m683bl",
+              "props": {
+                "label": "缴纳日期: ",
+                "labelCol": {
+                  "span": 3
+                },
+                "required": true,
+                "requiredMessage": "日期必填",
+                "name": "payment_date"
+              },
+              "docId": "doclv0m683b",
+              "title": "表单项",
+              "hidden": false,
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": "",
+              "children": [
+                {
+                  "componentName": "DatePicker",
+                  "id": "node_oclv0m683bm",
+                  "props": {
+                    "prefix": "next-",
+                    "format": "YYYY-MM-DD",
+                    "size": "medium",
+                    "hasClear": false,
+                    "popupTriggerType": "click",
+                    "popupAlign": "tl tl",
+                    "followTrigger": true,
+                    "label": "",
+                    "state": "success",
+                    "placeholder": "",
+                    "disabled": false,
+                    "defaultVisible": false,
+                    "name": "payment_date",
+                    "rtl": "",
+                    "__events": {
+                      "eventDataList": [],
+                      "eventList": [
+                        {
+                          "name": "onChange",
+                          "description": "日期值改变时的回调\n@param {MomentObject|String} value 日期值",
+                          "disabled": true
+                        },
+                        {
+                          "name": "onOk",
+                          "description": "点击确认按钮时的回调\n@return {MomentObject|String} 日期值",
+                          "disabled": false
+                        }
+                      ]
+                    },
+                    "defaultValue": {
+                      "type": "JSExpression",
+                      "value": "this.state.formData.payment_date"
+                    },
+                    "ref": "datepicker-cc7c839c",
+                    "value": {
+                      "type": "JSExpression",
+                      "value": "this.state.formData.payment_date"
+                    }
+                  },
+                  "docId": "doclv0m683b",
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": "",
+                  "loopArgs": [
+                    null,
+                    null
+                  ]
+                }
+              ]
+            },
+            {
+              "componentName": "Form.Item",
+              "id": "node_oclv0m683bq",
+              "props": {
+                "label": "附件: ",
+                "labelCol": {
+                  "span": 3
+                }
+              },
+              "docId": "doclv0m683b",
+              "title": "表单项",
+              "hidden": false,
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": "",
+              "children": [
+                {
+                  "componentName": "Upload",
+                  "id": "node_oclv0rg81c1",
+                  "props": {
+                    "prefix": "next-",
+                    "closable": true,
+                    "autoUpload": false,
+                    "shape": "card",
+                    "defaultValue": [],
+                    "value": {
+                      "type": "JSExpression",
+                      "value": "this.state.fileList"
+                    },
+                    "__events": {
+                      "eventDataList": [
+                        {
+                          "type": "componentEvent",
+                          "name": "onSelect",
+                          "relatedEventName": "onSelectFile"
+                        },
+                        {
+                          "type": "componentEvent",
+                          "name": "onSuccess",
+                          "relatedEventName": "onUploadSuccess"
+                        },
+                        {
+                          "type": "componentEvent",
+                          "name": "onError",
+                          "relatedEventName": "onUploadError"
+                        }
+                      ],
+                      "eventList": [
+                        {
+                          "name": "onSelect",
+                          "propType": "func",
+                          "description": "选择文件回调",
+                          "disabled": true
+                        },
+                        {
+                          "name": "onProgress",
+                          "propType": "func",
+                          "description": "上传中",
+                          "disabled": false
+                        },
+                        {
+                          "name": "onChange",
+                          "propType": "func",
+                          "description": "上传文件改变时的状态\n@param {Object} info 文件事件对象",
+                          "disabled": false
+                        },
+                        {
+                          "name": "onSuccess",
+                          "propType": "func",
+                          "description": "可选参数，上传成功回调函数，参数为请求下响应信息以及文件\n@param {Object} file 文件\n@param {Array<Object>} value 值",
+                          "disabled": true
+                        },
+                        {
+                          "name": "onRemove",
+                          "propType": "func",
+                          "description": "移除文件回调函数\n@param {Object} file 文件\n@returns {Boolean|Promise} 返回 false、Promise.resolve(false)、 Promise.reject() 将阻止文件删除",
+                          "disabled": false
+                        },
+                        {
+                          "name": "onError",
+                          "propType": "func",
+                          "description": "可选参数，上传失败回调函数，参数为上传失败的信息、响应信息以及文件\n@param {Object} file 出错的文件\n@param {Array} value 当前值",
+                          "disabled": true
+                        },
+                        {
+                          "name": "onDrop",
+                          "propType": "func",
+                          "description": "放文件",
+                          "disabled": false
+                        }
+                      ]
+                    },
+                    "onSelect": {
+                      "type": "JSFunction",
+                      "value": "function(){return this.onSelectFile.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                    },
+                    "onSuccess": {
+                      "type": "JSFunction",
+                      "value": "function(){return this.onUploadSuccess.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                    },
+                    "onError": {
+                      "type": "JSFunction",
+                      "value": "function(){return this.onUploadError.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                    },
+                    "useDataURL": true,
+                    "isPreview": false,
+                    "listType": "image"
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": ""
+                }
+              ]
+            },
+            {
+              "componentName": "Form.Item",
+              "id": "node_oclv0m683bt",
+              "props": {
+                "label": "",
+                "required": true,
+                "style": {
+                  "display": "flex",
+                  "overflow": "hidden",
+                  "flexDirection": "row-reverse"
+                },
+                "labelCol": {
+                  "span": 0
+                },
+                "wrapperCol": {
+                  "span": 3
+                }
+              },
+              "hidden": false,
+              "title": "",
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": ""
+            }
+          ]
+        },
+        {
+          "componentName": "FDCell",
+          "id": "node_oclvge8m691",
+          "props": {
+            "align": "right",
+            "verAlign": "middle",
+            "style": {
+              "backgroundColor": "rgba(255,255,255,1)",
+              "minHeight": "",
+              "width": "100%",
+              "overflow": "hidden",
+              "display": "flex",
+              "justifyContent": "flex-end",
+              "flexDirection": "row",
+              "flexFlow": "row nowrap"
+            },
+            "width": ""
+          },
+          "hidden": false,
+          "title": "",
+          "isLocked": false,
+          "condition": true,
+          "conditionGroup": "",
+          "children": [
+            {
+              "componentName": "FDP",
+              "id": "node_oclvge8m692",
+              "props": {
+                "style": {
+                  "display": "flex",
+                  "flexDirection": "row",
+                  "justifyContent": "flex-end"
+                }
+              },
+              "title": "段落",
+              "hidden": false,
+              "isLocked": false,
+              "condition": true,
+              "conditionGroup": "",
+              "children": [
+                {
+                  "componentName": "Button",
+                  "id": "node_oclv0m683bx",
+                  "props": {
+                    "prefix": "next-",
+                    "type": "normal",
+                    "size": "medium",
+                    "htmlType": "button",
+                    "component": "button",
+                    "children": "取消",
+                    "iconSize": "xxs",
+                    "loading": false,
+                    "text": false,
+                    "warning": false,
+                    "disabled": false,
+                    "style": {
+                      "marginRight": "20px"
+                    },
+                    "__events": {
+                      "eventDataList": [
+                        {
+                          "type": "componentEvent",
+                          "name": "onClick",
+                          "relatedEventName": "onClose"
+                        }
+                      ],
+                      "eventList": [
+                        {
+                          "name": "onClick",
+                          "description": "点击按钮的回调\n@param {Object} e Event Object",
+                          "disabled": true
+                        },
+                        {
+                          "name": "onMouseUp",
+                          "disabled": false
+                        }
+                      ]
+                    },
+                    "onClick": {
+                      "type": "JSFunction",
+                      "value": "function(){return this.onClose.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                    }
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": ""
+                },
+                {
+                  "componentName": "Button",
+                  "id": "node_oclv0m683bs",
+                  "props": {
+                    "prefix": "next-",
+                    "type": "primary",
+                    "size": "medium",
+                    "htmlType": "button",
+                    "component": "button",
+                    "children": "确定",
+                    "iconSize": "xxs",
+                    "loading": false,
+                    "text": false,
+                    "warning": false,
+                    "disabled": false,
+                    "style": {},
+                    "__events": {
+                      "eventDataList": [
+                        {
+                          "type": "componentEvent",
+                          "name": "onClick",
+                          "relatedEventName": "onClick"
+                        }
+                      ],
+                      "eventList": [
+                        {
+                          "name": "onClick",
+                          "description": "点击按钮的回调\n@param {Object} e Event Object",
+                          "disabled": true
+                        },
+                        {
+                          "name": "onMouseUp",
+                          "disabled": false
+                        }
+                      ]
+                    },
+                    "onClick": {
+                      "type": "JSFunction",
+                      "value": "function(){return this.onClick.apply(this,Array.prototype.slice.call(arguments).concat([])) }"
+                    }
+                  },
+                  "hidden": false,
+                  "title": "",
+                  "isLocked": false,
+                  "condition": true,
+                  "conditionGroup": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "i18n": {
+    "zh-CN": {
+      "i18n-jwg27yo4": "你好 ",
+      "i18n-jwg27yo3": "{name} 博士"
+    },
+    "en-US": {
+      "i18n-jwg27yo4": "Hello ",
+      "i18n-jwg27yo3": "Doctor {name}"
+    }
+  }
+}

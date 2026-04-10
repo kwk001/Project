@@ -1,0 +1,80 @@
+body {
+  font-size: 14px;
+  /* overflow-y: auto !important; */
+}
+
+html {
+  height: 100%;
+  background: #fff;
+}
+
+.next-drawer-right {
+  max-width: 100%;
+}
+
+.next-drawer-close {
+  display: none;
+}
+
+.fusion-ui-pro-drawer.operation-container.operation-fixed {
+  z-index: 9999;
+}
+
+.pricing-search-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.pricing-search-box-item {
+  display: flex;
+  align-items: center;
+  margin-right: 12px;
+}
+
+.next-table-fix-left,
+.next-table-fix-right {
+  z-index: 999;
+}
+
+.next-input.next-disabled input,
+.next-input.next-disabled textarea {
+  -webkit-text-fill-color: #262626;
+
+}
+
+.next-select-trigger .next-input.next-disabled em {
+  color: #262626;
+}
+
+.procurementStandards-overflow {
+  max-height: 40px;
+  overflow-y: auto;
+}
+
+.next-table th .next-table-cell-wrapper {
+  overflow: hidden;
+  padding: 12px;
+  text-overflow: unset;
+  word-break: initial;
+}
+
+.next-table td .next-table-cell-wrapper {
+  overflow: hidden;
+  padding: 12px;
+  text-overflow: unset;
+  word-break: initial;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  .fusion-ui-pro-drawer.operation-container.operation-fixed {
+    bottom: 100px;
+
+  }
+
+  .next-drawer-body {
+    padding-bottom: 120px;
+  }
+}

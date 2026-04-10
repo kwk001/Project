@@ -1,0 +1,58 @@
+body {
+  font-size: 12px;
+}
+
+.button {
+  width: 100px;
+  color: #ff00ff
+}
+
+.edit-field,
+.search-field {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  margin-right: 1%;
+  margin-bottom: 15px;
+}
+
+.is-requried::before {
+  content: "*";
+  color: red;
+  margin-right: 3px;
+}
+
+.label-name {
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.page-container {}
+
+.formdata-container {
+  margin-left: 50px;
+}
+
+.goods-list-operate {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btn-list {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+/* .next-input {
+  width: 200px;
+}
+
+.next-select .next-select-inner {
+  width: 200px !important;
+}
+
+.next-menu next-ver next-menu-selectable-single next-select-menu {
+  width: 200px !important;
+} */

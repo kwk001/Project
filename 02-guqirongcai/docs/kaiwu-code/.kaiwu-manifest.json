@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "appId": null,
-  "lastSync": "2026-04-08T05:42:31.829Z",
+  "lastSync": "2026-04-10T01:55:33.203Z",
   "resources": {
     "69d5e9c3f1dfd600076605db": {
       "type": "lowcode",
@@ -19,7 +19,939 @@
       "lastPull": "2026-04-08T05:38:40.608Z",
       "pullContentHash": "ad0b4452fe05d325ede53cefb715d0931ef937a2fa65732d1046e503b4d116a6"
     },
-    "local_api_1775626951829_3792c3871": {
+    "69d7569c7184860008baae11": {
+      "type": "lowcode",
+      "name": "商品档案",
+      "code": "shangpindangan_a2oe88",
+      "path": "kaiwu-app/定价中枢/基础数据/商品/商品档案",
+      "files": [
+        "index.jsx",
+        "index.css",
+        "schema.json",
+        "assets.json"
+      ],
+      "groupNames": [
+        "基础数据",
+        "商品"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:40:30.605Z",
+      "pullContentHash": "4836264bcb007a4fffce90826ef41f093c21ffb3a382e988b73dc4a2f79d2145"
+    },
+    "69d7569c7184860008baae13": {
+      "type": "lowcode",
+      "name": "商品分类",
+      "code": "shangpinfenleiguanli_oo93t6",
+      "path": "kaiwu-app/定价中枢/基础数据/商品/商品分类",
+      "files": [
+        "index.jsx",
+        "index.css",
+        "schema.json",
+        "assets.json"
+      ],
+      "groupNames": [
+        "基础数据",
+        "商品"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:40:37.662Z",
+      "pullContentHash": "fe49a6b5f52a821de3890880d3ae78a97e8fe48922186a3669f4c30ebdbc90c1"
+    },
+    "69d7569c7184860008baae1e": {
+      "type": "lowcode",
+      "name": "供应商管理",
+      "code": "gongyingshangguanli_j10fuv",
+      "path": "kaiwu-app/定价中枢/基础数据/供应商/供应商管理",
+      "files": [
+        "index.jsx",
+        "index.css",
+        "schema.json",
+        "assets.json"
+      ],
+      "groupNames": [
+        "基础数据",
+        "供应商"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:40:44.716Z",
+      "pullContentHash": "7a53556cb286ca619ba0e971b597355d05036412b6211079015c135814ffdb5d"
+    },
+    "69d7569c7184860008baae0f": {
+      "type": "lowcode",
+      "name": "供应商合同",
+      "code": "gongyingshanghetong_6xgyry",
+      "path": "kaiwu-app/定价中枢/基础数据/供应商/供应商合同",
+      "files": [
+        "index.jsx",
+        "index.css",
+        "schema.json",
+        "assets.json"
+      ],
+      "groupNames": [
+        "基础数据",
+        "供应商"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:40:51.766Z",
+      "pullContentHash": "9fb27719439ffdd8c48f73af2044137040275834093f35f919b69d0887686d03"
+    },
+    "69d7569c7184860008baae12": {
+      "type": "lowcode",
+      "name": "商品标包",
+      "code": "shangpinbiaobao_frkl6d",
+      "path": "kaiwu-app/定价中枢/采购合约/询价/商品标包",
+      "files": [
+        "index.jsx",
+        "index.css",
+        "schema.json",
+        "assets.json"
+      ],
+      "groupNames": [
+        "采购合约",
+        "询价"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:40:58.813Z",
+      "pullContentHash": "173733ed5c7e94f24907b1d23db31be13647d8cd57fa29c41479d12b4840cb8b"
+    },
+    "69d7569c7184860008baae1c": {
+      "type": "lowcode",
+      "name": "供应计划",
+      "code": "gongyingjihuanew_90rgfs",
+      "path": "kaiwu-app/定价中枢/采购合约/询价/供应计划",
+      "files": [
+        "index.jsx",
+        "index.css",
+        "schema.json",
+        "assets.json"
+      ],
+      "groupNames": [
+        "采购合约",
+        "询价"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:41:05.868Z",
+      "pullContentHash": "41c6f35985e7353f9f05bf0ed31d7c46422634643954ec54df229d4bf2a215c4"
+    },
+    "69d7569c7184860008baae14": {
+      "type": "lowcode",
+      "name": "询价配置",
+      "code": "xunjiapeizhi_1a3ji6",
+      "path": "kaiwu-app/定价中枢/采购合约/询价/询价配置",
+      "files": [
+        "index.jsx",
+        "index.css",
+        "schema.json",
+        "assets.json"
+      ],
+      "groupNames": [
+        "采购合约",
+        "询价"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:41:12.922Z",
+      "pullContentHash": "c8d2c85b32d929fa553bdde429879cae35709fd4643e787d11f7afd5c53f61da"
+    },
+    "69d7569c7184860008baae1a": {
+      "type": "lowcode",
+      "name": "商品定价",
+      "code": "shangpindingjia-fuzhi_w3u4un",
+      "path": "kaiwu-app/定价中枢/采购合约/定价/商品定价",
+      "files": [
+        "index.jsx",
+        "index.css",
+        "schema.json",
+        "assets.json"
+      ],
+      "groupNames": [
+        "采购合约",
+        "定价"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:41:19.983Z",
+      "pullContentHash": "4ee00a653eb89c1babbc3ed9bc672219414f85d53712757054d82aa024e68a1e"
+    },
+    "69d7569c7184860008baae15": {
+      "type": "lowcode",
+      "name": "供应调整",
+      "code": "shangpingongying_rf7w49",
+      "path": "kaiwu-app/定价中枢/采购合约/定价/供应调整",
+      "files": [
+        "index.jsx",
+        "index.css",
+        "schema.json",
+        "assets.json"
+      ],
+      "groupNames": [
+        "采购合约",
+        "定价"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:41:27.040Z",
+      "pullContentHash": "3f02fb7f5a382fa641f18fb03cba861b2b8ab0017650e2a1758d2ac2e7984a99"
+    },
+    "69d7569c7184860008baae16": {
+      "type": "lowcode",
+      "name": "通知邮箱配置",
+      "code": "tongzhiyouxiangpeizhi_bg7bna",
+      "path": "kaiwu-app/定价中枢/代码表单勿操作/通知邮箱配置",
+      "files": [
+        "index.jsx",
+        "index.css",
+        "schema.json",
+        "assets.json"
+      ],
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:41:31.664Z",
+      "pullContentHash": "51759aff8c10316856094b8fe4c22c16d2e646351f16ad3fed196f46efd55133"
+    },
+    "69d7569c7184860008baae17": {
+      "type": "lowcode",
+      "name": "商品价格",
+      "code": "shangpinjiage_mjqjej",
+      "path": "kaiwu-app/定价中枢/代码表单勿操作/商品价格",
+      "files": [
+        "index.jsx",
+        "index.css",
+        "schema.json",
+        "assets.json"
+      ],
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:41:31.909Z",
+      "pullContentHash": "40cdf12329ab9427808ed4ac66241ca070816ed8c6fdb8330e771cb0171a4a87"
+    },
+    "69d7569c7184860008baae10": {
+      "type": "lowcode",
+      "name": "添加供应商保证金",
+      "code": "tianjiagongyingshangbaozhengj_yiyfae",
+      "path": "kaiwu-app/定价中枢/代码表单勿操作/供应商合同、保证金/添加供应商保证金",
+      "files": [
+        "index.jsx",
+        "index.css",
+        "schema.json",
+        "assets.json"
+      ],
+      "groupNames": [
+        "代码表单勿操作",
+        "供应商合同、保证金"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:41:38.621Z",
+      "pullContentHash": "f802db012ca5cd106d8da381da76d970fdf98844bf3e30704e5842eb25dd5fd5"
+    },
+    "69d7569c7184860008baae1b": {
+      "type": "lowcode",
+      "name": "供应调整（复制）",
+      "code": "gongyingdiaozhengfuzhi_mzmimw",
+      "path": "kaiwu-app/定价中枢/代码表单勿操作/供应调整（复制）",
+      "files": [
+        "index.jsx",
+        "index.css",
+        "schema.json",
+        "assets.json"
+      ],
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:41:45.666Z",
+      "pullContentHash": "08870eda757d6eba6d12f2d6b412941cbdc0dd72e26863db92ca60a19834a670"
+    },
+    "69d7569c7184860008baae19": {
+      "type": "lowcode",
+      "name": "商品定价(导记录)",
+      "code": "shangpindingjia-1_u7cgn3",
+      "path": "kaiwu-app/定价中枢/代码表单勿操作/商品定价(导记录)",
+      "files": [
+        "index.jsx",
+        "index.css",
+        "schema.json",
+        "assets.json"
+      ],
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:41:52.714Z",
+      "pullContentHash": "eca6c5907cda1e95df092c30b121db42a1d2ad39612686c10587ba47ac5f562a"
+    },
+    "69d7569c7184860008baae1d": {
+      "type": "lowcode",
+      "name": "订单补发弹窗页",
+      "code": "dingdanbufadanchuangye_d9z83z",
+      "path": "kaiwu-app/定价中枢/代码表单勿操作/订单补发弹窗页",
+      "files": [
+        "index.jsx",
+        "index.css",
+        "schema.json",
+        "assets.json"
+      ],
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:41:59.767Z",
+      "pullContentHash": "76fed8e761f9fd0c58b3d5e9ff155fbef3ff416e42c4257224acc6d5ef1940aa"
+    },
+    "69d7569c7184860008baae18": {
+      "type": "lowcode",
+      "name": "商品图片",
+      "code": "shangpintupianguanli_xzlp6r",
+      "path": "kaiwu-app/定价中枢/代码表单勿操作/商品档案/商品图片",
+      "files": [
+        "index.jsx",
+        "index.css",
+        "schema.json",
+        "assets.json"
+      ],
+      "groupNames": [
+        "代码表单勿操作",
+        "商品档案"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:42:06.814Z",
+      "pullContentHash": "462a6e013d269194980825282335b4e91aaf4d1d6a6932158a60703ccf8db624"
+    },
+    "t69d7569c7184860008baae3f": {
+      "type": "form",
+      "name": "计量单位",
+      "formCode": "measurementUnit",
+      "path": "kaiwu-forms/定价中枢/基础数据/商品/measurementUnit.json",
+      "groupNames": [
+        "基础数据",
+        "商品"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:55.444Z",
+      "pullContentHash": "d233c3f695e49529f77c32f2d241675227ebe2771483f26279fb4d3acb57e803"
+    },
+    "t69d7569c7184860008baae48": {
+      "type": "form",
+      "name": "配送方式",
+      "formCode": "delivery",
+      "path": "kaiwu-forms/定价中枢/基础数据/商品/delivery.json",
+      "groupNames": [
+        "基础数据",
+        "商品"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:55.476Z",
+      "pullContentHash": "e645f185845471c691059da08f6f874badca4545d8badfbe801a2ac688881449"
+    },
+    "t69d7569c7184860008baae29": {
+      "type": "form",
+      "name": "报价税率管理",
+      "formCode": "haiju_taxRate",
+      "path": "kaiwu-forms/定价中枢/基础数据/商品/haiju_taxRate.json",
+      "groupNames": [
+        "基础数据",
+        "商品"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:55.511Z",
+      "pullContentHash": "b4045f798e10e9a4d50ed09b969e211aa6aa300dbc86db496b987f37689da7b2"
+    },
+    "t69d7569c7184860008baae42": {
+      "type": "form",
+      "name": "标包类型",
+      "formCode": "supplierType",
+      "path": "kaiwu-forms/定价中枢/基础数据/供应商/supplierType.json",
+      "groupNames": [
+        "基础数据",
+        "供应商"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:55.550Z",
+      "pullContentHash": "b3ed780c357734098a951bbee23fbd8508c7807d34a078d47ddbc91821fa0279"
+    },
+    "t69d7569c7184860008baae2e": {
+      "type": "form",
+      "name": "报价通知",
+      "formCode": "haiju_baojiatongzhi",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/haiju_baojiatongzhi.json",
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:55.641Z",
+      "pullContentHash": "a6a06b16c5a84bb23dd2330599e570a334c25e07565de9999b5dfb9711d8cc31"
+    },
+    "t69d7569c7184860008baae2f": {
+      "type": "form",
+      "name": "供货通知",
+      "formCode": "haiju_gonghuotongzhi",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/haiju_gonghuotongzhi.json",
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:55.715Z",
+      "pullContentHash": "180f7bfaefd4ee06541a0d0b4c5235eb9f38452a9a2949b514dc8abaccfcab12"
+    },
+    "t69d7569c7184860008baae31": {
+      "type": "form",
+      "name": "商品标签",
+      "formCode": "haiju_shangpinbiaoqianguanli",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/haiju_shangpinbiaoqianguanli.json",
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:55.782Z",
+      "pullContentHash": "415d1c8a1401d58b36561bf84b60c193098df626785af19db34dfcb01640108e"
+    },
+    "t69d7569c7184860008baae2a": {
+      "type": "form",
+      "name": "市调价",
+      "formCode": "haiju_shitiaojia",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/haiju_shitiaojia.json",
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:55.921Z",
+      "pullContentHash": "57249b48ba0d8ea99388f411e5cf4e260d5b7f7fe1f7ea7c92e32fff3400782e"
+    },
+    "t69d7569c7184860008baae20": {
+      "type": "form",
+      "name": "申请权限审批",
+      "formCode": "dongheshipingongyinglian_shenqingquanxian",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/审批流程/dongheshipingongyinglian_shenqingquanxian.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "审批流程"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:56.258Z",
+      "pullContentHash": "7ddf28f62f5f824288f9af6819a08b904b2ceb0ec7d5b59fdf56fda6f0d4f275"
+    },
+    "t69d7569c7184860008baae21": {
+      "type": "form",
+      "name": "数据修改审批",
+      "formCode": "dongheshipingongyinglian_shujuxiugaiquanxian",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/审批流程/dongheshipingongyinglian_shujuxiugaiquanxian.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "审批流程"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:56.462Z",
+      "pullContentHash": "701e1a37246639b622c91088b5e97d97d4e837d8bd212f3ce359d29165746d94"
+    },
+    "t69d7569c7184860008baae1f": {
+      "type": "form",
+      "name": "短信日志",
+      "formCode": "duanxinrizhi",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/duanxinrizhi.json",
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:56.489Z",
+      "pullContentHash": "06140a6ae3f76c3501dd6329ae497ca3f77ffd38dab23a382897a9c3c6f26565"
+    },
+    "t69d7569c7184860008baae26": {
+      "type": "form",
+      "name": "系统参数设置",
+      "formCode": "KW_constant",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/KW_constant.json",
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:56.511Z",
+      "pullContentHash": "a8f1ee823a60eb7ec17f739bcf75aa69b622005d6bf65658cd19b1554c899bc2"
+    },
+    "t69d7569c7184860008baae43": {
+      "type": "form",
+      "name": "供应商档案",
+      "formCode": "supplier",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/供应商合同、保证金/supplier.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "供应商合同、保证金"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:56.572Z",
+      "pullContentHash": "f23e358cbf362d8a590457d0419b67f54cebd783cd9efc33c9b4f69279d075b8"
+    },
+    "t69d7569c7184860008baae46": {
+      "type": "form",
+      "name": "供应商合同",
+      "formCode": "supplierContract",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/供应商合同、保证金/supplierContract.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "供应商合同、保证金"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:56.594Z",
+      "pullContentHash": "53c5284cd723392c0a75f5870d0687940bf9f7456c6f23c3d4cca245323d38ab"
+    },
+    "t69d7569c7184860008baae28": {
+      "type": "form",
+      "name": "通知邮箱配置",
+      "formCode": "haiju_tongzhiyouxiangpeizhi",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/询、报、定价/haiju_tongzhiyouxiangpeizhi.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "询、报、定价"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:56.700Z",
+      "pullContentHash": "20bc2befaa900db692631e9386fb1366625f0c02bffb4dfe32480ae8cf36fe79"
+    },
+    "t69d7569c7184860008baae3b": {
+      "type": "form",
+      "name": "询价配置",
+      "formCode": "haiju_xunjiapeizhi",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/询、报、定价/haiju_xunjiapeizhi.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "询、报、定价"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:56.742Z",
+      "pullContentHash": "669dc3b25ba9c089c3c688b15bf798d490a53e990bd77e8f5c536d29ab199283"
+    },
+    "t69d7569c7184860008baae38": {
+      "type": "form",
+      "name": "采购报价详情",
+      "formCode": "haiju_caigoubaojiaxiangqing",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/询、报、定价/haiju_caigoubaojiaxiangqing.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "询、报、定价"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:56.827Z",
+      "pullContentHash": "4d9cc433067b9df5e69fee0a02efacf0d3cbd0d5ed8aac03cf1bfcd09d937487"
+    },
+    "t69d7569c7184860008baae3c": {
+      "type": "form",
+      "name": "采购报价",
+      "formCode": "haiju_caigoubaojia",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/询、报、定价/haiju_caigoubaojia.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "询、报、定价"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:56.986Z",
+      "pullContentHash": "80a16cbcd67a6c6980b7b42552b18903ca3de3b03599ceaa6fcb7eb50fcd99dd"
+    },
+    "t69d7569c7184860008baae37": {
+      "type": "form",
+      "name": "供应商中标商品",
+      "formCode": "haiju_commodity",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/询、报、定价/haiju_commodity.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "询、报、定价"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:57.050Z",
+      "pullContentHash": "53836d01a50de459c1f35b22e2006b2f9d3a50031c94df71ca6534477479ce34"
+    },
+    "t69d7569c7184860008baae39": {
+      "type": "form",
+      "name": "商品定价基础页",
+      "formCode": "haiju_xiangguandingjiajichuye",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/询、报、定价/haiju_xiangguandingjiajichuye.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "询、报、定价"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:57.101Z",
+      "pullContentHash": "4d8f9549b6afa4893b4b4aa1b083a532c487d6e35a92affa61e740383a7af05c"
+    },
+    "t69d7569c7184860008baae34": {
+      "type": "form",
+      "name": "商品定价详情页",
+      "formCode": "haiju_goodsPricingDetails",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/询、报、定价/haiju_goodsPricingDetails.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "询、报、定价"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:57.136Z",
+      "pullContentHash": "38409e22ed09bd6df7d5e42bdef093dad90e8aa7e0658ece2a77a0446994a270"
+    },
+    "t69d7569c7184860008baae30": {
+      "type": "form",
+      "name": "供货通知-表",
+      "formCode": "haiju_gonghuotongzhi-biao",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/询、报、定价/haiju_gonghuotongzhi-biao.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "询、报、定价"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:57.174Z",
+      "pullContentHash": "baf82f96f0e71d0d277921c21712681a880d6d34e8b57de25a7c56869c65ee26"
+    },
+    "t69d7569c7184860008baae4d": {
+      "type": "form",
+      "name": "定价审批记录",
+      "formCode": "pricing_approval_record",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/询、报、定价/pricing_approval_record.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "询、报、定价"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:57.303Z",
+      "pullContentHash": "506e0c23f7fb5e46f45a12fe16192916b143fc54f27fc98f235aab90f8d3883b"
+    },
+    "t69d7569c7184860008baae4c": {
+      "type": "form",
+      "name": "计划供应审批记录",
+      "formCode": "planSupplyApprovalRecords",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/询、报、定价/planSupplyApprovalRecords.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "询、报、定价"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:57.338Z",
+      "pullContentHash": "2f630603e8189f9321ec8139eb57a76e21a615f643e931fe49175e0e1bcf8593"
+    },
+    "t69d7569c7184860008baae4b": {
+      "type": "form",
+      "name": "商品供应审批记录",
+      "formCode": "goodsSupplyApprovalRecords",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/询、报、定价/goodsSupplyApprovalRecords.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "询、报、定价"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:57.351Z",
+      "pullContentHash": "b34c5a859120ff8e78d8d0b45c11a8a8380ad1d435e4fdc201bbaa4da4c03c48"
+    },
+    "t69d7569c7184860008baae2c": {
+      "type": "form",
+      "name": "销售价",
+      "formCode": "haiju_xiaoshoujia",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/商品价格/haiju_xiaoshoujia.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "商品价格"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:57.379Z",
+      "pullContentHash": "fe5a4fcb3a29e2a07986a0f79c271a9692d19db5422f7cbb5a8958467ff30c91"
+    },
+    "t69d7569c7184860008baae2b": {
+      "type": "form",
+      "name": "采购价",
+      "formCode": "haiju_caigoujia",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/商品价格/haiju_caigoujia.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "商品价格"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:57.400Z",
+      "pullContentHash": "89613dd3aee53ad9be3bfe2866249f05e97fdff413fe72cf49b6823bd4634210"
+    },
+    "t69d7569c7184860008baae47": {
+      "type": "form",
+      "name": "审批权限配置",
+      "formCode": "haiju_userPermissions",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/haiju_userPermissions.json",
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:57.433Z",
+      "pullContentHash": "3500043448ff8adb861ad22436a72c92db5ffa6279687d73174676d839179110"
+    },
+    "t69d7569c7184860008baae45": {
+      "type": "form",
+      "name": "审批权限类型",
+      "formCode": "haiju_shenpiquanxianleixing",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/haiju_shenpiquanxianleixing.json",
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:57.529Z",
+      "pullContentHash": "41c38689b5227f6a5f284a115c534d09f031a8da53d6bb5dfacfa181c45788eb"
+    },
+    "t69d7569c7184860008baae4f": {
+      "type": "form",
+      "name": "站内信触发",
+      "formCode": "mailTrigger",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/mailTrigger.json",
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:57.542Z",
+      "pullContentHash": "452221cc96e090626ea5531b120a4969037d523156d46c28cea4abc3012e59a6"
+    },
+    "t69d7569c7184860008baae4e": {
+      "type": "form",
+      "name": "接口锁",
+      "formCode": "interfaceLock",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/interfaceLock.json",
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:54:57.559Z",
+      "pullContentHash": "ccc08a0e9535dc4b6088db7f8385aee8688602f5ac7c74aa6c3fd15adde7f459"
+    },
+    "t69d7569c7184860008baae3d": {
+      "type": "form",
+      "name": "计划供应商品",
+      "formCode": "planSupply_product",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/供应计划/planSupply_product.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "供应计划"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:04.576Z",
+      "pullContentHash": "525ef0992638751a03a78c79c6ac1c40790656f591d8464b398c4ec1ea064fb0"
+    },
+    "t69d7569c7184860008baae35": {
+      "type": "form",
+      "name": "商品供应表",
+      "formCode": "goods_supply",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/供应计划/goods_supply.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "供应计划"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:04.603Z",
+      "pullContentHash": "91452bb11aaede623527e2fed1c994cbf855da304c165cbfb468ed5548ed1f00"
+    },
+    "t69d7569c7184860008baae40": {
+      "type": "form",
+      "name": "商品计划供应",
+      "formCode": "product_plan",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/供应计划/product_plan.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "供应计划"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:04.632Z",
+      "pullContentHash": "875d54a9830cf946096a53d070e6ca4f0d5ebf7ddb41d3276225ede43f78ce3c"
+    },
+    "t69d7569c7184860008baae3e": {
+      "type": "form",
+      "name": "计划供应商",
+      "formCode": "planSupply_supplier",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/供应计划/planSupply_supplier.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "供应计划"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:04.688Z",
+      "pullContentHash": "8ce71c28a92b70378384cb31ba7bffd9b1dca1b335f112979dd6f9f14abd3166"
+    },
+    "t69d7569c7184860008baae33": {
+      "type": "form",
+      "name": "商品销售价记录基础表",
+      "formCode": "haiju_salesRecord",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/商品档案/haiju_salesRecord.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "商品档案"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:04.699Z",
+      "pullContentHash": "f81d241e3ba0600be73824448d4a31528967d3f70dd45f9aa919c2a3b3e8e8dc"
+    },
+    "t69d7569c7184860008baae32": {
+      "type": "form",
+      "name": "商品供应调整记录",
+      "formCode": "goods_supply_history",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/商品档案/goods_supply_history.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "商品档案"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:04.717Z",
+      "pullContentHash": "1eae8cb399e9454bba921f63342834eb36a20fa87ab717de2e84b278241cd91e"
+    },
+    "t69d7569c7184860008baae2d": {
+      "type": "form",
+      "name": "商品图片管理",
+      "formCode": "haiju_shangpintupianguanli",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/商品档案/haiju_shangpintupianguanli.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "商品档案"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:04.804Z",
+      "pullContentHash": "abf7486c7fcef30bd5d961787cd3fc1c23a143d8ac9a4c3389ddd67bf868e31a"
+    },
+    "t69d7569c7184860008baae27": {
+      "type": "form",
+      "name": "商品可售卖总数",
+      "formCode": "goodSaleCount",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/商品档案/goodSaleCount.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "商品档案"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:04.815Z",
+      "pullContentHash": "34312d8ae05a94baa4b129a29788978a730aca391b7330fdb675eee03ba3d42e"
+    },
+    "t69d7569c7184860008baae44": {
+      "type": "form",
+      "name": "商品规格信息",
+      "formCode": "goodsSpecs",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/商品档案/goodsSpecs.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "商品档案"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:04.836Z",
+      "pullContentHash": "6a9ba49b3610ba8c9d6c858c9a46e8d59247dc696e3df7bc837095903b418aef"
+    },
+    "t69d7569c7184860008baae36": {
+      "type": "form",
+      "name": "商品价格基础表",
+      "formCode": "goods_price",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/商品档案/goods_price.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "商品档案"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:04.862Z",
+      "pullContentHash": "1e639f502712bb881805df3eae5b7336b72d946f1c4c1c4e1e838cc86ef6c6c9"
+    },
+    "t69d7569c7184860008baae25": {
+      "type": "form",
+      "name": "B端小程序轮播图",
+      "formCode": "haiju_xiaochengxulunbotu",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/商品档案/haiju_xiaochengxulunbotu.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "商品档案"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:04.890Z",
+      "pullContentHash": "a4d959a8e18e36aa98f8a322f1f604c40d5be31a8b075ecfc1fb699bdfcd97bd"
+    },
+    "t69d7569c7184860008baae49": {
+      "type": "form",
+      "name": "商品档案基础表",
+      "formCode": "goods",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/goods.json",
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:04.922Z",
+      "pullContentHash": "13b10a9e91ee30132fd2b1bcedc3c528f63148b29d15e9453e2eefd7724c3b70"
+    },
+    "t69d7569c7184860008baae41": {
+      "type": "form",
+      "name": "商品分类基础表",
+      "formCode": "goodsTypeTable",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/goodsTypeTable.json",
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:04.933Z",
+      "pullContentHash": "6494e47c4f3166429041f82f57537e2dbb8798adc26da84e29e92ed7eb528419"
+    },
+    "t69d7569c7184860008baae24": {
+      "type": "form",
+      "name": "数据中台同步记录",
+      "formCode": "datacenter_sync_record",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/datacenter_sync_record.json",
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:04.962Z",
+      "pullContentHash": "2e780183ab5a22fbc9e1b646fcba99c4b8e366a501c6067ad74d560352ad3605"
+    },
+    "t69d7569c7184860008baae23": {
+      "type": "form",
+      "name": "重量单位",
+      "formCode": "weightUnit",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/weightUnit.json",
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:05.062Z",
+      "pullContentHash": "42bd566e6de536d4a207206938b7844d6139c2c1331d2e046e88bb0d16348d61"
+    },
+    "t69d7569c7184860008baae22": {
+      "type": "form",
+      "name": "采购价权限",
+      "formCode": "dongheshipingongyinglian_caigoujiaquanxian",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/dongheshipingongyinglian_caigoujiaquanxian.json",
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:05.080Z",
+      "pullContentHash": "9d24e6c88df6d82be7cd4fda907bbcfb67e61159cb51a86929b31a5c46fe15f0"
+    },
+    "t69d7569c7184860008baae4a": {
+      "type": "form",
+      "name": "商品档案基础表_临时",
+      "formCode": "dongheshipingongyinglian_shangpindanganjichubiao_linshi",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/dongheshipingongyinglian_shangpindanganjichubiao_linshi.json",
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:05.101Z",
+      "pullContentHash": "c8b5ad7e30a3ccca2f23fa424faa46324c73efeaff89b8759adb17f5a9ad5b57"
+    },
+    "t69d7569c7184860008baae50": {
+      "type": "form",
+      "name": "期初库存",
+      "formCode": "haijushipingongyinglian_qichukucun",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/haijushipingongyinglian_qichukucun.json",
+      "groupNames": [
+        "代码表单勿操作"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:05.141Z",
+      "pullContentHash": "d9db8c755aceb961ba82f806d96e074ad09849e7df0712a5990acc3aeef26130"
+    },
+    "t69d7569c7184860008baae3a": {
+      "type": "form",
+      "name": "操作日志",
+      "formCode": "haiju_caozuorizhi",
+      "path": "kaiwu-forms/定价中枢/代码表单勿操作/销售、采购订单/haiju_caozuorizhi.json",
+      "groupNames": [
+        "代码表单勿操作",
+        "销售、采购订单"
+      ],
+      "appName": "定价中枢",
+      "lastPull": "2026-04-10T01:55:05.159Z",
+      "pullContentHash": "1c0cc938f4658d5d565842f794fe7bb10f64770c4275fa9cb03da1a6202e7f7a"
+    },
+    "local_api_1775786133199_6w0jpn0qy": {
       "type": "api",
       "name": "服务商端首页企业总数和设备总数",
       "code": "da1afde8ac2c4837a65d458ae768fe74",
@@ -30,7 +962,7 @@
       ],
       "isNew": true
     },
-    "local_api_1775626951829_xj4joo5zs": {
+    "local_api_1775786133199_p70qrzr5m": {
       "type": "api",
       "name": "服务商端查看设备列表",
       "code": "copy1735972573629d39465",
@@ -41,7 +973,7 @@
       ],
       "isNew": true
     },
-    "local_api_1775626951829_l1qgcqwn5": {
+    "local_api_1775786133199_2phvhbdxx": {
       "type": "api",
       "name": "字典数据查询",
       "code": "copy1769492461747d42295",
@@ -52,7 +984,7 @@
       ],
       "isNew": true
     },
-    "local_api_1775626951829_gzztt5v1s": {
+    "local_api_1775786133199_1qt94xjdp": {
       "type": "api",
       "name": "单页面配置加载",
       "code": "copy1769481644036d4192",
@@ -63,7 +995,7 @@
       ],
       "isNew": true
     },
-    "local_api_1775626951829_5igdtl5iv": {
+    "local_api_1775786133199_5igngf3wh": {
       "type": "api",
       "name": "配置聚合加载",
       "code": "copy1769423270269d5568",
@@ -74,7 +1006,7 @@
       ],
       "isNew": true
     },
-    "local_api_1775626951829_jnum2370m": {
+    "local_api_1775786133200_k4h8ia6wj": {
       "type": "api",
       "name": "功能配置检查",
       "code": "copy1769492398895d77923",
@@ -85,7 +1017,7 @@
       ],
       "isNew": true
     },
-    "local_api_1775626951829_qgqbrcrej": {
+    "local_api_1775786133200_9xo8an7mu": {
       "type": "api",
       "name": "服务商物连设备",
       "code": "b4c577ba85ad475da1de3b4bace6b377",
@@ -94,16 +1026,7 @@
       "groupNames": [],
       "isNew": true
     },
-    "local_task_1775626951829_g35h7m7lj": {
-      "type": "task",
-      "name": "上报应用访问数据",
-      "code": "0855034ced8549cdab2dcaf93c234c3d",
-      "formCode": "0855034ced8549cdab2dcaf93c234c3d",
-      "path": "kaiwu-task/上报应用访问数据",
-      "groupNames": [],
-      "isNew": true
-    },
-    "local_task_1775626951829_ndzgl9xyr": {
+    "local_task_1775786133200_vqm89m45m": {
       "type": "task",
       "name": "上报企业数据",
       "code": "e67694c1e7ab48deb1a3f22103deab49",
@@ -112,7 +1035,16 @@
       "groupNames": [],
       "isNew": true
     },
-    "local_function_1775626951829_6wpm57vkn": {
+    "local_task_1775786133200_h7vzzf48b": {
+      "type": "task",
+      "name": "上报应用访问数据",
+      "code": "0855034ced8549cdab2dcaf93c234c3d",
+      "formCode": "0855034ced8549cdab2dcaf93c234c3d",
+      "path": "kaiwu-task/上报应用访问数据",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_function_1775786133200_78534w08o": {
       "type": "function",
       "name": "获取mongo聚合查询结果",
       "code": "c4993c0c805b422ca3ea5a940e88da36",
@@ -121,7 +1053,7 @@
       "groupNames": [],
       "isNew": true
     },
-    "local_function_1775626951829_2px10qmht": {
+    "local_function_1775786133200_ml2bnrhds": {
       "type": "function",
       "name": "获取mongo查询结果",
       "code": "69fcca60784c4ecaa2a6cd0d757f54ea",
@@ -130,7 +1062,7 @@
       "groupNames": [],
       "isNew": true
     },
-    "local_function_1775626951829_djkdzg1rm": {
+    "local_function_1775786133200_j7wum60a5": {
       "type": "function",
       "name": "根据表单编码获取表单id",
       "code": "e70de908e54c40fbb62593496b32412f",
@@ -139,7 +1071,7 @@
       "groupNames": [],
       "isNew": true
     },
-    "local_function_1775626951829_24fb5orzc": {
+    "local_function_1775786133200_3grc7a7ar": {
       "type": "function",
       "name": "根据表单编码获取表单id及customerid",
       "code": "23e76ab25b7d4d3882e8006f50b795f0",
@@ -147,8 +1079,152 @@
       "path": "kaiwu-function/根据表单编码获取表单id及customerid",
       "groupNames": [],
       "isNew": true
+    },
+    "local_rulechain_1775786133200_vf1uvkuua": {
+      "type": "rulechain",
+      "name": "线路修改",
+      "code": "69d7569dd2c24e0007cbae51",
+      "formCode": "69d7569dd2c24e0007cbae51",
+      "path": "kaiwu-rules/线路修改",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775786133202_8navqujpt": {
+      "type": "rulechain",
+      "name": "站内信触发",
+      "code": "69d7569dd2c24e0007cbae47",
+      "formCode": "69d7569dd2c24e0007cbae47",
+      "path": "kaiwu-rules/站内信触发",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775786133202_boial0cn8": {
+      "type": "rulechain",
+      "name": "站内信触发-副本",
+      "code": "69d7569dd2c24e0007cbae4c",
+      "formCode": "69d7569dd2c24e0007cbae4c",
+      "path": "kaiwu-rules/站内信触发-副本",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775786133202_7iqwqfgno": {
+      "type": "rulechain",
+      "name": "发送报价邮箱通知",
+      "code": "69d7569dd2c24e0007cbae32",
+      "formCode": "69d7569dd2c24e0007cbae32",
+      "path": "kaiwu-rules/发送报价邮箱通知",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775786133202_x25twuigv": {
+      "type": "rulechain",
+      "name": "线路修改-副本",
+      "code": "69d7569dd2c24e0007cbae56",
+      "formCode": "69d7569dd2c24e0007cbae56",
+      "path": "kaiwu-rules/线路修改-副本",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775786133202_u4ql7ug20": {
+      "type": "rulechain",
+      "name": "修改供应商",
+      "code": "69d7569cd2c24e0007cbae28",
+      "formCode": "69d7569cd2c24e0007cbae28",
+      "path": "kaiwu-rules/修改供应商",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775786133202_rx1qo5cbl": {
+      "type": "rulechain",
+      "name": "发送供货通知",
+      "code": "69d7569dd2c24e0007cbae38",
+      "formCode": "69d7569dd2c24e0007cbae38",
+      "path": "kaiwu-rules/发送供货通知",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775786133202_cdwjgzgf3": {
+      "type": "rulechain",
+      "name": "临期提醒",
+      "code": "69d7569dd2c24e0007cbae3e",
+      "formCode": "69d7569dd2c24e0007cbae3e",
+      "path": "kaiwu-rules/临期提醒",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775786133203_bctljd2zd": {
+      "type": "rulechain",
+      "name": "线路修改-副本-副本",
+      "code": "69d7569dd2c24e0007cbae5b",
+      "formCode": "69d7569dd2c24e0007cbae5b",
+      "path": "kaiwu-rules/线路修改-副本-副本",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775786133203_rfxoenjr1": {
+      "type": "rulechain",
+      "name": "修改--编码",
+      "code": "69d7569ed2c24e0007cbae65",
+      "formCode": "69d7569ed2c24e0007cbae65",
+      "path": "kaiwu-rules/修改--编码",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775786133203_hjdgae0hx": {
+      "type": "rulechain",
+      "name": "学校通知",
+      "code": "69d7569ed2c24e0007cbaeae",
+      "formCode": "69d7569ed2c24e0007cbaeae",
+      "path": "kaiwu-rules/学校通知",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775786133203_kjuz48hsp": {
+      "type": "rulechain",
+      "name": "删除供应商档案",
+      "code": "69d7569dd2c24e0007cbae2d",
+      "formCode": "69d7569dd2c24e0007cbae2d",
+      "path": "kaiwu-rules/删除供应商档案",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775786133203_sv4ndqjcv": {
+      "type": "rulechain",
+      "name": "添加供应商档案",
+      "code": "69d7569cd2c24e0007cbae23",
+      "formCode": "69d7569cd2c24e0007cbae23",
+      "path": "kaiwu-rules/添加供应商档案",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775786133203_t21pjv444": {
+      "type": "rulechain",
+      "name": "测试修改订单状态",
+      "code": "69d7569ed2c24e0007cbaeb3",
+      "formCode": "69d7569ed2c24e0007cbaeb3",
+      "path": "kaiwu-rules/测试修改订单状态",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775786133203_v1sy8wqcq": {
+      "type": "rulechain",
+      "name": "线路删除",
+      "code": "69d7569ed2c24e0007cbae60",
+      "formCode": "69d7569ed2c24e0007cbae60",
+      "path": "kaiwu-rules/线路删除",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775786133203_dquj0d6bk": {
+      "type": "rulechain",
+      "name": "修改商品名称-变更数据",
+      "code": "69d7569ed2c24e0007cbae91",
+      "formCode": "69d7569ed2c24e0007cbae91",
+      "path": "kaiwu-rules/修改商品名称-变更数据",
+      "groupNames": [],
+      "isNew": true
     }
   },
   "aliases": {},
-  "appName": "溯源"
+  "appName": "定价中枢"
 }
