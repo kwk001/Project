@@ -89,6 +89,8 @@ class LowcodeComponent extends Component {
     ],
     // 新增批次弹窗相关
     isAddModalVisible: false,
+    isEditMode: false,
+    editingRecordId: null,
     addFormData: {
       materialId: '',
       materialCode: '',
@@ -114,6 +116,14 @@ class LowcodeComponent extends Component {
       wechatQrImage: '',
       companyLinks: []
     },
+    // 企业链接选项
+    companyLinkOptions: [
+      { label: '官方网站', value: 'https://www.guqi.com' },
+      { label: '天猫旗舰店', value: 'https://guqi.tmall.com' },
+      { label: '京东旗舰店', value: 'https://guqi.jd.com' },
+      { label: '微信小程序', value: 'https://mp.weixin.qq.com/guqi' },
+      { label: '抖音官方号', value: 'https://douyin.com/guqi' }
+    ],
     // 查看详情弹窗
     isDetailModalVisible: false,
     detailRecord: null,
@@ -208,24 +218,16 @@ class LowcodeComponent extends Component {
         width: 100
       },
       {
-        title: '规格型号',
+        title: '规格',
         dataIndex: 'specification',
         key: 'specification',
         width: 100
       },
       {
-        title: '数量',
-        dataIndex: 'quantity',
-        key: 'quantity',
-        width: 100,
-        align: 'right',
-        render: (qty, record) => `${qty} ${record.unitName}`
-      },
-      {
-        title: '生产日期',
-        dataIndex: 'produceDate',
-        key: 'produceDate',
-        width: 110
+        title: '生产年度',
+        dataIndex: 'productionYear',
+        key: 'productionYear',
+        width: 100
       },
       {
         title: '执行标准',
@@ -284,6 +286,15 @@ class LowcodeComponent extends Component {
         >
           查看
         </Button>
+        {record.productCodeStatus === '未生成' && (
+          <Button
+            type="link"
+            style={{ padding: '4px', marginRight: 8 }}
+            onClick={() => this.handleEdit(record)}
+          >
+            编辑
+          </Button>
+        )}
         {record.productCodeStatus === '未生成' ? (
           <Button
             type="link"
@@ -346,6 +357,48 @@ class LowcodeComponent extends Component {
     this.setState({
       isDetailModalVisible: true,
       detailRecord: record
+    });
+  }
+
+  // 编辑批次
+  handleEdit(record) {
+    // 只有未生成产品码的批次才能编辑
+    if (record.productCodeStatus === '已生成') {
+      const { message } = window.antd;
+      message.error('已生成产品码的批次不能编辑');
+      return;
+    }
+
+    // 设置编辑表单数据
+    this.setState({
+      isAddModalVisible: true,
+      isEditMode: true,
+      editingRecordId: record._id,
+      addFormData: {
+        materialId: record.materialId,
+        materialCode: record.materialCode,
+        materialName: record.materialName,
+        unitName: record.unitName,
+        specification: record.specification,
+        batchNo: record.batchNo,
+        quantity: record.quantity,
+        produceDate: record.produceDate,
+        executionStandard: this.state.executionStandards.find(s => s.standardCode === record.executionStandard)?._id || '',
+        productStandardCategory: record.productStandardCategory,
+        productionYear: record.productionYear,
+        productVideo: record.productVideo,
+        certificationImages: record.certificationImages || [],
+        downContent: record.downContent,
+        fluffiness: record.fluffiness,
+        turbidity: record.turbidity,
+        odor: record.odor,
+        companyName: record.companyName,
+        companyAddress: record.companyAddress,
+        licenseNo: record.licenseNo,
+        inspector: record.inspector,
+        wechatQrImage: record.wechatQrImage,
+        companyLinks: record.companyLinks || []
+      }
     });
   }
 
@@ -448,10 +501,11 @@ class LowcodeComponent extends Component {
             </Select>
           </div>
           <div className="search-item">
-            <span className="search-label">生产日期：</span>
+            <span className="search-label">生产年度：</span>
             <DatePicker.RangePicker
               style={{ flex: 1 }}
-              placeholder={['开始日期', '结束日期']}
+              picker="year"
+              placeholder={['开始年度', '结束年度']}
               value={searchParams.produceDateRange}
               onChange={(dates) => this.handleSearchParamChange('produceDateRange', dates)}
             />
@@ -588,15 +642,12 @@ class LowcodeComponent extends Component {
       return;
     }
 
-    const headers = ['批次号', '产品名称', '产品编号', '规格型号', '数量', '单位', '生产日期', '执行标准', '产品标准类别', '生产年度', '绒子含量', '蓬松度', '浊度', '气味', '产品码状态', '创建人', '创建时间'];
+    const headers = ['批次号', '产品名称', '产品编号', '规格', '执行标准', '产品标准类别', '生产年度', '绒子含量', '蓬松度', '浊度', '气味', '产品码状态', '创建人', '创建时间'];
     const rows = dataList.map(item => [
       item.batchNo,
       item.materialName,
       item.materialCode,
       item.specification,
-      item.quantity,
-      item.unitName,
-      item.produceDate,
       item.executionStandard,
       item.productStandardCategory,
       item.productionYear,
@@ -658,7 +709,12 @@ class LowcodeComponent extends Component {
   }
 
   handleAddModalCancel() {
-    this.setState({ isAddModalVisible: false });
+    this.setState({
+      isAddModalVisible: false,
+      isEditMode: false,
+      editingRecordId: null,
+      addFormData: {}
+    });
   }
 
   handleAddFormChange(field, value) {
@@ -685,27 +741,23 @@ class LowcodeComponent extends Component {
 
   // 渲染新增批次弹窗
   renderAddModal() {
-    const { Modal, Form, Select, Input, DatePicker, InputNumber, Button, message, Upload, YearPicker } = window.antd;
-    const { isAddModalVisible, addFormData } = this.state;
+    const { Modal, Form, Select, Input, DatePicker, Button, message, Upload } = window.antd;
+    const { isAddModalVisible, isEditMode, editingRecordId, addFormData } = this.state;
 
     const handleSave = async () => {
       const { mockData, addFormData } = this.state;
 
       // 必填校验
       if (!addFormData.materialId) {
-        message.error('请选择产品档案');
+        message.error('请选择产品名称');
         return;
       }
       if (!addFormData.batchNo) {
         message.error('请输入批次号');
         return;
       }
-      if (!addFormData.quantity || addFormData.quantity <= 0) {
-        message.error('请输入数量');
-        return;
-      }
-      if (!addFormData.produceDate) {
-        message.error('请选择生产日期');
+      if (!addFormData.productionYear) {
+        message.error('请选择生产年度');
         return;
       }
       if (!addFormData.executionStandard) {
@@ -716,62 +768,111 @@ class LowcodeComponent extends Component {
         message.error('请选择产品标准类别');
         return;
       }
-      if (!addFormData.productionYear) {
-        message.error('请选择生产年度');
-        return;
-      }
       if (!addFormData.downContent || !addFormData.fluffiness || !addFormData.turbidity || !addFormData.odor) {
         message.error('请填写完整的质检信息');
         return;
       }
-
-      // 校验批次号唯一性
-      const exists = mockData.some(item =>
-        item.batchNo.toLowerCase() === addFormData.batchNo.toLowerCase()
-      );
-      if (exists) {
-        message.error('批次号已存在');
+      if (!addFormData.productVideo) {
+        message.error('请上传产品视频');
+        return;
+      }
+      if (!addFormData.certificationImages || addFormData.certificationImages.length === 0) {
+        message.error('请上传认证信息图片');
+        return;
+      }
+      if (!addFormData.wechatQrImage) {
+        message.error('请上传微信公众号图片');
+        return;
+      }
+      if (!addFormData.companyLinks || addFormData.companyLinks.length === 0) {
+        message.error('请选择企业链接');
         return;
       }
 
       const product = this.state.productArchives.find(p => p._id === addFormData.materialId);
       const standard = this.state.executionStandards.find(s => s._id === addFormData.executionStandard);
 
-      const newRecord = {
-        _id: 'batch_' + Date.now(),
-        batchNo: addFormData.batchNo,
-        materialId: addFormData.materialId,
-        materialCode: product.materialCode,
-        materialName: product.materialName,
-        specification: product.specification,
-        unitName: product.unitName,
-        quantity: addFormData.quantity,
-        produceDate: addFormData.produceDate.format('YYYY-MM-DD'),
-        executionStandard: standard ? standard.standardCode : '',
-        productStandardCategory: addFormData.productStandardCategory,
-        productionYear: addFormData.productionYear,
-        productVideo: addFormData.productVideo,
-        certificationImages: addFormData.certificationImages,
-        downContent: addFormData.downContent,
-        fluffiness: addFormData.fluffiness,
-        turbidity: addFormData.turbidity,
-        odor: addFormData.odor,
-        companyName: addFormData.companyName || '安徽古麒绒材股份有限公司',
-        companyAddress: addFormData.companyAddress || '安徽省芜湖市',
-        licenseNo: addFormData.licenseNo || 'SC12345678901',
-        inspector: addFormData.inspector || '当前用户',
-        wechatQrImage: addFormData.wechatQrImage,
-        companyLinks: addFormData.companyLinks,
-        productCodeStatus: '未生成',
-        createBy: '当前用户',
-        createTime: new Date().toLocaleString()
-      };
+      if (isEditMode) {
+        // 编辑模式：更新现有记录
+        const updatedMockData = mockData.map(item => {
+          if (item._id === editingRecordId) {
+            return {
+              ...item,
+              materialId: addFormData.materialId,
+              materialCode: product.materialCode,
+              materialName: product.materialName,
+              specification: product.specification,
+              unitName: product.unitName,
+              productionYear: addFormData.productionYear,
+              executionStandard: standard ? standard.standardCode : '',
+              productStandardCategory: addFormData.productStandardCategory,
+              productVideo: addFormData.productVideo,
+              certificationImages: addFormData.certificationImages,
+              downContent: addFormData.downContent,
+              fluffiness: addFormData.fluffiness,
+              turbidity: addFormData.turbidity,
+              odor: addFormData.odor,
+              wechatQrImage: addFormData.wechatQrImage,
+              companyLinks: addFormData.companyLinks,
+              updateTime: new Date().toLocaleString()
+            };
+          }
+          return item;
+        });
 
-      await this.setStatePromise({
-        mockData: [newRecord, ...mockData],
-        isAddModalVisible: false
-      });
-      message.success('新增批次成功');
+        await this.setStatePromise({
+          mockData: updatedMockData,
+          isAddModalVisible: false,
+          isEditMode: false,
+          editingRecordId: null
+        });
+        message.success('批次修改成功');
+      } else {
+        // 新增模式：校验批次号唯一性
+        const exists = mockData.some(item =>
+          item.batchNo.toLowerCase() === addFormData.batchNo.toLowerCase()
+        );
+        if (exists) {
+          message.error('批次号已存在');
+          return;
+        }
+
+        const newRecord = {
+          _id: 'batch_' + Date.now(),
+          batchNo: addFormData.batchNo,
+          materialId: addFormData.materialId,
+          materialCode: product.materialCode,
+          materialName: product.materialName,
+          specification: product.specification,
+          unitName: product.unitName,
+          quantity: 0,
+          produceDate: '',
+          executionStandard: standard ? standard.standardCode : '',
+          productStandardCategory: addFormData.productStandardCategory,
+          productionYear: addFormData.productionYear,
+          productVideo: addFormData.productVideo,
+          certificationImages: addFormData.certificationImages,
+          downContent: addFormData.downContent,
+          fluffiness: addFormData.fluffiness,
+          turbidity: addFormData.turbidity,
+          odor: addFormData.odor,
+          companyName: '安徽古麒绒材股份有限公司',
+          companyAddress: '安徽省芜湖市',
+          licenseNo: 'SC12345678901',
+          inspector: '当前用户',
+          wechatQrImage: addFormData.wechatQrImage,
+          companyLinks: addFormData.companyLinks,
+          productCodeStatus: '未生成',
+          createBy: '当前用户',
+          createTime: new Date().toLocaleString()
+        };
+
+        await this.setStatePromise({
+          mockData: [newRecord, ...mockData],
+          isAddModalVisible: false
+        });
+        message.success('新增批次成功');
+      }
       this.loadData();
     };
 
@@ -780,20 +881,22 @@ class LowcodeComponent extends Component {
 
     return (
       <Modal
-        title="新增批次"
+        title={isEditMode ? '编辑批次' : '新增批次'}
         open={isAddModalVisible}
         onCancel={() => this.handleAddModalCancel()}
         width={720}
         footer={[
           <Button key="cancel" onClick={() => this.handleAddModalCancel()}>取消</Button>,
-          <Button key="save" type="primary" onClick={handleSave}>保存</Button>,
-          <Button key="saveAndGenerate" type="primary" onClick={async () => {
-            await handleSave();
-            const newRecord = this.state.mockData[0];
-            if (newRecord) {
-              this.handleGenerateCode(newRecord);
-            }
-          }}>保存并生成产品码</Button>
+          <Button key="save" type="primary" onClick={handleSave}>{isEditMode ? '保存修改' : '保存'}</Button>,
+          {!isEditMode && (
+            <Button key="saveAndGenerate" type="primary" onClick={async () => {
+              await handleSave();
+              const newRecord = this.state.mockData[0];
+              if (newRecord) {
+                this.handleGenerateCode(newRecord);
+              }
+            }}>保存并生成产品码</Button>
+          )}
         ]}
         destroyOnClose
       >
@@ -801,7 +904,7 @@ class LowcodeComponent extends Component {
           {/* 基本信息区域 */}
           <div style={{ marginBottom: 24, padding: 16, background: '#fafafa', borderRadius: 8 }}>
             <h4 style={{ marginBottom: 16, color: '#1890ff' }}>基本信息</h4>
-            <Form.Item label="产品档案" required>
+            <Form.Item label="产品名称" required>
               <Select
                 placeholder="请选择产品档案"
                 value={addFormData.materialId || undefined}
@@ -832,13 +935,10 @@ class LowcodeComponent extends Component {
                 <Form.Item label="产品编号" style={{ flex: 1, marginBottom: 0 }}>
                   <Input value={addFormData.materialCode} disabled />
                 </Form.Item>
-                <Form.Item label="产品名称" style={{ flex: 1, marginBottom: 0 }}>
-                  <Input value={addFormData.materialName} disabled />
-                </Form.Item>
                 <Form.Item label="计量单位" style={{ flex: 1, marginBottom: 0 }}>
                   <Input value={addFormData.unitName} disabled />
                 </Form.Item>
-                <Form.Item label="规格型号" style={{ flex: 1, marginBottom: 0 }}>
+                <Form.Item label="规格" style={{ flex: 1, marginBottom: 0 }}>
                   <Input value={addFormData.specification} disabled />
                 </Form.Item>
               </div>
@@ -850,30 +950,23 @@ class LowcodeComponent extends Component {
                   value={addFormData.batchNo}
                   onChange={(e) => this.handleAddFormChange('batchNo', e.target.value)}
                   maxLength={30}
+                  disabled={isEditMode}
                   suffix={
-                    <Button type="link" size="small" onClick={() => this.handleAddFormChange('batchNo', this.generateBatchNo())}>
-                      自动生成
-                    </Button>
+                    !isEditMode && (
+                      <Button type="link" size="small" onClick={() => this.handleAddFormChange('batchNo', this.generateBatchNo())}>
+                        自动生成
+                      </Button>
+                    )
                   }
                 />
               </Form.Item>
-              <Form.Item label="数量" required style={{ flex: 1, marginBottom: 0 }}>
-                <InputNumber
-                  min={1}
-                  max={999999}
-                  style={{ width: '100%' }}
-                  placeholder="请输入数量"
-                  value={addFormData.quantity}
-                  onChange={(value) => this.handleAddFormChange('quantity', value)}
-                />
-              </Form.Item>
-              <Form.Item label="生产日期" required style={{ flex: 1, marginBottom: 0 }}>
+              <Form.Item label="生产年度" required style={{ flex: 1, marginBottom: 0 }}>
                 <DatePicker
                   style={{ width: '100%' }}
-                  placeholder="请选择生产日期"
-                  value={addFormData.produceDate}
-                  onChange={(date) => this.handleAddFormChange('produceDate', date)}
-                  disabledDate={(current) => current && current.valueOf() > Date.now()}
+                  placeholder="请选择生产年度"
+                  picker="year"
+                  value={addFormData.productionYear}
+                  onChange={(date) => this.handleAddFormChange('productionYear', date)}
                 />
               </Form.Item>
             </div>
@@ -918,14 +1011,6 @@ class LowcodeComponent extends Component {
                   <Select.Option value="企标">企标</Select.Option>
                 </Select>
               </Form.Item>
-              <Form.Item label="生产年度" required style={{ flex: 1, marginBottom: 0 }}>
-                <DatePicker.YearPicker
-                  style={{ width: '100%' }}
-                  placeholder="请选择生产年度"
-                  value={addFormData.productionYear}
-                  onChange={(year) => this.handleAddFormChange('productionYear', year)}
-                />
-              </Form.Item>
             </div>
           </div>
 
@@ -933,7 +1018,7 @@ class LowcodeComponent extends Component {
           <div style={{ marginBottom: 24, padding: 16, background: '#fafafa', borderRadius: 8 }}>
             <h4 style={{ marginBottom: 16, color: '#1890ff' }}>质检信息</h4>
             <div style={{ display: 'flex', gap: 16 }}>
-              <Form.Item label="绒子含量" required style={{ flex: 1, marginBottom: 0 }}>
+              <Form.Item label="绒子含量(%)" required style={{ flex: 1, marginBottom: 0 }}>
                 <Input
                   placeholder="如：95%"
                   value={addFormData.downContent}
@@ -947,7 +1032,7 @@ class LowcodeComponent extends Component {
                   onChange={(e) => this.handleAddFormChange('fluffiness', e.target.value)}
                 />
               </Form.Item>
-              <Form.Item label="浊度" required style={{ flex: 1, marginBottom: 0 }}>
+              <Form.Item label="浊度(mm)" required style={{ flex: 1, marginBottom: 0 }}>
                 <Input
                   placeholder="如：10mm"
                   value={addFormData.turbidity}
@@ -966,70 +1051,89 @@ class LowcodeComponent extends Component {
 
           {/* 媒体信息区域 */}
           <div style={{ marginBottom: 24, padding: 16, background: '#fafafa', borderRadius: 8 }}>
-            <h4 style={{ marginBottom: 16, color: '#1890ff' }}>媒体信息</h4>
-            <Form.Item label="产品视频" style={{ marginBottom: 16 }}>
-              <Input
-                placeholder="视频文件URL（支持MP4，最大100MB）"
-                value={addFormData.productVideo}
-                onChange={(e) => this.handleAddFormChange('productVideo', e.target.value)}
-              />
+            <h4 style={{ marginBottom: 16, color: '#1890ff' }}>产品视频</h4>
+            <Form.Item label="产品视频" required style={{ marginBottom: 16 }}>
+              <Upload
+                accept=".mp4,.mov,.avi"
+                maxCount={1}
+                fileList={addFormData.productVideo ? [{ uid: '-1', name: '产品视频', url: addFormData.productVideo, status: 'done' }] : []}
+                onChange={(info) => {
+                  if (info.file.status === 'done' && info.file.response) {
+                    this.handleAddFormChange('productVideo', info.file.response.url);
+                  }
+                }}
+                customRequest={({ onSuccess }) => {
+                  setTimeout(() => {
+                    onSuccess({ url: 'https://example.com/video/' + Date.now() + '.mp4' });
+                  }, 500);
+                }}
+              >
+                <Button icon={<span>📹</span>}>上传视频（MP4/MOV/AVI，最大100MB）</Button>
+              </Upload>
             </Form.Item>
-            <Form.Item label="认证信息" style={{ marginBottom: 0 }}>
-              <Input
-                placeholder="认证图片URL，多个用逗号分隔（支持JPG/PNG，最多5张）"
-                value={addFormData.certificationImages.join(',')}
-                onChange={(e) => this.handleAddFormChange('certificationImages', e.target.value.split(',').filter(Boolean))}
-              />
+            <Form.Item label="认证信息" required style={{ marginBottom: 0 }}>
+              <Upload
+                accept=".jpg,.jpeg,.png"
+                maxCount={5}
+                multiple
+                listType="picture-card"
+                fileList={(addFormData.certificationImages || []).map((url, index) => ({
+                  uid: '-' + index,
+                  name: '认证图片' + (index + 1),
+                  url: url,
+                  status: 'done'
+                }))}
+                onChange={(info) => {
+                  const fileList = info.fileList.filter(f => f.status === 'done').map(f => f.response?.url || f.url);
+                  this.handleAddFormChange('certificationImages', fileList);
+                }}
+                customRequest={({ onSuccess }) => {
+                  setTimeout(() => {
+                    onSuccess({ url: 'https://example.com/cert/' + Date.now() + '.jpg' });
+                  }, 500);
+                }}
+              >
+                {(addFormData.certificationImages || []).length < 5 && <span>+ 上传<br/>认证图片</span>}
+              </Upload>
             </Form.Item>
           </div>
 
           {/* 企业信息区域 */}
           <div style={{ padding: 16, background: '#fafafa', borderRadius: 8 }}>
             <h4 style={{ marginBottom: 16, color: '#1890ff' }}>企业信息</h4>
-            <div style={{ display: 'flex', gap: 16, marginBottom: 16 }}>
-              <Form.Item label="企业名称" style={{ flex: 1, marginBottom: 0 }}>
-                <Input
-                  placeholder="请输入企业名称"
-                  value={addFormData.companyName}
-                  onChange={(e) => this.handleAddFormChange('companyName', e.target.value)}
-                />
-              </Form.Item>
-              <Form.Item label="生产许可证" style={{ flex: 1, marginBottom: 0 }}>
-                <Input
-                  placeholder="请输入生产许可证号"
-                  value={addFormData.licenseNo}
-                  onChange={(e) => this.handleAddFormChange('licenseNo', e.target.value)}
-                />
-              </Form.Item>
-              <Form.Item label="质检员" style={{ flex: 1, marginBottom: 0 }}>
-                <Input
-                  placeholder="请输入质检员姓名"
-                  value={addFormData.inspector}
-                  onChange={(e) => this.handleAddFormChange('inspector', e.target.value)}
-                />
-              </Form.Item>
-            </div>
-            <Form.Item label="企业地址" style={{ marginBottom: 16 }}>
-              <Input
-                placeholder="请输入企业地址"
-                value={addFormData.companyAddress}
-                onChange={(e) => this.handleAddFormChange('companyAddress', e.target.value)}
-              />
-            </Form.Item>
             <div style={{ display: 'flex', gap: 16 }}>
-              <Form.Item label="微信公众号图片" style={{ flex: 1, marginBottom: 0 }}>
-                <Input
-                  placeholder="公众号二维码图片URL"
-                  value={addFormData.wechatQrImage}
-                  onChange={(e) => this.handleAddFormChange('wechatQrImage', e.target.value)}
-                />
+              <Form.Item label="微信公众号图片" required style={{ flex: 1, marginBottom: 0 }}>
+                <Upload
+                  accept=".jpg,.jpeg,.png"
+                  maxCount={1}
+                  listType="picture-card"
+                  fileList={addFormData.wechatQrImage ? [{ uid: '-1', name: '公众号二维码', url: addFormData.wechatQrImage, status: 'done' }] : []}
+                  onChange={(info) => {
+                    if (info.file.status === 'done' && info.file.response) {
+                      this.handleAddFormChange('wechatQrImage', info.file.response.url);
+                    }
+                  }}
+                  customRequest={({ onSuccess }) => {
+                    setTimeout(() => {
+                      onSuccess({ url: 'https://example.com/qr/' + Date.now() + '.jpg' });
+                    }, 500);
+                  }}
+                >
+                  {!addFormData.wechatQrImage && <span>+ 上传<br/>公众号二维码</span>}
+                </Upload>
               </Form.Item>
-              <Form.Item label="企业链接" style={{ flex: 1, marginBottom: 0 }}>
-                <Input
-                  placeholder="多个链接用逗号分隔"
-                  value={addFormData.companyLinks.join(',')}
-                  onChange={(e) => this.handleAddFormChange('companyLinks', e.target.value.split(',').filter(Boolean))}
-                />
+              <Form.Item label="企业链接" required style={{ flex: 2, marginBottom: 0 }}>
+                <Select
+                  mode="multiple"
+                  placeholder="请选择企业链接（多选）"
+                  value={addFormData.companyLinks || []}
+                  onChange={(value) => this.handleAddFormChange('companyLinks', value)}
+                  style={{ width: '100%' }}
+                >
+                  {this.state.companyLinkOptions.map(link => (
+                    <Select.Option key={link.value} value={link.value}>{link.label}</Select.Option>
+                  ))}
+                </Select>
               </Form.Item>
             </div>
           </div>
@@ -1061,9 +1165,8 @@ class LowcodeComponent extends Component {
               <div style={{ width: '50%', marginBottom: 8 }}><strong>批次号：</strong>{detailRecord.batchNo}</div>
               <div style={{ width: '50%', marginBottom: 8 }}><strong>产品名称：</strong>{detailRecord.materialName}</div>
               <div style={{ width: '50%', marginBottom: 8 }}><strong>产品编号：</strong>{detailRecord.materialCode}</div>
-              <div style={{ width: '50%', marginBottom: 8 }}><strong>规格型号：</strong>{detailRecord.specification}</div>
-              <div style={{ width: '50%', marginBottom: 8 }}><strong>数量：</strong>{detailRecord.quantity} {detailRecord.unitName}</div>
-              <div style={{ width: '50%', marginBottom: 8 }}><strong>生产日期：</strong>{detailRecord.produceDate}</div>
+              <div style={{ width: '50%', marginBottom: 8 }}><strong>规格：</strong>{detailRecord.specification}</div>
+              <div style={{ width: '50%', marginBottom: 8 }}><strong>生产年度：</strong>{detailRecord.productionYear}</div>
             </div>
           </div>
 
@@ -1073,7 +1176,6 @@ class LowcodeComponent extends Component {
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
               <div style={{ width: '50%', marginBottom: 8 }}><strong>执行标准：</strong>{detailRecord.executionStandard}</div>
               <div style={{ width: '50%', marginBottom: 8 }}><strong>产品标准类别：</strong>{detailRecord.productStandardCategory}</div>
-              <div style={{ width: '50%', marginBottom: 8 }}><strong>生产年度：</strong>{detailRecord.productionYear}</div>
             </div>
           </div>
 

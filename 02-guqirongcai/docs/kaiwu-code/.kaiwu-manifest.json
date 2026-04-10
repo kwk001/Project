@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "appId": null,
-  "lastSync": "2026-04-10T01:55:33.203Z",
+  "lastSync": "2026-04-10T03:40:09.914Z",
   "resources": {
     "69d5e9c3f1dfd600076605db": {
       "type": "lowcode",
@@ -951,18 +951,7 @@
       "lastPull": "2026-04-10T01:55:05.159Z",
       "pullContentHash": "1c0cc938f4658d5d565842f794fe7bb10f64770c4275fa9cb03da1a6202e7f7a"
     },
-    "local_api_1775786133199_6w0jpn0qy": {
-      "type": "api",
-      "name": "服务商端首页企业总数和设备总数",
-      "code": "da1afde8ac2c4837a65d458ae768fe74",
-      "formCode": "da1afde8ac2c4837a65d458ae768fe74",
-      "path": "kaiwu-api/物联网应用/服务商端首页企业总数和设备总数",
-      "groupNames": [
-        "物联网应用"
-      ],
-      "isNew": true
-    },
-    "local_api_1775786133199_p70qrzr5m": {
+    "local_api_1775792409911_kat3cciq4": {
       "type": "api",
       "name": "服务商端查看设备列表",
       "code": "copy1735972573629d39465",
@@ -973,7 +962,18 @@
       ],
       "isNew": true
     },
-    "local_api_1775786133199_2phvhbdxx": {
+    "local_api_1775792409911_w774yqp0l": {
+      "type": "api",
+      "name": "服务商端首页企业总数和设备总数",
+      "code": "da1afde8ac2c4837a65d458ae768fe74",
+      "formCode": "da1afde8ac2c4837a65d458ae768fe74",
+      "path": "kaiwu-api/物联网应用/服务商端首页企业总数和设备总数",
+      "groupNames": [
+        "物联网应用"
+      ],
+      "isNew": true
+    },
+    "local_api_1775792409911_kqyolukg7": {
       "type": "api",
       "name": "字典数据查询",
       "code": "copy1769492461747d42295",
@@ -984,7 +984,7 @@
       ],
       "isNew": true
     },
-    "local_api_1775786133199_1qt94xjdp": {
+    "local_api_1775792409911_zy608cmv8": {
       "type": "api",
       "name": "单页面配置加载",
       "code": "copy1769481644036d4192",
@@ -995,7 +995,7 @@
       ],
       "isNew": true
     },
-    "local_api_1775786133199_5igngf3wh": {
+    "local_api_1775792409911_pxdnopht9": {
       "type": "api",
       "name": "配置聚合加载",
       "code": "copy1769423270269d5568",
@@ -1006,7 +1006,7 @@
       ],
       "isNew": true
     },
-    "local_api_1775786133200_k4h8ia6wj": {
+    "local_api_1775792409912_aqvjejgaq": {
       "type": "api",
       "name": "功能配置检查",
       "code": "copy1769492398895d77923",
@@ -1017,7 +1017,7 @@
       ],
       "isNew": true
     },
-    "local_api_1775786133200_9xo8an7mu": {
+    "local_api_1775792409912_eiai29w6v": {
       "type": "api",
       "name": "服务商物连设备",
       "code": "b4c577ba85ad475da1de3b4bace6b377",
@@ -1026,16 +1026,7 @@
       "groupNames": [],
       "isNew": true
     },
-    "local_task_1775786133200_vqm89m45m": {
-      "type": "task",
-      "name": "上报企业数据",
-      "code": "e67694c1e7ab48deb1a3f22103deab49",
-      "formCode": "e67694c1e7ab48deb1a3f22103deab49",
-      "path": "kaiwu-task/上报企业数据",
-      "groupNames": [],
-      "isNew": true
-    },
-    "local_task_1775786133200_h7vzzf48b": {
+    "local_task_1775792409912_mt8uipro3": {
       "type": "task",
       "name": "上报应用访问数据",
       "code": "0855034ced8549cdab2dcaf93c234c3d",
@@ -1044,7 +1035,16 @@
       "groupNames": [],
       "isNew": true
     },
-    "local_function_1775786133200_78534w08o": {
+    "local_task_1775792409912_4jdayx8dd": {
+      "type": "task",
+      "name": "上报企业数据",
+      "code": "e67694c1e7ab48deb1a3f22103deab49",
+      "formCode": "e67694c1e7ab48deb1a3f22103deab49",
+      "path": "kaiwu-task/上报企业数据",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_function_1775792409912_tf8nt2bna": {
       "type": "function",
       "name": "获取mongo聚合查询结果",
       "code": "c4993c0c805b422ca3ea5a940e88da36",
@@ -1053,7 +1053,7 @@
       "groupNames": [],
       "isNew": true
     },
-    "local_function_1775786133200_ml2bnrhds": {
+    "local_function_1775792409912_t5v9y462l": {
       "type": "function",
       "name": "获取mongo查询结果",
       "code": "69fcca60784c4ecaa2a6cd0d757f54ea",
@@ -1062,16 +1062,7 @@
       "groupNames": [],
       "isNew": true
     },
-    "local_function_1775786133200_j7wum60a5": {
-      "type": "function",
-      "name": "根据表单编码获取表单id",
-      "code": "e70de908e54c40fbb62593496b32412f",
-      "formCode": "e70de908e54c40fbb62593496b32412f",
-      "path": "kaiwu-function/根据表单编码获取表单id",
-      "groupNames": [],
-      "isNew": true
-    },
-    "local_function_1775786133200_3grc7a7ar": {
+    "local_function_1775792409912_niji8d5nv": {
       "type": "function",
       "name": "根据表单编码获取表单id及customerid",
       "code": "23e76ab25b7d4d3882e8006f50b795f0",
@@ -1080,7 +1071,16 @@
       "groupNames": [],
       "isNew": true
     },
-    "local_rulechain_1775786133200_vf1uvkuua": {
+    "local_function_1775792409912_ahicq5xi9": {
+      "type": "function",
+      "name": "根据表单编码获取表单id",
+      "code": "e70de908e54c40fbb62593496b32412f",
+      "formCode": "e70de908e54c40fbb62593496b32412f",
+      "path": "kaiwu-function/根据表单编码获取表单id",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775792409912_sz0a20h09": {
       "type": "rulechain",
       "name": "线路修改",
       "code": "69d7569dd2c24e0007cbae51",
@@ -1089,16 +1089,7 @@
       "groupNames": [],
       "isNew": true
     },
-    "local_rulechain_1775786133202_8navqujpt": {
-      "type": "rulechain",
-      "name": "站内信触发",
-      "code": "69d7569dd2c24e0007cbae47",
-      "formCode": "69d7569dd2c24e0007cbae47",
-      "path": "kaiwu-rules/站内信触发",
-      "groupNames": [],
-      "isNew": true
-    },
-    "local_rulechain_1775786133202_boial0cn8": {
+    "local_rulechain_1775792409912_g4l6umt0h": {
       "type": "rulechain",
       "name": "站内信触发-副本",
       "code": "69d7569dd2c24e0007cbae4c",
@@ -1107,61 +1098,7 @@
       "groupNames": [],
       "isNew": true
     },
-    "local_rulechain_1775786133202_7iqwqfgno": {
-      "type": "rulechain",
-      "name": "发送报价邮箱通知",
-      "code": "69d7569dd2c24e0007cbae32",
-      "formCode": "69d7569dd2c24e0007cbae32",
-      "path": "kaiwu-rules/发送报价邮箱通知",
-      "groupNames": [],
-      "isNew": true
-    },
-    "local_rulechain_1775786133202_x25twuigv": {
-      "type": "rulechain",
-      "name": "线路修改-副本",
-      "code": "69d7569dd2c24e0007cbae56",
-      "formCode": "69d7569dd2c24e0007cbae56",
-      "path": "kaiwu-rules/线路修改-副本",
-      "groupNames": [],
-      "isNew": true
-    },
-    "local_rulechain_1775786133202_u4ql7ug20": {
-      "type": "rulechain",
-      "name": "修改供应商",
-      "code": "69d7569cd2c24e0007cbae28",
-      "formCode": "69d7569cd2c24e0007cbae28",
-      "path": "kaiwu-rules/修改供应商",
-      "groupNames": [],
-      "isNew": true
-    },
-    "local_rulechain_1775786133202_rx1qo5cbl": {
-      "type": "rulechain",
-      "name": "发送供货通知",
-      "code": "69d7569dd2c24e0007cbae38",
-      "formCode": "69d7569dd2c24e0007cbae38",
-      "path": "kaiwu-rules/发送供货通知",
-      "groupNames": [],
-      "isNew": true
-    },
-    "local_rulechain_1775786133202_cdwjgzgf3": {
-      "type": "rulechain",
-      "name": "临期提醒",
-      "code": "69d7569dd2c24e0007cbae3e",
-      "formCode": "69d7569dd2c24e0007cbae3e",
-      "path": "kaiwu-rules/临期提醒",
-      "groupNames": [],
-      "isNew": true
-    },
-    "local_rulechain_1775786133203_bctljd2zd": {
-      "type": "rulechain",
-      "name": "线路修改-副本-副本",
-      "code": "69d7569dd2c24e0007cbae5b",
-      "formCode": "69d7569dd2c24e0007cbae5b",
-      "path": "kaiwu-rules/线路修改-副本-副本",
-      "groupNames": [],
-      "isNew": true
-    },
-    "local_rulechain_1775786133203_rfxoenjr1": {
+    "local_rulechain_1775792409912_m1imbpnad": {
       "type": "rulechain",
       "name": "修改--编码",
       "code": "69d7569ed2c24e0007cbae65",
@@ -1170,7 +1107,70 @@
       "groupNames": [],
       "isNew": true
     },
-    "local_rulechain_1775786133203_hjdgae0hx": {
+    "local_rulechain_1775792409912_2p8by0obp": {
+      "type": "rulechain",
+      "name": "线路修改-副本",
+      "code": "69d7569dd2c24e0007cbae56",
+      "formCode": "69d7569dd2c24e0007cbae56",
+      "path": "kaiwu-rules/线路修改-副本",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775792409912_wjfesq7u3": {
+      "type": "rulechain",
+      "name": "站内信触发",
+      "code": "69d7569dd2c24e0007cbae47",
+      "formCode": "69d7569dd2c24e0007cbae47",
+      "path": "kaiwu-rules/站内信触发",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775792409912_w7zcx0uq4": {
+      "type": "rulechain",
+      "name": "发送报价邮箱通知",
+      "code": "69d7569dd2c24e0007cbae32",
+      "formCode": "69d7569dd2c24e0007cbae32",
+      "path": "kaiwu-rules/发送报价邮箱通知",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775792409912_afr9cnj11": {
+      "type": "rulechain",
+      "name": "修改供应商",
+      "code": "69d7569cd2c24e0007cbae28",
+      "formCode": "69d7569cd2c24e0007cbae28",
+      "path": "kaiwu-rules/修改供应商",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775792409912_etuiqrlr8": {
+      "type": "rulechain",
+      "name": "发送供货通知",
+      "code": "69d7569dd2c24e0007cbae38",
+      "formCode": "69d7569dd2c24e0007cbae38",
+      "path": "kaiwu-rules/发送供货通知",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775792409912_6fmic2ld9": {
+      "type": "rulechain",
+      "name": "临期提醒",
+      "code": "69d7569dd2c24e0007cbae3e",
+      "formCode": "69d7569dd2c24e0007cbae3e",
+      "path": "kaiwu-rules/临期提醒",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775792409913_knc3ytik5": {
+      "type": "rulechain",
+      "name": "修改商品名称-变更数据",
+      "code": "69d7569ed2c24e0007cbae91",
+      "formCode": "69d7569ed2c24e0007cbae91",
+      "path": "kaiwu-rules/修改商品名称-变更数据",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775792409913_976o9w52n": {
       "type": "rulechain",
       "name": "学校通知",
       "code": "69d7569ed2c24e0007cbaeae",
@@ -1179,7 +1179,7 @@
       "groupNames": [],
       "isNew": true
     },
-    "local_rulechain_1775786133203_kjuz48hsp": {
+    "local_rulechain_1775792409913_err61anlt": {
       "type": "rulechain",
       "name": "删除供应商档案",
       "code": "69d7569dd2c24e0007cbae2d",
@@ -1188,16 +1188,16 @@
       "groupNames": [],
       "isNew": true
     },
-    "local_rulechain_1775786133203_sv4ndqjcv": {
+    "local_rulechain_1775792409913_7rwc5bv1f": {
       "type": "rulechain",
-      "name": "添加供应商档案",
-      "code": "69d7569cd2c24e0007cbae23",
-      "formCode": "69d7569cd2c24e0007cbae23",
-      "path": "kaiwu-rules/添加供应商档案",
+      "name": "线路修改-副本-副本",
+      "code": "69d7569dd2c24e0007cbae5b",
+      "formCode": "69d7569dd2c24e0007cbae5b",
+      "path": "kaiwu-rules/线路修改-副本-副本",
       "groupNames": [],
       "isNew": true
     },
-    "local_rulechain_1775786133203_t21pjv444": {
+    "local_rulechain_1775792409913_8spyrtz22": {
       "type": "rulechain",
       "name": "测试修改订单状态",
       "code": "69d7569ed2c24e0007cbaeb3",
@@ -1206,21 +1206,21 @@
       "groupNames": [],
       "isNew": true
     },
-    "local_rulechain_1775786133203_v1sy8wqcq": {
+    "local_rulechain_1775792409913_wulydm8vo": {
+      "type": "rulechain",
+      "name": "添加供应商档案",
+      "code": "69d7569cd2c24e0007cbae23",
+      "formCode": "69d7569cd2c24e0007cbae23",
+      "path": "kaiwu-rules/添加供应商档案",
+      "groupNames": [],
+      "isNew": true
+    },
+    "local_rulechain_1775792409914_mt59aqsoa": {
       "type": "rulechain",
       "name": "线路删除",
       "code": "69d7569ed2c24e0007cbae60",
       "formCode": "69d7569ed2c24e0007cbae60",
       "path": "kaiwu-rules/线路删除",
-      "groupNames": [],
-      "isNew": true
-    },
-    "local_rulechain_1775786133203_dquj0d6bk": {
-      "type": "rulechain",
-      "name": "修改商品名称-变更数据",
-      "code": "69d7569ed2c24e0007cbae91",
-      "formCode": "69d7569ed2c24e0007cbae91",
-      "path": "kaiwu-rules/修改商品名称-变更数据",
       "groupNames": [],
       "isNew": true
     }
