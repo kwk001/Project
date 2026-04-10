@@ -1500,7 +1500,7 @@
                           "componentName": "Form.Item",
                           "id": "node_oclxiqd0ip1",
                           "props": {
-                            "label": "商品名",
+                            "label": "商品名称",
                             "required": true,
                             "className": "goods-form-item",
                             "ref": "form.item-xn87lpu",
@@ -1547,7 +1547,7 @@
                             "required": false,
                             "className": "goods-form-item"
                           },
-                          "hidden": false,
+                          "hidden": true,
                           "title": "",
                           "isLocked": false,
                           "condition": true,
@@ -1605,13 +1605,46 @@
                         },
                         {
                           "componentName": "Form.Item",
+                          "id": "node_remark_field",
+                          "props": {
+                            "label": "备注",
+                            "required": false,
+                            "className": "goods-form-item"
+                          },
+                          "hidden": false,
+                          "title": "",
+                          "isLocked": false,
+                          "condition": true,
+                          "conditionGroup": "",
+                          "children": [
+                            {
+                              "componentName": "Input.TextArea",
+                              "id": "node_remark_input",
+                              "props": {
+                                "hasBorder": true,
+                                "size": "medium",
+                                "autoComplete": "off",
+                                "placeholder": "请输入备注",
+                                "rows": 3,
+                                "name": "remark"
+                              },
+                              "hidden": false,
+                              "title": "",
+                              "isLocked": false,
+                              "condition": true,
+                              "conditionGroup": ""
+                            }
+                          ]
+                        },
+                        {
+                          "componentName": "Form.Item",
                           "id": "node_oclv4k66ur22",
                           "props": {
                             "label": "商品品牌",
                             "required": false,
                             "className": "goods-form-item"
                           },
-                          "hidden": false,
+                          "hidden": true,
                           "title": "",
                           "isLocked": false,
                           "condition": true,
@@ -1643,7 +1676,7 @@
                             "required": false,
                             "className": "goods-form-item"
                           },
-                          "hidden": false,
+                          "hidden": true,
                           "title": "",
                           "isLocked": false,
                           "condition": true,
@@ -1675,7 +1708,7 @@
                             "required": false,
                             "className": "goods-form-item"
                           },
-                          "hidden": false,
+                          "hidden": true,
                           "title": "",
                           "isLocked": false,
                           "condition": true,
@@ -1713,7 +1746,7 @@
                             "isPreview": true,
                             "ref": "form.item-7f21606c"
                           },
-                          "hidden": false,
+                          "hidden": true,
                           "title": "",
                           "isLocked": false,
                           "condition": true,
@@ -1764,7 +1797,7 @@
                             "ref": "form.item-7fdec96f",
                             "requiredMessage": "请输入销项税率"
                           },
-                          "hidden": false,
+                          "hidden": true,
                           "title": "",
                           "isLocked": false,
                           "condition": true,
@@ -1804,7 +1837,7 @@
                             "required": false,
                             "className": "goods-form-item"
                           },
-                          "hidden": false,
+                          "hidden": true,
                           "title": "",
                           "isLocked": false,
                           "condition": true,
@@ -1841,7 +1874,7 @@
                             "ref": "form.item-95bb115f",
                             "requiredMessage": "请选择标品"
                           },
-                          "hidden": false,
+                          "hidden": true,
                           "title": "",
                           "isLocked": false,
                           "condition": true,
@@ -1892,7 +1925,7 @@
                             "ref": "form.item-bbd46b1b",
                             "requiredMessage": "请选择销项发票类型"
                           },
-                          "hidden": false,
+                          "hidden": true,
                           "title": "",
                           "isLocked": false,
                           "condition": true,
@@ -1941,7 +1974,7 @@
                             "required": false,
                             "className": "goods-form-item"
                           },
-                          "hidden": false,
+                          "hidden": true,
                           "title": "",
                           "isLocked": false,
                           "condition": true,
@@ -1988,7 +2021,7 @@
                             "required": false,
                             "className": "goods-form-item"
                           },
-                          "hidden": false,
+                          "hidden": true,
                           "title": "",
                           "isLocked": false,
                           "condition": true,
@@ -2027,7 +2060,7 @@
                             "ref": "form.item-23713469",
                             "requiredMessage": "请选择配送方式"
                           },
-                          "hidden": false,
+                          "hidden": true,
                           "title": "",
                           "isLocked": false,
                           "condition": true,
@@ -2071,7 +2104,7 @@
                             "required": false,
                             "className": "goods-form-item"
                           },
-                          "hidden": false,
+                          "hidden": true,
                           "title": "",
                           "isLocked": false,
                           "condition": true,
@@ -2111,7 +2144,7 @@
                             "required": false,
                             "className": "goods-form-item-60"
                           },
-                          "hidden": false,
+                          "hidden": true,
                           "title": "",
                           "isLocked": false,
                           "condition": true,
@@ -2146,7 +2179,7 @@
                             "className": "goods-form-item",
                             "ref": "form.item-388a3049"
                           },
-                          "hidden": false,
+                          "hidden": true,
                           "title": "",
                           "isLocked": false,
                           "condition": true,
@@ -2265,7 +2298,7 @@
                             "required": false,
                             "className": "goods-form-item"
                           },
-                          "hidden": false,
+                          "hidden": true,
                           "title": "",
                           "isLocked": false,
                           "condition": true,
@@ -2377,7 +2410,7 @@
                           },
                           "docId": "docm8zhx2rh",
                           "title": "表单项",
-                          "hidden": false,
+                          "hidden": true,
                           "isLocked": false,
                           "condition": true,
                           "conditionGroup": "",
@@ -2675,7 +2708,7 @@
                 "showSearch": false,
                 "size": "small"
               },
-              "hidden": false,
+              "hidden": true,
               "title": "",
               "isLocked": false,
               "condition": true,
@@ -2712,7 +2745,7 @@
                 ],
                 "hasArrow": true
               },
-              "hidden": false,
+              "hidden": true,
               "title": "",
               "isLocked": false,
               "condition": true,
@@ -2800,7 +2833,7 @@
                     {
                       "name": "onClick",
                       "description": "点击按钮的回调\n@param {Object} e Event Object",
-                      "disabled": true
+                      "disabled": false
                     },
                     {
                       "name": "onMouseUp",

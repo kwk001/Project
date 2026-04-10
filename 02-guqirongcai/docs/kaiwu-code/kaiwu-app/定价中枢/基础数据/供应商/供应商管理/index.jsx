@@ -413,6 +413,7 @@ class LowcodeComponent extends Component {
 
   // 打开弹窗
   openModal(type, record = {}) {
+    console.log('openModal called with type:', type);
     const formId = "t69d7569c7184860008baae43"; // 供应商档案表单ID
     const appId = "8458f839b9260c7487315662282d1818"; // 应用ID
 
@@ -1041,7 +1042,7 @@ class LowcodeComponent extends Component {
           <div className="filter-actions">
             <button className="search-btn" onClick={() => this.handleSearch()}>搜索</button>
             <button className="reset-btn" onClick={() => this.resetSearch()}>重置</button>
-            <button className="add-btn primary-btn" onClick={() => this.openModal('add')}>+ 新增供应商</button>
+            <button className="add-btn primary-btn" onClick={() => { console.log('Add button clicked'); this.openModal('add'); }}>+ 新增供应商</button>
             <button 
               className="sync-btn" 
               onClick={() => this.ui_syncAccount_onSync()}
@@ -1112,7 +1113,6 @@ class LowcodeComponent extends Component {
                 <th className="col-email">邮箱地址</th>
                 <th className="col-type">标包类型</th>
                 <th className="col-status">状态</th>
-                <th className="col-money">保证金(元)</th>
                 <th className="col-actions">操作</th>
               </tr>
             </thead>
@@ -1137,7 +1137,6 @@ class LowcodeComponent extends Component {
                       {record.supplierStatus || '-'}
                     </span>
                   </td>
-                  <td>{record.supplierMoney ? record.supplierMoney.toLocaleString() : '-'}</td>
                   <td>
                     <div className="action-links">
                       <a 

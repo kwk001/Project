@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品档案 - 开物低代码预览</title>
+    <link rel="stylesheet" href="https://unpkg.com/antd@5.15.0/dist/reset.css">
+    <link rel="stylesheet" href="https://unpkg.com/antd@5.15.0/dist/antd.min.css">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            padding: 24px;
+            background: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        .page-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 24px;
+        }
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .page-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #262626;
+            margin: 0;
+        }
+        .preview-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #1890ff 0%, #36cfc9 100%);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 12px;
+            font-weight: 500;
+        }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .ant-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            border: 1px solid #d9d9d9;
+            background: #fff;
+            transition: all 0.2s;
+        }
+        .ant-btn-primary {
+            background: #1677ff;
+            color: #fff;
+            border-color: #1677ff;
+        }
+        .ant-btn-primary:hover {
+            background: #4096ff;
+        }
+        .ant-btn:hover {
+            border-color: #4096ff;
+            color: #4096ff;
+        }
+        .change-note {
+            background: #e6f7ff;
+            border: 1px solid #91d5ff;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+        }
+        .change-note h4 {
+            margin: 0 0 12px 0;
+            color: #096dd9;
+            font-size: 14px;
+        }
+        .field-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin: 2px;
+        }
+        .field-removed {
+            background: #ffccc7;
+            color: #cf1322;
+            text-decoration: line-through;
+        }
+        .field-added {
+            background: #d9f7be;
+            color: #389e0d;
+            font-weight: 500;
+        }
+        .field-changed {
+            background: #fff2e8;
+            color: #d46b08;
+        }
+        .search-area {
+            background: #fafafa;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .search-row {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .form-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .form-item label {
+            color: #595959;
+            font-size: 14px;
+        }
+        .ant-select {
+            width: 120px;
+            padding: 4px 11px;
+            border: 1px solid #d9d9d9;
+            border-radius: 6px;
+            background: #fff;
+            font-size: 14px;
+        }
+        .ant-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .ant-table th {
+            background: #fafafa;
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #262626;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+        .ant-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+            color: #595959;
+        }
+        .ant-table tr:hover td {
+            background: #f5f5f5;
+        }
+        .ant-table tr:last-child td {
+            border-bottom: none;
+        }
+        .text-strong {
+            font-weight: 600;
+            color: #262626;
+        }
+        .text-ellipsis {
+            max-width: 180px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .text-muted {
+            color: #999;
+        }
+        .btn-link {
+            color: #1677ff;
+            background: none;
+            border: none;
+            padding: 0 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-link:hover {
+            color: #4096ff;
+        }
+        .btn-link-danger {
+            color: #ff4d4f;
+        }
+        .btn-link-danger:hover {
+            color: #ff7875;
+        }
+        .btn-link-success {
+            color: #52c41a;
+        }
+        .btn-link-success:hover {
+            color: #73d13d;
+        }
+        .btn-link-warning {
+            color: #faad14;
+        }
+        .btn-link-warning:hover {
+            color: #ffc53d;
+        }
+        .pagination {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 16px;
+            gap: 8px;
+        }
+        .pagination-total {
+            color: #595959;
+            font-size: 14px;
+            margin-right: 8px;
+        }
+        .pagination button {
+            padding: 4px 12px;
+            border: 1px solid #d9d9d9;
+            background: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .pagination button:disabled {
+            color: #d9d9d9;
+            cursor: not-allowed;
+        }
+        .pagination .current {
+            background: #1677ff;
+            color: #fff;
+            border-color: #1677ff;
+        }
+        .footer-note {
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #f0f0f0;
+        }
+        .code-path {
+            background: #f6ffed;
+            border: 1px solid #b7eb8f;
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin-top: 12px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #389e0d;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- 页面标题 -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">商品档案<span class="preview-badge">开物低代码预览</span></h1>
+            </div>
+            <div class="header-actions">
+                <button class="ant-btn ant-btn-primary"><span>+</span>新增商品</button>
+                <button class="ant-btn">导入</button>
+                <button class="ant-btn">导出</button>
+            </div>
+        </div>
+
+        <!-- 修改说明 -->
+        <div class="change-note">
+            <h4>本次字段调整说明：</h4>
+            <div style="line-height: 2;">
+                <div>
+                    <strong>隐藏字段：</strong>
+                    <span class="field-tag field-removed">商品图片</span>
+                    <span class="field-tag field-removed">分类</span>
+                    <span class="field-tag field-removed">单位(B端/C端)</span>
+                    <span class="field-tag field-removed">状态</span>
+                    <span class="field-tag field-removed">订单商品上浮率</span>
+                    <span class="field-tag field-removed">订单商品下浮率</span>
+                    <span class="field-tag field-removed">别名</span>
+                </div>
+                <div style="margin-top: 8px;">
+                    <strong>字段改名：</strong>
+                    <span class="field-tag field-changed">商品名 → 商品名称</span>
+                </div>
+                <div style="margin-top: 8px;">
+                    <strong>新增字段：</strong>
+                    <span class="field-tag field-added">规格</span>
+                    <span class="field-tag field-added">计量单位</span>
+                    <span class="field-tag field-added">备注</span>
+                </div>
+            </div>
+            <div class="code-path">
+                代码文件: /kaiwu-app/定价中枢/基础数据/商品/商品档案/index.jsx
+            </div>
+        </div>
+
+        <!-- 搜索区域 -->
+        <div class="search-area">
+            <div class="search-row">
+                <div class="form-item">
+                    <label>商品分类：</label>
+                    <select class="ant-select">
+                        <option>全部</option>
+                        <option>蔬菜</option>
+                        <option>水果</option>
+                        <option>肉类</option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label>是否上架：</label>
+                    <select class="ant-select">
+                        <option>全部</option>
+                        <option>已上架</option>
+                        <option>已下架</option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <button class="ant-btn ant-btn-primary">查询</button>
+                    <button class="ant-btn" style="margin-left: 8px;">重置</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 数据表格 -->
+        <table class="ant-table">
+            <thead>
+                <tr>
+                    <th style="width: 150px;">商品名称</th>
+                    <th style="width: 200px;">规格</th>
+                    <th style="width: 100px;">计量单位</th>
+                    <th style="width: 220px;">备注</th>
+                    <th style="width: 170px;">创建时间</th>
+                    <th style="width: 300px;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="text-strong">大白菜</span></td>
+                    <td><span class="text-ellipsis" title="散装/每颗约2-3斤">散装/每颗约2-3斤</span></td>
+                    <td>斤</td>
+                    <td>新鲜蔬菜，当日采购</td>
+                    <td>2024-01-15 10:30:00</td>
+                    <td>
+                        <button class="btn-link">编辑</button>
+                        <button class="btn-link btn-link-danger">删除</button>
+                        <button class="btn-link">查看规格</button>
+                        <button class="btn-link btn-link-success">上架</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="text-strong">西红柿</span></td>
+                    <td><span class="text-ellipsis" title="盒装/每盒500g">盒装/每盒500g</span></td>
+                    <td>盒</td>
+                    <td>有机种植，无农药残留</td>
+                    <td>2024-01-14 14:20:00</td>
+                    <td>
+                        <button class="btn-link">编辑</button>
+                        <button class="btn-link btn-link-danger">删除</button>
+                        <button class="btn-link">查看规格</button>
+                        <button class="btn-link btn-link-warning">下架</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="text-strong">土豆</span></td>
+                    <td><span class="text-ellipsis" title="袋装/每袋5kg">袋装/每袋5kg</span></td>
+                    <td>袋</td>
+                    <td>产地直供，品质保证</td>
+                    <td>2024-01-13 09:15:00</td>
+                    <td>
+                        <button class="btn-link">编辑</button>
+                        <button class="btn-link btn-link-danger">删除</button>
+                        <button class="btn-link">查看规格</button>
+                        <button class="btn-link btn-link-success">上架</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="text-strong">胡萝卜</span></td>
+                    <td><span class="text-ellipsis" title="散装/每斤">散装/每斤</span></td>
+                    <td>斤</td>
+                    <td><span class="text-muted">-</span></td>
+                    <td>2024-01-12 16:45:00</td>
+                    <td>
+                        <button class="btn-link">编辑</button>
+                        <button class="btn-link btn-link-danger">删除</button>
+                        <button class="btn-link">查看规格</button>
+                        <button class="btn-link btn-link-success">上架</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="text-strong">洋葱</span></td>
+                    <td><span class="text-ellipsis" title="箱装/每箱10kg">箱装/每箱10kg</span></td>
+                    <td>箱</td>
+                    <td>耐储存，适合批量采购</td>
+                    <td>2024-01-11 11:30:00</td>
+                    <td>
+                        <button class="btn-link">编辑</button>
+                        <button class="btn-link btn-link-danger">删除</button>
+                        <button class="btn-link">查看规格</button>
+                        <button class="btn-link btn-link-warning">下架</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 分页 -->
+        <div class="pagination">
+            <span class="pagination-total">共 50 条</span>
+            <button disabled>上一页</button>
+            <button class="current">1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>4</button>
+            <button>5</button>
+            <button>下一页</button>
+        </div>
+
+        <!-- 底部说明 -->
+        <div class="footer-note">
+            <p>此预览展示开物低代码修改后的字段效果</p>
+            <p>实际代码文件: /Users/apple/Desktop/文件/kaiwu-project/02-guqirongcai/docs/kaiwu-code/kaiwu-app/定价中枢/基础数据/商品/商品档案/index.jsx</p>
+        </div>
+    </div>
+</body>
+</html>

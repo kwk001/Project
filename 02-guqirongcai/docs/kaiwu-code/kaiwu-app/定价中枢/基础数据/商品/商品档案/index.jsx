@@ -81,6 +81,7 @@ class LowcodeComponent extends Component {
             supplierId: '', // 供应商ID
             deliveryMethodId: '', // 配送方式ID
             textLabel: '', // 商品标签
+            remark: '', // 备注
             // isListing: '', // 是否上架
         },
         previewImageList: [],

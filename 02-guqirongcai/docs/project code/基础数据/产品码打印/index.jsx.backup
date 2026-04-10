@@ -1,0 +1,1287 @@
+class LowcodeComponent extends Component {
+  constructor() {
+    super();
+    if (window.KaiwuMesModule && window.KaiwuMesModule.injectMesModuleMethods) {
+      window.KaiwuMesModule.injectMesModuleMethods(this);
+    }
+    // 兼容性处理：使用普通 setState
+    this.setStatePromise = this.setStatePromise || function(state) {
+      var self = this;
+      return new Promise(function(resolve) {
+        self.setState(state, resolve);
+      });
+    };
+  }
+
+  static PAGE_FORMCODE = 'MES_cpdym';
+  static PAGE_FORMNAME = '产品码打印';
+
+  state = {
+    mockData: [
+      { _id: 'batch_001', batchNo: 'BC20240001', materialId: 'mat_001', materialCode: 'WL001', materialName: '95%白鹅绒', specification: '高规格', unitName: '千克', quantity: 250, produceDate: '2024-01-02', executionStandard: 'GB/T 14272-2021', productStandardCategory: '国标', productionYear: 2024, downContent: '95%', fluffiness: '900+', turbidity: '8mm', odor: '无异物', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '张三', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '张三', createTime: '2024-01-02 09:07:00' },
+      { _id: 'batch_002', batchNo: 'BC20240002', materialId: 'mat_002', materialCode: 'WL002', materialName: '90%白鹅绒', specification: '高规格', unitName: '千克', quantity: 300, produceDate: '2024-01-03', executionStandard: 'FZ/T 73053-2021', productStandardCategory: '行标', productionYear: 2024, downContent: '90%', fluffiness: '880+', turbidity: '10mm', odor: '轻微气味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '李四', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '李四', createTime: '2024-01-03 10:14:00' },
+      { _id: 'batch_003', batchNo: 'BC20240003', materialId: 'mat_003', materialCode: 'WL003', materialName: '85%白鸭绒', specification: '标准规格', unitName: '千克', quantity: 350, produceDate: '2024-01-04', executionStandard: 'Q/GQ 001-2024', productStandardCategory: '企标', productionYear: 2024, downContent: '85%', fluffiness: '860+', turbidity: '11mm', odor: '无异味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '王五', wechatQrImage: '', companyLinks: [], productCodeStatus: '未生成', createBy: '王五', createTime: '2024-01-04 11:21:00' },
+      { _id: 'batch_004', batchNo: 'BC20240004', materialId: 'mat_004', materialCode: 'WL004', materialName: '80%白鸭绒', specification: '标准规格', unitName: '千克', quantity: 400, produceDate: '2024-01-05', executionStandard: 'GB/T 14272-2021', productStandardCategory: '国标', productionYear: 2024, downContent: '80%', fluffiness: '850+', turbidity: '12mm', odor: '无异物', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '赵六', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '赵六', createTime: '2024-01-05 12:28:00' },
+      { _id: 'batch_005', batchNo: 'BC20240005', materialId: 'mat_005', materialCode: 'WL005', materialName: '95%灰鹅绒', specification: '高规格', unitName: '千克', quantity: 450, produceDate: '2024-01-06', executionStandard: 'FZ/T 73053-2021', productStandardCategory: '行标', productionYear: 2024, downContent: '75%', fluffiness: '820+', turbidity: '14mm', odor: '轻微气味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '钱七', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '钱七', createTime: '2024-01-06 13:35:00' },
+      { _id: 'batch_006', batchNo: 'BC20240006', materialId: 'mat_006', materialCode: 'WL006', materialName: '90%灰鹅绒', specification: '高规格', unitName: '千克', quantity: 500, produceDate: '2024-01-07', executionStandard: 'Q/GQ 001-2024', productStandardCategory: '企标', productionYear: 2024, downContent: '95%', fluffiness: '810+', turbidity: '15mm', odor: '无异味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '张三', wechatQrImage: '', companyLinks: [], productCodeStatus: '未生成', createBy: '张三', createTime: '2024-01-07 14:42:00' },
+      { _id: 'batch_007', batchNo: 'BC20240007', materialId: 'mat_001', materialCode: 'WL001', materialName: '95%白鹅绒', specification: '高规格', unitName: '千克', quantity: 550, produceDate: '2024-01-08', executionStandard: 'GB/T 14272-2021', productStandardCategory: '国标', productionYear: 2024, downContent: '90%', fluffiness: '800+', turbidity: '16mm', odor: '无异物', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '李四', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '李四', createTime: '2024-01-08 15:49:00' },
+      { _id: 'batch_008', batchNo: 'BC20240008', materialId: 'mat_002', materialCode: 'WL002', materialName: '90%白鹅绒', specification: '高规格', unitName: '千克', quantity: 600, produceDate: '2024-01-09', executionStandard: 'FZ/T 73053-2021', productStandardCategory: '行标', productionYear: 2024, downContent: '85%', fluffiness: '760+', turbidity: '18mm', odor: '轻微气味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '王五', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '王五', createTime: '2024-01-09 08:56:00' },
+      { _id: 'batch_009', batchNo: 'BC20240009', materialId: 'mat_003', materialCode: 'WL003', materialName: '85%白鸭绒', specification: '标准规格', unitName: '千克', quantity: 650, produceDate: '2024-01-10', executionStandard: 'Q/GQ 001-2024', productStandardCategory: '企标', productionYear: 2024, downContent: '80%', fluffiness: '750+', turbidity: '8mm', odor: '无异味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '赵六', wechatQrImage: '', companyLinks: [], productCodeStatus: '未生成', createBy: '赵六', createTime: '2024-01-10 09:03:00' },
+      { _id: 'batch_010', batchNo: 'BC20240010', materialId: 'mat_004', materialCode: 'WL004', materialName: '80%白鸭绒', specification: '标准规格', unitName: '千克', quantity: 700, produceDate: '2024-01-11', executionStandard: 'GB/T 14272-2021', productStandardCategory: '国标', productionYear: 2024, downContent: '75%', fluffiness: '900+', turbidity: '10mm', odor: '无异物', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '钱七', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '钱七', createTime: '2024-01-11 10:10:00' },
+      { _id: 'batch_011', batchNo: 'BC20240011', materialId: 'mat_005', materialCode: 'WL005', materialName: '95%灰鹅绒', specification: '高规格', unitName: '千克', quantity: 750, produceDate: '2024-01-12', executionStandard: 'FZ/T 73053-2021', productStandardCategory: '行标', productionYear: 2024, downContent: '95%', fluffiness: '880+', turbidity: '11mm', odor: '轻微气味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '张三', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '张三', createTime: '2024-01-12 11:17:00' },
+      { _id: 'batch_012', batchNo: 'BC20240012', materialId: 'mat_006', materialCode: 'WL006', materialName: '90%灰鹅绒', specification: '高规格', unitName: '千克', quantity: 800, produceDate: '2024-01-13', executionStandard: 'Q/GQ 001-2024', productStandardCategory: '企标', productionYear: 2024, downContent: '90%', fluffiness: '860+', turbidity: '12mm', odor: '无异味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '李四', wechatQrImage: '', companyLinks: [], productCodeStatus: '未生成', createBy: '李四', createTime: '2024-01-13 12:24:00' },
+      { _id: 'batch_013', batchNo: 'BC20240013', materialId: 'mat_001', materialCode: 'WL001', materialName: '95%白鹅绒', specification: '高规格', unitName: '千克', quantity: 850, produceDate: '2024-01-14', executionStandard: 'GB/T 14272-2021', productStandardCategory: '国标', productionYear: 2024, downContent: '85%', fluffiness: '850+', turbidity: '14mm', odor: '无异物', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '王五', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '王五', createTime: '2024-01-14 13:31:00' },
+      { _id: 'batch_014', batchNo: 'BC20240014', materialId: 'mat_002', materialCode: 'WL002', materialName: '90%白鹅绒', specification: '高规格', unitName: '千克', quantity: 900, produceDate: '2024-01-15', executionStandard: 'FZ/T 73053-2021', productStandardCategory: '行标', productionYear: 2024, downContent: '80%', fluffiness: '820+', turbidity: '15mm', odor: '轻微气味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '赵六', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '赵六', createTime: '2024-01-15 14:38:00' },
+      { _id: 'batch_015', batchNo: 'BC20240015', materialId: 'mat_003', materialCode: 'WL003', materialName: '85%白鸭绒', specification: '标准规格', unitName: '千克', quantity: 950, produceDate: '2024-01-16', executionStandard: 'Q/GQ 001-2024', productStandardCategory: '企标', productionYear: 2024, downContent: '75%', fluffiness: '810+', turbidity: '16mm', odor: '无异味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '钱七', wechatQrImage: '', companyLinks: [], productCodeStatus: '未生成', createBy: '钱七', createTime: '2024-01-16 15:45:00' },
+      { _id: 'batch_016', batchNo: 'BC20240016', materialId: 'mat_004', materialCode: 'WL004', materialName: '80%白鸭绒', specification: '标准规格', unitName: '千克', quantity: 200, produceDate: '2024-01-17', executionStandard: 'GB/T 14272-2021', productStandardCategory: '国标', productionYear: 2024, downContent: '95%', fluffiness: '800+', turbidity: '18mm', odor: '无异物', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '张三', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '张三', createTime: '2024-01-17 08:52:00' },
+      { _id: 'batch_017', batchNo: 'BC20240017', materialId: 'mat_005', materialCode: 'WL005', materialName: '95%灰鹅绒', specification: '高规格', unitName: '千克', quantity: 250, produceDate: '2024-01-18', executionStandard: 'FZ/T 73053-2021', productStandardCategory: '行标', productionYear: 2024, downContent: '90%', fluffiness: '760+', turbidity: '8mm', odor: '轻微气味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '李四', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '李四', createTime: '2024-01-18 09:59:00' },
+      { _id: 'batch_018', batchNo: 'BC20240018', materialId: 'mat_006', materialCode: 'WL006', materialName: '90%灰鹅绒', specification: '高规格', unitName: '千克', quantity: 300, produceDate: '2024-01-19', executionStandard: 'Q/GQ 001-2024', productStandardCategory: '企标', productionYear: 2024, downContent: '85%', fluffiness: '750+', turbidity: '10mm', odor: '无异味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '王五', wechatQrImage: '', companyLinks: [], productCodeStatus: '未生成', createBy: '王五', createTime: '2024-01-19 10:06:00' },
+      { _id: 'batch_019', batchNo: 'BC20240019', materialId: 'mat_001', materialCode: 'WL001', materialName: '95%白鹅绒', specification: '高规格', unitName: '千克', quantity: 350, produceDate: '2024-01-20', executionStandard: 'GB/T 14272-2021', productStandardCategory: '国标', productionYear: 2024, downContent: '80%', fluffiness: '900+', turbidity: '11mm', odor: '无异物', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '赵六', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '赵六', createTime: '2024-01-20 11:13:00' },
+      { _id: 'batch_020', batchNo: 'BC20240020', materialId: 'mat_002', materialCode: 'WL002', materialName: '90%白鹅绒', specification: '高规格', unitName: '千克', quantity: 400, produceDate: '2024-01-21', executionStandard: 'FZ/T 73053-2021', productStandardCategory: '行标', productionYear: 2024, downContent: '75%', fluffiness: '880+', turbidity: '12mm', odor: '轻微气味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '钱七', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '钱七', createTime: '2024-01-21 12:20:00' },
+      { _id: 'batch_021', batchNo: 'BC20240021', materialId: 'mat_003', materialCode: 'WL003', materialName: '85%白鸭绒', specification: '标准规格', unitName: '千克', quantity: 450, produceDate: '2024-01-22', executionStandard: 'Q/GQ 001-2024', productStandardCategory: '企标', productionYear: 2024, downContent: '95%', fluffiness: '860+', turbidity: '14mm', odor: '无异味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '张三', wechatQrImage: '', companyLinks: [], productCodeStatus: '未生成', createBy: '张三', createTime: '2024-01-22 13:27:00' },
+      { _id: 'batch_022', batchNo: 'BC20240022', materialId: 'mat_004', materialCode: 'WL004', materialName: '80%白鸭绒', specification: '标准规格', unitName: '千克', quantity: 500, produceDate: '2024-01-23', executionStandard: 'GB/T 14272-2021', productStandardCategory: '国标', productionYear: 2024, downContent: '90%', fluffiness: '850+', turbidity: '15mm', odor: '无异物', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '李四', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '李四', createTime: '2024-01-23 14:34:00' },
+      { _id: 'batch_023', batchNo: 'BC20240023', materialId: 'mat_005', materialCode: 'WL005', materialName: '95%灰鹅绒', specification: '高规格', unitName: '千克', quantity: 550, produceDate: '2024-01-24', executionStandard: 'FZ/T 73053-2021', productStandardCategory: '行标', productionYear: 2024, downContent: '85%', fluffiness: '820+', turbidity: '16mm', odor: '轻微气味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '王五', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '王五', createTime: '2024-01-24 15:41:00' },
+      { _id: 'batch_024', batchNo: 'BC20240024', materialId: 'mat_006', materialCode: 'WL006', materialName: '90%灰鹅绒', specification: '高规格', unitName: '千克', quantity: 600, produceDate: '2024-01-25', executionStandard: 'Q/GQ 001-2024', productStandardCategory: '企标', productionYear: 2024, downContent: '80%', fluffiness: '810+', turbidity: '18mm', odor: '无异味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '赵六', wechatQrImage: '', companyLinks: [], productCodeStatus: '未生成', createBy: '赵六', createTime: '2024-01-25 08:48:00' },
+      { _id: 'batch_025', batchNo: 'BC20240025', materialId: 'mat_001', materialCode: 'WL001', materialName: '95%白鹅绒', specification: '高规格', unitName: '千克', quantity: 650, produceDate: '2024-01-26', executionStandard: 'GB/T 14272-2021', productStandardCategory: '国标', productionYear: 2024, downContent: '75%', fluffiness: '800+', turbidity: '8mm', odor: '无异物', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '钱七', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '钱七', createTime: '2024-01-26 09:55:00' },
+      { _id: 'batch_026', batchNo: 'BC20240026', materialId: 'mat_002', materialCode: 'WL002', materialName: '90%白鹅绒', specification: '高规格', unitName: '千克', quantity: 700, produceDate: '2024-01-27', executionStandard: 'FZ/T 73053-2021', productStandardCategory: '行标', productionYear: 2024, downContent: '95%', fluffiness: '760+', turbidity: '10mm', odor: '轻微气味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '张三', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '张三', createTime: '2024-01-27 10:02:00' },
+      { _id: 'batch_027', batchNo: 'BC20240027', materialId: 'mat_003', materialCode: 'WL003', materialName: '85%白鸭绒', specification: '标准规格', unitName: '千克', quantity: 750, produceDate: '2024-01-28', executionStandard: 'Q/GQ 001-2024', productStandardCategory: '企标', productionYear: 2024, downContent: '90%', fluffiness: '750+', turbidity: '11mm', odor: '无异味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '李四', wechatQrImage: '', companyLinks: [], productCodeStatus: '未生成', createBy: '李四', createTime: '2024-01-28 11:09:00' },
+      { _id: 'batch_028', batchNo: 'BC20240028', materialId: 'mat_004', materialCode: 'WL004', materialName: '80%白鸭绒', specification: '标准规格', unitName: '千克', quantity: 800, produceDate: '2024-01-01', executionStandard: 'GB/T 14272-2021', productStandardCategory: '国标', productionYear: 2024, downContent: '85%', fluffiness: '900+', turbidity: '12mm', odor: '无异物', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '王五', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '王五', createTime: '2024-01-01 12:16:00' },
+      { _id: 'batch_029', batchNo: 'BC20240029', materialId: 'mat_005', materialCode: 'WL005', materialName: '95%灰鹅绒', specification: '高规格', unitName: '千克', quantity: 850, produceDate: '2024-02-02', executionStandard: 'FZ/T 73053-2021', productStandardCategory: '行标', productionYear: 2024, downContent: '80%', fluffiness: '880+', turbidity: '14mm', odor: '轻微气味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '赵六', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '赵六', createTime: '2024-02-02 13:23:00' },
+      { _id: 'batch_030', batchNo: 'BC20240030', materialId: 'mat_006', materialCode: 'WL006', materialName: '90%灰鹅绒', specification: '高规格', unitName: '千克', quantity: 900, produceDate: '2024-02-03', executionStandard: 'Q/GQ 001-2024', productStandardCategory: '企标', productionYear: 2024, downContent: '75%', fluffiness: '860+', turbidity: '15mm', odor: '无异味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '钱七', wechatQrImage: '', companyLinks: [], productCodeStatus: '未生成', createBy: '钱七', createTime: '2024-02-03 14:30:00' },
+      { _id: 'batch_031', batchNo: 'BC20240031', materialId: 'mat_001', materialCode: 'WL001', materialName: '95%白鹅绒', specification: '高规格', unitName: '千克', quantity: 950, produceDate: '2024-02-04', executionStandard: 'GB/T 14272-2021', productStandardCategory: '国标', productionYear: 2024, downContent: '95%', fluffiness: '850+', turbidity: '16mm', odor: '无异物', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '张三', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '张三', createTime: '2024-02-04 15:37:00' },
+      { _id: 'batch_032', batchNo: 'BC20240032', materialId: 'mat_002', materialCode: 'WL002', materialName: '90%白鹅绒', specification: '高规格', unitName: '千克', quantity: 200, produceDate: '2024-02-05', executionStandard: 'FZ/T 73053-2021', productStandardCategory: '行标', productionYear: 2024, downContent: '90%', fluffiness: '820+', turbidity: '18mm', odor: '轻微气味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '李四', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '李四', createTime: '2024-02-05 08:44:00' },
+      { _id: 'batch_033', batchNo: 'BC20240033', materialId: 'mat_003', materialCode: 'WL003', materialName: '85%白鸭绒', specification: '标准规格', unitName: '千克', quantity: 250, produceDate: '2024-02-06', executionStandard: 'Q/GQ 001-2024', productStandardCategory: '企标', productionYear: 2024, downContent: '85%', fluffiness: '810+', turbidity: '8mm', odor: '无异味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '王五', wechatQrImage: '', companyLinks: [], productCodeStatus: '未生成', createBy: '王五', createTime: '2024-02-06 09:51:00' },
+      { _id: 'batch_034', batchNo: 'BC20240034', materialId: 'mat_004', materialCode: 'WL004', materialName: '80%白鸭绒', specification: '标准规格', unitName: '千克', quantity: 300, produceDate: '2024-02-07', executionStandard: 'GB/T 14272-2021', productStandardCategory: '国标', productionYear: 2024, downContent: '80%', fluffiness: '800+', turbidity: '10mm', odor: '无异物', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '赵六', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '赵六', createTime: '2024-02-07 10:58:00' },
+      { _id: 'batch_035', batchNo: 'BC20240035', materialId: 'mat_005', materialCode: 'WL005', materialName: '95%灰鹅绒', specification: '高规格', unitName: '千克', quantity: 350, produceDate: '2024-02-08', executionStandard: 'FZ/T 73053-2021', productStandardCategory: '行标', productionYear: 2024, downContent: '75%', fluffiness: '760+', turbidity: '11mm', odor: '轻微气味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '钱七', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '钱七', createTime: '2024-02-08 11:05:00' },
+      { _id: 'batch_036', batchNo: 'BC20240036', materialId: 'mat_006', materialCode: 'WL006', materialName: '90%灰鹅绒', specification: '高规格', unitName: '千克', quantity: 400, produceDate: '2024-02-09', executionStandard: 'Q/GQ 001-2024', productStandardCategory: '企标', productionYear: 2024, downContent: '95%', fluffiness: '750+', turbidity: '12mm', odor: '无异味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '张三', wechatQrImage: '', companyLinks: [], productCodeStatus: '未生成', createBy: '张三', createTime: '2024-02-09 12:12:00' },
+      { _id: 'batch_037', batchNo: 'BC20240037', materialId: 'mat_001', materialCode: 'WL001', materialName: '95%白鹅绒', specification: '高规格', unitName: '千克', quantity: 450, produceDate: '2024-02-10', executionStandard: 'GB/T 14272-2021', productStandardCategory: '国标', productionYear: 2024, downContent: '90%', fluffiness: '900+', turbidity: '14mm', odor: '无异物', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '李四', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '李四', createTime: '2024-02-10 13:19:00' },
+      { _id: 'batch_038', batchNo: 'BC20240038', materialId: 'mat_002', materialCode: 'WL002', materialName: '90%白鹅绒', specification: '高规格', unitName: '千克', quantity: 500, produceDate: '2024-02-11', executionStandard: 'FZ/T 73053-2021', productStandardCategory: '行标', productionYear: 2024, downContent: '85%', fluffiness: '880+', turbidity: '15mm', odor: '轻微气味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '王五', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '王五', createTime: '2024-02-11 14:26:00' },
+      { _id: 'batch_039', batchNo: 'BC20240039', materialId: 'mat_003', materialCode: 'WL003', materialName: '85%白鸭绒', specification: '标准规格', unitName: '千克', quantity: 550, produceDate: '2024-02-12', executionStandard: 'Q/GQ 001-2024', productStandardCategory: '企标', productionYear: 2024, downContent: '80%', fluffiness: '860+', turbidity: '16mm', odor: '无异味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '赵六', wechatQrImage: '', companyLinks: [], productCodeStatus: '未生成', createBy: '赵六', createTime: '2024-02-12 15:33:00' },
+      { _id: 'batch_040', batchNo: 'BC20240040', materialId: 'mat_004', materialCode: 'WL004', materialName: '80%白鸭绒', specification: '标准规格', unitName: '千克', quantity: 600, produceDate: '2024-02-13', executionStandard: 'GB/T 14272-2021', productStandardCategory: '国标', productionYear: 2024, downContent: '75%', fluffiness: '850+', turbidity: '18mm', odor: '无异物', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '钱七', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '钱七', createTime: '2024-02-13 08:40:00' },
+      { _id: 'batch_041', batchNo: 'BC20240041', materialId: 'mat_005', materialCode: 'WL005', materialName: '95%灰鹅绒', specification: '高规格', unitName: '千克', quantity: 650, produceDate: '2024-02-14', executionStandard: 'FZ/T 73053-2021', productStandardCategory: '行标', productionYear: 2024, downContent: '95%', fluffiness: '820+', turbidity: '8mm', odor: '轻微气味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '张三', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '张三', createTime: '2024-02-14 09:47:00' },
+      { _id: 'batch_042', batchNo: 'BC20240042', materialId: 'mat_006', materialCode: 'WL006', materialName: '90%灰鹅绒', specification: '高规格', unitName: '千克', quantity: 700, produceDate: '2024-02-15', executionStandard: 'Q/GQ 001-2024', productStandardCategory: '企标', productionYear: 2024, downContent: '90%', fluffiness: '810+', turbidity: '10mm', odor: '无异味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '李四', wechatQrImage: '', companyLinks: [], productCodeStatus: '未生成', createBy: '李四', createTime: '2024-02-15 10:54:00' },
+      { _id: 'batch_043', batchNo: 'BC20240043', materialId: 'mat_001', materialCode: 'WL001', materialName: '95%白鹅绒', specification: '高规格', unitName: '千克', quantity: 750, produceDate: '2024-02-16', executionStandard: 'GB/T 14272-2021', productStandardCategory: '国标', productionYear: 2024, downContent: '85%', fluffiness: '800+', turbidity: '11mm', odor: '无异物', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '王五', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '王五', createTime: '2024-02-16 11:01:00' },
+      { _id: 'batch_044', batchNo: 'BC20240044', materialId: 'mat_002', materialCode: 'WL002', materialName: '90%白鹅绒', specification: '高规格', unitName: '千克', quantity: 800, produceDate: '2024-02-17', executionStandard: 'FZ/T 73053-2021', productStandardCategory: '行标', productionYear: 2024, downContent: '80%', fluffiness: '760+', turbidity: '12mm', odor: '轻微气味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '赵六', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '赵六', createTime: '2024-02-17 12:08:00' },
+      { _id: 'batch_045', batchNo: 'BC20240045', materialId: 'mat_003', materialCode: 'WL003', materialName: '85%白鸭绒', specification: '标准规格', unitName: '千克', quantity: 850, produceDate: '2024-02-18', executionStandard: 'Q/GQ 001-2024', productStandardCategory: '企标', productionYear: 2024, downContent: '75%', fluffiness: '750+', turbidity: '14mm', odor: '无异味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '钱七', wechatQrImage: '', companyLinks: [], productCodeStatus: '未生成', createBy: '钱七', createTime: '2024-02-18 13:15:00' },
+      { _id: 'batch_046', batchNo: 'BC20240046', materialId: 'mat_004', materialCode: 'WL004', materialName: '80%白鸭绒', specification: '标准规格', unitName: '千克', quantity: 900, produceDate: '2024-02-19', executionStandard: 'GB/T 14272-2021', productStandardCategory: '国标', productionYear: 2024, downContent: '95%', fluffiness: '900+', turbidity: '15mm', odor: '无异物', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '张三', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '张三', createTime: '2024-02-19 14:22:00' },
+      { _id: 'batch_047', batchNo: 'BC20240047', materialId: 'mat_005', materialCode: 'WL005', materialName: '95%灰鹅绒', specification: '高规格', unitName: '千克', quantity: 950, produceDate: '2024-02-20', executionStandard: 'FZ/T 73053-2021', productStandardCategory: '行标', productionYear: 2024, downContent: '90%', fluffiness: '880+', turbidity: '16mm', odor: '轻微气味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '李四', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '李四', createTime: '2024-02-20 15:29:00' },
+      { _id: 'batch_048', batchNo: 'BC20240048', materialId: 'mat_006', materialCode: 'WL006', materialName: '90%灰鹅绒', specification: '高规格', unitName: '千克', quantity: 200, produceDate: '2024-02-21', executionStandard: 'Q/GQ 001-2024', productStandardCategory: '企标', productionYear: 2024, downContent: '85%', fluffiness: '860+', turbidity: '18mm', odor: '无异味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '王五', wechatQrImage: '', companyLinks: [], productCodeStatus: '未生成', createBy: '王五', createTime: '2024-02-21 08:36:00' },
+      { _id: 'batch_049', batchNo: 'BC20240049', materialId: 'mat_001', materialCode: 'WL001', materialName: '95%白鹅绒', specification: '高规格', unitName: '千克', quantity: 250, produceDate: '2024-02-22', executionStandard: 'GB/T 14272-2021', productStandardCategory: '国标', productionYear: 2024, downContent: '80%', fluffiness: '850+', turbidity: '8mm', odor: '无异物', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '赵六', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '赵六', createTime: '2024-02-22 09:43:00' },
+      { _id: 'batch_050', batchNo: 'BC20240050', materialId: 'mat_002', materialCode: 'WL002', materialName: '90%白鹅绒', specification: '高规格', unitName: '千克', quantity: 300, produceDate: '2024-02-23', executionStandard: 'FZ/T 73053-2021', productStandardCategory: '行标', productionYear: 2024, downContent: '75%', fluffiness: '820+', turbidity: '10mm', odor: '轻微气味', productVideo: '', certificationImages: [], companyName: '安徽古麒绒材股份有限公司', companyAddress: '安徽省芜湖市', licenseNo: 'SC12345678901', inspector: '钱七', wechatQrImage: '', companyLinks: [], productCodeStatus: '已生成', createBy: '钱七', createTime: '2024-02-23 10:50:00' }
+    ],
+    dataList: [],
+    loading: false,
+    pageNo: 1,
+    pageSize: 10,
+    total: 0,
+    searchParams: {
+      batchNo: '',
+      materialName: '',
+      productCodeStatus: 'all',
+      produceDateRange: null
+    },
+    selectedRowKeys: [],
+    // 产品档案数据
+    productArchives: [
+      { _id: 'mat_001', materialCode: 'WL001', materialName: '95%白鹅绒', unitName: '千克', specification: '高规格' },
+      { _id: 'mat_002', materialCode: 'WL002', materialName: '90%白鹅绒', unitName: '千克', specification: '高规格' },
+      { _id: 'mat_003', materialCode: 'WL003', materialName: '85%白鸭绒', unitName: '千克', specification: '标准规格' },
+      { _id: 'mat_004', materialCode: 'WL004', materialName: '80%白鸭绒', unitName: '千克', specification: '标准规格' },
+      { _id: 'mat_005', materialCode: 'WL005', materialName: '95%灰鹅绒', unitName: '千克', specification: '高规格' },
+      { _id: 'mat_006', materialCode: 'WL006', materialName: '90%灰鹅绒', unitName: '千克', specification: '高规格' }
+    ],
+    // 执行标准数据
+    executionStandards: [
+      { _id: 'std_001', standardCode: 'GB/T 14272-2021', standardType: '国标', executionCode: 'EXEC001', productStandardCategory: '国标' },
+      { _id: 'std_002', standardCode: 'FZ/T 73053-2021', standardType: '行标', executionCode: 'EXEC002', productStandardCategory: '行标' },
+      { _id: 'std_003', standardCode: 'Q/GQ 001-2024', standardType: '企标', executionCode: 'EXEC003', productStandardCategory: '企标' }
+    ],
+    // 新增批次弹窗相关
+    isAddModalVisible: false,
+    isEditMode: false,
+    editingRecordId: null,
+    addFormData: {
+      materialId: '',
+      materialCode: '',
+      materialName: '',
+      unitName: '',
+      specification: '',
+      batchNo: '',
+      quantity: null,
+      produceDate: null,
+      executionStandard: '',
+      productStandardCategory: '',
+      productionYear: null,
+      productVideo: '',
+      certificationImages: [],
+      downContent: '',
+      fluffiness: '',
+      turbidity: '',
+      odor: '',
+      companyName: '',
+      companyAddress: '',
+      licenseNo: '',
+      inspector: '',
+      wechatQrImage: '',
+      companyLinks: []
+    },
+    // 企业链接选项
+    companyLinkOptions: [
+      { label: '官方网站', value: 'https://www.guqi.com' },
+      { label: '天猫旗舰店', value: 'https://guqi.tmall.com' },
+      { label: '京东旗舰店', value: 'https://guqi.jd.com' },
+      { label: '微信小程序', value: 'https://mp.weixin.qq.com/guqi' },
+      { label: '抖音官方号', value: 'https://douyin.com/guqi' }
+    ],
+    // 查看详情弹窗
+    isDetailModalVisible: false,
+    detailRecord: null,
+    // 产品码预览弹窗
+    isPreviewModalVisible: false,
+    previewRecord: null
+  };
+
+  async componentDidMount() {
+    this.loadData();
+  }
+
+  loadData() {
+    var self = this;
+    self.setState({ loading: true });
+    try {
+      const { searchParams, pageNo, pageSize, mockData } = this.state;
+
+      let filteredData = mockData.filter(item => {
+        if (searchParams.batchNo && !item.batchNo.toLowerCase().includes(searchParams.batchNo.toLowerCase())) {
+          return false;
+        }
+        if (searchParams.materialName && !item.materialName.includes(searchParams.materialName)) {
+          return false;
+        }
+        if (searchParams.productCodeStatus !== 'all' && item.productCodeStatus !== searchParams.productCodeStatus) {
+          return false;
+        }
+        if (searchParams.produceDateRange && searchParams.produceDateRange.length === 2) {
+          const itemDate = new Date(item.produceDate);
+          const startDate = searchParams.produceDateRange[0];
+          const endDate = searchParams.produceDateRange[1];
+          const startTime = startDate && startDate.startOf ? startDate.startOf('day').toDate() : new Date(startDate);
+          const endTime = endDate && endDate.endOf ? endDate.endOf('day').toDate() : new Date(endDate);
+          startTime.setHours(0, 0, 0, 0);
+          endTime.setHours(23, 59, 59, 999);
+          if (itemDate < startTime || itemDate > endTime) {
+            return false;
+          }
+        }
+        return true;
+      });
+
+      filteredData.sort((a, b) => new Date(b.createTime) - new Date(a.createTime));
+
+      const start = (pageNo - 1) * pageSize;
+      const end = start + pageSize;
+      const pageData = filteredData.slice(start, end);
+
+      await this.setStatePromise({
+        dataList: pageData,
+        total: filteredData.length
+      });
+    } catch (error) {
+      console.error('加载数据失败:', error);
+    } finally {
+      await this.setStatePromise({ loading: false });
+    }
+  }
+
+  getColumns() {
+    const { Button, Tag } = window.antd;
+    const { pageNo, pageSize } = this.state;
+
+    return [
+      {
+        title: '序号',
+        key: 'index',
+        width: 60,
+        render: (_, __, index) => (pageNo - 1) * pageSize + index + 1
+      },
+      {
+        title: '批次号',
+        dataIndex: 'batchNo',
+        key: 'batchNo',
+        width: 130,
+        render: (text, record) => (
+          <Button type="link" style={{ padding: 0 }} onClick={() => this.handleViewDetail(record)}>
+            {text}
+          </Button>
+        )
+      },
+      {
+        title: '产品名称',
+        dataIndex: 'materialName',
+        key: 'materialName',
+        width: 140
+      },
+      {
+        title: '产品编号',
+        dataIndex: 'materialCode',
+        key: 'materialCode',
+        width: 100
+      },
+      {
+        title: '规格',
+        dataIndex: 'specification',
+        key: 'specification',
+        width: 100
+      },
+      {
+        title: '生产年度',
+        dataIndex: 'productionYear',
+        key: 'productionYear',
+        width: 100
+      },
+      {
+        title: '执行标准',
+        dataIndex: 'executionStandard',
+        key: 'executionStandard',
+        width: 140
+      },
+      {
+        title: '产品标准类别',
+        dataIndex: 'productStandardCategory',
+        key: 'productStandardCategory',
+        width: 110
+      },
+      {
+        title: '产品码状态',
+        dataIndex: 'productCodeStatus',
+        key: 'productCodeStatus',
+        width: 100,
+        render: (status) => (
+          <Tag color={status === '已生成' ? 'success' : 'warning'}>
+            {status}
+          </Tag>
+        )
+      },
+      {
+        title: '创建人',
+        dataIndex: 'createBy',
+        key: 'createBy',
+        width: 90
+      },
+      {
+        title: '创建时间',
+        dataIndex: 'createTime',
+        key: 'createTime',
+        width: 150
+      },
+      {
+        title: '操作',
+        key: 'action',
+        width: 180,
+        fixed: 'right',
+        render: (_, record) => this.renderActions(record)
+      }
+    ];
+  }
+
+  renderActions(record) {
+    const { Button } = window.antd;
+
+    return (
+      <>
+        <Button
+          type="link"
+          style={{ padding: '4px', marginRight: 8 }}
+          onClick={() => this.handleViewDetail(record)}
+        >
+          查看
+        </Button>
+        {record.productCodeStatus === '未生成' && (
+          <Button
+            type="link"
+            style={{ padding: '4px', marginRight: 8 }}
+            onClick={() => this.handleEdit(record)}
+          >
+            编辑
+          </Button>
+        )}
+        {record.productCodeStatus === '未生成' ? (
+          <Button
+            type="link"
+            style={{ padding: '4px', marginRight: 8 }}
+            onClick={() => this.handleGenerateCode(record)}
+          >
+            生成产品码
+          </Button>
+        ) : (
+          <Button
+            type="link"
+            style={{ padding: '4px', marginRight: 8 }}
+            onClick={() => this.handleDownloadCode(record)}
+          >
+            下载产品码
+          </Button>
+        )}
+        <Button
+          type="link"
+          style={{ padding: '4px' }}
+          onClick={() => this.handlePreview(record)}
+        >
+          预览
+        </Button>
+      </>
+    );
+  }
+
+  handleSearch() {
+    this.setState({ pageNo: 1 }, () => this.loadData());
+  }
+
+  handleReset() {
+    this.setState({
+      searchParams: {
+        batchNo: '',
+        materialName: '',
+        productCodeStatus: 'all',
+        produceDateRange: null
+      },
+      pageNo: 1
+    }, () => this.loadData());
+  }
+
+  handlePageChange(page, pageSize) {
+    this.setState({ pageNo: page, pageSize }, () => this.loadData());
+  }
+
+  handleSearchParamChange(field, value) {
+    this.setState({
+      searchParams: {
+        ...this.state.searchParams,
+        [field]: value
+      }
+    });
+  }
+
+  // 查看详情
+  handleViewDetail(record) {
+    this.setState({
+      isDetailModalVisible: true,
+      detailRecord: record
+    });
+  }
+
+  // 编辑批次
+  handleEdit(record) {
+    // 只有未生成产品码的批次才能编辑
+    if (record.productCodeStatus === '已生成') {
+      const { message } = window.antd;
+      message.error('已生成产品码的批次不能编辑');
+      return;
+    }
+
+    // 设置编辑表单数据
+    this.setState({
+      isAddModalVisible: true,
+      isEditMode: true,
+      editingRecordId: record._id,
+      addFormData: {
+        materialId: record.materialId,
+        materialCode: record.materialCode,
+        materialName: record.materialName,
+        unitName: record.unitName,
+        specification: record.specification,
+        batchNo: record.batchNo,
+        quantity: record.quantity,
+        produceDate: record.produceDate,
+        executionStandard: (this.state.executionStandards.find(s => s.standardCode === record.executionStandard) || {})._id || '',
+        productStandardCategory: record.productStandardCategory,
+        productionYear: record.productionYear,
+        productVideo: record.productVideo,
+        certificationImages: record.certificationImages || [],
+        downContent: record.downContent,
+        fluffiness: record.fluffiness,
+        turbidity: record.turbidity,
+        odor: record.odor,
+        companyName: record.companyName,
+        companyAddress: record.companyAddress,
+        licenseNo: record.licenseNo,
+        inspector: record.inspector,
+        wechatQrImage: record.wechatQrImage,
+        companyLinks: record.companyLinks || []
+      }
+    });
+  }
+
+  // 生成产品码
+  handleGenerateCode(record) {
+    const { Modal, message } = window.antd;
+    Modal.confirm({
+      title: '生成产品码',
+      content: `确定要为批次 "${record.batchNo}" 生成产品码吗？`,
+      okText: '确认生成',
+      cancelText: '取消',
+      onOk: async () => {
+        const { mockData } = this.state;
+        const newMockData = mockData.map(item => {
+          if (item._id === record._id) {
+            return { ...item, productCodeStatus: '已生成' };
+          }
+          return item;
+        });
+        await this.setStatePromise({ mockData: newMockData });
+        message.success(`批次 ${record.batchNo} 产品码生成成功`);
+        this.loadData();
+      }
+    });
+  }
+
+  // 下载产品码
+  handleDownloadCode(record) {
+    const { Modal, message } = window.antd;
+
+    Modal.info({
+      title: '下载产品码',
+      width: 400,
+      content: (
+        <div style={{ marginTop: 16, textAlign: 'center' }}>
+          <div style={{ padding: 16, background: '#f5f5f5', borderRadius: 8, display: 'inline-block' }}>
+            <svg width="120" height="120" viewBox="0 0 120 120">
+              <rect x="10" y="10" width="100" height="100" fill="white" stroke="#000" strokeWidth="2"/>
+              <text x="60" y="50" textAnchor="middle" fontSize="12">产品码</text>
+              <text x="60" y="75" textAnchor="middle" fontSize="10">{record.batchNo}</text>
+            </svg>
+          </div>
+          <p style={{ marginTop: 12, color: '#666' }}>高清PNG格式（600dpi）</p>
+          <p style={{ color: '#999', fontSize: 12 }}>批次号：{record.batchNo}</p>
+        </div>
+      ),
+      okText: '下载PNG',
+      onOk: () => {
+        message.success('产品码下载成功');
+      }
+    });
+  }
+
+  // 预览产品码
+  handlePreview(record) {
+    this.setState({
+      isPreviewModalVisible: true,
+      previewRecord: record
+    });
+  }
+
+  renderSearchArea() {
+    const { Input, Select, Button, Space, DatePicker } = window.antd;
+    const { RangePicker } = DatePicker;
+    const { searchParams } = this.state;
+
+    return (
+      <div className="search-area">
+        <div className="search-row">
+          <div className="search-item">
+            <span className="search-label">批次号：</span>
+            <Input
+              placeholder="请输入"
+              value={searchParams.batchNo}
+              onChange={(e) => this.handleSearchParamChange('batchNo', e.target.value)}
+              allowClear
+              style={{ flex: 1 }}
+            />
+          </div>
+          <div className="search-item">
+            <span className="search-label">产品名称：</span>
+            <Input
+              placeholder="请输入"
+              value={searchParams.materialName}
+              onChange={(e) => this.handleSearchParamChange('materialName', e.target.value)}
+              allowClear
+              style={{ flex: 1 }}
+            />
+          </div>
+          <div className="search-item">
+            <span className="search-label">产品码状态：</span>
+            <Select
+              placeholder="请选择"
+              value={searchParams.productCodeStatus === 'all' ? undefined : searchParams.productCodeStatus}
+              onChange={(value) => this.handleSearchParamChange('productCodeStatus', value || 'all')}
+              allowClear
+              style={{ flex: 1 }}
+            >
+              <Select.Option value="已生成">已生成</Select.Option>
+              <Select.Option value="未生成">未生成</Select.Option>
+            </Select>
+          </div>
+          <div className="search-item">
+            <span className="search-label">生产日期：</span>
+            <RangePicker
+              style={{ flex: 1 }}
+              placeholder={['开始日期', '结束日期']}
+              value={searchParams.produceDateRange}
+              onChange={(dates) => this.handleSearchParamChange('produceDateRange', dates)}
+            />
+          </div>
+        </div>
+
+        <div className="search-actions">
+          <Space>
+            <Button onClick={() => this.handleReset()}>重置</Button>
+            <Button type="primary" onClick={() => this.handleSearch()}>查询</Button>
+          </Space>
+        </div>
+      </div>
+    );
+  }
+
+  renderTableArea() {
+    const { Table, Pagination, Button, Dropdown, Checkbox } = window.antd;
+    const { dataList, loading, pageNo, pageSize, total, selectedRowKeys } = this.state;
+
+    const rowSelection = {
+      type: 'checkbox',
+      selectedRowKeys,
+      onChange: (selectedRowKeys) => this.setState({ selectedRowKeys }),
+      columnTitle: (
+        <Dropdown
+          overlay={
+            <div className="checkbox-dropdown-menu">
+              <div className="checkbox-menu-item" onClick={() => {
+                const allIds = dataList.map(item => item._id);
+                const currentSelected = this.state.selectedRowKeys || [];
+                if (currentSelected.length === allIds.length) {
+                  this.setState({ selectedRowKeys: [] });
+                } else {
+                  this.setState({ selectedRowKeys: allIds });
+                }
+              }}>
+                全选所有
+              </div>
+              <div className="checkbox-menu-item" onClick={() => {
+                const allIds = dataList.map(item => item._id);
+                const currentSelected = this.state.selectedRowKeys || [];
+                const newSelected = allIds.filter(id => !currentSelected.includes(id));
+                this.setState({ selectedRowKeys: newSelected });
+              }}>
+                反选
+              </div>
+              <div className="checkbox-menu-item" onClick={() => this.setState({ selectedRowKeys: [] })}>
+                清空选择
+              </div>
+            </div>
+          }
+          trigger={['click']}
+        >
+          <div className="checkbox-dropdown-trigger" onClick={(e) => e.stopPropagation()}>
+            <Checkbox
+              indeterminate={selectedRowKeys.length > 0 && selectedRowKeys.length < dataList.length}
+              checked={selectedRowKeys.length === dataList.length && dataList.length > 0}
+              onChange={(e) => {
+                if (e.target.checked) {
+                  this.setState({ selectedRowKeys: dataList.map(item => item._id) });
+                } else {
+                  this.setState({ selectedRowKeys: [] });
+                }
+              }}
+            />
+            <svg className="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </div>
+        </Dropdown>
+      )
+    };
+
+    return (
+      <div className="table-area">
+        <div className="table-toolbar">
+          <div className="toolbar-left">
+            <div className="btn-group">
+              <Button type="primary" className="icon-text-btn" onClick={() => this.handleAdd()}>
+                <svg className="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span className="text">新增批次</span>
+              </Button>
+              <Button className="icon-text-btn" onClick={() => this.handleBatchExport()}>
+                <svg className="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span className="text">批量导出</span>
+              </Button>
+            </div>
+          </div>
+          <div className="toolbar-right">
+          </div>
+        </div>
+        <div className="table-scroll-wrap">
+          <Table
+            columns={this.getColumns()}
+            dataSource={dataList}
+            rowKey="_id"
+            loading={loading}
+            pagination={false}
+            scroll={{ x: 1500, y: 'calc(100vh - 320px)' }}
+            rowSelection={rowSelection}
+          />
+        </div>
+        <div className="pagination-bar">
+          <span className="pagination-total">共 {total} 条</span>
+          <Pagination
+            current={pageNo}
+            pageSize={pageSize}
+            total={total}
+            showSizeChanger
+            showQuickJumper
+            showTotal={false}
+            onChange={(page, size) => this.handlePageChange(page, size)}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  // 批量导出
+  handleBatchExport() {
+    const { message } = window.antd;
+    const { dataList } = this.state;
+
+    if (dataList.length === 0) {
+      message.warning('暂无数据可导出');
+      return;
+    }
+
+    const headers = ['批次号', '产品名称', '产品编号', '规格', '执行标准', '产品标准类别', '生产年度', '绒子含量', '蓬松度', '浊度', '气味', '产品码状态', '创建人', '创建时间'];
+    const rows = dataList.map(item => [
+      item.batchNo,
+      item.materialName,
+      item.materialCode,
+      item.specification,
+      item.executionStandard,
+      item.productStandardCategory,
+      item.productionYear,
+      item.downContent,
+      item.fluffiness,
+      item.turbidity,
+      item.odor,
+      item.productCodeStatus,
+      item.createBy,
+      item.createTime
+    ]);
+
+    const csvContent = [headers, ...rows]
+      .map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(','))
+      .join('\n');
+
+    const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    link.href = URL.createObjectURL(blob);
+    link.download = `产品批次_${date}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    message.success('导出成功');
+  }
+
+  // 新增批次
+  handleAdd() {
+    this.setState({
+      isAddModalVisible: true,
+      addFormData: {
+        materialId: '',
+        materialCode: '',
+        materialName: '',
+        unitName: '',
+        specification: '',
+        batchNo: '',
+        quantity: null,
+        produceDate: null,
+        executionStandard: '',
+        productStandardCategory: '',
+        productionYear: null,
+        productVideo: '',
+        certificationImages: [],
+        downContent: '',
+        fluffiness: '',
+        turbidity: '',
+        odor: '',
+        companyName: '',
+        companyAddress: '',
+        licenseNo: '',
+        inspector: '',
+        wechatQrImage: '',
+        companyLinks: []
+      }
+    });
+  }
+
+  handleAddModalCancel() {
+    this.setState({
+      isAddModalVisible: false,
+      isEditMode: false,
+      editingRecordId: null,
+      addFormData: {}
+    });
+  }
+
+  handleAddFormChange(field, value) {
+    this.setState({
+      addFormData: {
+        ...this.state.addFormData,
+        [field]: value
+      }
+    });
+  }
+
+  // 生成批次号
+  generateBatchNo() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const datePrefix = `BC${year}${month}${day}`;
+    const existingCount = this.state.mockData.filter(item =>
+      item.batchNo.startsWith(datePrefix)
+    ).length;
+    return `${datePrefix}${String(existingCount + 1).padStart(3, '0')}`;
+  }
+
+  // 渲染新增批次弹窗
+  renderAddModal() {
+    const { Modal, Form, Select, Input, DatePicker, Button, message, Upload } = window.antd;
+    const { isAddModalVisible, isEditMode, editingRecordId, addFormData, companyLinkOptions } = this.state;
+
+    const handleSave = async () => {
+      const { mockData, addFormData } = this.state;
+
+      // 必填校验
+      if (!addFormData.materialId) {
+        message.error('请选择产品名称');
+        return;
+      }
+      if (!addFormData.batchNo) {
+        message.error('请输入批次号');
+        return;
+      }
+      if (!addFormData.productionYear) {
+        message.error('请选择生产年度');
+        return;
+      }
+      if (!addFormData.executionStandard) {
+        message.error('请选择执行标准');
+        return;
+      }
+      if (!addFormData.productStandardCategory) {
+        message.error('请选择产品标准类别');
+        return;
+      }
+      if (!addFormData.downContent || !addFormData.fluffiness || !addFormData.turbidity || !addFormData.odor) {
+        message.error('请填写完整的质检信息');
+        return;
+      }
+      if (!addFormData.productVideo) {
+        message.error('请上传产品视频');
+        return;
+      }
+      if (!addFormData.certificationImages || addFormData.certificationImages.length === 0) {
+        message.error('请上传认证信息图片');
+        return;
+      }
+      if (!addFormData.wechatQrImage) {
+        message.error('请上传微信公众号图片');
+        return;
+      }
+      if (!addFormData.companyLinks || addFormData.companyLinks.length === 0) {
+        message.error('请选择企业链接');
+        return;
+      }
+
+      const product = this.state.productArchives.find(p => p._id === addFormData.materialId);
+      const standard = this.state.executionStandards.find(s => s._id === addFormData.executionStandard);
+
+      if (isEditMode) {
+        // 编辑模式：更新现有记录
+        const updatedMockData = mockData.map(item => {
+          if (item._id === editingRecordId) {
+            return {
+              ...item,
+              materialId: addFormData.materialId,
+              materialCode: product.materialCode,
+              materialName: product.materialName,
+              specification: product.specification,
+              unitName: product.unitName,
+              productionYear: addFormData.productionYear,
+              executionStandard: standard ? standard.standardCode : '',
+              productStandardCategory: addFormData.productStandardCategory,
+              productVideo: addFormData.productVideo,
+              certificationImages: addFormData.certificationImages,
+              downContent: addFormData.downContent,
+              fluffiness: addFormData.fluffiness,
+              turbidity: addFormData.turbidity,
+              odor: addFormData.odor,
+              wechatQrImage: addFormData.wechatQrImage,
+              companyLinks: addFormData.companyLinks,
+              updateTime: new Date().toLocaleString()
+            };
+          }
+          return item;
+        });
+
+        await this.setStatePromise({
+          mockData: updatedMockData,
+          isAddModalVisible: false,
+          isEditMode: false,
+          editingRecordId: null
+        });
+        message.success('批次修改成功');
+      } else {
+        // 新增模式：校验批次号唯一性
+        const exists = mockData.some(item =>
+          item.batchNo.toLowerCase() === addFormData.batchNo.toLowerCase()
+        );
+        if (exists) {
+          message.error('批次号已存在');
+          return;
+        }
+
+        const newRecord = {
+          _id: 'batch_' + Date.now(),
+          batchNo: addFormData.batchNo,
+          materialId: addFormData.materialId,
+          materialCode: product.materialCode,
+          materialName: product.materialName,
+          specification: product.specification,
+          unitName: product.unitName,
+          quantity: 0,
+          produceDate: '',
+          executionStandard: standard ? standard.standardCode : '',
+          productStandardCategory: addFormData.productStandardCategory,
+          productionYear: addFormData.productionYear,
+          productVideo: addFormData.productVideo,
+          certificationImages: addFormData.certificationImages,
+          downContent: addFormData.downContent,
+          fluffiness: addFormData.fluffiness,
+          turbidity: addFormData.turbidity,
+          odor: addFormData.odor,
+          companyName: '安徽古麒绒材股份有限公司',
+          companyAddress: '安徽省芜湖市',
+          licenseNo: 'SC12345678901',
+          inspector: '当前用户',
+          wechatQrImage: addFormData.wechatQrImage,
+          companyLinks: addFormData.companyLinks,
+          productCodeStatus: '未生成',
+          createBy: '当前用户',
+          createTime: new Date().toLocaleString()
+        };
+
+        await this.setStatePromise({
+          mockData: [newRecord, ...mockData],
+          isAddModalVisible: false
+        });
+        message.success('新增批次成功');
+      }
+      this.loadData();
+    };
+
+    const product = this.state.productArchives.find(p => p._id === addFormData.materialId);
+    const standard = this.state.executionStandards.find(s => s._id === addFormData.executionStandard);
+
+    return (
+      <Modal
+        title={isEditMode ? '编辑批次' : '新增批次'}
+        open={isAddModalVisible}
+        onCancel={() => this.handleAddModalCancel()}
+        width={720}
+        footer={[
+          <Button key="cancel" onClick={() => this.handleAddModalCancel()}>取消</Button>,
+          <Button key="save" type="primary" onClick={handleSave}>{isEditMode ? '保存修改' : '保存'}</Button>,
+          {!isEditMode && (
+            <Button key="saveAndGenerate" type="primary" onClick={async () => {
+              await handleSave();
+              const newRecord = this.state.mockData[0];
+              if (newRecord) {
+                this.handleGenerateCode(newRecord);
+              }
+            }}>保存并生成产品码</Button>
+          )}
+        ]}
+        destroyOnClose
+      >
+        <Form layout="vertical" style={{ marginTop: 16 }}>
+          {/* 基本信息区域 */}
+          <div style={{ marginBottom: 24, padding: 16, background: '#fafafa', borderRadius: 8 }}>
+            <h4 style={{ marginBottom: 16, color: '#1890ff' }}>基本信息</h4>
+            <Form.Item label="产品名称" required>
+              <Select
+                placeholder="请选择产品档案"
+                value={addFormData.materialId || undefined}
+                onChange={(value) => {
+                  const product = this.state.productArchives.find(p => p._id === value);
+                  this.setState({
+                    addFormData: {
+                      ...addFormData,
+                      materialId: value,
+                      materialCode: product.materialCode,
+                      materialName: product.materialName,
+                      unitName: product.unitName,
+                      specification: product.specification
+                    }
+                  });
+                }}
+                style={{ width: '100%' }}
+              >
+                {this.state.productArchives.map(p => (
+                  <Select.Option key={p._id} value={p._id}>
+                    {p.materialName} ({p.materialCode})
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+            {product && (
+              <div style={{ display: 'flex', gap: 16, marginBottom: 16 }}>
+                <Form.Item label="产品编号" style={{ flex: 1, marginBottom: 0 }}>
+                  <Input value={addFormData.materialCode} disabled />
+                </Form.Item>
+                <Form.Item label="计量单位" style={{ flex: 1, marginBottom: 0 }}>
+                  <Input value={addFormData.unitName} disabled />
+                </Form.Item>
+                <Form.Item label="规格" style={{ flex: 1, marginBottom: 0 }}>
+                  <Input value={addFormData.specification} disabled />
+                </Form.Item>
+              </div>
+            )}
+            <div style={{ display: 'flex', gap: 16 }}>
+              <Form.Item label="批次号" required style={{ flex: 1, marginBottom: 0 }}>
+                <Input
+                  placeholder="请输入批次号，建议格式：BC+年月日+流水号"
+                  value={addFormData.batchNo}
+                  onChange={(e) => this.handleAddFormChange('batchNo', e.target.value)}
+                  maxLength={30}
+                  disabled={isEditMode}
+                  suffix={
+                    !isEditMode && (
+                      <Button type="link" size="small" onClick={() => this.handleAddFormChange('batchNo', this.generateBatchNo())}>
+                        自动生成
+                      </Button>
+                    )
+                  }
+                />
+              </Form.Item>
+              <Form.Item label="生产年度" required style={{ flex: 1, marginBottom: 0 }}>
+                <DatePicker
+                  style={{ width: '100%' }}
+                  placeholder="请选择生产年度"
+                  picker="year"
+                  value={addFormData.productionYear}
+                  onChange={(date) => this.handleAddFormChange('productionYear', date)}
+                />
+              </Form.Item>
+            </div>
+          </div>
+
+          {/* 执行标准区域 */}
+          <div style={{ marginBottom: 24, padding: 16, background: '#fafafa', borderRadius: 8 }}>
+            <h4 style={{ marginBottom: 16, color: '#1890ff' }}>执行标准</h4>
+            <div style={{ display: 'flex', gap: 16 }}>
+              <Form.Item label="执行标准" required style={{ flex: 1, marginBottom: 0 }}>
+                <Select
+                  placeholder="请选择执行标准"
+                  value={addFormData.executionStandard || undefined}
+                  onChange={(value) => {
+                    const std = this.state.executionStandards.find(s => s._id === value);
+                    this.setState({
+                      addFormData: {
+                        ...addFormData,
+                        executionStandard: value,
+                        productStandardCategory: std ? std.productStandardCategory : ''
+                      }
+                    });
+                  }}
+                  style={{ width: '100%' }}
+                >
+                  {this.state.executionStandards.map(s => (
+                    <Select.Option key={s._id} value={s._id}>
+                      {s.standardCode} ({s.standardType})
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+              <Form.Item label="产品标准类别" required style={{ flex: 1, marginBottom: 0 }}>
+                <Select
+                  placeholder="请选择产品标准类别"
+                  value={addFormData.productStandardCategory || undefined}
+                  onChange={(value) => this.handleAddFormChange('productStandardCategory', value)}
+                  style={{ width: '100%' }}
+                >
+                  <Select.Option value="国标">国标</Select.Option>
+                  <Select.Option value="行标">行标</Select.Option>
+                  <Select.Option value="企标">企标</Select.Option>
+                </Select>
+              </Form.Item>
+            </div>
+          </div>
+
+          {/* 质检信息区域 */}
+          <div style={{ marginBottom: 24, padding: 16, background: '#fafafa', borderRadius: 8 }}>
+            <h4 style={{ marginBottom: 16, color: '#1890ff' }}>质检信息</h4>
+            <div style={{ display: 'flex', gap: 16 }}>
+              <Form.Item label="绒子含量(%)" required style={{ flex: 1, marginBottom: 0 }}>
+                <Input
+                  placeholder="如：95%"
+                  value={addFormData.downContent}
+                  onChange={(e) => this.handleAddFormChange('downContent', e.target.value)}
+                />
+              </Form.Item>
+              <Form.Item label="蓬松度" required style={{ flex: 1, marginBottom: 0 }}>
+                <Input
+                  placeholder="如：900+"
+                  value={addFormData.fluffiness}
+                  onChange={(e) => this.handleAddFormChange('fluffiness', e.target.value)}
+                />
+              </Form.Item>
+              <Form.Item label="浊度(mm)" required style={{ flex: 1, marginBottom: 0 }}>
+                <Input
+                  placeholder="如：10mm"
+                  value={addFormData.turbidity}
+                  onChange={(e) => this.handleAddFormChange('turbidity', e.target.value)}
+                />
+              </Form.Item>
+              <Form.Item label="气味" required style={{ flex: 1, marginBottom: 0 }}>
+                <Input
+                  placeholder="如：无异物"
+                  value={addFormData.odor}
+                  onChange={(e) => this.handleAddFormChange('odor', e.target.value)}
+                />
+              </Form.Item>
+            </div>
+          </div>
+
+          {/* 媒体信息区域 */}
+          <div style={{ marginBottom: 24, padding: 16, background: '#fafafa', borderRadius: 8 }}>
+            <h4 style={{ marginBottom: 16, color: '#1890ff' }}>产品视频</h4>
+            <Form.Item label="产品视频" required style={{ marginBottom: 16 }}>
+              <Upload
+                accept=".mp4,.mov,.avi"
+                maxCount={1}
+                fileList={addFormData.productVideo ? [{ uid: '-1', name: '产品视频', url: addFormData.productVideo, status: 'done' }] : []}
+                onChange={(info) => {
+                  if (info.file.status === 'done' && info.file.response) {
+                    this.handleAddFormChange('productVideo', info.file.response.url);
+                  }
+                }}
+                customRequest={({ onSuccess }) => {
+                  setTimeout(() => {
+                    onSuccess({ url: 'https://example.com/video/' + Date.now() + '.mp4' });
+                  }, 500);
+                }}
+              >
+                <Button icon={<span>📹</span>}>上传视频（MP4/MOV/AVI，最大100MB）</Button>
+              </Upload>
+            </Form.Item>
+            <Form.Item label="认证信息" required style={{ marginBottom: 0 }}>
+              <Upload
+                accept=".jpg,.jpeg,.png"
+                maxCount={5}
+                multiple
+                listType="picture-card"
+                fileList={(addFormData.certificationImages || []).map((url, index) => ({
+                  uid: '-' + index,
+                  name: '认证图片' + (index + 1),
+                  url: url,
+                  status: 'done'
+                }))}
+                onChange={(info) => {
+                  const fileList = info.fileList.filter(f => f.status === 'done').map(f => (f.response && f.response.url) || f.url);
+                  this.handleAddFormChange('certificationImages', fileList);
+                }}
+                customRequest={({ onSuccess }) => {
+                  setTimeout(() => {
+                    onSuccess({ url: 'https://example.com/cert/' + Date.now() + '.jpg' });
+                  }, 500);
+                }}
+              >
+                {(addFormData.certificationImages || []).length < 5 && <span>+ 上传<br/>认证图片</span>}
+              </Upload>
+            </Form.Item>
+          </div>
+
+          {/* 企业信息区域 */}
+          <div style={{ padding: 16, background: '#fafafa', borderRadius: 8 }}>
+            <h4 style={{ marginBottom: 16, color: '#1890ff' }}>企业信息</h4>
+            <div style={{ display: 'flex', gap: 16 }}>
+              <Form.Item label="微信公众号图片" required style={{ flex: 1, marginBottom: 0 }}>
+                <Upload
+                  accept=".jpg,.jpeg,.png"
+                  maxCount={1}
+                  listType="picture-card"
+                  fileList={addFormData.wechatQrImage ? [{ uid: '-1', name: '公众号二维码', url: addFormData.wechatQrImage, status: 'done' }] : []}
+                  onChange={(info) => {
+                    if (info.file.status === 'done' && info.file.response) {
+                      this.handleAddFormChange('wechatQrImage', info.file.response.url);
+                    }
+                  }}
+                  customRequest={({ onSuccess }) => {
+                    setTimeout(() => {
+                      onSuccess({ url: 'https://example.com/qr/' + Date.now() + '.jpg' });
+                    }, 500);
+                  }}
+                >
+                  {!addFormData.wechatQrImage && <span>+ 上传<br/>公众号二维码</span>}
+                </Upload>
+              </Form.Item>
+              <Form.Item label="企业链接" required style={{ flex: 2, marginBottom: 0 }}>
+                <Select
+                  mode="multiple"
+                  placeholder="请选择企业链接（多选）"
+                  value={addFormData.companyLinks || []}
+                  onChange={(value) => this.handleAddFormChange('companyLinks', value)}
+                  style={{ width: '100%' }}
+                >
+                  {companyLinkOptions.map(link => (
+                    <Select.Option key={link.value} value={link.value}>{link.label}</Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </div>
+          </div>
+        </Form>
+      </Modal>
+    );
+  }
+
+  // 渲染详情弹窗
+  renderDetailModal() {
+    const { Modal, Tag } = window.antd;
+    const { isDetailModalVisible, detailRecord } = this.state;
+
+    if (!detailRecord) return null;
+
+    return (
+      <Modal
+        title="批次详情"
+        open={isDetailModalVisible}
+        onCancel={() => this.setState({ isDetailModalVisible: false })}
+        width={700}
+        footer={null}
+      >
+        <div style={{ marginTop: 16 }}>
+          {/* 基本信息 */}
+          <div style={{ marginBottom: 16, padding: 12, background: '#f5f5f5', borderRadius: 4 }}>
+            <h4 style={{ marginBottom: 12, color: '#1890ff' }}>基本信息</h4>
+            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+              <div style={{ width: '50%', marginBottom: 8 }}><strong>批次号：</strong>{detailRecord.batchNo}</div>
+              <div style={{ width: '50%', marginBottom: 8 }}><strong>产品名称：</strong>{detailRecord.materialName}</div>
+              <div style={{ width: '50%', marginBottom: 8 }}><strong>产品编号：</strong>{detailRecord.materialCode}</div>
+              <div style={{ width: '50%', marginBottom: 8 }}><strong>规格：</strong>{detailRecord.specification}</div>
+              <div style={{ width: '50%', marginBottom: 8 }}><strong>生产日期：</strong>{detailRecord.productionYear}</div>
+            </div>
+          </div>
+
+          {/* 执行标准 */}
+          <div style={{ marginBottom: 16, padding: 12, background: '#f5f5f5', borderRadius: 4 }}>
+            <h4 style={{ marginBottom: 12, color: '#1890ff' }}>执行标准</h4>
+            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+              <div style={{ width: '50%', marginBottom: 8 }}><strong>执行标准：</strong>{detailRecord.executionStandard}</div>
+              <div style={{ width: '50%', marginBottom: 8 }}><strong>产品标准类别：</strong>{detailRecord.productStandardCategory}</div>
+            </div>
+          </div>
+
+          {/* 质检信息 */}
+          <div style={{ marginBottom: 16, padding: 12, background: '#f5f5f5', borderRadius: 4 }}>
+            <h4 style={{ marginBottom: 12, color: '#1890ff' }}>质检信息</h4>
+            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+              <div style={{ width: '50%', marginBottom: 8 }}><strong>绒子含量：</strong>{detailRecord.downContent}</div>
+              <div style={{ width: '50%', marginBottom: 8 }}><strong>蓬松度：</strong>{detailRecord.fluffiness}</div>
+              <div style={{ width: '50%', marginBottom: 8 }}><strong>浊度：</strong>{detailRecord.turbidity}</div>
+              <div style={{ width: '50%', marginBottom: 8 }}><strong>气味：</strong>{detailRecord.odor}</div>
+            </div>
+          </div>
+
+          {/* 状态信息 */}
+          <div style={{ marginBottom: 16, padding: 12, background: '#f5f5f5', borderRadius: 4 }}>
+            <h4 style={{ marginBottom: 12, color: '#1890ff' }}>状态信息</h4>
+            <p>
+              <strong>产品码状态：</strong>
+              <Tag color={detailRecord.productCodeStatus === '已生成' ? 'success' : 'warning'}>
+                {detailRecord.productCodeStatus}
+              </Tag>
+            </p>
+            <p><strong>创建人：</strong>{detailRecord.createBy}</p>
+            <p><strong>创建时间：</strong>{detailRecord.createTime}</p>
+          </div>
+        </div>
+      </Modal>
+    );
+  }
+
+  // 渲染产品码预览弹窗
+  renderPreviewModal() {
+    const { Modal, Button } = window.antd;
+    const { isPreviewModalVisible, previewRecord } = this.state;
+
+    if (!previewRecord) return null;
+
+    return (
+      <Modal
+        title="产品码预览"
+        open={isPreviewModalVisible}
+        onCancel={() => this.setState({ isPreviewModalVisible: false })}
+        width={400}
+        footer={[
+          <Button key="close" onClick={() => this.setState({ isPreviewModalVisible: false })}>关闭</Button>,
+          previewRecord.productCodeStatus === '已生成' && (
+            <Button key="download" type="primary" onClick={() => {
+              this.setState({ isPreviewModalVisible: false });
+              this.handleDownloadCode(previewRecord);
+            }}>下载产品码</Button>
+          )
+        ]}
+      >
+        <div style={{ textAlign: 'center', padding: '20px 0' }}>
+          <div style={{ padding: 20, background: '#f5f5f5', borderRadius: 8, display: 'inline-block' }}>
+            <svg width="150" height="150" viewBox="0 0 150 150">
+              <rect x="10" y="10" width="130" height="130" fill="white" stroke="#000" strokeWidth="2"/>
+              <text x="75" y="50" textAnchor="middle" fontSize="14">溯源二维码</text>
+              <text x="75" y="80" textAnchor="middle" fontSize="12">{previewRecord.batchNo}</text>
+              <text x="75" y="105" textAnchor="middle" fontSize="10">{previewRecord.materialName}</text>
+            </svg>
+          </div>
+          <p style={{ marginTop: 16, color: '#666' }}>
+            溯源URL: https://guqi.example.com/trace/{previewRecord.batchNo}
+          </p>
+          {previewRecord.productCodeStatus === '未生成' && (
+            <p style={{ color: '#ff4d4f' }}>该产品码尚未生成</p>
+          )}
+        </div>
+      </Modal>
+    );
+  }
+
+  renderJSX() {
+    const { ConfigProvider } = window.antd;
+
+    return (
+      <ConfigProvider locale={this.getLocale()}>
+        <div className="main-container">
+          {this.renderSearchArea()}
+          {this.renderTableArea()}
+          {this.renderAddModal()}
+          {this.renderDetailModal()}
+          {this.renderPreviewModal()}
+        </div>
+      </ConfigProvider>
+    );
+  }
+
+  getLocale() {
+    const t = window.DayjsLocale.getZhCN();
+    return t;
+  }
+
+  componentWillUnmount() {
+    if (this.searchTimer) clearTimeout(this.searchTimer);
+  }
+}
